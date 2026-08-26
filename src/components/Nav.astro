@@ -1,0 +1,148 @@
+---
+import { NAV, SITE } from '../data/site';
+import Icon from './Icons.astro';
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const bookHref = path === '/' ? '#book' : '/#book';
+---
+
+<header class="nav" id="top">
+  <div class="nav__bar">
+    <div class="container nav__inner">
+      <a href="/" class="nav__logo" aria-label="J&W Mobile Detailing — home">
+        <img src="/images/logo.webp" alt="J&W Mobile Detailing logo" width="120" height="100" />
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <ul>
+          {NAV.map((item) => (
+            <li class:list={['nav__item', { 'has-children': item.children, active: isActive(item.href) }]}>
+              <a href={item.href} aria-haspopup={item.children ? 'menu' : undefined} aria-expanded={item.children ? 'false' : undefined}>
+                {item.label}
+                {item.children && <Icon name="chevron" size={14} />}
+              </a>
+              {item.children && (
+                <ul class="nav__dropdown">
+                  {item.children.map((c) => (
+                    <li><a href={c.href}>{c.label}</a></li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="nav__cta">
+        <a href={`tel:${SITE.phoneE164}`} class="nav__phone">
+          <Icon name="phone" size={18} />
+          <span>{SITE.phoneDisplay}</span>
+        </a>
+        <a href={bookHref} class="btn btn--primary btn--sm" data-scroll-book>Get My Price & Book</a>
+        <button class="nav__burger" id="navToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+          <Icon name="menu" size={26} />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile" id="mobileMenu" hidden>
+    <div class="mobile__head">
+      <img src="/images/logo.webp" alt="" width="90" height="75" />
+      <button class="nav__burger" id="navClose" aria-label="Close menu"><Icon name="close" size={26} /></button>
+    </div>
+    <nav aria-label="Mobile">
+      <ul class="mobile__list">
+        {NAV.map((item) => (
+          <li>
+            {item.children ? (
+              <details>
+                <summary>{item.label} <Icon name="chevron" size={16} /></summary>
+                <ul>
+                  {item.children.map((c) => <li><a href={c.href}>{c.label}</a></li>)}
+                </ul>
+              </details>
+            ) : (
+              <a href={item.href}>{item.label}</a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="mobile__cta">
+      <a href={bookHref} class="btn btn--primary" data-scroll-book><Icon name="calendar" /> Get My Price & Book</a>
+      <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+      <p class="mobile__meta">{SITE.hours.label} · Oakland & East Bay</p>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav { position: sticky; top: 0; z-index: 100; }
+  .nav__bar { background: rgba(15, 17, 21, 0.96); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav__inner { display: flex; align-items: center; gap: 1.25rem; height: var(--nav-h); }
+  .nav__logo img { height: 56px; width: auto; }
+  .nav__links { margin-left: auto; }
+  .nav__links > ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 0.05rem; }
+  .nav__item > a {
+    display: inline-flex; align-items: center; gap: 0.25rem; color: #e7e9ee; font-weight: 600; font-size: 0.9rem; white-space: nowrap;
+    padding: 0.55rem 0.6rem; border-radius: 8px; text-decoration: none;
+  }
+  .nav__item > a:hover, .nav__item.active > a { color: #fff; background: rgba(255,255,255,0.08); }
+  .nav__item.active > a { box-shadow: inset 0 -2px 0 var(--red); }
+  .nav__item { position: relative; }
+  .nav__dropdown {
+    position: absolute; top: 100%; left: 0; min-width: 240px; background: #fff; border-radius: 12px; padding: 0.5rem;
+    box-shadow: 0 18px 40px -12px rgba(0,0,0,0.35); display: none; flex-direction: column; gap: 0.1rem; margin-top: 0.35rem;
+  }
+  .nav__dropdown::before { content: ''; position: absolute; top: -0.5rem; left: 0; right: 0; height: 0.5rem; }
+  .nav__dropdown li { margin: 0; }
+  .nav__dropdown a { display: block; padding: 0.6rem 0.8rem; color: var(--ink); font-weight: 600; font-size: 0.93rem; border-radius: 8px; }
+  .nav__dropdown a:hover { background: var(--red-soft); color: var(--red-dark); text-decoration: none; }
+  .has-children:hover .nav__dropdown, .has-children:focus-within .nav__dropdown { display: flex; }
+  .nav__cta { display: flex; align-items: center; gap: 0.6rem; margin-left: 0.5rem; }
+  .nav__phone { display: inline-flex; align-items: center; gap: 0.4rem; color: #fff; font-weight: 700; font-size: 0.98rem; white-space: nowrap; }
+  .nav__burger { display: none; background: none; border: 0; color: #fff; cursor: pointer; padding: 0.4rem; }
+
+  .mobile { position: fixed; inset: 0; background: #fff; z-index: 200; overflow-y: auto; padding: 1rem 1.25rem 2rem; }
+  .mobile[hidden] { display: none; }
+  .mobile__head { display: flex; justify-content: space-between; align-items: center; }
+  .mobile__head .nav__burger { color: var(--ink); display: block; }
+  .mobile__head img { height: 56px; width: auto; filter: invert(1); }
+  .mobile__list { list-style: none; padding: 0; margin: 1rem 0; }
+  .mobile__list > li { border-bottom: 1px solid var(--line); }
+  .mobile__list a, .mobile__list summary { display: flex; justify-content: space-between; align-items: center; padding: 0.95rem 0; font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--ink); text-transform: uppercase; cursor: pointer; list-style: none; }
+  .mobile__list summary::-webkit-details-marker { display: none; }
+  .mobile__list details ul { list-style: none; padding: 0 0 0.5rem 1rem; margin: 0; }
+  .mobile__list details ul a { font-family: var(--font-body); font-size: 1.02rem; font-weight: 600; text-transform: none; padding: 0.6rem 0; color: var(--body); }
+  .mobile__cta { display: grid; gap: 0.75rem; margin-top: 1rem; }
+  .mobile__meta { text-align: center; color: var(--muted); font-size: 0.9rem; margin: 0.25rem 0 0; }
+
+  @media (max-width: 1180px) {
+    .nav__links { display: none; }
+    .nav__burger { display: inline-flex; }
+    .nav__phone span { display: none; }
+  }
+  @media (max-width: 560px) {
+    .nav__inner { height: 60px; }
+    .nav__cta .btn { font-size: 0.85rem; padding: 0.6rem 0.9rem; }
+    .nav__logo img { height: 44px; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const close = document.getElementById('navClose');
+  const menu = document.getElementById('mobileMenu');
+  const open = (v: boolean) => {
+    if (!menu || !toggle) return;
+    menu.hidden = !v;
+    toggle.setAttribute('aria-expanded', String(v));
+    document.body.style.overflow = v ? 'hidden' : '';
+    (v ? close : toggle)?.focus();
+  };
+  toggle?.addEventListener('click', () => open(true));
+  close?.addEventListener('click', () => open(false));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => open(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') open(false); });
+</script>

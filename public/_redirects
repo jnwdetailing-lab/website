@@ -1,0 +1,13 @@
+# Netlify-style redirects (also mirrored in vercel.json). Preserve SEO equity from old WordPress URLs.
+/paint-correction-2/        /paint-correction/  301!
+/paint-correction-2         /paint-correction/  301!
+/location/                  /service-areas/  301!
+/location                   /service-areas/  301!
+/cart-detailing/            /services/  301!
+/cart-detailing             /services/  301!
+/homepage-1/                /  301!
+/my-account/                /  301!
+/easy-wishlist-listing-2/   /  301!
+/?page_id=*                 /  301!
+/feed/                      /  301!
+/comments/feed/             /  301!

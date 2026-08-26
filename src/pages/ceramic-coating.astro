@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import Icon from '../components/Icons.astro';
+import { SITE } from '../data/site';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/ceramic-coating/';
+const title = 'Ceramic Coating Oakland, CA | $800–$1,550 Complete | J&W Mobile';
+const description =
+  'Ceramic coating in Oakland, applied in your driveway: $800–$1,550 complete incl. decontamination & paint correction. ~3-year protection. 4.9★ Google. Book now.';
+
+const faqs = [
+  { q: 'How much does ceramic coating cost in Oakland, CA?', a: 'A complete professional ceramic coating in Oakland costs $800–$1,550 with J&W Mobile Detailing (2026 pricing). Coupes and sedans are $800–$1,000, mid-size SUVs and crossovers $1,000–$1,250, large SUVs and trucks $1,250–$1,550. That includes hand wash, clay and iron decontamination, one-step paint correction, the multi-year coating, cure and inspection. Multi-step correction for heavily swirled paint adds $300–$500.' },
+  { q: 'How long does ceramic coating last?', a: 'Our coating is built to last around 3 years when properly maintained. Regular hand washing with pH-neutral soap extends its life; automatic brush washes, harsh chemicals and bird droppings or sap left to bake shorten it. Driving habits and whether the car is garaged also matter.' },
+  { q: 'Is paint correction required before a ceramic coating?', a: 'Not strictly required, but strongly recommended — and included in our complete packages. A coating seals in whatever is under it. Correction removes existing swirls and scratches first so the coating locks in a flawless finish rather than years of defects. Silver includes one-step correction; Gold includes two-step.' },
+  { q: 'What is the difference between your Silver and Gold ceramic packages?', a: 'Silver: full decontamination + one-step paint correction + ~3-year coating — right for newer cars and well-kept daily drivers. Gold: full decontamination + two-step paint correction + ~3-year coating — for heavily swirled, oxidized, black or show paint. Both can add coated glass, wheels and trim.' },
+  { q: 'How do I wash a ceramic coated car?', a: 'Hand wash with a pH-neutral shampoo, two buckets and soft microfiber, then dry with clean microfiber towels. Stay away from automatic brush washes — touchless is fine. No more waxing, ever. An occasional maintenance exterior detail keeps it performing.' },
+  { q: 'What destroys a ceramic coating?', a: 'Automatic brush washes, harsh or high-alkaline chemicals, neglected maintenance, and bird droppings, bug splatter or tree sap left on too long. Gentle, regular care is the key.' },
+  { q: 'Does ceramic coating prevent rock chips and scratches?', a: 'No. A coating resists light scratches, chemical etching, UV and contamination, and makes the car much easier to keep clean — but it is microns thick. Rock chips and deep scratches are a paint protection film (PPF) job.' },
+  { q: 'Can I apply a ceramic coating myself?', a: 'DIY kits exist, but they offer less durability and demand flawless prep. Uneven or short-lived results are common, and fixing a poorly applied coating often costs more than professional installation. A complete professional application ensures full coverage and maximum performance.' },
+  { q: 'Do you come to me for ceramic coating? What do you need?', a: 'Yes — we apply coatings at your home or workplace across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda and Walnut Creek. We need a garage, carport or shaded driveway out of direct sun and rain, and about a day. We bring water, power and lighting.' },
+  { q: 'How long does ceramic coating take?', a: 'A complete coating with one-step correction is a full-day appointment (6–9 hours). Gold with two-step correction can be 10+ hours or a two-visit job. The coating then cures for 24 hours — keep it dry and don\'t wash it for 7 days.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Ceramic Coating',
+    description: 'Professional mobile ceramic coating in Oakland and the East Bay. Complete application includes decontamination, paint correction and a ~3-year hydrophobic ceramic coating applied at your home or workplace.',
+    path,
+    minPrice: 800,
+    maxPrice: 1550,
+    image: '/images/ceramic-coating-oakland.jpg',
+    offers: [
+      { name: 'Silver Ceramic Package', description: 'Hand wash, clay & iron decontamination, one-step paint correction, ~3-year ceramic coating, cure & inspection. Sedan $800–$1,000 · Mid SUV $1,000–$1,250 · Large SUV/Truck $1,250–$1,550.' },
+      { name: 'Gold Ceramic Package', description: 'Everything in Silver with two-step paint correction for heavily swirled or oxidized paint. Add $300–$500 to Silver pricing.' },
+    ],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating', href: path }]),
+];
+
+const steps = [
+  { title: 'Deep clean & decontamination', text: 'Detailed hand wash, iron remover and clay bar across every exterior surface. Oakland cars collect brake dust from 880 traffic and fallout near the Port — all of it has to come off first.' },
+  { title: 'Paint correction & surface prep', text: 'Machine polishing removes swirls and scratches so the coating locks in a flawless finish, not old defects. Then a panel-wipe removes every trace of oil so the coating can bond.' },
+  { title: 'Ceramic coating application', text: 'The coating is applied panel by panel, leveled and checked under light — paint, and optionally trim, wheels and glass.' },
+  { title: 'Cure & final inspection', text: 'The coating flashes and bonds; we inspect every panel for high spots before handing the vehicle back with care instructions. Full cure over the next 24 hours; no washing for 7 days.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/ceramic-coating-oakland.jpg" preloadImage="/images/ceramic-coating-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating' }]}
+    eyebrow="Professional ceramic coating · Oakland & East Bay"
+    titleHtml="Ceramic Coating in Oakland — <em>stop waxing, lock in the gloss for ~3 years</em>. Applied in your driveway."
+    text="A complete coating, not a spray-on: hand wash, clay & iron decontamination, paint correction, then a multi-year hydrophobic ceramic coating — by the owner, at your home or office, priced by vehicle size."
+    price="$800 – $1,550"
+    priceNote="complete · incl. decontamination & correction · 2026 pricing"
+    image="/images/ceramic-coating-oakland.jpg"
+    imageAlt="Ceramic coating being poured onto an applicator pad before a mobile application in Oakland, CA"
+    ctaLabel="Book Ceramic Coating"
+    bullets={['~3 years of protection — one coating ≈ 20 wax jobs', 'Correction included: the coating seals a flawless finish', 'Hydrophobic: water, dirt & dust slide off; every wash is easier']}
+  />
+
+  <!-- Answer + pricing -->
+  <section class="section" id="pricing">
+    <div class="container two-col">
+      <div class="prose">
+        <span class="eyebrow">Ceramic coating cost in Oakland</span>
+        <h2 class="mt-0">Real 2026 prices, by vehicle size</h2>
+        <p><strong>A complete ceramic coating in Oakland costs $800–$1,550 with J&W.</strong> That price covers the entire job — deep hand wash, clay and iron decontamination, paint correction, and a coating built to last around 3 years — applied at your home anywhere in Oakland and the East Bay. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Vehicle type</th><th>Complete coating</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Coupe / Sedan</strong></td><td class="price">$800 – $1,000</td><td>Least surface area, fastest prep</td></tr>
+              <tr><td><strong>Mid-size SUV / Crossover</strong></td><td class="price">$1,000 – $1,250</td><td>The most common booking</td></tr>
+              <tr><td><strong>Large SUV / Truck</strong></td><td class="price">$1,250 – $1,550</td><td>Up to 40% more product and labor</td></tr>
+              <tr><td><strong>Add: multi-step correction (Gold)</strong></td><td class="price">+ $300 – $500</td><td>Heavily swirled, oxidized or black paint</td></tr>
+              <tr><td><strong>Add: wheels, glass, trim</strong></td><td class="price">Quoted</td><td>Extend coverage for easier cleaning</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.95rem;color:var(--muted)">A quote far below $800 usually means the decontamination and correction are being skipped — and prep is the whole ballgame. Full breakdown in our <a href="/blog/what-does-ceramic-coating-cost-in-oakland-ca/">Oakland ceramic coating cost guide</a>.</p>
+        <div class="btn-row">
+          <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book ceramic coating</a>
+          <a href="#quote" class="btn btn--ghost">Get my exact price</a>
+        </div>
+      </div>
+      <div>
+        <img src="/images/blog/watermarked_img_17712754608486944834.jpg" alt="J&W Mobile Detailing 2026 ceramic coating price chart for Oakland: sedan $800–$1,000, mid-size SUV $1,000–$1,250, large SUV or truck $1,250–$1,550, multi-step correction +$300–$500" width="1376" height="768" loading="lazy" decoding="async" class="img-frame" style="margin-bottom:1rem" />
+        <img src="/images/blog/watermarked_img_5120554255449340524.jpg" alt="Ceramic coating vs traditional wax comparison: ~3 year lifespan vs 6–8 weeks, hydrophobic, never wax again" width="1376" height="768" loading="lazy" decoding="async" class="img-frame" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="section section--dark" id="packages">
+    <div class="container">
+      <div class="center" style="margin-bottom:2.5rem">
+        <span class="eyebrow">Packages</span>
+        <h2>Silver or Gold — the difference is how much correction your paint needs</h2>
+      </div>
+      <div class="grid grid--2 pk" style="max-width:960px;margin-inline:auto">
+        <div class="pk__card">
+          <span class="pill">Silver</span>
+          <h3>Complete Coating + One-Step Correction</h3>
+          <p>For newer cars, well-kept daily drivers and lighter colors. Removes light swirls and restores most gloss before sealing it in.</p>
+          <ul class="checklist">
+            <li>Detailed hand wash & decon pre-soak</li>
+            <li>Iron removal + full clay bar</li>
+            <li>One-step machine paint correction</li>
+            <li>Panel prep wipe</li>
+            <li>~3-year ceramic coating on all paint</li>
+            <li>Cure, inspection & care guide</li>
+          </ul>
+          <p class="pk__price">$800 – $1,550 <small>by vehicle size</small></p>
+        </div>
+        <div class="pk__card pk__card--gold">
+          <span class="pill pill--gold">Gold</span>
+          <h3>Complete Coating + Two-Step Correction</h3>
+          <p>For heavily swirled, scratched or oxidized paint, black and dark colors, and anyone who wants show-level clarity locked in.</p>
+          <ul class="checklist">
+            <li><strong>Everything in Silver, plus:</strong></li>
+            <li>Two-step correction: compound + finishing polish</li>
+            <li>Hologram & deeper scratch removal</li>
+            <li>Extra inspection pass under LED light</li>
+            <li>Optional: coated wheels, glass & trim</li>
+          </ul>
+          <p class="pk__price">Silver + $300 – $500</p>
+        </div>
+      </div>
+      <div class="center" style="margin-top:2rem">
+        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book ceramic coating</a>
+        <p class="fud" style="justify-content:center"><Icon name="check" /> Exact quote by vehicle before booking · No deposit · Applied at your home</p>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="Four stages — prep is where cheap coatings fail, so we don't skip it" eyebrow="Our process" />
+
+  <!-- Why worth it in Oakland -->
+  <section class="section">
+    <div class="container two-col">
+      <div class="prose">
+        <span class="eyebrow">Is it worth it in the Bay Area?</span>
+        <h2 class="mt-0">Yes — Oakland conditions are exactly what a coating is for</h2>
+        <p>A quality wax lasts 6–8 weeks before Bay Area detergents and sun break it down. A professional ceramic coating lasts around 3 years with proper care — one application outlasts roughly 20 wax jobs. It also makes the paint hydrophobic, so water, dirt and dust slide off and every wash is faster and safer.</p>
+        <p>Local conditions make the case stronger: UV on clear days fades unprotected paint; salt air works on anything parked near the water in Alameda or Jack London Square; tree sap in Rockridge and the Oakland Hills etches clear coat fast; brake dust from 880 bonds to bare paint. A coating resists all of it. One honest caveat: no coating stops rock chips or deep scratches — that's paint protection film.</p>
+        <h3>Who books a coating with us</h3>
+        <ul>
+          <li><strong>New-car owners</strong> — coat it before the first swirl. Teslas, Rivians, Toyotas, BMWs.</li>
+          <li><strong>Black & dark paint</strong> — Gold package, because dark paint shows everything.</li>
+          <li><strong>Outdoor parkers</strong> — street-parked in Temescal, Berkeley or Emeryville, or a sunny driveway in Walnut Creek.</li>
+          <li><strong>People who hate washing</strong> — coated cars rinse clean; a maintenance wash takes half the time.</li>
+        </ul>
+      </div>
+      <div class="img-frame"><img src="/images/work-1.jpg" alt="Black sedan freshly ceramic coated by J&W Mobile Detailing in an Oakland driveway" width="1376" height="768" loading="lazy" decoding="async" /></div>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Ceramic" heading="What Oakland drivers say after their coating" />
+  <Faq faqs={faqs} heading="Ceramic coating questions Oakland drivers ask" />
+
+  <section class="section section--soft" id="quote">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Get your exact price</span>
+        <h2>Tell us year, make, model and color. We'll quote Silver vs. Gold.</h2>
+        <p class="lead">If you can, add a photo of the paint in sunlight so we can see the swirl level. Quotes usually go out within the hour during business hours.</p>
+        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Or book straight into the calendar</a>
+      </div>
+      <QuoteForm heading="Ceramic coating quote" />
+    </div>
+  </section>
+
+  <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
+  <CtaBand title="Ready for years of gloss — without leaving home?" text="220+ five-star reviews · Owner-operated · Eco-friendly products · We come to you across Oakland & the East Bay." />
+</Base>
+
+<style>
+  .pk__card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .pk__card--gold { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(245,179,1,0.3), var(--shadow); }
+  .pk__card h3 { margin: 0.5rem 0 0; font-size: 1.5rem; color: #fff; }
+  .pk__card > p { color: #b9bec8; font-size: 0.95rem; }
+  .pk__card .checklist { color: #e7e9ee; font-size: 0.95rem; }
+  .pk__price { margin-top: auto; font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: #fff; }
+  .pk__price small { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; color: #b9bec8; }
+</style>

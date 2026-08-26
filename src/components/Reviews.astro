@@ -1,0 +1,74 @@
+---
+import { REVIEWS, SITE } from '../data/site';
+import Icon from './Icons.astro';
+export interface Props { limit?: number; heading?: string; eyebrow?: string; filterService?: string; showAllLink?: boolean }
+const { limit = 6, heading = 'Oakland drivers keep saying the same thing', eyebrow = '4.9★ on Google · 220+ reviews', filterService, showAllLink = true } = Astro.props;
+let list = REVIEWS;
+if (filterService) {
+  const match = REVIEWS.filter((r) => r.service?.toLowerCase().includes(filterService.toLowerCase()));
+  list = [...match, ...REVIEWS.filter((r) => !match.includes(r))];
+}
+list = list.slice(0, limit);
+const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
+---
+<section class="section section--soft reviews">
+  <div class="container">
+    <div class="reviews__head">
+      <div>
+        <span class="eyebrow">{eyebrow}</span>
+        <h2>{heading}</h2>
+      </div>
+      <div class="reviews__score">
+        <div class="reviews__num">{SITE.rating.value}</div>
+        <div>
+          <span class="stars" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" />)}</span>
+          <div class="reviews__count">Based on <a href={SITE.social.google} target="_blank" rel="noopener">{SITE.rating.count} Google reviews</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reviews__grid">
+      {list.map((r) => (
+        <article class="review">
+          <div class="review__top">
+            <div class="review__avatar" aria-hidden="true">{initials(r.name)}</div>
+            <div>
+              <div class="review__name">{r.name}</div>
+              <div class="review__meta">
+                <span class="stars" aria-label="5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={14} />)}</span>
+                <span>Google{r.date ? ` · ${r.date}` : ''}</span>
+              </div>
+            </div>
+            {r.service && <span class="pill">{r.service}</span>}
+          </div>
+          <p>“{r.text}”</p>
+        </article>
+      ))}
+    </div>
+
+    {showAllLink && (
+      <div class="reviews__foot">
+        <a href="/reviews/" class="btn btn--ghost">Read all reviews</a>
+        <a href={SITE.social.google} class="btn btn--dark" target="_blank" rel="noopener"><Icon name="google" /> See us on Google</a>
+      </div>
+    )}
+  </div>
+</section>
+<style>
+  .reviews__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .reviews__head h2 { margin: 0; }
+  .reviews__score { display: flex; align-items: center; gap: 0.9rem; background: #fff; padding: 0.8rem 1.2rem; border-radius: 12px; border: 1px solid var(--line); }
+  .reviews__num { font-family: var(--font-display); font-size: 3rem; font-weight: 800; color: var(--ink); line-height: 1; }
+  .reviews__count { font-size: 0.9rem; color: var(--muted); }
+  .reviews__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  @media (max-width: 1000px) { .reviews__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .reviews__grid { grid-template-columns: 1fr; } }
+  .review { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.35rem; box-shadow: var(--shadow-sm); }
+  .review p { margin: 0.9rem 0 0; color: var(--body); font-size: 1rem; }
+  .review__top { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+  .review__avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 0.95rem; flex: none; }
+  .review__name { font-weight: 700; color: var(--ink); }
+  .review__meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--muted); }
+  .review__top .pill { margin-left: auto; }
+  .reviews__foot { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+</style>

@@ -1,0 +1,33 @@
+---
+import { SERVICES } from '../data/site';
+export interface Props { exclude?: string; heading?: string; eyebrow?: string; lead?: string }
+const { exclude, heading = 'Every service, priced upfront — done in your driveway', eyebrow = 'Mobile detailing services in Oakland', lead = 'Pick one or bundle them. Prices are real 2026 ranges for the East Bay; your exact quote depends on vehicle size and condition.' } = Astro.props;
+const list = SERVICES.filter((s) => s.slug !== exclude);
+---
+<section class="section" id="services">
+  <div class="container">
+    <div class="center" style="margin-bottom:2.5rem">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{heading}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+    <div class="grid grid--3">
+      {list.map((s) => (
+        <a href={s.slug} class="card svc" aria-label={`${s.name} — ${s.price}`}>
+          <img class="card__img" src={s.image} alt={s.alt} width="800" height="600" loading="lazy" decoding="async" />
+          <div class="card__body">
+            <h3>{s.name}</h3>
+            <div class="card__price">{s.price}{s.priceNote && <small>{s.priceNote}</small>}</div>
+            <p>{s.short}</p>
+            <span class="card__link">See what's included</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <p class="center" style="margin-top:2rem;color:var(--muted)">Add-ons: headlight restoration · engine bay · trim restoration · pet hair · windows & rims coating. <a href="/services/">See all services & pricing →</a></p>
+  </div>
+</section>
+<style>
+  .svc { color: inherit; text-decoration: none !important; }
+  .svc h3 { color: var(--ink); }
+</style>

@@ -1,0 +1,171 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import StickyCta from '../components/StickyCta.astro';
+import { SITE } from '../data/site';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string; // path, e.g. "/ceramic-coating/"
+  ogImage?: string;
+  schema?: Record<string, unknown>[]; // extra JSON-LD blocks (LocalBusiness is always added)
+  noindex?: boolean;
+  bodyClass?: string;
+  preloadImage?: string; // hero image for LCP
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  ogImage = SITE.ogImage,
+  schema = [],
+  noindex = false,
+  bodyClass = '',
+  preloadImage,
+} = Astro.props;
+
+const canonicalUrl = new URL(canonical, SITE.url).href;
+const ogUrl = new URL(ogImage, SITE.url).href;
+
+const localBusiness = {
+  '@context': 'https://schema.org',
+  '@type': ['AutoDetailing', 'LocalBusiness'],
+  '@id': `${SITE.url}/#business`,
+  name: SITE.name,
+  alternateName: SITE.legalName,
+  url: SITE.url,
+  logo: `${SITE.url}/images/logo.webp`,
+  image: [`${SITE.url}/images/work-1.jpg`, `${SITE.url}/images/jalil-owner-jw-mobile-detailing-oakland.jpg`],
+  description:
+    'Owner-operated mobile auto detailing and ceramic coating company serving Oakland and the East Bay since 2022. Interior & exterior detailing, paint correction, ceramic coating, odor removal and RV detailing — done at your home or workplace.',
+  telephone: SITE.phoneE164,
+  email: SITE.email,
+  founder: { '@type': 'Person', name: SITE.founder },
+  foundingDate: SITE.founded,
+  priceRange: '$120 - $1,550',
+  currenciesAccepted: 'USD',
+  paymentAccepted: 'Cash, Credit Card, Debit Card, Zelle, Venmo',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.region,
+    postalCode: SITE.address.zip,
+    addressCountry: SITE.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+  areaServed: ['Oakland', 'Alameda', 'Berkeley', 'San Leandro', 'Piedmont', 'Emeryville', 'Orinda', 'Walnut Creek'].map((c) => ({
+    '@type': 'City',
+    name: c,
+    containedInPlace: { '@type': 'State', name: 'California' },
+  })),
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: SITE.hours.open,
+      closes: SITE.hours.close,
+    },
+  ],
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: SITE.rating.value,
+    reviewCount: SITE.rating.count,
+    bestRating: 5,
+    worstRating: 1,
+  },
+  sameAs: [SITE.social.instagram, SITE.social.facebook, SITE.social.yelp, SITE.social.nextdoor, SITE.social.google],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Mobile Detailing Services',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Interior Detailing', url: `${SITE.url}/interior-auto-detailing-oakland-california/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 150, maxPrice: 350, priceCurrency: 'USD' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Exterior Detailing', url: `${SITE.url}/exterior-auto-detailing-oakland-california/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 120, maxPrice: 250, priceCurrency: 'USD' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Paint Correction', url: `${SITE.url}/paint-correction/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 250, maxPrice: 800, priceCurrency: 'USD' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ceramic Coating', url: `${SITE.url}/ceramic-coating/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 800, maxPrice: 1550, priceCurrency: 'USD' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Odor Removal', url: `${SITE.url}/odor-removal-oakland/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'RV Wash & Detailing', url: `${SITE.url}/rv-wash-and-rv-detailing-oakland-california/` } },
+    ],
+  },
+  potentialAction: {
+    '@type': 'ReserveAction',
+    target: { '@type': 'EntryPoint', urlTemplate: SITE.booking, actionPlatform: ['http://schema.org/DesktopWebPlatform', 'http://schema.org/MobileWebPlatform'] },
+    result: { '@type': 'Reservation', name: 'Mobile detailing appointment' },
+  },
+};
+
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: SITE.url,
+  name: SITE.name,
+  publisher: { '@id': `${SITE.url}/#business` },
+};
+
+const allSchema = [localBusiness, website, ...schema];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? <meta name="robots" content="noindex,follow" /> : <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />}
+    <meta name="theme-color" content="#0f1115" />
+    <meta name="geo.region" content="US-CA" />
+    <meta name="geo.placename" content="Oakland" />
+    <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
+    <meta name="ICBM" content={`${SITE.geo.lat}, ${SITE.geo.lng}`} />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogUrl} />
+
+    <!-- Icons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/images/icon.webp" sizes="any" />
+    <link rel="apple-touch-icon" href="/images/icon.webp" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Fonts: preconnect + swap so text never blocks paint -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700&display=swap"
+    />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+
+    <!-- JSON-LD -->
+    {allSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body class={bodyClass}>
+    <a class="skip" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <StickyCta />
+    <style>
+      .skip { position: absolute; left: -999px; top: 8px; background: var(--red); color: #fff; padding: 0.6rem 1rem; border-radius: 6px; z-index: 1000; }
+      .skip:focus { left: 8px; }
+    </style>
+  </body>
+</html>

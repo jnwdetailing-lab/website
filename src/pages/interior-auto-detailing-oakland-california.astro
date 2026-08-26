@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import Icon from '../components/Icons.astro';
+import { SITE } from '../data/site';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/interior-auto-detailing-oakland-california/';
+const title = 'Interior Car Detailing Oakland, CA | $150–$350 | J&W Mobile';
+const description =
+  'Mobile interior car detailing in Oakland: vacuum, steam, shampoo extraction, stain & odor removal, leather conditioning — $150–$350 at your home. 4.9★ Google.';
+
+const faqs = [
+  { q: 'How much does interior car detailing cost in Oakland?', a: 'Interior detailing in Oakland costs $150–$350 with J&W Mobile Detailing. A compact or sedan in decent shape with our Classic package sits at the low end; a three-row SUV with pet hair, stains and the Diamond Reset (steam, shampoo, sanitization, leather conditioning) sits at the top. You get an exact quote before we book.' },
+  { q: 'How long does an interior detail take?', a: 'Most interior details take 2–4 hours. A Classic interior on a sedan is about 2 hours; a Deep Shampoo or Diamond Reset on a large SUV with heavy condition can take 4+ hours because shampoo extraction and steam passes take time to do right.' },
+  { q: 'Can you remove stains from seats and carpet?', a: 'Yes — stain removal is what our Deep Shampoo and Diamond Reset tiers are built for. We pre-treat, agitate, hot-water extract and steam. Coffee, soda, food, mud, makeup and most pet accidents come out. Old dye transfer and bleach spots are permanent and we will tell you up front.' },
+  { q: 'Is steam cleaning safe for leather and electronics?', a: 'Yes. We use controlled, low-moisture steam designed for automotive interiors, keep it away from screens and switchgear, and follow leather with a pH-balanced cleaner and conditioner so it does not dry out or crack.' },
+  { q: 'Do I need to provide water or power?', a: 'No. Our van is fully self-contained with its own water tank and generator. We can detail in your driveway, on a legal curb spot, in an office lot or a roomy condo garage stall anywhere in Oakland and the East Bay.' },
+  { q: 'Can you get pet hair out?', a: 'Yes. Embedded pet hair is an add-on because it takes dedicated tools (rubber blades, pet hair stones, compressed air) and extra time — but it comes out. Mention it when you book so we schedule enough time.' },
+  { q: 'Do you remove smoke or mildew smell?', a: 'Yes. Interior shampoo and steam remove the source in fabric; for smoke, pet and mildew odors that have soaked into the headliner and vents we add an ozone treatment. See our odor removal service.' },
+  { q: 'What is the difference between Classic, Deep Shampoo and Diamond Reset?', a: 'Classic = complete vacuum, wipe-down of every surface, glass, mats, trunk, door jambs. Deep Shampoo = Classic plus shampoo extraction of seats and carpets, air blowout and steam. Diamond Reset = everything plus 99.9% sanitization, leather conditioning and spot stain treatment — the full reset for neglected or pre-sale vehicles.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Interior Car Detailing',
+    description: 'Mobile interior detailing in Oakland and the East Bay: full vacuum, steam cleaning, shampoo extraction, stain and odor removal, leather cleaning and conditioning.',
+    path,
+    minPrice: 150,
+    maxPrice: 350,
+    image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
+    offers: [
+      { name: 'Classic Interior Detail', description: 'Complete vacuum, wipe-down of all surfaces, interior glass & mirrors, floor mats detailed, trunk, door jambs, tire dressing.' },
+      { name: 'Deep Shampoo', description: 'Everything in Classic plus shampoo extraction of seats & carpets, air compression blowout and steam cleaning.' },
+      { name: 'Diamond Reset', description: 'Everything in Deep Shampoo plus 99.9% sanitization, leather cleaning & conditioning and spot stain treatment.' },
+    ],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Interior Detailing', href: path }]),
+];
+
+const steps = [
+  { title: 'Full vacuum & air blowout', text: 'Complete vacuum of carpets, seats, trunk and under the seats, with compressed air to blast crumbs and grit out of seams, rails and vents.' },
+  { title: 'Steam clean & sanitize', text: 'High-temperature, low-moisture steam lifts grime out of textured plastics, vents, cup holders and seat stitching and kills bacteria without soaking anything.' },
+  { title: 'Shampoo & stain treatment', text: 'Pre-treat, agitate and hot-water extract seats and carpets — pulling dirt, stains and trapped odor out of the fibers, not just off the surface.' },
+  { title: 'Condition & final detail', text: 'Leather cleaned and conditioned, plastics dressed (satin, not greasy), glass streak-free inside, every surface checked under light before the walk-around.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/interior-detailing-steam-cleaning-oakland.jpg" preloadImage="/images/interior-detailing-steam-cleaning-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Interior Detailing' }]}
+    eyebrow="Mobile interior detailing · Oakland & East Bay"
+    titleHtml="Interior Car Detailing in Oakland — <em>your cabin reset to like-new</em>, in your driveway"
+    text="Vacuum, high-temp steam, shampoo extraction, stain & odor removal, leather conditioning. Three tiers, real prices, done at your home or office by the owner — not a wash-and-vac crew."
+    price="$150 – $350"
+    priceNote="by vehicle size, tier & condition · 2–4 hours"
+    image="/images/interior-detailing-steam-cleaning-oakland.jpg"
+    imageAlt="Jalil steam cleaning the rear seats of an SUV during a mobile interior detail in Oakland, CA"
+    bullets={['Classic · Deep Shampoo · Diamond Reset tiers', 'Steam + hot-water extraction, not just a vacuum', 'Pet hair, stains, smoke & mildew handled']}
+  />
+
+  <!-- First-100-words answer + before/after -->
+  <section class="section">
+    <div class="container two-col">
+      <div class="prose">
+        <span class="eyebrow">What you get</span>
+        <h2 class="mt-0">An interior detail that actually reaches the dirt</h2>
+        <p><strong>Interior detailing in Oakland with J&W costs $150–$350 and takes 2–4 hours.</strong> We vacuum and air-blow every seam, steam-clean and sanitize every surface, shampoo-extract seats and carpets, treat stains, and condition leather — at your home or workplace anywhere in Oakland, Alameda, Berkeley, Emeryville, Piedmont, San Leandro, Orinda or Walnut Creek.</p>
+        <p>Bay Area interiors take a beating: fog-season humidity that breeds mildew smell in carpet, coffee on the 880 commute, kids, dogs, sand from Crown Beach, and sun through the windshield baking dash plastics in Walnut Creek. A vacuum and a wipe doesn't fix any of that. Hot-water extraction and steam do — which is why every tier above Classic includes both.</p>
+        <p>Drag the slider — that's a real seat from a recent Oakland interior detail, Deep Shampoo tier. No filters, no tricks.</p>
+      </div>
+      <BeforeAfter
+        before="/images/interior-detailing-oakland-before.jpg"
+        after="/images/interior-detailing-oakland-after.jpg"
+        altBefore="Before: heavily stained cloth seat in a sedan prior to interior detailing in Oakland"
+        altAfter="After: the same seat shampoo-extracted and steam cleaned by J&W Mobile Detailing"
+      />
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="section section--soft" id="packages">
+    <div class="container">
+      <div class="center" style="margin-bottom:2.5rem">
+        <span class="eyebrow">Interior packages</span>
+        <h2>Three tiers. Pick by how far gone the cabin is.</h2>
+        <p class="lead">Not sure? Text us a photo of the worst seat and we'll tell you straight which tier it needs.</p>
+      </div>
+      <div class="grid grid--3 tiers">
+        <div class="tier">
+          <span class="pill">Maintenance</span>
+          <h3>Classic Interior</h3>
+          <p class="tier__for">For cars that get regular care and need a proper clean, not a rescue.</p>
+          <ul class="checklist">
+            <li>Complete vacuum — carpets, seats, trunk, under seats</li>
+            <li>Wipe-down of every surface: dash, console, doors, vents</li>
+            <li>Interior glass & mirrors streak-free</li>
+            <li>Floor mats detailed and dressed</li>
+            <li>Trunk / cargo area detailed</li>
+            <li>Door jambs wiped · tire dressing & shine</li>
+          </ul>
+          <p class="tier__price">from $150 <small>low end of range · sedan</small></p>
+        </div>
+        <div class="tier tier--featured">
+          <span class="pill pill--dark">Most booked</span>
+          <h3>Deep Shampoo</h3>
+          <p class="tier__for">For stains, spills, kids, dogs, or a cabin that hasn't been deep-cleaned in 6+ months.</p>
+          <ul class="checklist">
+            <li><strong>Everything in Classic, plus:</strong></li>
+            <li>Shampoo & hot-water extraction of seats and carpets</li>
+            <li>Air-compression blowout of seams, rails and vents</li>
+            <li>High-temperature steam cleaning of all surfaces</li>
+            <li>Stain pre-treatment</li>
+            <li>Light odor neutralizing</li>
+          </ul>
+          <p class="tier__price">$150 – $350 <small>quoted by size &amp; condition</small></p>
+        </div>
+        <div class="tier">
+          <span class="pill pill--gold">Full reset</span>
+          <h3>Diamond Reset</h3>
+          <p class="tier__for">For neglected, pre-sale, lease-return, rideshare or smoker vehicles. The full reset.</p>
+          <ul class="checklist">
+            <li><strong>Everything in Deep Shampoo, plus:</strong></li>
+            <li>Sanitization that kills 99.9% of germs</li>
+            <li>Leather cleaning & conditioning</li>
+            <li>Spot stain treatment — seats, carpet, headliner</li>
+            <li>Headliner & seatbelt cleaning</li>
+            <li>Ozone odor treatment available as add-on</li>
+          </ul>
+          <p class="tier__price">up to $350 <small>top of range · large SUV, heavy condition</small></p>
+        </div>
+      </div>
+      <p class="center" style="margin-top:1.5rem;color:var(--muted);font-size:0.95rem">Add-ons: pet hair removal · ozone odor treatment · engine bay · headlight restoration. Bundle with an <a href="/exterior-auto-detailing-oakland-california/">exterior detail</a> for a full detail ($180–$600+).</p>
+      <div class="center" style="margin-top:1.5rem">
+        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book an interior detail</a>
+        <p class="fud" style="justify-content:center"><Icon name="check" /> Exact quote before we book · No deposit · We come to you</p>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="The four-stage interior process we run on every car" eyebrow="How we do it" />
+
+  <!-- Why + local -->
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Why J&W for interior detailing in Oakland</span>
+      <h2 class="mt-0">Owner-operated, properly equipped, and honest about what comes out</h2>
+      <p>Jalil has been pulling stains out of East Bay cars since before J&W was a company. The van carries a commercial hot-water extractor, a dry-vapor steamer, a compressor, and pH-balanced, biodegradable chemistry for fabric, leather, plastics and screens — the same tools a good shop has, parked in your driveway in Rockridge, Alameda or Walnut Creek. Every job ends with a walk-around under light before you pay.</p>
+      <p>We'll also tell you the truth: most food, drink, mud and pet stains come out. Old dye transfer from jeans on light leather, bleach marks and burn holes do not — and we'd rather say so on the phone than surprise you.</p>
+      <h3>Related services</h3>
+      <ul>
+        <li><a href="/odor-removal-oakland/">Ozone odor removal</a> — smoke, pet, mildew, food odors eliminated at the source.</li>
+        <li><a href="/exterior-auto-detailing-oakland-california/">Exterior detailing</a> — bundle for a full detail and save vs. booking separately.</li>
+        <li><a href="/blog/whats-included-in-a-full-detailing-service/">What's included in a full detail?</a> — the complete checklist, times and Oakland prices.</li>
+      </ul>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What Oakland drivers say after an interior detail" />
+  <Faq faqs={faqs} heading="Interior detailing questions, answered" />
+
+  <section class="section section--soft">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Get a quote</span>
+        <h2>Send a photo of the worst seat. Get a real price back.</h2>
+        <p class="lead">Tell us the vehicle and what's going on inside — pet hair, stains, smell, how long since it was cleaned — and we'll quote the right tier, usually within the hour.</p>
+        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Or book straight into the calendar</a>
+      </div>
+      <QuoteForm heading="Interior detail quote" />
+    </div>
+  </section>
+
+  <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
+  <CtaBand title="Ready to actually enjoy getting in your car again?" />
+</Base>
+
+<style>
+  .tier { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .tier--featured { border: 2px solid var(--red); box-shadow: var(--shadow); transform: translateY(-6px); }
+  .tier h3 { margin: 0.5rem 0 0; font-size: 1.6rem; }
+  .tier__for { color: var(--muted); font-size: 0.95rem; min-height: 3em; }
+  .tier .checklist { font-size: 0.95rem; }
+  .tier__price { margin-top: auto; font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: var(--ink); }
+  .tier__price small { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+  @media (max-width: 1000px) { .tier--featured { transform: none; } }
+</style>

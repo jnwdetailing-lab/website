@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "jnw-dev", "runtimeExecutable": "npx", "runtimeArgs": ["astro", "dev", "--port", "4321", "--host"], "port": 4321 }
+  ]
+}

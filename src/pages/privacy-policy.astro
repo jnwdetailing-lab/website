@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Privacy Policy | J&W Mobile Detailing" description="How J&W Mobile Detailing collects, uses and protects your information, including SMS consent." canonical="/privacy-policy/">
+  <section class="section">
+    <div class="container prose" style="max-width:800px">
+      <Breadcrumbs items={[{ label: 'Privacy Policy' }]} />
+      <h1>Privacy Policy</h1>
+      <p><em>Last updated: August 21, 2026</em></p>
+      <p>{SITE.name} (“J&W,” “we,” “us”) respects your privacy. This policy explains what information we collect through {SITE.url}, our booking portal, phone, text and email, and how we use it.</p>
+      <h2>Information we collect</h2>
+      <ul>
+        <li><strong>Contact and vehicle details you give us</strong> — name, phone number, email, service address, vehicle year/make/model and notes — when you request a quote, book an appointment, call, text, or email.</li>
+        <li><strong>Usage data</strong> — standard web analytics (pages visited, device type, approximate location derived from IP) collected via cookies or similar technologies. We use this to understand how the site is used and to measure advertising.</li>
+        <li><strong>Photos</strong> you choose to send us of your vehicle or parking spot.</li>
+      </ul>
+      <h2>How we use it</h2>
+      <ul>
+        <li>To provide quotes, schedule and perform detailing services, and communicate about your appointment.</li>
+        <li>To send appointment confirmations, reminders and follow-ups by phone, SMS or email.</li>
+        <li>To improve our website and services, and to measure the effectiveness of our marketing.</li>
+        <li>To comply with legal obligations.</li>
+      </ul>
+      <h2>SMS / text messaging consent</h2>
+      <p>By providing your phone number and checking the consent box on our forms, or by texting us, you agree to receive transactional and service-related text messages from J&W Mobile Detailing (quotes, confirmations, reminders, follow-ups). Message frequency varies. Message and data rates may apply. Reply <strong>STOP</strong> at any time to opt out and <strong>HELP</strong> for help. We do not share your phone number or SMS consent with third parties or affiliates for their marketing purposes.</p>
+      <h2>Sharing</h2>
+      <p>We do not sell your personal information. We share it only with service providers who help us operate (e.g., our booking/scheduling platform, payment processors, email/SMS providers, website hosting and analytics), under obligations to protect it, or when required by law.</p>
+      <h2>Cookies and analytics</h2>
+      <p>Our site may use Google Analytics and Google Ads conversion tracking. You can control cookies through your browser settings; disabling them may affect some site features.</p>
+      <h2>Your choices and rights</h2>
+      <p>You may request access to, correction of, or deletion of your personal information, or opt out of marketing communications, by emailing <a href={`mailto:${SITE.email}`}>{SITE.email}</a> or calling {SITE.phoneDisplay}. California residents have additional rights under the CCPA/CPRA, including the right to know, delete, and opt out of sale or sharing of personal information (we do not sell or share personal information as defined by those laws).</p>
+      <h2>Data retention and security</h2>
+      <p>We keep your information as long as needed to provide services and meet legal and accounting requirements, and we use reasonable administrative and technical safeguards to protect it.</p>
+      <h2>Children</h2>
+      <p>Our services are not directed to children under 13 and we do not knowingly collect their information.</p>
+      <h2>Changes</h2>
+      <p>We may update this policy; the “last updated” date above will change. Continued use of the site after changes means you accept the updated policy.</p>
+      <h2>Contact</h2>
+      <p>{SITE.name}, Oakland, CA 94606 · <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a> · <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    </div>
+  </section>
+</Base>

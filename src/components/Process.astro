@@ -1,0 +1,32 @@
+---
+export interface Props { steps: { title: string; text: string }[]; heading?: string; eyebrow?: string; dark?: boolean }
+const { steps, heading = 'How it works', eyebrow = 'Our process', dark = false } = Astro.props;
+---
+<section class:list={['section', { 'section--dark': dark, 'section--soft': !dark }]}>
+  <div class="container">
+    <div class="center" style="margin-bottom:2.5rem">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{heading}</h2>
+    </div>
+    <ol class="steps">
+      {steps.map((s, i) => (
+        <li class="step">
+          <span class="step__num">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{s.title}</h3>
+          <p>{s.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+<style>
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; counter-reset: step; }
+  @media (max-width: 1000px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+  .step { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem 1.35rem; position: relative; }
+  .section--dark .step { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
+  .step__num { font-family: var(--font-display); font-size: 2.6rem; font-weight: 800; color: var(--red); line-height: 1; display: block; margin-bottom: 0.5rem; }
+  .step h3 { font-size: 1.25rem; margin-bottom: 0.4rem; }
+  .step p { margin: 0; font-size: 0.98rem; color: var(--muted); }
+  .section--dark .step p { color: #b9bec8; }
+</style>

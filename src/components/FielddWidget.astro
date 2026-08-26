@@ -1,0 +1,60 @@
+---
+/**
+ * fieldd quoting / booking widget slot.
+ *
+ * ── HOW TO INSTALL YOUR SNIPPET ─────────────────────────────────────────────
+ * 1. Paste the fieldd embed snippet between  <!-- FIELDD:START -->  and
+ *    <!-- FIELDD:END -->  below.
+ * 2. If the snippet has a <script src="..."> tag, add  is:inline  to it so
+ *    Astro leaves it untouched:   <script is:inline src="https://…"></script>
+ * 3. Set  hasEmbed = true  so the fallback button hides.
+ * The slot is already placed in the home-page booking card (#book) and on
+ * /contact/. Nothing else needs to move.
+ * ────────────────────────────────────────────────────────────────────────────
+ */
+import { SITE } from '../data/site';
+import Icon from './Icons.astro';
+export interface Props { heading?: string; bare?: boolean }
+const { heading = 'Get an instant quote & book', bare = false } = Astro.props;
+const hasEmbed = false; // ← flip to true after pasting the fieldd snippet
+---
+<div class:list={['fieldd', { 'fieldd--bare': bare }]} id="fieldd-widget">
+  {!bare && (
+    <div class="fieldd__head">
+      <h3>{heading}</h3>
+      <p>Pick your service and time — you'll get an exact price before anything is confirmed.</p>
+    </div>
+  )}
+
+  <div class:list={['fieldd__embed', { 'fieldd__embed--ready': hasEmbed }]}>
+    <!-- FIELDD:START — paste the fieldd quoting-form snippet here -->
+    {!hasEmbed && (
+      <div class="fieldd__fallback">
+        <a href={SITE.booking} class="btn btn--primary btn--lg" rel="noopener">Get My Price & Book</a>
+        <p class="fud"><Icon name="check" /> 60 seconds · No deposit · Exact price shown before you confirm</p>
+      </div>
+    )}
+    <!-- FIELDD:END -->
+  </div>
+
+  <div class="fieldd__alt">
+    <span>Prefer to talk?</span>
+    <a href={`tel:${SITE.phoneE164}`}><Icon name="phone" size={16} /> Call {SITE.phoneDisplay}</a>
+    <a href={`sms:${SITE.phoneE164}`}><Icon name="message" size={16} /> Text us</a>
+  </div>
+</div>
+
+<style>
+  .fieldd { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+  .fieldd--bare { border: 0; padding: 0; box-shadow: none; }
+  .fieldd__head h3 { margin-bottom: 0.25rem; }
+  .fieldd__head p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .fieldd__embed { min-height: 120px; }
+  /* once the real widget is in, reserve its height so nothing jumps */
+  .fieldd__embed--ready { min-height: 520px; }
+  .fieldd__embed :global(iframe) { width: 100%; border: 0; border-radius: 10px; }
+  .fieldd__fallback { display: grid; gap: 0.25rem; }
+  .fieldd__fallback .btn { width: 100%; }
+  .fieldd__alt { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; align-items: center; margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid var(--line); font-size: 0.9rem; color: var(--muted); }
+  .fieldd__alt a { display: inline-flex; align-items: center; gap: 0.35rem; font-weight: 700; color: var(--ink); }
+</style>

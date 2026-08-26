@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, SERVICES } from '../data/site';
+---
+<Base title="Page not found | J&W Mobile Detailing" description="That page moved or doesn't exist. Find services, pricing and booking for mobile detailing in Oakland." canonical="/404/" noindex>
+  <section class="section">
+    <div class="container center" style="max-width:720px">
+      <span class="eyebrow">404</span>
+      <h1>That page got detailed right off the site.</h1>
+      <p class="lead">The page you're looking for moved or doesn't exist. Here's where people usually want to go:</p>
+      <div class="btn-row" style="justify-content:center;margin-bottom:2rem">
+        <a href="/" class="btn btn--dark">Home</a>
+        <a href="/services/" class="btn btn--ghost">Services & pricing</a>
+        <a href={SITE.booking} class="btn btn--primary" target="_blank" rel="noopener">Book online</a>
+      </div>
+      <ul style="list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:0.5rem 1.25rem;justify-content:center">
+        {SERVICES.map((s) => <li><a href={s.slug}>{s.name}</a></li>)}
+        <li><a href="/service-areas/">Service areas</a></li>
+        <li><a href="/reviews/">Reviews</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>

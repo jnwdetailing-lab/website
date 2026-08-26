@@ -1,0 +1,28 @@
+# J&W Mobile Detailing — llms.txt
+# Owner-operated mobile auto detailing & ceramic coating, Oakland CA + East Bay. Founded 2022 by Jalil Wren.
+# Phone: (510) 756-4995 · Email: jnwdetailing@gmail.com · Book: https://jnwdetail.fieldd.co/
+# Rating: 4.9/5 on Google (220+ reviews). Hours: Mon–Sun 8:00 AM–8:00 PM. 100% mobile — brings own water & power.
+# Service area: Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek.
+
+## Services (2026 pricing, USD)
+- /services/ : All services & price ranges
+- /interior-auto-detailing-oakland-california/ : Interior detailing — $150–$350 (Classic / Deep Shampoo / Diamond Reset)
+- /exterior-auto-detailing-oakland-california/ : Exterior detailing — $120–$250 (Classic wash & wax / Clay & Seal)
+- /paint-correction/ : Paint correction — $250–$800+ (one-step / two-step)
+- /ceramic-coating/ : Ceramic coating — $800–$1,550 complete (sedan $800–1,000; mid SUV $1,000–1,250; large SUV/truck $1,250–1,550); lasts ~3 years
+- /odor-removal-oakland/ : Ozone odor removal — add-on
+- /rv-wash-and-rv-detailing-oakland-california/ : RV wash & detailing — custom quote
+
+## Service areas
+- /service-areas/ : All East Bay areas served
+- /auto-detailing-alameda-ca/ , /auto-detailing-berkeley-ca/ , /auto-detailing-walnut-creek-ca/
+
+## Trust
+- /reviews/ : Verbatim Google reviews
+- /about-us/ : Owner Jalil Wren, founded 2022, eco-friendly products
+- /gallery/ : Real work photos
+
+## Guides
+- /blog/what-does-auto-detailing-cost-in-oakland-ca/
+- /blog/what-does-ceramic-coating-cost-in-oakland-ca/
+- /blog/whats-included-in-a-full-detailing-service/

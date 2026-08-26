@@ -1,0 +1,39 @@
+---
+import { SITE } from '../data/site';
+import Icon from './Icons.astro';
+export interface Props { title?: string; text?: string; variant?: 'red' | 'dark'; href?: string; label?: string }
+const {
+  title = 'Ready for a showroom finish — without leaving home?',
+  text = 'Book online in 60 seconds or call for an exact quote. We come to you anywhere in Oakland & the East Bay.',
+  variant = 'dark',
+  href = SITE.booking,
+  label = 'Book Online',
+} = Astro.props;
+const internal = href.startsWith('#') || href.startsWith('/');
+---
+<section class:list={['cta-band', `cta-band--${variant}`]}>
+  <div class="container cta-band__inner">
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="cta-band__actions">
+      <a href={href} class="btn btn--primary btn--lg" data-scroll-book={internal ? true : undefined} rel={internal ? undefined : 'noopener'}><Icon name="calendar" /> {label}</a>
+      <p class="cta-band__alt">or call / text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></p>
+      <p class="cta-band__fud"><Icon name="check" size={16} /> Free exact quote · No deposit · Same-week appointments available</p>
+    </div>
+  </div>
+</section>
+<style>
+  .cta-band { padding: clamp(2.5rem, 6vw, 4.5rem) 0; color: #fff; }
+  .cta-band--red { background: linear-gradient(120deg, var(--red-dark), var(--red)); }
+  .cta-band--dark { background: var(--ink); }
+  .cta-band__inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; align-items: center; }
+  .cta-band h2 { color: #fff; margin-bottom: 0.4rem; }
+  .cta-band p { margin: 0; color: rgba(255,255,255,0.85); font-size: 1.05rem; max-width: 52ch; }
+  .cta-band__actions { display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem; }
+  .cta-band__alt { font-size: 0.95rem; }
+  .cta-band__alt a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+  .cta-band__fud { font-size: 0.85rem; display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.75); }
+  @media (max-width: 900px) { .cta-band__inner { grid-template-columns: 1fr; } .cta-band__actions { align-items: flex-start; } .cta-band__actions .btn { width: 100%; } }
+</style>

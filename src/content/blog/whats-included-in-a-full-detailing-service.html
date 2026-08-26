@@ -1,0 +1,698 @@
+
+
+<style>
+
+/* ============ NUCLEAR RESET ============ */
+.jw-fulldetail-blog {
+  all: revert !important;
+  isolation: isolate !important;
+  contain: layout style !important;
+}
+.jw-fulldetail-blog,
+.jw-fulldetail-blog *,
+.jw-fulldetail-blog *::before,
+.jw-fulldetail-blog *::after {
+  all: revert !important;
+  box-sizing: border-box !important;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif !important;
+}
+/* ============ WRAPPER BASE ============ */
+.jw-fulldetail-blog {
+  color: #333333 !important;
+  font-size: 17px !important;
+  line-height: 1.75 !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  position: relative !important;
+  display: block !important;
+}
+/* ============ TYPOGRAPHY ============ */
+.jw-fulldetail-blog p {
+  display: block !important;
+  margin: 0 0 20px 0 !important;
+  padding: 0 !important;
+  color: #333333 !important;
+  font-size: 17px !important;
+  line-height: 1.75 !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+.jw-fulldetail-blog h2 {
+  display: block !important;
+  font-family: 'Roboto Slab', Georgia, serif !important;
+  color: #111111 !important;
+  font-size: 32px !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  margin: 48px 0 20px 0 !important;
+  padding: 0 0 14px 0 !important;
+  border-bottom: 2px solid #D62828 !important;
+  letter-spacing: 0.3px !important;
+  text-transform: none !important;
+}
+.jw-fulldetail-blog h3 {
+  display: block !important;
+  font-family: 'Roboto Slab', Georgia, serif !important;
+  color: #111111 !important;
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin: 32px 0 14px 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+}
+.jw-fulldetail-blog h4 {
+  display: block !important;
+  font-family: 'Roboto', sans-serif !important;
+  color: #111111 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin: 24px 0 10px 0 !important;
+  padding: 0 !important;
+}
+.jw-fulldetail-blog a {
+  color: #B01B1B !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 3px !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease !important;
+  background: none !important;
+  border: none !important;
+}
+.jw-fulldetail-blog a:hover {
+  color: #111111 !important;
+  text-decoration: none !important;
+}
+.jw-fulldetail-blog ul,
+.jw-fulldetail-blog ol {
+  display: block !important;
+  margin: 0 0 22px 0 !important;
+  padding-left: 26px !important;
+  list-style-position: outside !important;
+}
+.jw-fulldetail-blog ul { list-style-type: disc !important; }
+.jw-fulldetail-blog ol { list-style-type: decimal !important; }
+.jw-fulldetail-blog li {
+  display: list-item !important;
+  margin-bottom: 11px !important;
+  font-size: 17px !important;
+  line-height: 1.7 !important;
+  padding: 0 !important;
+}
+.jw-fulldetail-blog strong { color: #111111 !important; font-weight: 700 !important; }
+.jw-fulldetail-blog em { font-style: italic !important; }
+/* ============ IMAGES ============ */
+.jw-fulldetail-blog img {
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.1) !important;
+  object-fit: cover !important;
+}
+.jw-fulldetail-blog figure {
+  display: block !important;
+  margin: 32px 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  max-width: 100% !important;
+}
+.jw-fulldetail-blog figcaption {
+  display: block !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px !important;
+  color: #777777 !important;
+  font-style: italic !important;
+  margin-top: 12px !important;
+  text-align: center !important;
+}
+/* ============ TABLES ============ */
+.jw-fulldetail-blog table {
+  display: table !important;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin: 24px 0 32px 0 !important;
+  font-size: 16px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  table-layout: auto !important;
+}
+.jw-fulldetail-blog thead { display: table-header-group !important; }
+.jw-fulldetail-blog tbody { display: table-row-group !important; }
+.jw-fulldetail-blog tr {
+  display: table-row !important;
+  border-bottom: 1px solid #E0E0E0 !important;
+}
+.jw-fulldetail-blog th {
+  display: table-cell !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  padding: 16px 20px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  border: none !important;
+}
+.jw-fulldetail-blog td {
+  display: table-cell !important;
+  padding: 15px 20px !important;
+  border-bottom: 1px solid #F0F0F0 !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  vertical-align: top !important;
+  color: #333333 !important;
+  border: none !important;
+}
+.jw-fulldetail-blog tr:nth-child(even) td { background: #FDECEC !important; }
+.jw-fulldetail-blog tr:last-child td { border-bottom: none !important; }
+.jw-fulldetail-blog .bg-price {
+  font-weight: 700 !important;
+  color: #B01B1B !important;
+  white-space: nowrap !important;
+  font-family: 'Roboto Slab', serif !important;
+  font-size: 17px !important;
+}
+/* ============ META LINE ============ */
+.jw-fulldetail-blog .bg-meta {
+  display: block !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 13px !important;
+  color: #888888 !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 24px !important;
+  text-transform: uppercase !important;
+}
+/* ============ DIRECT ANSWER BOX ============ */
+.jw-fulldetail-blog .bg-answer {
+  display: block !important;
+  background: linear-gradient(135deg, #FDECEC 0%, #FBDCDC 100%) !important;
+  border-left: 6px solid #D62828 !important;
+  padding: 28px 32px !important;
+  margin: 0 0 36px 0 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+}
+.jw-fulldetail-blog .bg-answer-label {
+  display: inline-block !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  padding: 6px 14px !important;
+  border-radius: 2px !important;
+  margin-bottom: 16px !important;
+}
+.jw-fulldetail-blog .bg-answer p { margin-bottom: 0 !important; }
+/* ============ TIP BOX ============ */
+.jw-fulldetail-blog .bg-tip-box {
+  display: block !important;
+  background: linear-gradient(135deg, #FBDCDC 0%, #FDECEC 100%) !important;
+  border-left: 5px solid #D62828 !important;
+  padding: 22px 28px !important;
+  margin: 28px 0 !important;
+  border-radius: 4px !important;
+}
+.jw-fulldetail-blog .bg-tip-label {
+  display: block !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 700 !important;
+  color: #111111 !important;
+  font-size: 12px !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 8px !important;
+}
+.jw-fulldetail-blog .bg-tip-box p { margin: 0 !important; color: #111111 !important; font-size: 16px !important; line-height: 1.7 !important; }
+/* ============ TWO-COLUMN ============ */
+.jw-fulldetail-blog .bg-twocol {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 20px !important;
+  margin: 28px 0 !important;
+}
+.jw-fulldetail-blog .bg-twocol-card {
+  display: block !important;
+  padding: 24px 26px !important;
+  border-radius: 4px !important;
+  border: 1px solid #FDECEC !important;
+}
+.jw-fulldetail-blog .bg-invest { background: linear-gradient(135deg, #FDECEC 0%, #FBDCDC 100%) !important; border-top: 4px solid #D62828 !important; }
+.jw-fulldetail-blog .bg-save { background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%) !important; border-top: 4px solid #111111 !important; }
+.jw-fulldetail-blog .bg-twocol-card h4 { margin-top: 0 !important; font-size: 17px !important; }
+.jw-fulldetail-blog .bg-twocol-card ul { margin-bottom: 0 !important; }
+/* ============ CTA ============ */
+.jw-fulldetail-blog .bg-cta {
+  display: block !important;
+  background: linear-gradient(135deg, #111111 0%, #000000 100%) !important;
+  color: #ffffff !important;
+  padding: 44px 36px !important;
+  border-radius: 4px !important;
+  margin: 48px 0 !important;
+  text-align: center !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25) !important;
+}
+.jw-fulldetail-blog .bg-cta h3 {
+  font-family: 'Roboto Slab', serif !important;
+  color: #ffffff !important;
+  font-size: 30px !important;
+  font-weight: 600 !important;
+  margin: 0 0 14px 0 !important;
+  line-height: 1.25 !important;
+  border-bottom: none !important;
+}
+.jw-fulldetail-blog .bg-cta p {
+  color: rgba(255,255,255,0.92) !important;
+  font-size: 16px !important;
+  margin: 0 0 26px 0 !important;
+  line-height: 1.7 !important;
+  max-width: 640px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.jw-fulldetail-blog .bg-cta-btn {
+  display: inline-block !important;
+  background: #D62828 !important;
+  color: #ffffff !important;
+  padding: 16px 34px !important;
+  border-radius: 2px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  margin: 4px 6px !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25) !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+.jw-fulldetail-blog .bg-cta-btn:hover { background: #A81E1E !important; color: #ffffff !important; transform: translateY(-2px) !important; text-decoration: none !important; }
+.jw-fulldetail-blog .bg-cta-btn-outline { background: transparent !important; border: 2px solid #D62828 !important; box-shadow: none !important; color: #ffffff !important; }
+.jw-fulldetail-blog .bg-cta-btn-outline:hover { background: #D62828 !important; color: #ffffff !important; }
+/* ============ FAQ ============ */
+.jw-fulldetail-blog .bg-faq-item {
+  display: block !important;
+  background: #ffffff !important;
+  border: 1px solid #FBDCDC !important;
+  border-left: 4px solid #D62828 !important;
+  border-radius: 4px !important;
+  margin-bottom: 16px !important;
+  padding: 22px 26px !important;
+}
+.jw-fulldetail-blog .bg-faq-q {
+  display: block !important;
+  font-family: 'Roboto Slab', serif !important;
+  font-weight: 600 !important;
+  color: #111111 !important;
+  font-size: 20px !important;
+  margin: 0 0 10px 0 !important;
+  line-height: 1.35 !important;
+}
+.jw-fulldetail-blog .bg-faq-a { display: block !important; color: #333333 !important; font-size: 16px !important; line-height: 1.7 !important; margin: 0 !important; }
+/* ============ TLDR ============ */
+.jw-fulldetail-blog .bg-tldr {
+  display: block !important;
+  background: linear-gradient(135deg, #FDECEC 0%, #FBDCDC 100%) !important;
+  border: 2px solid #D62828 !important;
+  padding: 28px 32px !important;
+  border-radius: 4px !important;
+  margin: 36px 0 !important;
+}
+.jw-fulldetail-blog .bg-tldr h3 { margin-top: 0 !important; color: #111111 !important; font-size: 26px !important; border-bottom: none !important; }
+.jw-fulldetail-blog .bg-tldr ul { margin-bottom: 0 !important; }
+/* ============ AUTHOR BOX ============ */
+.jw-fulldetail-blog .bg-author-box {
+  display: block !important;
+  background: linear-gradient(135deg, #FDECEC 0%, #ffffff 100%) !important;
+  border-radius: 4px !important;
+  padding: 26px 30px !important;
+  margin: 44px 0 0 0 !important;
+  border-left: 5px solid #111111 !important;
+}
+.jw-fulldetail-blog .bg-author-box h4 { margin-top: 0 !important; color: #111111 !important; font-size: 14px !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; }
+.jw-fulldetail-blog .bg-author-box p { font-size: 15px !important; margin-bottom: 0 !important; line-height: 1.7 !important; }
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .jw-fulldetail-blog { font-size: 16px !important; }
+  .jw-fulldetail-blog h2 { font-size: 26px !important; }
+  .jw-fulldetail-blog h3 { font-size: 21px !important; }
+  .jw-fulldetail-blog table { font-size: 13px !important; }
+  .jw-fulldetail-blog th,
+  .jw-fulldetail-blog td { padding: 10px 12px !important; }
+  .jw-fulldetail-blog img { border-radius: 4px !important; }
+  .jw-fulldetail-blog .bg-twocol { grid-template-columns: 1fr !important; }
+  .jw-fulldetail-blog .bg-cta { padding: 32px 22px !important; }
+  .jw-fulldetail-blog .bg-cta h3 { font-size: 24px !important; }
+  .jw-fulldetail-blog .bg-cta-btn { display: block !important; margin: 8px 0 !important; }
+}
+</style>
+
+<div class="jw-fulldetail-blog">
+
+<div class="bg-meta">Updated August 2026 • 6 min read</div>
+
+<div class="bg-answer">
+  <span class="bg-answer-label">Quick Answer</span>
+  <p><strong>A full detailing service covers your entire vehicle inside and out: a two-bucket hand wash, clay bar decontamination, wheels and tires, wax or sealant on the paint, plus a full interior deep clean with vacuuming, steam cleaning, shampooing, and leather conditioning.</strong> A full detail in Oakland typically takes 3–7 hours depending on vehicle size and condition.</p>
+</div>
+<p>&#8220;Full detail&#8221; is the most overused phrase in this industry. One shop means a wash and a vacuum. Another means eight hours of steam, clay, and polish. That gap is why people book a &#8220;full detail,&#8221; pay $200, and drive away wondering what they actually got.</p>
+<p>So here&#8217;s the real list. Every step that belongs in a full detail, what gets skipped, how long it takes, and what it runs here in Oakland. We&#8217;re a mobile crew working driveways and curbs from Fruitvale to Rockridge to <a href="/auto-detailing-walnut-creek-ca/">Walnut Creek</a>, and this is the same breakdown we walk customers through on the phone.</p>
+<h2>What Is a Full Detail, Exactly?</h2>
+<p><strong>A full detail is a complete interior and exterior restoration performed by hand, not a wash with extra steps.</strong> It combines every service in an <a href="/exterior-auto-detailing-oakland-california/">exterior detailing service</a> with every service in an <a href="/interior-auto-detailing-oakland-california/">interior detailing package</a>, done in one appointment.</p>
+<p>The difference from a car wash comes down to contact and time. A tunnel wash gives your paint about ninety seconds of automated brushes. A full detail gives it hours of hand work — decontamination, protection, and cabin cleaning that reaches under the seats and into the vents. Results last months instead of days.</p>
+
+<h2>What&#8217;s Included on the Exterior Side?</h2>
+<p><strong>The exterior half of a full detail includes a two-bucket hand wash, wheel and tire cleaning, clay bar decontamination, iron removal, glass cleaning, and a protective wax or sealant.</strong> Each step exists for a reason, and skipping any one of them shows up in the finish.</p>
+<ul>
+  <li><strong>Two-bucket hand wash.</strong> One bucket for soapy water, one to rinse the mitt. Grit stays out of the bucket and off your clear coat — this is what prevents the swirl marks tunnel washes leave behind.</li>
+  <li><strong>Decontamination pre-soak.</strong> A dwell-time foam that loosens road film, bug residue, and brake dust before anything touches the paint.</li>
+  <li><strong>Wheels, rims, wheel wells, and tires.</strong> Baked-on brake dust needs dedicated chemicals and brushes. Fender liners get cleaned too, not just the visible face of the rim.</li>
+  <li><strong>Clay bar treatment.</strong> Run your hand over your paint after a wash. If it still feels gritty, that&#8217;s bonded contamination — tar, tree sap, industrial fallout — and only clay pulls it out.</li>
+  <li><strong>Iron contamination removal.</strong> Those tiny orange specks on light-colored paint are embedded iron particles. A chemical iron remover dissolves them.</li>
+  <li><strong>Glass and mirrors.</strong> Streak-free, including the top inch of the windshield most people miss.</li>
+  <li><strong>Protective wax or paint sealant.</strong> The last step, and the one that determines how long the work holds up. Wax gives weeks of gloss; a sealant gives months.</li>
+  <li><strong>Tire dressing.</strong> A satin finish, not the greasy shine that slings onto your paint on the first turn.</li>
+</ul>
+<figure>
+  <img decoding="async" src="/images/blog/full-detail-interior-steps.jpg" alt="Exterior steps included in a full detailing service in Oakland, CA — hand wash, clay bar decontamination, and paint protection">
+  <figcaption>The exterior half of a full detail — every step from the two-bucket wash through the final coat of protection.</figcaption>
+</figure>
+<div class="bg-tip-box">
+  <span class="bg-tip-label">Oakland-Specific Note</span>
+  <p>Bay Area cars pick up three things fast: salt-carrying marine air off the estuary, sap and berry drop from Oakland&#8217;s street trees, and a fine layer of brake dust from stop-and-go traffic on I-580 and 880. All three etch into unprotected clear coat within weeks, which is why the clay and sealant steps matter more here than in a dry inland climate.</p>
+</div>
+<h2>What&#8217;s Included on the Interior Side?</h2>
+<p><strong>The interior half includes a complete vacuum of carpets, seats, and trunk, high-pressure air for crevices, steam cleaning and sanitizing of every surface, glass cleaning, door jambs, console and cup holders, plus leather cleaning and conditioning.</strong></p>
+<p>Interior work is where the hours go, and where the tier you pick actually changes the outcome. A baseline interior detail covers the vacuum, surface wipe-down, glass, floor mats, trunk, and door panels. Step up and you add a full shampoo of seats and carpets — that&#8217;s the level that pulls coffee spills and years of shoe grime out of the fibers instead of just lifting the loose dirt on top.</p>
+<p>The deepest tier adds sanitizing, leather conditioning, and spot stain treatment. High-temperature steam is the tool doing the heavy lifting there: it lifts grime out of textured plastic and sanitizes without soaking your upholstery. If you&#8217;ve got pet hair, a car seat that&#8217;s seen a toddler, or a lingering smell you can&#8217;t place, this is the level worth booking.</p>
+<figure>
+  <img decoding="async" src="/images/blog/full-detail-exterior-steps.jpg" alt="Interior steps included in a full detailing service — deep vacuum, steam cleaning, shampoo, and leather conditioning">
+  <figcaption>The interior half — vacuum, compressed air, steam, shampoo, and conditioning, in that order.</figcaption>
+</figure>
+<h2>What&#8217;s Not Included in a Standard Full Detail?</h2>
+<p><strong>A full detail cleans and protects — it doesn&#8217;t repair paint defects.</strong> Scratches, swirl marks, oxidation, and long-term coatings are separate services, priced separately, and it&#8217;s worth knowing the line before you book.</p>
+<table>
+  <thead>
+    <tr><th>Service</th><th>Included in a Full Detail?</th><th>What It Does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Wash, clay, wax, interior deep clean</strong></td><td>Yes</td><td>Cleans, decontaminates, and protects</td></tr>
+    <tr><td><strong><a href="/paint-correction/">Paint correction</a></strong></td><td>Add-on</td><td>Machine polishing that removes swirl marks and light scratches</td></tr>
+    <tr><td><strong><a href="/ceramic-coating/">Ceramic coating</a></strong></td><td>Add-on</td><td>Multi-year paint protection; requires a full detail as prep</td></tr>
+    <tr><td><strong>Odor removal</strong></td><td>Add-on</td><td>Ozone treatment for smoke, pets, or mildew</td></tr>
+    <tr><td><strong>Headlight restoration</strong></td><td>Add-on</td><td>Sands and re-clears yellowed, hazy lenses</td></tr>
+    <tr><td><strong>Engine bay cleaning</strong></td><td>Add-on</td><td>Degreases and dresses the engine compartment</td></tr>
+    <tr><td><strong>Trim restoration</strong></td><td>Add-on</td><td>Restores faded black plastic trim and bumpers</td></tr>
+  </tbody>
+</table>
+<p>None of these are upsells for their own sake. If your paint has visible swirls, a full detail will make it clean and glossy but the swirls will still be there under the light — polishing is the only thing that removes them.</p>
+
+<div class="bg-cta">
+  <h3>Not sure which tier your car needs?</h3>
+  <p>Send us a couple of photos and we&#8217;ll tell you straight — whether a standard full detail covers it or the interior needs the deeper shampoo and steam treatment. Free quote, no pressure, and we come to you.</p>
+  <a href="tel:+1-510-756-4995" class="bg-cta-btn">Call (510) 756-4995</a>
+  <a href="https://jnwdetail.fieldd.co/" class="bg-cta-btn bg-cta-btn-outline">Book Online</a>
+</div>
+<h2>How Long Does a Full Detail Take?</h2>
+<p><strong>A full detail takes 3–7 hours depending on vehicle size and condition.</strong> A clean sedan lands at the short end; a three-row SUV with pet hair and stained carpet lands at the long end. Here&#8217;s how it usually breaks down:</p>
+<table>
+  <thead>
+    <tr><th>Vehicle</th><th>Typical Time</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Compact / sedan</strong></td><td>3–4 hours</td><td>Least surface area inside and out</td></tr>
+    <tr><td><strong>Crossover / mid-size SUV</strong></td><td>4–5 hours</td><td>More glass, larger cargo area</td></tr>
+    <tr><td><strong>Full-size SUV / truck / 3-row</strong></td><td>5–7 hours</td><td>Third row and bed or cargo area add real time</td></tr>
+    <tr><td><strong>Heavy condition (pet hair, stains, smoke)</strong></td><td>+1–2 hours</td><td>Shampoo and steam passes take longer</td></tr>
+    <tr><td><strong>With paint correction added</strong></td><td>+2–4 hours</td><td>Often becomes a two-visit job</td></tr>
+  </tbody>
+</table>
+<p>Anyone quoting you a &#8220;full detail&#8221; in ninety minutes is doing a wash and a vacuum. There is no version of the list above that fits in ninety minutes.</p>
+<h2>What Does a Full Detail Cost in Oakland?</h2>
+<p><strong>Full details in the Oakland market generally run $180–$600 depending on vehicle size, package tier, and condition.</strong> Standard packages sit toward the lower end; premium tiers with shampoo, steam, and sealant sit toward the upper end. Add-ons like paint correction or ceramic coating are priced on top.</p>
+<p>Condition drives price more than most people expect. Two identical SUVs can quote hundreds apart if one has ground-in pet hair and sun-baked interior plastic and the other was detailed six months ago. We break the numbers down further in our guide to <a href="/blog/what-does-auto-detailing-cost-in-oakland-ca/">what auto detailing costs in Oakland, CA</a>, or you can <a href="/services/">request a custom quote</a> and get a real number for your vehicle.</p>
+<h2>What Does a Mobile Full Detail Need From You?</h2>
+<p><strong>A mobile full detail needs one thing: a parking spot with enough clearance to open the doors and work around all four sides of the vehicle.</strong> A driveway is ideal. A flat, legal curb spot works. A tight apartment garage stall usually doesn&#8217;t.</p>
+<p>That last one comes up constantly in Oakland, where a lot of our customers park in shared garages or on permit-only streets. If you&#8217;re not sure your spot works, send a photo when you book and we&#8217;ll tell you before we dispatch. Worst case, we detail the car a block away at a spot that does work — it beats losing the appointment.</p>
+<p>Mobile also means the time estimate above is time you get back. No dropping the car off, no waiting room, no second trip to pick it up. We handle Oakland, <a href="/auto-detailing-alameda-ca/">Alameda</a>, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, and Walnut Creek — the full list is on our <a href="/service-areas/">service area page</a>, and larger rigs are covered under <a href="/rv-wash-and-rv-detailing-oakland-california/">RV wash and detailing</a>.</p>
+<h2>Is a Full Detail the Right Call for Your Car?</h2>
+<p><strong>Book a full detail when the car needs both halves — paint that feels rough and an interior that needs more than a vacuum.</strong> If only one side is the problem, book that side and save the difference.</p>
+<div class="bg-twocol">
+  <div class="bg-twocol-card bg-invest">
+    <h4>Book the Full Detail When</h4>
+    <ul>
+      <li>Paint feels gritty after a wash — that&#8217;s bonded contamination</li>
+      <li>The interior hasn&#8217;t been deep-cleaned in six months or more</li>
+      <li>You&#8217;re selling, trading in, or ending a lease</li>
+      <li>Pet hair, food spills, or an odor has moved in</li>
+      <li>You&#8217;re prepping for ceramic coating (a full detail is required first)</li>
+    </ul>
+  </div>
+  <div class="bg-twocol-card bg-save">
+    <h4>Book a Single Service When</h4>
+    <ul>
+      <li>The outside looks fine but the cabin is the problem — go interior-only</li>
+      <li>You keep the inside spotless and just want paint protection — go exterior-only</li>
+      <li>The car was fully detailed within the last few months</li>
+      <li>Your real issue is swirl marks — that&#8217;s paint correction, not a detail</li>
+    </ul>
+  </div>
+</div>
+
+<div class="bg-tldr">
+  <h3>TL;DR — What&#8217;s Included in a Full Detailing Service</h3>
+  <ul>
+    <li><strong>Exterior:</strong> two-bucket hand wash, pre-soak, wheels and tires, clay bar, iron removal, glass, wax or sealant, tire dressing</li>
+    <li><strong>Interior:</strong> full vacuum, compressed air, steam clean and sanitize, glass, door jambs, console, leather cleaning and conditioning, shampoo on higher tiers</li>
+    <li><strong>Not included:</strong> paint correction, ceramic coating, odor removal, headlight and trim restoration — all available as add-ons</li>
+    <li><strong>Time:</strong> 3–7 hours depending on size and condition</li>
+    <li><strong>Oakland cost:</strong> roughly $180–$600 depending on tier and condition</li>
+    <li><strong>Next step:</strong> call <a href="tel:+1-510-756-4995">(510) 756-4995</a> or book online — J&amp;W Mobile Detailing comes to your driveway</li>
+  </ul>
+</div>
+
+<h2>Frequently Asked Questions</h2>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">What&#8217;s the difference between a full detail and a car wash?</p>
+  <p class="bg-faq-a">A car wash removes loose surface dirt in minutes. A full detail is hours of hand work that decontaminates the paint with a clay bar, protects it with wax or sealant, and deep-cleans the entire interior with steam and shampoo. A wash lasts days; a full detail lasts months.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">How often should I get a full detail?</p>
+  <p class="bg-faq-a">Two to four times a year for most Oakland drivers. Cars parked outside under street trees, daily commuters on 580 or 880, and vehicles carrying kids or pets sit at the higher end. In between, a regular wash keeps sap, dust, and bird droppings off the protected paint.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">Does a full detail remove scratches and swirl marks?</p>
+  <p class="bg-faq-a">No. A full detail cleans, decontaminates, and protects, which makes paint look dramatically better — but swirl marks and scratches sit in the clear coat and only machine polishing removes them. That&#8217;s <a href="/paint-correction/">paint correction</a>, offered as an add-on to the detail.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">Can you do a full detail if I park on the street?</p>
+  <p class="bg-faq-a">Usually yes. We need a legal, reasonably flat spot with room to open the doors and move around the vehicle. Driveways are easiest, but plenty of our Oakland appointments happen at the curb. Send a photo of your spot when you book if you&#8217;re unsure.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">Should I get a full detail before ceramic coating?</p>
+  <p class="bg-faq-a">Yes — it&#8217;s required. A coating bonds to whatever is on the paint, so the surface has to be washed, decontaminated, and clay-barred first, and usually polished too. Any legitimate <a href="/ceramic-coating/">Oakland ceramic coating</a> quote includes that prep work.</p>
+</div>
+
+<div class="bg-cta">
+  <h3>Your driveway. Our crew. Every step on the list.</h3>
+  <p>171+ five-star Google reviews • 1,000+ vehicles detailed • Fully mobile across Oakland and the East Bay • Free quotes, honest recommendations</p>
+  <a href="tel:+1-510-756-4995" class="bg-cta-btn">Call (510) 756-4995</a>
+  <a href="https://jnwdetail.fieldd.co/" class="bg-cta-btn bg-cta-btn-outline">Book Your Full Detail</a>
+  <p style="margin-top: 22px !important; font-size: 14px !important; color: rgba(255,255,255,0.7) !important;">★★★★★ Serving Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda &amp; Walnut Creek, CA</p>
+</div>
+
+<h2>Related Guides</h2>
+<ul>
+  <li><a href="/blog/what-does-auto-detailing-cost-in-oakland-ca/">What does auto detailing cost in Oakland, CA?</a></li>
+  <li><a href="/interior-auto-detailing-oakland-california/">Interior auto detailing in Oakland</a></li>
+  <li><a href="/exterior-auto-detailing-oakland-california/">Exterior auto detailing in Oakland</a></li>
+  <li><a href="/paint-correction/">Paint correction for swirl marks and scratches</a></li>
+  <li><a href="/ceramic-coating/">Oakland ceramic coating and long-term paint protection</a></li>
+  <li><a href="/rv-wash-and-rv-detailing-oakland-california/">Mobile RV wash and RV detailing</a></li>
+  <li><a href="/reviews/">J&amp;W Mobile Detailing reviews</a></li>
+</ul>
+
+<div class="bg-author-box">
+  <h4>About the Author</h4>
+  <p><strong>Jalil Wren</strong> founded J&amp;W Mobile Detailing in Oakland, CA in 2022 and has since detailed over 1,000 vehicles across the East Bay with a 171+ five-star review record. The crew brings professional steam equipment, polishers, and coatings to your driveway anywhere from Oakland to Walnut Creek. Find the shop on <a href="https://maps.app.goo.gl/FVLkP8JR3Gxjrnmh9" target="_blank" rel="noopener nofollow">Google Business Profile</a>, read <a href="https://www.google.com/maps/place/J%26W+Mobile+Detailing+%E2%80%93+Ceramic+Coating+%26+Paint+Correction/@37.789292,-122.23147,17z" target="_blank" rel="noopener nofollow">reviews on Google Maps</a>, book online 24/7, or call <a href="tel:+1-510-756-4995">(510) 756-4995</a>.</p>
+</div>
+</div>
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "/blog/whats-included-in-a-full-detailing-service/#blogposting",
+      "headline": "What's Included in a Full Detailing Service?",
+      "description": "What's included in a full detailing service? A complete breakdown of every exterior and interior step, what's an add-on, how long it takes, and what a full detail costs in Oakland, CA.",
+      "url": "/blog/whats-included-in-a-full-detailing-service/",
+      "datePublished": "2026-08-06T09:00:00-07:00",
+      "dateModified": "2026-08-06T09:00:00-07:00",
+      "image": {
+        "@type": "ImageObject",
+        "url": "/images/blog/full-detail-interior-steps.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jalil Wren",
+        "jobTitle": "Owner",
+        "url": "/about-us/",
+        "worksFor": { "@id": "/#localbusiness" }
+      },
+      "publisher": { "@id": "/#localbusiness" },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "/blog/whats-included-in-a-full-detailing-service/"
+      },
+      "articleSection": "Auto Detailing Guides",
+      "keywords": "full detailing service, what's included in a full detail, full car detail Oakland, mobile detailing Oakland CA",
+      "about": {
+        "@type": "Service",
+        "name": "Full Auto Detailing",
+        "provider": { "@id": "/#localbusiness" },
+        "areaServed": "Oakland, CA"
+      }
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "/#localbusiness",
+      "name": "J&W Mobile Detailing – Ceramic Coating & Paint Correction",
+      "alternateName": "J&W Mobile Detailing",
+      "description": "Mobile auto detailing, ceramic coating, and paint correction serving Oakland and the East Bay. Full interior and exterior detailing performed at your home or office.",
+      "url": "/",
+      "telephone": "+1-510-756-4995",
+      "email": "jnwdetailing@gmail.com",
+      "founder": { "@type": "Person", "name": "Jalil Wren" },
+      "foundingDate": "2022",
+      "priceRange": "$$",
+      "image": "/images/blog/full-detail-interior-steps.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "2127 23rd Ave",
+        "addressLocality": "Oakland",
+        "addressRegion": "CA",
+        "postalCode": "94606",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 37.789292,
+        "longitude": -122.23147
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "171",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Oakland", "containedInPlace": { "@type": "State", "name": "California" } },
+        { "@type": "City", "name": "Alameda", "containedInPlace": { "@type": "State", "name": "California" } },
+        { "@type": "City", "name": "Berkeley", "containedInPlace": { "@type": "State", "name": "California" } },
+        { "@type": "City", "name": "San Leandro", "containedInPlace": { "@type": "State", "name": "California" } },
+        { "@type": "City", "name": "Piedmont", "containedInPlace": { "@type": "State", "name": "California" } },
+        { "@type": "City", "name": "Emeryville", "containedInPlace": { "@type": "State", "name": "California" } },
+        { "@type": "City", "name": "Orinda", "containedInPlace": { "@type": "State", "name": "California" } },
+        { "@type": "City", "name": "Walnut Creek", "containedInPlace": { "@type": "State", "name": "California" } }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Auto Detailing Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Full Auto Detailing", "url": "/services/" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Interior Detailing", "url": "/interior-auto-detailing-oakland-california/" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Exterior Detailing", "url": "/exterior-auto-detailing-oakland-california/" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Paint Correction", "url": "/paint-correction/" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ceramic Coating", "url": "/ceramic-coating/" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "RV Wash and RV Detailing", "url": "/rv-wash-and-rv-detailing-oakland-california/" } }
+        ]
+      },
+      "sameAs": [
+        "https://maps.app.goo.gl/FVLkP8JR3Gxjrnmh9",
+        "https://www.facebook.com/jnwdetail/",
+        "https://www.instagram.com/jnwdetail/"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "/blog/whats-included-in-a-full-detailing-service/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's the difference between a full detail and a car wash?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A car wash removes loose surface dirt in minutes. A full detail is hours of hand work that decontaminates the paint with a clay bar, protects it with wax or sealant, and deep-cleans the entire interior with steam and shampoo. A wash lasts days; a full detail lasts months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How often should I get a full detail?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Two to four times a year for most Oakland drivers. Cars parked outside under street trees, daily commuters on 580 or 880, and vehicles carrying kids or pets sit at the higher end. In between, a regular wash keeps sap, dust, and bird droppings off the protected paint."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a full detail remove scratches and swirl marks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. A full detail cleans, decontaminates, and protects, which makes paint look dramatically better — but swirl marks and scratches sit in the clear coat and only machine polishing removes them. That is paint correction, offered as an add-on to the detail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you do a full detail if I park on the street?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usually yes. We need a legal, reasonably flat spot with room to open the doors and move around the vehicle. Driveways are easiest, but plenty of our Oakland appointments happen at the curb. Send a photo of your spot when you book if you're unsure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should I get a full detail before ceramic coating?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — it's required. A coating bonds to whatever is on the paint, so the surface has to be washed, decontaminated, and clay-barred first, and usually polished too. Any legitimate Oakland ceramic coating quote includes that prep work."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>

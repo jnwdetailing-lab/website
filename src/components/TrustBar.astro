@@ -1,0 +1,31 @@
+---
+import { SITE } from '../data/site';
+import Icon from './Icons.astro';
+const items = [
+  { icon: 'star', big: `${SITE.rating.value}★`, small: `${SITE.stats.reviews} Google reviews` },
+  { icon: 'user', big: SITE.stats.customers, small: 'Bay Area vehicles detailed' },
+  { icon: 'van', big: '100%', small: 'Mobile — we come to you' },
+  { icon: 'leaf', big: 'Eco-safe', small: 'Biodegradable, pH-neutral products' },
+  { icon: 'shield', big: '~3 yrs', small: 'Ceramic coating protection' },
+];
+---
+<section class="trust" aria-label="Why customers trust us">
+  <div class="container trust__grid">
+    {items.map((t) => (
+      <div class="trust__item">
+        <Icon name={t.icon} size={28} />
+        <div><strong>{t.big}</strong><span>{t.small}</span></div>
+      </div>
+    ))}
+  </div>
+</section>
+<style>
+  .trust { background: #fff; border-bottom: 1px solid var(--line); }
+  .trust__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; padding: 1.25rem 0; }
+  @media (max-width: 1000px) { .trust__grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 640px) { .trust__grid { grid-template-columns: repeat(2, 1fr); } .trust__item:last-child { display: none; } }
+  .trust__item { display: flex; gap: 0.75rem; align-items: center; }
+  .trust__item svg { color: var(--red); flex: none; }
+  .trust__item strong { display: block; font-family: var(--font-display); font-size: 1.5rem; line-height: 1; color: var(--ink); }
+  .trust__item span { font-size: 0.82rem; color: var(--muted); }
+</style>

@@ -1,0 +1,40 @@
+---
+import { AREAS } from '../data/site';
+import Icon from './Icons.astro';
+export interface Props { heading?: string; compact?: boolean }
+const { heading = 'We come to you across Oakland & the East Bay', compact = false } = Astro.props;
+---
+<section class="section section--dark areas" id="areas">
+  <div class="container">
+    <div class="areas__head">
+      <div>
+        <span class="eyebrow">Service areas</span>
+        <h2>{heading}</h2>
+        <p class="lead">Based in Oakland (94606). Our van carries its own water and power — all we need is a parking spot. Not on the list? Call — we can usually make it work.</p>
+      </div>
+      <a href="/service-areas/" class="btn btn--ghost-light">All service areas</a>
+    </div>
+    <div class="areas__grid">
+      {AREAS.map((a) => (
+        <a href={a.slug} class="area">
+          <Icon name="pin" size={18} />
+          <div>
+            <strong>{a.city}, CA</strong>
+            {!compact && <span>{a.neighborhoods.slice(0, 3).join(' · ')}</span>}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .areas__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .areas__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; }
+  @media (max-width: 1000px) { .areas__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .areas__grid { grid-template-columns: 1fr; } }
+  .area { display: flex; gap: 0.7rem; align-items: flex-start; padding: 1rem 1.1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: #e7e9ee; background: rgba(255,255,255,0.03); text-decoration: none !important; transition: background 0.15s, border-color 0.15s; }
+  .area:hover { background: rgba(225,29,42,0.15); border-color: var(--red); }
+  .area svg { color: var(--red); flex: none; margin-top: 3px; }
+  .area strong { display: block; color: #fff; font-family: var(--font-display); font-size: 1.2rem; text-transform: uppercase; }
+  .area span { font-size: 0.82rem; color: #b9bec8; }
+</style>

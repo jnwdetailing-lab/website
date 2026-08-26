@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Terms & Conditions | J&W Mobile Detailing" description="Terms of service for J&W Mobile Detailing appointments, cancellations, payment and liability." canonical="/terms-conditions/">
+  <section class="section">
+    <div class="container prose" style="max-width:800px">
+      <Breadcrumbs items={[{ label: 'Terms & Conditions' }]} />
+      <h1>Terms & Conditions</h1>
+      <p><em>Last updated: August 21, 2026</em></p>
+      <p>These terms apply to services booked with {SITE.name} (“J&W”) through {SITE.url}, our booking portal, phone, text or email. By booking, you agree to them.</p>
+      <h2>Quotes and pricing</h2>
+      <p>Prices shown on this site are typical ranges for the East Bay. Your exact price is confirmed before the appointment based on vehicle size, condition and services selected. If we discover a materially different condition on arrival (e.g., heavy pet hair, biohazard, excessive soiling not disclosed), we will discuss any adjustment with you before proceeding — never after.</p>
+      <h2>Appointments, access and weather</h2>
+      <p>You agree to provide a safe, legal parking spot with room to work and access to the vehicle at the scheduled time. Exterior services and coatings depend on weather; we may reschedule for rain, high wind or extreme heat at no charge. Please remove personal valuables from the vehicle before the appointment; J&W is not responsible for loose items.</p>
+      <h2>Cancellations</h2>
+      <p>No deposit is required. Please give at least 24 hours' notice to cancel or reschedule. Repeated no-shows may require prepayment for future bookings.</p>
+      <h2>Payment</h2>
+      <p>Payment is due on completion after your walk-around inspection. We accept cash, credit/debit card, Zelle and Venmo.</p>
+      <h2>Results and limitations</h2>
+      <p>We use professional products and techniques and will always tell you honestly what can and cannot be fixed. Some conditions are permanent and are not covered by any service: dye transfer, bleach or chemical stains, burns, scratches through the clear coat, rock chips, pre-existing paint failure, peeling clear coat, cracked or brittle plastics, and pre-existing damage to trim, wheels or glass. Polishing and coatings remove microns of clear coat and are performed with care; J&W is not liable for failure of pre-existing repaint, aftermarket wraps, or thin factory clear coat that was not disclosed.</p>
+      <h2>Ceramic coating care</h2>
+      <p>Coating durability depends on maintenance. Avoid automatic brush washes; hand-wash with pH-neutral soap; do not wash for 7 days after application. Maintenance recommendations are provided at handover.</p>
+      <h2>Liability</h2>
+      <p>J&W Mobile Detailing is licensed and insured. Our liability for any claim is limited to the amount paid for the service in question. Please report any concern within 48 hours of service so we can make it right.</p>
+      <h2>Contact</h2>
+      <p>{SITE.name} · <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a> · <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    </div>
+  </section>
+</Base>

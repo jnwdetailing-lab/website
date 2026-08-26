@@ -1,0 +1,121 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icons.astro';
+import { SITE, AREAS } from '../data/site';
+import { breadcrumbSchema, faqSchema } from '../data/schema';
+
+const path = '/service-areas/';
+const title = 'Service Areas | Mobile Detailing Oakland & East Bay | J&W';
+const description =
+  'J&W Mobile Detailing comes to you across Oakland, Alameda, Berkeley, Emeryville, Piedmont, San Leandro, Orinda & Walnut Creek. Detailing in your driveway.';
+
+const faqs = [
+  { q: 'Do you charge a travel fee?', a: 'No travel fee inside our core East Bay service area — Oakland, Alameda, Berkeley, Emeryville, Piedmont, San Leandro, Orinda and Walnut Creek. For addresses further out, call us; if we can fit it, we will quote any travel up front.' },
+  { q: 'Can you detail my car at my office or apartment?', a: 'Yes. We work in office lots, apartment and condo garages and on legal curb spots — we only need room to open the doors and walk around the car, and ideally shade for coatings. If you are not sure your spot works, send a photo when you book.' },
+  { q: 'Are you licensed and insured?', a: 'Yes — J&W Mobile Detailing is a licensed, insured, owner-operated business based in Oakland, CA since 2022.' },
+  { q: 'My city is not listed. Can you still come?', a: 'Probably. We regularly get asked about Lafayette, Moraga, Castro Valley, Hayward, El Cerrito, Albany and Richmond. Call or text (510) 756-4995 with your address and we will tell you straight away.' },
+];
+
+const extra: Record<string, { local: string[]; note: string }> = {
+  Oakland: { local: ['Rockridge', 'Temescal', 'Piedmont Ave', 'Grand Lake', 'Lake Merritt', 'Adams Point', 'Uptown', 'Jack London Square', 'West Oakland', 'Fruitvale', 'Dimond', 'Laurel', 'Glenview', 'Montclair', 'Oakland Hills', 'Maxwell Park', 'Eastmont'], note: 'Home base (94606). Same-day is sometimes possible.' },
+  Alameda: { local: ['Park Street', 'Gold Coast', 'Bay Farm Island', 'Harbor Bay', 'Alameda Point', 'South Shore', 'West End', 'East End'], note: 'Salt air island — quarterly Clay & Seal recommended.' },
+  Berkeley: { local: ['Elmwood', 'Claremont', 'North Berkeley', 'Solano Ave', 'Berkeley Hills', 'Downtown', 'Southside', 'West Berkeley', 'Fourth Street'], note: 'Street-sweeping & permit parking handled — we work curbside.' },
+  'Walnut Creek': { local: ['Downtown', 'Rossmoor', 'Northgate', 'Saranap', 'Walnut Heights', 'Parkmead', 'Larkey Park'], note: 'Inland heat — interiors & ceramic coatings are our top bookings.' },
+  'San Leandro': { local: ['Bay-O-Vista', 'Estudillo Estates', 'Washington Manor', 'Marina Faire', 'Broadmoor'], note: '10 minutes down 880 from our base.' },
+  Piedmont: { local: ['Piedmont Hills', 'Baja Piedmont', 'Upper Piedmont', 'Civic Center'], note: 'Recurring maintenance details for multi-car households.' },
+  Emeryville: { local: ['Watergate', 'Bay Street', 'Park Avenue District', 'Triangle', 'Powell Street'], note: 'Condo garages & office lots — we bring water and power.' },
+  Orinda: { local: ['Orinda Village', 'Sleepy Hollow', 'Glorietta', 'Orinda Downs', 'Ivy Drive'], note: 'Through the Caldecott — Lamorinda driveways, coatings & RVs.' },
+};
+
+const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Service Areas', href: path }])];
+---
+
+<Base {title} {description} canonical={path} {schema}>
+  <PageHero
+    crumbs={[{ label: 'Service Areas' }]}
+    eyebrow="Where we work"
+    titleHtml="Mobile detailing across Oakland & the East Bay — <em>we come to you</em>"
+    text="Based in Oakland, serving eight East Bay cities with the same van, the same checklist and the same owner. Our rig carries its own water and power, so a driveway, curb, office lot or garage is all we need."
+    image="/images/oakland-california-skyline.jpg"
+    imageAlt="Oakland, California skyline and Lake Merritt — J&W Mobile Detailing's home base"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="center" style="margin-bottom:2rem">
+        <span class="eyebrow">Cities we serve</span>
+        <h2>Eight cities, no travel fee, one standard</h2>
+      </div>
+      <div class="grid grid--2 areas">
+        {AREAS.map((a) => (
+          <article class="area" id={a.city.toLowerCase().replace(' ', '-')}>
+            <div class="area__head">
+              <h3><Icon name="pin" size={20} /> {a.city}, CA</h3>
+              {a.hasPage && <a href={a.slug} class="btn btn--sm btn--ghost">{a.city} page</a>}
+            </div>
+            <p>{a.blurb}</p>
+            <p class="area__note"><strong>Good to know:</strong> {extra[a.city].note}</p>
+            <p class="area__hoods"><strong>Neighborhoods:</strong> {extra[a.city].local.join(' · ')}</p>
+            <div class="btn-row">
+              <a href={SITE.booking} class="btn btn--primary btn--sm" target="_blank" rel="noopener">Book in {a.city}</a>
+              <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost btn--sm">Call</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container two-col">
+      <div class="prose">
+        <span class="eyebrow">How mobile works</span>
+        <h2 class="mt-0">What we need from your parking spot</h2>
+        <ul class="checklist">
+          <li><strong>Room to work:</strong> enough clearance to open all doors and walk around the vehicle. A driveway is ideal; a flat, legal curb spot or roomy garage stall works.</li>
+          <li><strong>Nothing else.</strong> Water tank, generator, pressure washer, steamer, extractor, polishers and lighting are all on the van.</li>
+          <li><strong>For ceramic coating & correction:</strong> shade — a garage, carport or a spot out of direct sun and rain for the day.</li>
+          <li><strong>Tight spot?</strong> Send a photo when you book. Worst case we detail a block away where there's room — it beats losing the appointment.</li>
+        </ul>
+        <p>Every service is available in every city: <a href="/interior-auto-detailing-oakland-california/">interior</a>, <a href="/exterior-auto-detailing-oakland-california/">exterior</a>, <a href="/paint-correction/">paint correction</a>, <a href="/ceramic-coating/">ceramic coating</a>, <a href="/odor-removal-oakland/">odor removal</a> and <a href="/rv-wash-and-rv-detailing-oakland-california/">RV detailing</a>.</p>
+      </div>
+      <div class="map">
+        <iframe
+          title="J&W Mobile Detailing service area map — Oakland and the East Bay"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50445.0!2d-122.2711!3d37.8044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d6fb452df51eebd%3A0x27abe75bf3d02297!2sJ%26W%20Mobile%20Detailing%20%E2%80%93%20Ceramic%20Coating%20%26%20Paint%20Correction!5e0!3m2!1sen!2sus!4v1780698036384!5m2!1sen!2sus"
+          width="600" height="450" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <Reviews limit={3} />
+  <Faq faqs={faqs} heading="Service area questions" />
+
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Get a quote</span>
+        <h2>Tell us where you are and what you drive.</h2>
+        <p class="lead">We'll confirm we cover you (we almost certainly do) and send an exact price.</p>
+      </div>
+      <QuoteForm />
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+
+<style>
+  .area { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; scroll-margin-top: 90px; }
+  .area__head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .area h3 { margin: 0; display: inline-flex; align-items: center; gap: 0.4rem; }
+  .area h3 svg { color: var(--red); }
+  .area p { font-size: 0.98rem; }
+  .area__note, .area__hoods { color: var(--muted); font-size: 0.9rem; }
+  .map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 4/3; }
+  .map iframe { width: 100%; height: 100%; }
+</style>

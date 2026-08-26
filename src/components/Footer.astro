@@ -1,0 +1,97 @@
+---
+import { SITE, SERVICES, AREAS } from '../data/site';
+import Icon from './Icons.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="/images/logo.webp" alt="J&W Mobile Detailing" width="150" height="125" loading="lazy" />
+        <p>
+          Owner-operated mobile auto detailing & ceramic coating. We bring the shop to your driveway across Oakland and the East Bay — with our own water, power and eco-friendly products.
+        </p>
+        <div class="footer__rating">
+          <span class="stars" aria-hidden="true">
+            {Array.from({ length: 5 }).map(() => <Icon name="star" size={16} />)}
+          </span>
+          <a href={SITE.social.google} target="_blank" rel="noopener">{SITE.rating.value}★ · {SITE.rating.count} Google reviews</a>
+        </div>
+        <ul class="footer__social" aria-label="Social profiles">
+          <li><a href={SITE.social.instagram} target="_blank" rel="noopener" aria-label="Instagram"><Icon name="instagram" /></a></li>
+          <li><a href={SITE.social.facebook} target="_blank" rel="noopener" aria-label="Facebook"><Icon name="facebook" /></a></li>
+          <li><a href={SITE.social.yelp} target="_blank" rel="noopener" aria-label="Yelp"><Icon name="yelp" /></a></li>
+          <li><a href={SITE.social.nextdoor} target="_blank" rel="noopener" aria-label="Nextdoor"><Icon name="nextdoor" /></a></li>
+          <li><a href={SITE.social.google} target="_blank" rel="noopener" aria-label="Google Business Profile"><Icon name="google" /></a></li>
+        </ul>
+      </div>
+
+      <nav class="footer__col" aria-label="Services">
+        <h4>Services</h4>
+        <ul>
+          {SERVICES.map((s) => <li><a href={s.slug}>{s.name}</a></li>)}
+          <li><a href="/services/">All services & pricing</a></li>
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-label="Service areas">
+        <h4>Service Areas</h4>
+        <ul>
+          {AREAS.map((a) => <li><a href={a.slug}>{a.city}, CA</a></li>)}
+        </ul>
+      </nav>
+
+      <nav class="footer__col" aria-label="Company">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about-us/">About Jalil & the team</a></li>
+          <li><a href="/reviews/">Reviews</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href="/blog/">Blog & pricing guides</a></li>
+          <li><a href="/contact/">Contact / Get a quote</a></li>
+          <li><a href={SITE.booking} target="_blank" rel="noopener">Book online</a></li>
+          <li><a href="/privacy-policy/">Privacy policy</a></li>
+          <li><a href="/terms-conditions/">Terms & conditions</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__col footer__contact">
+        <h4>Contact</h4>
+        <ul>
+          <li><Icon name="phone" size={18} /> <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></li>
+          <li><Icon name="message" size={18} /> <a href={`sms:${SITE.phoneE164}`}>Text us</a></li>
+          <li><Icon name="mail" size={18} /> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><Icon name="clock" size={18} /> <span>{SITE.hours.label}</span></li>
+          <li><Icon name="pin" size={18} /> <span>Based in Oakland, CA 94606<br /><small>Mobile service — we come to you</small></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© {year} {SITE.name}. All rights reserved. Serving Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda & Walnut Creek, CA.</p>
+      <p class="footer__est">Owner-operated since {SITE.founded} · Licensed & insured · Eco-friendly products</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--ink); color: #b9bec8; padding: 3.5rem 0 5.5rem; font-size: 0.95rem; }
+  .footer a { color: #e7e9ee; }
+  .footer a:hover { color: #fff; }
+  .footer h4 { color: #fff; text-transform: uppercase; letter-spacing: 0.08em; font-size: 1rem; margin-bottom: 0.9rem; }
+  .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.2fr; gap: 2rem; }
+  .footer__brand img { height: 80px; width: auto; margin-bottom: 1rem; }
+  .footer__brand p { max-width: 38ch; }
+  .footer__rating { display: flex; align-items: center; gap: 0.5rem; margin: 0.5rem 0 1rem; }
+  .footer__social { list-style: none; padding: 0; margin: 0; display: flex; gap: 0.5rem; }
+  .footer__social a { display: inline-flex; padding: 0.5rem; border-radius: 50%; background: rgba(255,255,255,0.07); }
+  .footer__social a:hover { background: var(--red); }
+  .footer__col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.45rem; }
+  .footer__contact li { display: flex; gap: 0.55rem; align-items: flex-start; }
+  .footer__contact svg { flex: none; margin-top: 3px; color: var(--red); }
+  .footer__bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 2.5rem; padding-top: 1.25rem; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.85rem; color: #8b919d; }
+  .footer__bottom p { margin: 0; }
+  @media (max-width: 1000px) { .footer__grid { grid-template-columns: 1fr 1fr; } .footer__brand { grid-column: 1 / -1; } }
+  @media (max-width: 560px) { .footer__grid { grid-template-columns: 1fr; } }
+</style>

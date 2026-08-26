@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { breadcrumbSchema } from '../../data/schema';
+import meta from '../../content/blog/meta.json';
+
+const path = '/blog/';
+const title = 'Detailing Guides & Oakland Pricing | J&W Mobile Detailing Blog';
+const description =
+  'Straight-talk guides from an Oakland detailer: what detailing and ceramic coating cost in Oakland, what a full detail includes, how to protect Bay Area paint.';
+const images: Record<string, string> = {
+  'whats-included-in-a-full-detailing-service': '/images/exterior-detailing-oakland.jpg',
+  'what-does-ceramic-coating-cost-in-oakland-ca': '/images/blog/compressed-watermarked_img_17093029742238375971.jpg',
+  'what-does-auto-detailing-cost-in-oakland-ca': '/images/blog/car-detailing-cost-in-oakland-featured-image.jpg',
+};
+const excerpts: Record<string, string> = {
+  'whats-included-in-a-full-detailing-service': 'Every step that belongs in a full detail, what gets skipped, how long it takes (3–7 hours) and what it runs in Oakland.',
+  'what-does-ceramic-coating-cost-in-oakland-ca': 'Ceramic coating in Oakland costs $800–$1,550 complete. What that includes, why cheap quotes skip prep, and how to keep it looking new.',
+  'what-does-auto-detailing-cost-in-oakland-ca': 'Basic wash & wax $120–$150, full detail $180–$250, premium $300–$600+, ceramic $800–$1,550 — the full 2026 Oakland price breakdown.',
+};
+const fmt = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const schema = [breadcrumbSchema([{ label: 'Blog', href: path }])];
+---
+
+<Base {title} {description} canonical={path} {schema}>
+  <PageHero
+    crumbs={[{ label: 'Blog' }]}
+    eyebrow="Guides"
+    titleHtml="Detailing guides written by <em>the guy who does the work</em>"
+    text="No fluff, no affiliate links. Real Oakland prices, real process, and honest answers to the questions customers ask us on the phone."
+  />
+  <section class="section">
+    <div class="container grid grid--3">
+      {meta.map((p) => (
+        <a href={`/blog/${p.slug}/`} class="card post">
+          <img class="card__img" src={images[p.slug]} alt="" width="800" height="600" loading="lazy" decoding="async" />
+          <div class="card__body">
+            <span class="pill">Updated {fmt(p.date)}</span>
+            <h3>{p.title}</h3>
+            <p>{excerpts[p.slug]}</p>
+            <span class="card__link">Read the guide</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>.post { color: inherit; text-decoration: none !important; }</style>

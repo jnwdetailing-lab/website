@@ -1,0 +1,728 @@
+
+
+
+<style>
+/* ============ GOOGLE FONTS ============ */
+
+
+/* ============ NUCLEAR RESET ============ */
+.jnw-adc-blog {
+  all: revert !important;
+  isolation: isolate !important;
+  contain: layout style !important;
+}
+.jnw-adc-blog,
+.jnw-adc-blog *,
+.jnw-adc-blog *::before,
+.jnw-adc-blog *::after {
+  all: revert !important;
+  box-sizing: border-box !important;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif !important;
+}
+
+/* ============ WRAPPER BASE ============ */
+.jnw-adc-blog {
+  color: #2A2A2A !important;
+  font-size: 17px !important;
+  line-height: 1.75 !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  position: relative !important;
+  display: block !important;
+}
+
+/* ============ TYPOGRAPHY ============ */
+.jnw-adc-blog p {
+  display: block !important;
+  margin: 0 0 20px 0 !important;
+  padding: 0 !important;
+  color: #2A2A2A !important;
+  font-size: 17px !important;
+  line-height: 1.75 !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+.jnw-adc-blog h2 {
+  display: block !important;
+  font-family: 'Montserrat', Arial, sans-serif !important;
+  color: #111111 !important;
+  font-size: 31px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  margin: 48px 0 20px 0 !important;
+  padding: 0 0 14px 0 !important;
+  border-bottom: 3px solid #E11D2A !important;
+  letter-spacing: 0.2px !important;
+  text-transform: none !important;
+}
+.jnw-adc-blog h3 {
+  display: block !important;
+  font-family: 'Montserrat', Arial, sans-serif !important;
+  color: #111111 !important;
+  font-size: 23px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  margin: 32px 0 14px 0 !important;
+  padding: 0 !important;
+  text-transform: none !important;
+}
+.jnw-adc-blog h4 {
+  display: block !important;
+  font-family: 'Montserrat', Arial, sans-serif !important;
+  color: #111111 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin: 24px 0 10px 0 !important;
+  padding: 0 !important;
+}
+.jnw-adc-blog a {
+  color: #E11D2A !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 3px !important;
+  font-weight: 600 !important;
+  transition: color 0.2s ease !important;
+  background: none !important;
+  border: none !important;
+}
+.jnw-adc-blog a:hover {
+  color: #B0121E !important;
+  text-decoration: none !important;
+}
+.jnw-adc-blog ul,
+.jnw-adc-blog ol {
+  display: block !important;
+  margin: 0 0 22px 0 !important;
+  padding-left: 26px !important;
+  list-style-position: outside !important;
+}
+.jnw-adc-blog ul { list-style-type: disc !important; }
+.jnw-adc-blog ol { list-style-type: decimal !important; }
+.jnw-adc-blog li {
+  display: list-item !important;
+  margin-bottom: 11px !important;
+  font-size: 17px !important;
+  line-height: 1.7 !important;
+  padding: 0 !important;
+  color: #2A2A2A !important;
+}
+.jnw-adc-blog strong { color: #111111 !important; font-weight: 700 !important; }
+.jnw-adc-blog em { font-style: italic !important; }
+
+/* ============ IMAGES ============ */
+.jnw-adc-blog img {
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  border: none !important;
+  border-radius: 4px !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12) !important;
+  object-fit: cover !important;
+}
+.jnw-adc-blog figure {
+  display: block !important;
+  margin: 32px 0 !important;
+  padding: 0 !important;
+  text-align: center !important;
+  max-width: 100% !important;
+}
+.jnw-adc-blog figcaption {
+  display: block !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 13px !important;
+  color: #777 !important;
+  font-style: italic !important;
+  margin-top: 12px !important;
+  text-align: center !important;
+}
+
+/* ============ TABLES ============ */
+.jnw-adc-blog table {
+  display: table !important;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+  margin: 24px 0 32px 0 !important;
+  font-size: 16px !important;
+  background: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  table-layout: auto !important;
+}
+.jnw-adc-blog thead { display: table-header-group !important; }
+.jnw-adc-blog tbody { display: table-row-group !important; }
+.jnw-adc-blog tr {
+  display: table-row !important;
+  border-bottom: 1px solid #E0E0E0 !important;
+}
+.jnw-adc-blog th {
+  display: table-cell !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  padding: 16px 20px !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.2px !important;
+  border: none !important;
+}
+.jnw-adc-blog td {
+  display: table-cell !important;
+  padding: 15px 20px !important;
+  border-bottom: 1px solid #F0F0F0 !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  vertical-align: top !important;
+  color: #2A2A2A !important;
+  border: none !important;
+}
+.jnw-adc-blog tr:nth-child(even) td { background: #F5F5F5 !important; }
+.jnw-adc-blog tr:last-child td { border-bottom: none !important; }
+.jnw-adc-blog .bg-price {
+  font-weight: 700 !important;
+  color: #E11D2A !important;
+  white-space: nowrap !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 16px !important;
+}
+
+/* ============ BLOCKQUOTES ============ */
+.jnw-adc-blog blockquote {
+  display: block !important;
+  margin: 0 0 24px 0 !important;
+  padding: 20px 24px !important;
+  border-left: 4px solid #E11D2A !important;
+  background: #F5F5F5 !important;
+  font-style: italic !important;
+  color: #555 !important;
+  border-radius: 0 4px 4px 0 !important;
+}
+
+/* ============ HR ============ */
+.jnw-adc-blog hr {
+  display: block !important;
+  border: none !important;
+  border-top: 2px solid #E0E0E0 !important;
+  margin: 36px 0 !important;
+}
+
+/* ============ META LINE ============ */
+.jnw-adc-blog .bg-meta {
+  display: block !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 13px !important;
+  color: #888 !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 24px !important;
+  text-transform: uppercase !important;
+}
+
+/* ============ DIRECT ANSWER BOX ============ */
+.jnw-adc-blog .bg-answer {
+  display: block !important;
+  background: linear-gradient(135deg, #F5F5F5 0%, #EAEAEA 100%) !important;
+  border-left: 6px solid #E11D2A !important;
+  padding: 28px 32px !important;
+  margin: 0 0 36px 0 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+}
+.jnw-adc-blog .bg-answer-label {
+  display: inline-block !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  padding: 6px 14px !important;
+  border-radius: 2px !important;
+  margin-bottom: 16px !important;
+}
+.jnw-adc-blog .bg-answer p { margin-bottom: 0 !important; font-size: 18px !important; line-height: 1.7 !important; color: #2A2A2A !important; }
+
+/* ============ TRUST BADGES ============ */
+.jnw-adc-blog .bg-trust-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+  margin: 28px 0 40px 0 !important;
+}
+.jnw-adc-blog .bg-trust-badge {
+  flex: 1 1 calc(25% - 14px) !important;
+  min-width: 150px !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  padding: 20px 16px !important;
+  border-radius: 4px !important;
+  text-align: center !important;
+  border-bottom: 3px solid #E11D2A !important;
+}
+.jnw-adc-blog .bg-trust-num {
+  display: block !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 800 !important;
+  color: #E11D2A !important;
+  margin-bottom: 6px !important;
+  line-height: 1.1 !important;
+}
+.jnw-adc-blog .bg-trust-lbl {
+  display: block !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 12px !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+/* ============ CARD GRID ============ */
+.jnw-adc-blog .bg-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: 18px !important;
+  margin: 28px 0 36px 0 !important;
+}
+.jnw-adc-blog .bg-card {
+  display: block !important;
+  background: #ffffff !important;
+  border: 1px solid #F5F5F5 !important;
+  border-top: 4px solid #E11D2A !important;
+  padding: 22px 24px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+}
+.jnw-adc-blog .bg-card-icon { font-size: 28px !important; display: block !important; margin-bottom: 10px !important; }
+.jnw-adc-blog .bg-card-title {
+  display: block !important;
+  font-family: 'Montserrat', sans-serif !important;
+  color: #111111 !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  margin-bottom: 4px !important;
+}
+.jnw-adc-blog .bg-card-meta {
+  display: block !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 11px !important;
+  color: #E11D2A !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.2px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 12px !important;
+}
+.jnw-adc-blog .bg-card-desc { font-size: 14px !important; color: #555 !important; line-height: 1.55 !important; margin: 0 !important; }
+
+/* ============ TIP BOX ============ */
+.jnw-adc-blog .bg-tip-box {
+  display: block !important;
+  background: linear-gradient(135deg, #EAEAEA 0%, #F5F5F5 100%) !important;
+  border-left: 5px solid #E11D2A !important;
+  padding: 22px 28px !important;
+  margin: 28px 0 !important;
+  border-radius: 4px !important;
+}
+.jnw-adc-blog .bg-tip-label {
+  display: block !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: 700 !important;
+  color: #111111 !important;
+  font-size: 12px !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 8px !important;
+}
+.jnw-adc-blog .bg-tip-box p { margin: 0 !important; color: #111111 !important; font-size: 16px !important; line-height: 1.7 !important; }
+
+/* ============ TWO-COLUMN ============ */
+.jnw-adc-blog .bg-twocol {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 20px !important;
+  margin: 28px 0 !important;
+}
+.jnw-adc-blog .bg-twocol-card {
+  display: block !important;
+  padding: 24px 26px !important;
+  border-radius: 4px !important;
+  border: 1px solid #F5F5F5 !important;
+}
+.jnw-adc-blog .bg-invest { background: linear-gradient(135deg, #F5F5F5 0%, #EAEAEA 100%) !important; border-top: 4px solid #E11D2A !important; }
+.jnw-adc-blog .bg-save { background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%) !important; border-top: 4px solid #111111 !important; }
+.jnw-adc-blog .bg-twocol-card h4 { margin-top: 0 !important; font-size: 16px !important; }
+.jnw-adc-blog .bg-twocol-card ul { margin-bottom: 0 !important; }
+
+/* ============ DIVIDER ============ */
+.jnw-adc-blog .bg-divider {
+  display: block !important;
+  text-align: center !important;
+  margin: 44px 0 !important;
+  color: #E11D2A !important;
+  font-size: 18px !important;
+  letter-spacing: 14px !important;
+  line-height: 1 !important;
+}
+.jnw-adc-blog .bg-divider::before { content: '◆ ◆ ◆' !important; }
+
+/* ============ CTA ============ */
+.jnw-adc-blog .bg-cta {
+  display: block !important;
+  background: linear-gradient(135deg, #111111 0%, #000000 100%) !important;
+  color: #ffffff !important;
+  padding: 44px 36px !important;
+  border-radius: 4px !important;
+  margin: 48px 0 !important;
+  text-align: center !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25) !important;
+}
+.jnw-adc-blog .bg-cta h3 {
+  font-family: 'Montserrat', sans-serif !important;
+  color: #ffffff !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  margin: 0 0 14px 0 !important;
+  line-height: 1.25 !important;
+  border-bottom: none !important;
+}
+.jnw-adc-blog .bg-cta p {
+  color: rgba(255,255,255,0.92) !important;
+  font-size: 16px !important;
+  margin: 0 0 26px 0 !important;
+  line-height: 1.7 !important;
+  max-width: 640px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.jnw-adc-blog .bg-cta-btn {
+  display: inline-block !important;
+  background: #E11D2A !important;
+  color: #ffffff !important;
+  padding: 16px 34px !important;
+  border-radius: 2px !important;
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  margin: 4px 6px !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25) !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+}
+.jnw-adc-blog .bg-cta-btn:hover { background: #B0121E !important; color: #ffffff !important; transform: translateY(-2px) !important; text-decoration: none !important; }
+.jnw-adc-blog .bg-cta-btn-outline { background: transparent !important; border: 2px solid #E11D2A !important; box-shadow: none !important; }
+.jnw-adc-blog .bg-cta-btn-outline:hover { background: #E11D2A !important; color: #ffffff !important; }
+
+/* ============ FAQ ============ */
+.jnw-adc-blog .bg-faq-item {
+  display: block !important;
+  background: #ffffff !important;
+  border: 1px solid #F5F5F5 !important;
+  border-left: 4px solid #E11D2A !important;
+  border-radius: 4px !important;
+  margin-bottom: 16px !important;
+  padding: 22px 26px !important;
+}
+.jnw-adc-blog .bg-faq-q {
+  display: block !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700 !important;
+  color: #111111 !important;
+  font-size: 19px !important;
+  margin: 0 0 10px 0 !important;
+  line-height: 1.35 !important;
+}
+.jnw-adc-blog .bg-faq-a { display: block !important; color: #2A2A2A !important; font-size: 16px !important; line-height: 1.7 !important; margin: 0 !important; }
+
+/* ============ TLDR ============ */
+.jnw-adc-blog .bg-tldr {
+  display: block !important;
+  background: linear-gradient(135deg, #F5F5F5 0%, #EAEAEA 100%) !important;
+  border: 2px solid #E11D2A !important;
+  padding: 28px 32px !important;
+  border-radius: 4px !important;
+  margin: 36px 0 !important;
+}
+.jnw-adc-blog .bg-tldr h3 { margin-top: 0 !important; color: #111111 !important; font-size: 24px !important; font-weight: 700 !important; border-bottom: none !important; }
+.jnw-adc-blog .bg-tldr ul { margin-bottom: 0 !important; }
+
+/* ============ AUTHOR BOX ============ */
+.jnw-adc-blog .bg-author-box {
+  display: block !important;
+  background: linear-gradient(135deg, #F5F5F5 0%, #ffffff 100%) !important;
+  border-radius: 4px !important;
+  padding: 26px 30px !important;
+  margin: 44px 0 0 0 !important;
+  border-left: 5px solid #111111 !important;
+}
+.jnw-adc-blog .bg-author-box h4 { margin-top: 0 !important; color: #111111 !important; font-size: 14px !important; text-transform: uppercase !important; letter-spacing: 1.5px !important; }
+.jnw-adc-blog .bg-author-box p { font-size: 15px !important; margin-bottom: 0 !important; line-height: 1.7 !important; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .jnw-adc-blog { font-size: 16px !important; }
+  .jnw-adc-blog h2 { font-size: 25px !important; }
+  .jnw-adc-blog h3 { font-size: 20px !important; }
+  .jnw-adc-blog table { font-size: 13px !important; }
+  .jnw-adc-blog th,
+  .jnw-adc-blog td { padding: 10px 12px !important; }
+  .jnw-adc-blog img { border-radius: 4px !important; }
+  .jnw-adc-blog .bg-trust-badge { flex: 1 1 calc(50% - 14px) !important; }
+  .jnw-adc-blog .bg-twocol { grid-template-columns: 1fr !important; }
+  .jnw-adc-blog .bg-cta { padding: 32px 22px !important; }
+  .jnw-adc-blog .bg-cta h3 { font-size: 23px !important; }
+  .jnw-adc-blog .bg-cta-btn { display: block !important; margin: 8px 0 !important; }
+  .jnw-adc-blog .bg-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+
+
+<div class="jnw-adc-blog">
+
+
+<div class="bg-meta">Updated July 2026 • 9 min read</div>
+
+
+<div class="bg-answer">
+  <span class="bg-answer-label">Quick Answer</span>
+  <p><strong>Auto detailing in Oakland, CA typically costs $120–$150 for a basic wash and wax, $180–$250 for a standard full detail, and $300–$600+ for a premium detail on larger or heavily soiled vehicles.</strong> Interior-only deep cleans run $150–$350 depending on size and condition, while a full <a href="/ceramic-coating/">Oakland ceramic coating</a> ranges from $800 to $1,550. Your final price depends on vehicle size, condition, and the services you choose.</p>
+</div>
+
+
+
+<h2>What&#8217;s the average auto detailing cost in Oakland in 2026?</h2>
+<p>Auto detailing prices in Oakland fall into three broad tiers. A <strong>basic wash and wax</strong> — an exterior hand wash, wheel cleaning, and a quick protective coat — usually runs <strong>$120 to $150</strong>. A <strong>standard full detail</strong> that covers both inside and out lands around <strong>$180 to $250</strong> for a typical sedan. A <strong>premium or &#8220;showroom&#8221; detail</strong>, which adds deeper decontamination, more thorough interior work, and paint enhancement, commonly reaches <strong>$300 to $600 or more</strong>, especially on larger vehicles.</p>
+<p>These ranges track closely with national and metro-area pricing. Detailing tends to cost more in dense metropolitan markets like the Bay Area than in rural areas, largely because of higher labor and operating costs. For a broader national benchmark, HomeGuide&#8217;s <a href="https://homeguide.com/costs/car-detailing-cost" target="_blank" rel="noopener nofollow">car detailing cost guide</a> reports the average full detail sits between $200 and $400 nationwide, with metro details running higher.</p>
+
+<figure>
+  <img decoding="async" src="/images/blog/car-detailing-cost-metrics.jpg" alt="Oakland auto detailing prices by package: basic wash $120 to ceramic coating $1,550">
+  <figcaption>Typical 2026 Oakland / East Bay detailing prices by package tier.</figcaption>
+</figure>
+
+<table>
+  <thead>
+    <tr><th>Service</th><th>Typical Oakland Price</th><th>What&#8217;s Included</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Basic Wash &amp; Wax</td><td class="bg-price">$120–$150</td><td>Hand wash, wheels &amp; tires, wax or sealant</td></tr>
+    <tr><td>Standard Full Detail</td><td class="bg-price">$180–$250</td><td>Interior + exterior clean for a typical sedan</td></tr>
+    <tr><td>Interior Deep Clean</td><td class="bg-price">$150–$350</td><td>Vacuum, steam, shampoo, stain &amp; odor removal</td></tr>
+    <tr><td>Premium / Full Detail</td><td class="bg-price">$300–$600+</td><td>Decontamination + enhanced interior + paint work</td></tr>
+    <tr><td>Paint Correction</td><td class="bg-price">$250–$800+</td><td>Machine polishing to remove swirls &amp; scratches</td></tr>
+    <tr><td>Ceramic Coating</td><td class="bg-price">$800–$1,550</td><td>Prep, correction, and a multi-year coating</td></tr>
+  </tbody>
+</table>
+
+<p>Mobile detailers like <a href="/">J&amp;W Mobile Detailing</a> price similarly to shop-based services but save you the trip — the team comes to your driveway anywhere in Oakland and the East Bay. Because every vehicle arrives in a different condition, the most accurate way to know your cost is a quick quote based on your car&#8217;s year, size, and current state.</p>
+
+
+<div class="bg-cta">
+  <h3>Want an exact price for your vehicle?</h3>
+  <p>Skip the guesswork. Tell us your vehicle and the service you need, and J&amp;W Mobile Detailing will send a custom quote — then bring the full detail right to your driveway in Oakland or the surrounding Bay Area.</p>
+  <a href="tel:+1-510-756-4995" class="bg-cta-btn">📞 Call (510) 756-4995</a>
+  <a href="https://jnwdetail.fieldd.co/" class="bg-cta-btn bg-cta-btn-outline">Book Online</a>
+</div>
+
+<h2>What does each detailing package include?</h2>
+<p>&#8220;Detailing&#8221; covers a wide range of work, and knowing what each package includes makes the price make sense. Here&#8217;s how the core services break down.</p>
+
+<div class="bg-grid">
+  <div class="bg-card">
+    <span class="bg-card-icon">🚿</span>
+    <span class="bg-card-title">Exterior Detailing</span>
+    <span class="bg-card-meta">$120–$250</span>
+    <p class="bg-card-desc">A scratch-free hand wash plus wheel and tire cleaning, decontamination, trim treatment, and a protective wax or sealant. See the full <a href="/exterior-auto-detailing-oakland-california/">exterior detailing service</a>.</p>
+  </div>
+  <div class="bg-card">
+    <span class="bg-card-icon">🧼</span>
+    <span class="bg-card-title">Interior Deep Cleaning</span>
+    <span class="bg-card-meta">$150–$350</span>
+    <p class="bg-card-desc">Detailed vacuuming, steam cleaning, shampooing, stain and odor removal, plus leather cleaning. Explore <a href="/interior-auto-detailing-oakland-california/">interior detailing in Oakland</a>.</p>
+  </div>
+  <div class="bg-card">
+    <span class="bg-card-icon">✨</span>
+    <span class="bg-card-title">Paint Correction</span>
+    <span class="bg-card-meta">$250–$800+</span>
+    <p class="bg-card-desc">Machine polishing that removes swirl marks, scratches, and oxidation — the ideal prep before a coating. Learn about <a href="/paint-correction/">paint correction</a>.</p>
+  </div>
+  <div class="bg-card">
+    <span class="bg-card-icon">🛡️</span>
+    <span class="bg-card-title">Ceramic Coating</span>
+    <span class="bg-card-meta">$800–$1,550</span>
+    <p class="bg-card-desc">A durable layer bonded to your paint that locks in gloss and shields against UV, grime, and the elements for years. See <a href="/ceramic-coating/">ceramic coating packages</a>.</p>
+  </div>
+  <div class="bg-card">
+    <span class="bg-card-icon">💨</span>
+    <span class="bg-card-title">Odor Removal</span>
+    <span class="bg-card-meta">Add-on</span>
+    <p class="bg-card-desc">Ozone treatment that neutralizes smoke, pet, and mildew smells at the source rather than masking them with air fresheners.</p>
+  </div>
+  <div class="bg-card">
+    <span class="bg-card-icon">🚐</span>
+    <span class="bg-card-title">RV Wash &amp; Detail</span>
+    <span class="bg-card-meta">Custom quote</span>
+    <p class="bg-card-desc">Full mobile wash and detailing for motorhomes and trailers, including oxidation treatment and roof cleaning. See <a href="/rv-wash-and-rv-detailing-oakland-california/">RV detailing</a>.</p>
+  </div>
+</div>
+
+<h2>How much does interior vs. exterior detailing cost?</h2>
+<p>Many drivers only need one side of the equation. <strong>Interior detailing costs $150 to $350</strong> on average, driven mostly by vehicle size and how much dirt, hair, and staining has built up. A compact sedan in decent shape sits at the low end; a three-row SUV with embedded pet hair and stained upholstery sits at the top.</p>
+<p><strong>Exterior detailing costs $120 to $250</strong> for a wash, decontamination, and protective wax or sealant. Add paint correction and the exterior side climbs quickly, because polishing is time-intensive skilled labor. Bundling both into a full detail is almost always cheaper than booking them separately.</p>
+
+<figure>
+  <img decoding="async" src="/images/blog/car-detailing-cost-in-oakland-comparison.jpg" alt="What raises or lowers auto detailing cost in Oakland — vehicle size, condition, and service level">
+  <figcaption>Vehicle size and condition are the two biggest factors that move your price.</figcaption>
+</figure>
+
+<div class="bg-tip-box">
+  <span class="bg-tip-label">💡 Pro Insight</span>
+  <p>If your car is on a regular maintenance schedule, each detail costs less over time. Dirt, sap, and stains that sit for months take far more labor to remove than the light buildup on a car detailed every few weeks.</p>
+</div>
+
+<h2>What makes auto detailing cost more or less in Oakland?</h2>
+<p>Two identical-looking cars can get very different quotes. These are the factors that move your price up or down.</p>
+
+<div class="bg-twocol">
+  <div class="bg-twocol-card bg-invest">
+    <h4>💰 Pushes the price down</h4>
+    <ul>
+      <li>Smaller vehicle (coupe or sedan)</li>
+      <li>Lightly used, regularly maintained</li>
+      <li>Single service instead of a full package</li>
+      <li>No pet hair, stains, or heavy odor</li>
+      <li>Repeat customer on a maintenance schedule</li>
+    </ul>
+  </div>
+  <div class="bg-twocol-card bg-save">
+    <h4>📈 Pushes the price up</h4>
+    <ul>
+      <li>Large SUV, truck, or RV</li>
+      <li>Heavy dirt, oxidation, or neglected paint</li>
+      <li>Multi-step paint correction plus coating</li>
+      <li>Embedded pet hair, deep stains, smoke odor</li>
+      <li>First-time deep reset after long neglect</li>
+    </ul>
+  </div>
+</div>
+
+<p>Location matters too. Bay Area labor and operating costs are higher than the national average, which is why Oakland detailing typically prices above small-town rates. The upside is convenience — a mobile detailer removes the hidden &#8220;cost&#8221; of dropping your car at a shop and arranging a ride, since the work happens at your home or workplace.</p>
+
+<h2>How much does ceramic coating cost in Oakland?</h2>
+<p>Ceramic coating is the most premium service most drivers consider, and it&#8217;s priced accordingly. In Oakland, expect to invest <strong>$800 to $1,550</strong> for a complete professional application. That price includes paint prep, decontamination, paint correction to remove existing swirls, and the multi-year coating itself. Larger vehicles like SUVs and trucks fall toward the higher end because they have more surface area to prep and coat.</p>
+<p>Why the jump from a standard detail? A coating is only as good as the prep beneath it, and proper paint correction is skilled, time-consuming work. Professional installation buys durability and a flawless, long-lasting finish — cut-rate coatings tend to fail early. Industry groups like the <a href="https://www.the-ida.com/" target="_blank" rel="noopener nofollow">International Detailing Association</a> emphasize that surface preparation and correct application technique are what separate a coating that lasts years from one that fails in months.</p>
+
+<h2>Is professional auto detailing worth it?</h2>
+<p>For most Oakland drivers, yes — detailing protects one of your largest assets. A professional detail preserves your paint, keeps your interior from wearing prematurely, and helps protect resale value. Regular detailing prevents contaminants, UV damage, and grime from causing long-term harm that&#8217;s expensive to reverse.</p>
+
+<figure>
+  <img decoding="async" src="/images/blog/car-detailing-cost-in-oakland-estimate.jpg" alt="Value of professional detailing: paint protection, resale value, time saved, and showroom finish">
+  <figcaption>Where professional detailing pays off between services.</figcaption>
+</figure>
+
+<p>There&#8217;s also the convenience factor. Mobile detailing eliminates the trip to a shop and the wait — the crew comes to you, so a busy weekday morning doesn&#8217;t cost you a half-day. And a professional finish simply outperforms DIY: correct products, technique, and equipment avoid the swirl marks and water spots that at-home washing often creates.</p>
+
+<div class="bg-divider"></div>
+
+<h2>How do you choose an auto detailer in Oakland?</h2>
+<p>Price matters, but the cheapest quote rarely delivers the best value. Use these questions to compare detailers before you book:</p>
+<ul>
+  <li><strong>What exactly is included?</strong> Make sure quotes cover the same work — one &#8220;full detail&#8221; may include decontamination and another may not.</li>
+  <li><strong>Do they come to you?</strong> Mobile service saves time and often means more personal attention than a high-volume shop.</li>
+  <li><strong>What&#8217;s their track record?</strong> Look for consistent five-star feedback. You can read <a href="/reviews/">J&amp;W Mobile Detailing reviews</a> from Bay Area customers.</li>
+  <li><strong>Are the products safe?</strong> J&amp;W uses eco-friendly, biodegradable products — better for your vehicle, your family, and the environment.</li>
+  <li><strong>Is it owner-operated?</strong> Owner-operated detailers tend to take more pride in each job than a rotating crew.</li>
+</ul>
+<p>J&amp;W serves Oakland plus Alameda, Berkeley, San Leandro, Piedmont, Orinda, Emeryville, and Walnut Creek. If you&#8217;re nearby, see the dedicated <a href="/auto-detailing-alameda-ca/">Alameda auto detailing</a> and <a href="/auto-detailing-walnut-creek-ca/">Walnut Creek auto detailing</a> pages, or learn more <a href="/about-us/">about the team</a>.</p>
+
+
+<div class="bg-cta">
+  <h3>Ready for a showroom finish — without leaving home?</h3>
+  <p>171+ five-star reviews • Owner-operated • Eco-friendly products • We come to you across Oakland &amp; the Bay Area. Get a custom quote today and see the difference a professional detail makes.</p>
+  <a href="tel:+1-510-756-4995" class="bg-cta-btn">📞 Call (510) 756-4995</a>
+  <a href="https://jnwdetail.fieldd.co/" class="bg-cta-btn bg-cta-btn-outline">Book Online</a>
+  <p style="margin-top: 22px !important; font-size: 14px !important; color: rgba(255,255,255,0.7) !important;">⭐⭐⭐⭐⭐ Trusted by 1,000+ Bay Area drivers since 2022</p>
+</div>
+
+
+<div class="bg-tldr">
+  <h3>◆ TL;DR — Auto Detailing Cost in Oakland, CA</h3>
+  <ul>
+    <li><strong>Basic wash &amp; wax:</strong> $120–$150</li>
+    <li><strong>Standard full detail:</strong> $180–$250 for a typical sedan</li>
+    <li><strong>Interior deep clean:</strong> $150–$350 depending on size &amp; condition</li>
+    <li><strong>Premium full detail:</strong> $300–$600+ for large or heavily soiled vehicles</li>
+    <li><strong>Ceramic coating:</strong> $800–$1,550 including prep and correction</li>
+    <li><strong>Biggest price drivers:</strong> vehicle size and current condition</li>
+    <li><strong>Next step:</strong> Get a custom quote at (510) 756-4995 or book online.</li>
+  </ul>
+</div>
+
+
+<h2 id="faq">Frequently Asked Questions</h2>
+
+<div class="bg-faq-item">
+  <p class="bg-faq-q">How much does a full car detail cost in Oakland?</p>
+  <p class="bg-faq-a">A standard full detail on a typical sedan runs about $180–$250 in Oakland, while a premium full detail on larger or heavily soiled vehicles can reach $300–$600 or more. The exact price depends on your vehicle&#8217;s size and condition.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">Why is detailing more expensive for SUVs and trucks?</p>
+  <p class="bg-faq-a">Larger vehicles have more surface area and interior space, which takes more time, product, and labor to clean and protect properly. That&#8217;s why trucks, SUVs, minivans, and RVs are quoted above sedan pricing.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">How much does interior car detailing cost?</p>
+  <p class="bg-faq-a">Interior detailing typically costs $150–$350, depending on vehicle size and condition. Deep stains, embedded pet hair, and odor removal add to the price because they require extra time and specialized treatment.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">How much does ceramic coating cost in Oakland?</p>
+  <p class="bg-faq-a">A complete professional ceramic coating in Oakland ranges from $800 to $1,550. That includes paint prep, decontamination, paint correction, and a multi-year coating. Larger vehicles fall toward the higher end.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">Is mobile detailing more expensive than a shop?</p>
+  <p class="bg-faq-a">Mobile detailing is priced similarly to shop-based service, but it saves you the trip and wait. A mobile detailer like J&amp;W comes to your home or workplace anywhere in Oakland and the Bay Area, so you don&#8217;t lose time dropping off your vehicle.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">How often should I get my car detailed?</p>
+  <p class="bg-faq-a">Most drivers benefit from a full detail every 3–6 months, with lighter maintenance washes in between. Regular detailing keeps each visit cheaper because contaminants and stains never get the chance to build up.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">Does detailing help my car&#8217;s resale value?</p>
+  <p class="bg-faq-a">Yes. A well-maintained exterior and interior protects paint and upholstery from long-term damage and presents better to buyers, which helps preserve resale value compared to a neglected vehicle.</p>
+</div>
+<div class="bg-faq-item">
+  <p class="bg-faq-q">What areas does J&amp;W Mobile Detailing serve?</p>
+  <p class="bg-faq-a">J&amp;W serves Oakland, Alameda, Berkeley, San Leandro, Piedmont, Orinda, Emeryville, Walnut Creek, and surrounding Bay Area communities — bringing the full detail to your driveway.</p>
+</div>
+
+
+<h2 id="related">Related guides</h2>
+<ul>
+  <li><a href="/ceramic-coating/">Oakland ceramic coating: what it costs and how long it lasts</a></li>
+  <li><a href="/paint-correction/">Paint correction in Oakland: removing swirls and scratches</a></li>
+  <li><a href="/interior-auto-detailing-oakland-california/">Interior auto detailing in Oakland</a></li>
+  <li><a href="/exterior-auto-detailing-oakland-california/">Exterior auto detailing in Oakland</a></li>
+  <li><a href="/rv-wash-and-rv-detailing-oakland-california/">Mobile RV wash and detailing</a></li>
+  <li><a href="/auto-detailing-alameda-ca/">Auto detailing in Alameda, CA</a></li>
+  <li><a href="/auto-detailing-walnut-creek-ca/">Auto detailing in Walnut Creek, CA</a></li>
+</ul>
+
+
+<div class="bg-author-box">
+  <h4>About J&amp;W Mobile Detailing</h4>
+  <p>J&amp;W Mobile Detailing is an owner-operated mobile auto detailing and ceramic coating company founded by Jalil Wren in Oakland in 2022. The team specializes in ceramic coatings, paint correction, and interior and exterior detailing, using eco-friendly, biodegradable products to deliver showroom-quality results at your home or workplace across Oakland and the Bay Area. With 171+ five-star reviews and 1,000+ happy customers, J&amp;W brings the detail to you. Call <a href="tel:+1-510-756-4995">(510) 756-4995</a> or <a href="/contact/">get in touch</a>.</p>
+</div>
+
+</div>
+

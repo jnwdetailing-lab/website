@@ -1,0 +1,16 @@
+# J&W Mobile Detailing — robots.txt
+User-agent: *
+Allow: /
+Disallow: /thank-you/
+
+# AI crawlers welcome (GEO): let them read service + pricing pages
+User-agent: GPTBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://jnwdetailing.com/sitemap-index.xml

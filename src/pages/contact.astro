@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import FielddWidget from '../components/FielddWidget.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icons.astro';
+import { SITE } from '../data/site';
+import { breadcrumbSchema, faqSchema } from '../data/schema';
+
+const path = '/contact/';
+const title = 'Contact & Book | J&W Mobile Detailing Oakland | (510) 756-4995';
+const description =
+  'Book mobile detailing in Oakland & the East Bay: call/text (510) 756-4995, book online 24/7, or request a quote. Open 7 days, 8 AM–8 PM. We come to you.';
+const faqs = [
+  { q: 'What is the fastest way to book?', a: 'Book online at jnwdetail.fieldd.co — pick the service and time, it takes about a minute, and Jalil confirms personally. For questions or odd requests, text or call (510) 756-4995.' },
+  { q: 'Do I need to pay a deposit?', a: 'No. You pay after the walk-around, when you are happy — cash, credit/debit card, Zelle or Venmo.' },
+  { q: 'How far out are you booking?', a: 'Usually within the week, sometimes next day. Ceramic coatings and two-step corrections take a full day so they book 1–2 weeks out in busy months.' },
+  { q: 'What if it rains?', a: 'Interiors go ahead as long as we can work in a garage or under cover. Exteriors and coatings are rescheduled — we will text you the evening before if the forecast is bad, and you never pay for a cancelled visit.' },
+  { q: 'Can I cancel or reschedule?', a: 'Yes — just give us 24 hours\' notice if you can so the slot can go to someone else. No cancellation fee.' },
+];
+const contactSchema = { '@context': 'https://schema.org', '@type': 'ContactPage', url: `${SITE.url}${path}`, mainEntity: { '@id': `${SITE.url}/#business` } };
+const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Contact', href: path }])];
+---
+
+<Base {title} {description} canonical={path} {schema}>
+  <PageHero
+    crumbs={[{ label: 'Contact' }]}
+    eyebrow="Contact & booking"
+    titleHtml="Book a detail, get a quote, or <em>just ask Jalil</em>"
+    text="Three ways, all fast: book online 24/7, call or text, or send the form. We reply personally — usually within the hour during business hours."
+  />
+
+  <section class="section">
+    <div class="container two-col" style="align-items:start">
+      <div>
+        <div class="ways">
+          <a href={SITE.booking} class="way way--primary" target="_blank" rel="noopener">
+            <Icon name="calendar" size={28} />
+            <div><strong>Book online — 24/7</strong><span>Pick service, date & time. ~60 seconds. No deposit.</span></div>
+          </a>
+          <a href={`tel:${SITE.phoneE164}`} class="way">
+            <Icon name="phone" size={28} />
+            <div><strong>Call {SITE.phoneDisplay}</strong><span>{SITE.hours.label}</span></div>
+          </a>
+          <a href={`sms:${SITE.phoneE164}`} class="way">
+            <Icon name="message" size={28} />
+            <div><strong>Text {SITE.phoneDisplay}</strong><span>Send photos for a faster, more accurate quote</span></div>
+          </a>
+          <a href={`mailto:${SITE.email}`} class="way">
+            <Icon name="mail" size={28} />
+            <div><strong>{SITE.email}</strong><span>For fleet, dealer or multi-vehicle inquiries too</span></div>
+          </a>
+          <a href={SITE.social.instagram} class="way" target="_blank" rel="noopener">
+            <Icon name="instagram" size={28} />
+            <div><strong>@jnwdetail on Instagram</strong><span>DMs open · daily before/afters</span></div>
+          </a>
+        </div>
+
+        <div class="nap">
+          <h3>J&W Mobile Detailing</h3>
+          <p><Icon name="pin" size={18} /> Based in Oakland, CA 94606 · <strong>mobile service — we come to you</strong> across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda & Walnut Creek</p>
+          <p><Icon name="clock" size={18} /> {SITE.hours.label}, 7 days a week</p>
+          <p><Icon name="shield" size={18} /> Licensed & insured · Owner-operated since 2022 · Cash, card, Zelle, Venmo</p>
+          <div class="btn-row" style="margin-top:1rem">
+            <a href={SITE.social.google} class="btn btn--sm btn--dark" target="_blank" rel="noopener"><Icon name="google" /> Google profile</a>
+            <a href={SITE.social.yelp} class="btn btn--sm btn--ghost" target="_blank" rel="noopener">Yelp</a>
+            <a href={SITE.social.nextdoor} class="btn btn--sm btn--ghost" target="_blank" rel="noopener">Nextdoor</a>
+            <a href={SITE.social.facebook} class="btn btn--sm btn--ghost" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+      </div>
+      <FielddWidget heading="Get your exact price & book" />
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="map">
+        <iframe
+          title="J&W Mobile Detailing — Oakland, CA service area map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50445.0!2d-122.2711!3d37.8044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d6fb452df51eebd%3A0x27abe75bf3d02297!2sJ%26W%20Mobile%20Detailing%20%E2%80%93%20Ceramic%20Coating%20%26%20Paint%20Correction!5e0!3m2!1sen!2sus!4v1780698036384!5m2!1sen!2sus"
+          width="1200" height="400" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Booking questions" />
+</Base>
+
+<style>
+  .ways { display: grid; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .way { display: flex; gap: 1rem; align-items: center; padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); text-decoration: none !important; transition: border-color 0.15s, transform 0.15s; }
+  .way:hover { border-color: var(--red); transform: translateY(-1px); }
+  .way svg { color: var(--red); flex: none; }
+  .way strong { display: block; font-family: var(--font-display); font-size: 1.25rem; text-transform: uppercase; }
+  .way span { font-size: 0.9rem; color: var(--muted); }
+  .way--primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .way--primary span { color: #b9bec8; }
+  .nap { background: var(--bg-soft); border-radius: var(--radius); padding: 1.5rem; }
+  .nap h3 { margin-bottom: 0.75rem; }
+  .nap p { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.95rem; margin-bottom: 0.6rem; }
+  .nap svg { color: var(--red); flex: none; margin-top: 3px; }
+  .map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); height: 400px; }
+  .map iframe { width: 100%; height: 100%; }
+</style>

@@ -1,0 +1,45 @@
+---
+import type { FAQ } from '../data/site';
+export interface Props { faqs: FAQ[]; heading?: string; eyebrow?: string; open?: number; single?: boolean }
+const { faqs, heading = 'Questions Oakland drivers ask us', eyebrow = 'FAQ', open = 1, single = false } = Astro.props;
+// Note: FAQPage JSON-LD is emitted by the page (via Base schema prop) so it stays in <head>.
+---
+<section class:list={['section', 'faq', { 'faq--single': single, 'section--soft': single }]} id="faq">
+  <div class="container faq__inner">
+    <div class="faq__intro">
+      {!single && <span class="eyebrow">{eyebrow}</span>}
+      <h2>{heading}</h2>
+      <slot name="intro">
+        <p class="lead">Straight answers, no fluff. Don't see yours? <a href="/contact/">Ask us</a> or text (510) 756-4995.</p>
+      </slot>
+    </div>
+    <div class="faq__list">
+      {faqs.map((f, i) => (
+        <details class="faq__item" open={i < open}>
+          <summary><span class="faq__q">{f.q}</span><span class="faq__icon" aria-hidden="true"></span></summary>
+          <div class="faq__a"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .faq__inner { display: grid; grid-template-columns: 0.8fr 1.4fr; gap: 3rem; align-items: start; }
+  .faq--single .faq__inner { grid-template-columns: 1fr; max-width: 720px; gap: 1.25rem; }
+  @media (max-width: 900px) { .faq__inner { grid-template-columns: 1fr; gap: 1.5rem; } }
+  .faq__intro { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+  .faq--single .faq__intro { position: static; }
+  .faq--single .faq__intro p { color: var(--body); font-size: 1rem; }
+  .faq__item { border: 1px solid var(--line); border-radius: 12px; background: #fff; margin-bottom: 0.75rem; overflow: hidden; }
+  .faq__item[open] { border-color: var(--ink); box-shadow: var(--shadow-sm); }
+  .faq__item summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.05rem 1.25rem; }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__q { font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+  .faq__icon { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--bg-soft); position: relative; }
+  .faq__icon::before, .faq__icon::after { content: ''; position: absolute; background: var(--ink); left: 50%; top: 50%; transform: translate(-50%, -50%); transition: transform 0.2s; }
+  .faq__icon::before { width: 12px; height: 2px; }
+  .faq__icon::after { width: 2px; height: 12px; }
+  .faq__item[open] .faq__icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .faq__a { padding: 0 1.25rem 1.2rem; color: var(--body); }
+  .faq__a p { margin: 0; }
+</style>

@@ -1,0 +1,161 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import Icon from '../components/Icons.astro';
+import { SITE } from '../data/site';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/exterior-auto-detailing-oakland-california/';
+const title = 'Exterior Car Detailing Oakland, CA | $120–$250 | J&W Mobile';
+const description =
+  'Mobile exterior car detailing in Oakland: two-bucket hand wash, clay bar & iron decon, wheels & tires, wax or sealant — $120–$250 in your driveway. 4.9★ Google.';
+
+const faqs = [
+  { q: 'How much does exterior detailing cost in Oakland?', a: 'Exterior detailing in Oakland costs $120–$250 with J&W. The Classic wash & wax is $120–$150 for most cars; the Clay & Seal package (full clay bar decontamination plus a paint sealant) is $150–$250 depending on vehicle size. Exact quote before we book.' },
+  { q: 'What is the difference between a car wash and exterior detailing?', a: 'A car wash removes loose dirt. Exterior detailing decontaminates the paint — clay bar for bonded grit, iron remover for embedded brake dust — cleans wheels, tires, wells and trim properly, and finishes with real protection (wax or sealant). The result looks better and lasts months instead of days.' },
+  { q: 'How often should I get an exterior detail in the Bay Area?', a: 'Every 3–4 months for a daily driver in Oakland. Salt air, I-880 brake dust and tree sap bond to paint quickly here; a quarterly clay and seal keeps the clear coat from etching. Ceramic-coated cars can stretch to maintenance washes with a yearly decon.' },
+  { q: 'Will exterior detailing remove scratches and swirl marks?', a: 'No — washing and decontamination clean the paint but do not remove defects in the clear coat. Swirls, light scratches and oxidation are removed by machine polishing, which is our paint correction service. We will tell you honestly if your paint needs it.' },
+  { q: 'How long does an exterior detail take?', a: 'About 1.5 hours for a Classic wash & wax on a sedan, 2–3 hours for Clay & Seal on an SUV or truck.' },
+  { q: 'Do you need my hose or outlet?', a: 'No. We bring our own water and power. Driveway, legal curb spot, office lot or garage — anywhere in Oakland and the East Bay.' },
+  { q: 'Wax or sealant — which should I choose?', a: 'Wax gives a warm gloss for 6–8 weeks. A synthetic paint sealant bonds harder and lasts 4–6 months, which is why our Clay & Seal package uses it. For multi-year protection, step up to a ceramic coating.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Exterior Car Detailing',
+    description: 'Mobile exterior detailing in Oakland and the East Bay: two-bucket hand wash, clay bar and iron decontamination, wheels, tires and trim, protective wax or paint sealant.',
+    path,
+    minPrice: 120,
+    maxPrice: 250,
+    image: '/images/exterior-detailing-oakland.jpg',
+    offers: [
+      { name: 'Classic Exterior Detail', description: 'Two-bucket hand wash, wheels/rims/tires detailed, exterior glass & mirrors, protective wax, tire dressing.' },
+      { name: 'Exterior Detail – Clay & Seal', description: 'Everything in Classic plus full clay bar decontamination, iron removal and a protective paint sealant. Most popular.' },
+    ],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Exterior Detailing', href: path }]),
+];
+
+const steps = [
+  { title: 'Two-bucket hand wash', text: 'Decontamination pre-soak, then a careful two-bucket wash with pH-neutral shampoo and a clean mitt — never automated brushes, never grit dragged across your clear coat.' },
+  { title: 'Decontaminate & clay bar', text: 'Iron remover dissolves embedded brake dust; clay bar pulls tar, sap and industrial fallout off the paint until it feels like glass.' },
+  { title: 'Wheels, tires & trim', text: 'Dedicated brushes and chemicals for baked-on brake dust, fender liners and wheel wells; trim cleaned; tires dressed satin — not greasy.' },
+  { title: 'Protect & inspect', text: 'Wax (Classic) or synthetic paint sealant (Clay & Seal) locks in gloss and shields against UV and grime. Glass streak-free. Walk-around before you pay.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/exterior-detailing-oakland.jpg" preloadImage="/images/exterior-detailing-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Exterior Detailing' }]}
+    eyebrow="Mobile exterior detailing · Oakland & East Bay"
+    titleHtml="Exterior Car Detailing in Oakland — <em>hand-washed, decontaminated, protected</em>. Never a tunnel."
+    text="Two-bucket hand wash, clay bar & iron decontamination, wheels and tires done properly, then wax or a months-long paint sealant — in your driveway, with our own water and power."
+    price="$120 – $250"
+    priceNote="Classic wash & wax → Clay & Seal · 1.5–3 hours"
+    image="/images/exterior-detailing-oakland.jpg"
+    imageAlt="Foam pre-soak on a white sedan during a mobile exterior detail by J&W in Oakland, CA"
+    bullets={['No automated brushes — ever', 'Clay bar + iron remover pulls what washes leave behind', 'Sealant that lasts months, not days']}
+  />
+
+  <section class="section">
+    <div class="container two-col">
+      <div class="prose">
+        <span class="eyebrow">What you get</span>
+        <h2 class="mt-0">Exterior detailing that makes your paint feel like glass again</h2>
+        <p><strong>Exterior detailing in Oakland with J&W costs $120–$250 and takes 1.5–3 hours.</strong> We hand-wash with the two-bucket method, decontaminate the paint with iron remover and clay bar, detail wheels, tires, wells and trim, and finish with wax or a synthetic paint sealant — at your home or office anywhere in Oakland and the East Bay.</p>
+        <p>Run your hand over your hood after a car wash. If it feels gritty, that's bonded contamination — salt from the marine layer, iron from I-880 brake dust, sap from the street trees on Piedmont Avenue — and a wash will never remove it. Clay and iron remover do. Protection then keeps it from re-bonding, which is why our most-booked package is Clay & Seal.</p>
+        <p>Paint with visible swirls or scratches needs more than cleaning: that's <a href="/paint-correction/">paint correction</a>, and we'll tell you honestly if yours needs it.</p>
+      </div>
+      <div class="img-frame"><img src="/images/work-2.jpg" alt="J&W technician finishing a black sedan's paint in an Oakland driveway" width="1376" height="768" loading="lazy" decoding="async" /></div>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="packages">
+    <div class="container">
+      <div class="center" style="margin-bottom:2.5rem">
+        <span class="eyebrow">Exterior packages</span>
+        <h2>Two packages. One of them is the right call.</h2>
+      </div>
+      <div class="grid grid--2 tiers" style="max-width:900px;margin-inline:auto">
+        <div class="tier">
+          <span class="pill">Maintenance</span>
+          <h3>Classic Exterior Detail</h3>
+          <p class="tier__for">For regularly washed cars that need a proper hand wash and fresh protection.</p>
+          <ul class="checklist">
+            <li>Decontamination pre-soak</li>
+            <li>Two-bucket hand wash, microfiber & compressed-air dry</li>
+            <li>Wheels, rims, wheel wells & tires detailed</li>
+            <li>Exterior glass & mirrors</li>
+            <li>Protective wax (6–8 weeks)</li>
+            <li>Tire dressing & shine</li>
+          </ul>
+          <p class="tier__price">$120 – $150</p>
+        </div>
+        <div class="tier tier--featured">
+          <span class="pill pill--dark">Most popular</span>
+          <h3>Exterior Detail — Clay & Seal</h3>
+          <p class="tier__for">For any car that hasn't been decontaminated in 6+ months. The right quarterly detail for the East Bay.</p>
+          <ul class="checklist">
+            <li><strong>Everything in Classic, plus:</strong></li>
+            <li>Full clay bar decontamination — every panel & glass</li>
+            <li>Iron contamination removal</li>
+            <li>Trim cleaned & treated</li>
+            <li>Synthetic paint sealant (4–6 months of protection)</li>
+            <li>Door jambs wiped</li>
+          </ul>
+          <p class="tier__price">$150 – $250</p>
+        </div>
+      </div>
+      <p class="center" style="margin-top:1.5rem;color:var(--muted);font-size:0.95rem">Bundle with an <a href="/interior-auto-detailing-oakland-california/">interior detail</a> for a full detail ($180–$600+). Add-ons: headlight restoration · engine bay · trim restoration.</p>
+      <div class="center" style="margin-top:1.5rem">
+        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book an exterior detail</a>
+        <p class="fud" style="justify-content:center"><Icon name="check" /> Exact quote before we book · No deposit · We come to you</p>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="Four stages, same order, every car" eyebrow="How we do it" />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Oakland-specific</span>
+      <h2 class="mt-0">Why East Bay paint needs decontamination, not just washing</h2>
+      <p>Bay Area cars pick up three things fast: salt-carrying marine air off the estuary and the Bay, a fine layer of iron-rich brake dust from stop-and-go traffic on I-880, I-580 and Highway 24, and sap and berry drop from Oakland's street trees. All three etch into unprotected clear coat within weeks — which is why the clay and sealant steps matter more here than in a dry inland climate, and why we recommend a Clay & Seal every 3–4 months for daily drivers parked outside in Rockridge, Temescal, Grand Lake or Alameda.</p>
+      <p>Want protection that lasts years instead of months? A <a href="/ceramic-coating/">ceramic coating</a> ($800–$1,550) includes all of this decontamination plus paint correction, and means you never wax again.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What Oakland drivers say about the finish" />
+  <Faq faqs={faqs} heading="Exterior detailing questions, answered" />
+
+  <section class="section section--soft">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Get a quote</span>
+        <h2>Tell us the vehicle. We'll tell you the price.</h2>
+        <p class="lead">Year, make, model and when it was last detailed — that's all we need to quote Classic vs. Clay & Seal, usually within the hour.</p>
+        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Or book straight into the calendar</a>
+      </div>
+      <QuoteForm heading="Exterior detail quote" />
+    </div>
+  </section>
+
+  <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
+  <CtaBand title="Paint that feels like glass — without leaving the house." />
+</Base>
+
+<style>
+  .tier { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .tier--featured { border: 2px solid var(--red); box-shadow: var(--shadow); }
+  .tier h3 { margin: 0.5rem 0 0; font-size: 1.6rem; }
+  .tier__for { color: var(--muted); font-size: 0.95rem; }
+  .tier .checklist { font-size: 0.95rem; }
+  .tier__price { margin-top: auto; font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: var(--ink); }
+</style>

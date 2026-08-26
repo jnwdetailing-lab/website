@@ -1,0 +1,60 @@
+---
+import { SITE, SERVICES } from '../data/site';
+import Icon from './Icons.astro';
+export interface Props { compact?: boolean; heading?: string }
+const { compact = false, heading = 'Get your exact price in minutes' } = Astro.props;
+---
+<!--
+  Form posts to Netlify Forms when hosted on Netlify (data-netlify). On Vercel/Cloudflare,
+  swap the action for a Formspree/Basin endpoint or a serverless function. See README.
+-->
+<form
+  class:list={['qform', { 'qform--compact': compact }]}
+  name="quote"
+  method="POST"
+  action="/thank-you/"
+  data-netlify="true"
+  netlify-honeypot="company"
+  id="quote-form"
+>
+  <input type="hidden" name="form-name" value="quote" />
+  <p class="hp"><label>Company <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+  <h3>{heading}</h3>
+  <p class="qform__sub">Tell us about your vehicle — Jalil replies personally, usually within the hour during business hours.</p>
+  <div class="qform__grid">
+    <label><span>Name</span><input name="name" type="text" required autocomplete="name" placeholder="Your name" /></label>
+    <label><span>Phone</span><input name="phone" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(510) 555-0123" /></label>
+    <label><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="you@email.com" /></label>
+    <label><span>City / ZIP</span><input name="city" type="text" autocomplete="postal-code" placeholder="Oakland 94606" /></label>
+    <label><span>Vehicle</span><input name="vehicle" type="text" placeholder="2021 Toyota RAV4, black" /></label>
+    <label><span>Service</span>
+      <select name="service" required>
+        <option value="">Select a service…</option>
+        {SERVICES.map((s) => <option value={s.name}>{s.name} — {s.price}</option>)}
+        <option value="Full Detail (Interior + Exterior)">Full Detail (Interior + Exterior)</option>
+        <option value="Not sure — recommend for me">Not sure — recommend for me</option>
+      </select>
+    </label>
+    <label class="full"><span>Anything we should know? <small>(pet hair, stains, swirls, parking situation)</small></span><textarea name="notes" rows="3" placeholder="Optional"></textarea></label>
+  </div>
+  <label class="qform__consent"><input type="checkbox" name="sms_consent" value="yes" required /> <span>I agree to be contacted by {SITE.name} by phone, text or email about my quote. Message/data rates may apply. See our <a href="/privacy-policy/">privacy policy</a>.</span></label>
+  <button type="submit" class="btn btn--primary btn--lg"><Icon name="arrow" /> Get my free quote</button>
+  <p class="fud"><Icon name="check" /> No obligation · No spam · Or just call/text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></p>
+</form>
+<style>
+  .qform { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+  .qform h3 { margin-bottom: 0.25rem; }
+  .qform__sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .qform__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
+  .qform--compact .qform__grid { grid-template-columns: 1fr; }
+  @media (max-width: 560px) { .qform__grid { grid-template-columns: 1fr; } }
+  .qform label { display: grid; gap: 0.3rem; font-size: 0.88rem; font-weight: 600; color: var(--ink); }
+  .qform label small { font-weight: 400; color: var(--muted); }
+  .qform label.full { grid-column: 1 / -1; }
+  .qform input, .qform select, .qform textarea { font: inherit; font-size: 1rem; padding: 0.75rem 0.9rem; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; color: var(--ink); width: 100%; }
+  .qform input:focus, .qform select:focus, .qform textarea:focus { border-color: var(--red); outline: none; box-shadow: 0 0 0 3px rgba(225,29,42,0.15); }
+  .qform__consent { display: flex !important; gap: 0.6rem; align-items: flex-start; font-size: 0.8rem !important; font-weight: 400 !important; color: var(--muted) !important; margin: 1rem 0; }
+  .qform__consent input { width: auto; margin-top: 3px; }
+  .qform .btn { width: 100%; }
+  .hp { position: absolute; left: -9999px; }
+</style>

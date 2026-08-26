@@ -1,0 +1,84 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icons.astro';
+import { SITE } from '../../data/site';
+import { articleSchema, breadcrumbSchema } from '../../data/schema';
+import meta from '../../content/blog/meta.json';
+
+export async function getStaticPaths() {
+  const files = import.meta.glob('../../content/blog/*.html', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+  return meta.map((m) => ({
+    params: { slug: m.slug },
+    props: { ...m, html: files[`../../content/blog/${m.slug}.html`] },
+  }));
+}
+const { slug, title: postTitle, date, html } = Astro.props as { slug: string; title: string; date: string; html: string };
+const path = `/blog/${slug}/`;
+
+const seo: Record<string, { title: string; description: string; image: string }> = {
+  'whats-included-in-a-full-detailing-service': {
+    title: "What's Included in a Full Detail? Checklist, Time & Oakland Cost",
+    description: 'A full detail = two-bucket wash, clay, wheels, wax/sealant + interior vacuum, steam, shampoo, leather. 3–7 hours, $180–$600+ in Oakland. The full checklist.',
+    image: '/images/exterior-detailing-oakland.jpg',
+  },
+  'what-does-ceramic-coating-cost-in-oakland-ca': {
+    title: 'Ceramic Coating Cost in Oakland, CA (2026): $800–$1,550 Explained',
+    description: 'Ceramic coating in Oakland costs $800–$1,550 complete — sedan $800–1,000, mid SUV $1,000–1,250, large SUV/truck $1,250–1,550 — incl. prep & correction.',
+    image: '/images/blog/compressed-watermarked_img_17093029742238375971.jpg',
+  },
+  'what-does-auto-detailing-cost-in-oakland-ca': {
+    title: 'Auto Detailing Cost in Oakland, CA (2026 Price Guide) | J&W',
+    description: 'Oakland detailing prices: wash & wax $120–$150, full detail $180–$250, premium $300–$600+, interior $150–$350, paint correction $250–$800+, ceramic $800–$1,550.',
+    image: '/images/blog/car-detailing-cost-in-oakland-featured-image.jpg',
+  },
+};
+const s = seo[slug];
+const schema = [
+  articleSchema({ title: postTitle, path, date, image: s.image, description: s.description }),
+  breadcrumbSchema([{ label: 'Blog', href: '/blog/' }, { label: postTitle, href: path }]),
+];
+const fmt = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<Base title={s.title} description={s.description} canonical={path} {schema} ogImage={s.image}>
+  <article class="post">
+    <header class="post__head">
+      <div class="container">
+        <Breadcrumbs items={[{ label: 'Blog', href: '/blog/' }, { label: postTitle }]} light />
+        <h1>{postTitle}</h1>
+        <p class="post__meta">By <a href="/about-us/">{SITE.founder}</a>, founder of J&W Mobile Detailing · Updated {fmt} · Oakland, CA</p>
+      </div>
+    </header>
+    <div class="container post__body">
+      <img class="post__hero" src={s.image} alt={postTitle} width="1376" height="768" fetchpriority="high" decoding="async" />
+      <div set:html={html} />
+      <aside class="author">
+        <img src="/images/jalil-owner-jw-mobile-detailing-oakland.jpg" alt="Jalil Wren, founder of J&W Mobile Detailing" width="96" height="96" loading="lazy" />
+        <div>
+          <strong>About the author</strong>
+          <p>{SITE.founder} founded J&W Mobile Detailing in Oakland in 2022 and still details every car the company takes on. Ceramic coatings, paint correction, interiors — 1,000+ East Bay vehicles and a 4.9★ Google rating.</p>
+          <div class="btn-row"><a href={SITE.booking} class="btn btn--primary btn--sm" target="_blank" rel="noopener"><Icon name="calendar" /> Book online</a><a href="/about-us/" class="btn btn--ghost btn--sm">About J&W</a></div>
+        </div>
+      </aside>
+    </div>
+  </article>
+  <CtaBand />
+</Base>
+
+<style is:global>
+  .post__head { background: linear-gradient(160deg, #171a20, var(--ink)); color: #d7dae0; padding: 2.5rem 0 3rem; }
+  .post__head h1 { color: #fff; font-size: clamp(2rem, 4.5vw, 3.4rem); max-width: 24ch; }
+  .post__meta { color: #b9bec8; margin: 0; }
+  .post__meta a { color: #fff; }
+  .post__body { max-width: 860px; padding-top: 2rem; padding-bottom: 3rem; }
+  .post__hero { border-radius: var(--radius); margin-bottom: 2rem; box-shadow: var(--shadow); }
+  .author { display: flex; gap: 1.25rem; align-items: flex-start; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; margin-top: 3rem; }
+  .author img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; flex: none; }
+  .author strong { font-family: var(--font-display); text-transform: uppercase; font-size: 1.1rem; color: var(--ink); }
+  .author p { margin: 0.35rem 0 0.8rem; font-size: 0.95rem; color: var(--muted); }
+  /* The imported post HTML carries its own scoped CSS; make sure images never overflow */
+  .post__body img { max-width: 100%; height: auto; }
+  @media (max-width: 560px) { .author { flex-direction: column; } }
+</style>

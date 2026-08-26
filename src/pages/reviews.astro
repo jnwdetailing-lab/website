@@ -1,0 +1,92 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icons.astro';
+import { SITE, REVIEWS } from '../data/site';
+import { breadcrumbSchema, reviewSchema } from '../data/schema';
+
+const path = '/reviews/';
+const title = 'J&W Mobile Detailing Reviews | 4.9★ on Google | Oakland, CA';
+const description =
+  'Read verbatim Google reviews of J&W Mobile Detailing — 4.9 stars from 220+ Oakland & East Bay drivers on interior, exterior, paint correction & ceramic coating.';
+const schema = [...reviewSchema(REVIEWS.slice(0, 8)), breadcrumbSchema([{ label: 'Reviews', href: path }])];
+const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
+---
+
+<Base {title} {description} canonical={path} {schema}>
+  <PageHero
+    crumbs={[{ label: 'Reviews' }]}
+    eyebrow="Customer reviews"
+    titleHtml={`<em>${SITE.rating.value} stars</em> from ${SITE.rating.count} Oakland & East Bay drivers`}
+    text="Every review below is a real, verbatim Google review from a J&W customer — name attached, verifiable on our Google Business Profile. 216 of 223 are five stars. Read what they say about the work, the communication and the results, then book your own."
+    image="/images/work-2.jpg"
+    imageAlt="Jalil applying ceramic coating to a black sedan at a customer's home in Oakland"
+    ctaLabel="Book Online"
+  />
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="score">
+        <div class="score__num">{SITE.rating.value}</div>
+        <div>
+          <span class="stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={22} />)}</span>
+          <p><strong>{SITE.rating.count} reviews on Google</strong> · 216 five-star · also rated on <a href={SITE.social.yelp} target="_blank" rel="noopener">Yelp</a> and <a href={SITE.social.nextdoor} target="_blank" rel="noopener">Nextdoor</a></p>
+        </div>
+        <div class="score__actions">
+          <a href={SITE.social.google} class="btn btn--dark" target="_blank" rel="noopener"><Icon name="google" /> Read all on Google</a>
+          <a href={SITE.social.googleReview} class="btn btn--ghost" target="_blank" rel="noopener">Leave a review</a>
+        </div>
+      </div>
+
+      <div class="rgrid">
+        {REVIEWS.map((r) => (
+          <article class="review">
+            <div class="review__top">
+              <div class="review__avatar" aria-hidden="true">{initials(r.name)}</div>
+              <div>
+                <div class="review__name">{r.name}</div>
+                <div class="review__meta"><span class="stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={14} />)}</span><span>Google{r.date ? ` · ${r.date}` : ''}</span></div>
+              </div>
+              {r.service && <span class="pill">{r.service}</span>}
+            </div>
+            <p>“{r.text}”</p>
+          </article>
+        ))}
+      </div>
+      <p class="center" style="margin-top:2rem;color:var(--muted)">Showing a selection. All {SITE.rating.count} reviews, including the critical ones, are on our <a href={SITE.social.google} target="_blank" rel="noopener">Google Business Profile</a>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">What people mention most</span>
+      <h2 class="mt-0">Three things come up in almost every review</h2>
+      <ul>
+        <li><strong>Communication and scheduling.</strong> “Contacted and scheduled me quickly,” “super easy through their site on my phone,” “very communicative.” Booking is online in about a minute, and Jalil confirms personally.</li>
+        <li><strong>Results on paint and interiors.</strong> “Brought my paint back — looks like a brand new car,” “sparkling and spotless inside and out,” “super glossy.”</li>
+        <li><strong>The mobile part actually working.</strong> “They come to you, they don't need a power hookup or water hookup, and they do a great job.”</li>
+      </ul>
+      <p>Had a detail with us? A review with the service you booked (interior, ceramic coating, paint correction…) helps the next Oakland driver know what to expect — <a href={SITE.social.googleReview} target="_blank" rel="noopener">leave it here</a>. Not happy with something? <a href={`tel:${SITE.phoneE164}`}>Call Jalil first</a> — we fix it.</p>
+    </div>
+  </section>
+
+  <CtaBand title="Ready to write the next one?" />
+</Base>
+
+<style>
+  .score { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem; }
+  .score__num { font-family: var(--font-display); font-size: 4rem; font-weight: 800; color: var(--ink); line-height: 1; }
+  .score p { margin: 0.25rem 0 0; color: var(--muted); }
+  .score__actions { margin-left: auto; display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .rgrid { columns: 3; column-gap: 1.25rem; }
+  @media (max-width: 1000px) { .rgrid { columns: 2; } }
+  @media (max-width: 640px) { .rgrid { columns: 1; } }
+  .review { break-inside: avoid; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.35rem; margin-bottom: 1.25rem; box-shadow: var(--shadow-sm); }
+  .review p { margin: 0.9rem 0 0; }
+  .review__top { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; }
+  .review__avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-weight: 700; flex: none; }
+  .review__name { font-weight: 700; color: var(--ink); }
+  .review__meta { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--muted); }
+  .review__top .pill { margin-left: auto; }
+</style>
