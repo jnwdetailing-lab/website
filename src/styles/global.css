@@ -183,3 +183,9 @@ td.price { font-family: var(--font-display); font-weight: 800; font-size: 1.15re
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Secondary "book instantly" link that sits under a primary Get Quote CTA.
+   Deliberately quiet so the quote form stays the obvious action. */
+.alt-book { margin-top: 0.9rem; font-size: 0.88rem; }
+.alt-book a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.alt-book a:hover { color: var(--ink); }

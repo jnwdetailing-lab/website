@@ -1,14 +1,15 @@
 ---
-import { SITE } from '../data/site';
+import { SITE, CTA } from '../data/site';
 import Icon from './Icons.astro';
-const isHome = Astro.url.pathname === '/';
-const bookHref = isHome ? '#book' : SITE.booking;
+const path = Astro.url.pathname;
+const NO_QUOTE = ['/404', '/thank-you', '/privacy-policy', '/terms-conditions'];
+const bookHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.href;
 ---
 <!-- Mobile-only sticky action bar: call / text / book. Hides while the booking card is in view. -->
 <div class="sticky-cta" id="stickyCta" role="region" aria-label="Quick actions">
   <a href={`tel:${SITE.phoneE164}`}><Icon name="phone" size={20} /><span>Call</span></a>
   <a href={`sms:${SITE.phoneE164}`}><Icon name="message" size={20} /><span>Text</span></a>
-  <a href={bookHref} class="book" data-scroll-book rel={isHome ? undefined : 'noopener'}><Icon name="calendar" size={20} /><span>Get Price & Book</span></a>
+  <a href={bookHref} class="book" data-scroll-book><Icon name="calendar" size={20} /><span>{CTA.label}</span></a>
 </div>
 <style>
   .sticky-cta { display: none; }

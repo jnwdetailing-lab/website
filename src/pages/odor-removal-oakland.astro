@@ -8,7 +8,7 @@ import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import Icon from '../components/Icons.astro';
-import { SITE } from '../data/site';
+import { SITE, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/odor-removal-oakland/';
@@ -77,8 +77,8 @@ const steps = [
       <h2 class="mt-0">What odor removal costs</h2>
       <p>Ozone treatment is an add-on to an <a href="/interior-auto-detailing-oakland-california/">interior detail</a> because the cleaning is what removes the source. Light odors (food, mild pet) pair with Deep Shampoo; smoke, urine and mildew usually need the Diamond Reset (sanitization, headliner, leather) plus ozone. Interior details run <strong>$150–$350</strong> by vehicle size and condition; the ozone add-on is quoted with it. Tell us what the smell is and how long it's been there and we'll give you an exact price.</p>
       <div class="btn-row">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book odor removal</a>
-        <a href="#quote" class="btn btn--ghost">Get a quote</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
+        <a href={CTA.href} class="btn btn--ghost" data-scroll-book>{CTA.label}</a>
       </div>
     </div>
   </section>
@@ -92,7 +92,7 @@ const steps = [
         <span class="eyebrow">Get a quote</span>
         <h2>Tell us what it smells like and how long it's been there.</h2>
         <p class="lead">That — plus the vehicle — is enough for an honest answer about what it will take and what it costs.</p>
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Or book straight into the calendar</a>
+        <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
       </div>
       <QuoteForm heading="Odor removal quote" />
     </div>

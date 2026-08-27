@@ -2,8 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import QuoteSection from '../../components/QuoteSection.astro';
 import Icon from '../../components/Icons.astro';
-import { SITE } from '../../data/site';
+import { SITE, CTA } from '../../data/site';
 import { articleSchema, breadcrumbSchema } from '../../data/schema';
 import meta from '../../content/blog/meta.json';
 
@@ -59,11 +60,12 @@ const fmt = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'l
         <div>
           <strong>About the author</strong>
           <p>{SITE.founder} founded J&W Mobile Detailing in Oakland in 2022 and still details every car the company takes on. Ceramic coatings, paint correction, interiors — 1,000+ East Bay vehicles and a 4.9★ Google rating.</p>
-          <div class="btn-row"><a href={SITE.booking} class="btn btn--primary btn--sm" target="_blank" rel="noopener"><Icon name="calendar" /> Book online</a><a href="/about-us/" class="btn btn--ghost btn--sm">About J&W</a></div>
+          <div class="btn-row"><a href={CTA.href} class="btn btn--primary btn--sm" data-scroll-book><Icon name="calendar" /> {CTA.label}</a><a href="/about-us/" class="btn btn--ghost btn--sm">About J&W</a></div>
         </div>
       </aside>
     </div>
   </article>
+  <QuoteSection />
   <CtaBand />
 </Base>
 

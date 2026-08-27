@@ -1,11 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icons.astro';
-import FielddWidget from '../components/FielddWidget.astro';
+import QuoteForm from '../components/QuoteForm.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE, SERVICES, REVIEWS, HOME_FAQS } from '../data/site';
+import { SITE, SERVICES, REVIEWS, HOME_FAQS, CTA } from '../data/site';
 
 const title = 'Mobile Car Detailing Oakland, CA | J&W Mobile Detailing';
 const description =
@@ -19,7 +19,6 @@ const faqSchema = {
 
 const pick = (name: string) => REVIEWS.find((r) => r.name === name)!;
 const reviews = [pick('Luis Carranza'), pick('Roo Sczesnak'), pick('Lorie Curtis')];
-const CTA = 'Get My Price & Book';
 const stars = Array.from({ length: 5 });
 ---
 
@@ -34,7 +33,7 @@ const stars = Array.from({ length: 5 });
           <span class="stars" role="img" aria-label="5 stars">{stars.map(() => <Icon name="star" size={18} />)}</span>
           <span><strong>4.9</strong> · {SITE.rating.count} Google reviews</span>
         </a>
-        <a href="#book" class="btn btn--primary btn--lg hero__cta" data-scroll-book>{CTA}</a>
+        <a href="#book" class="btn btn--primary btn--lg hero__cta" data-scroll-book>{CTA.label}</a>
         <p class="hero__alt">or call / text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></p>
         <p class="fud"><Icon name="check" /> Exact price before you book · No deposit · Same-week slots · You inspect before you pay</p>
         <blockquote class="hero__quote hero__quote--mobile">
@@ -54,11 +53,11 @@ const stars = Array.from({ length: 5 });
             </div>
           </div>
           <ol class="book__steps">
-            <li><b>1</b> Pick service & time</li>
-            <li><b>2</b> We come to you</li>
-            <li><b>3</b> Inspect, then pay</li>
+            <li><b>1</b> Tell us your vehicle</li>
+            <li><b>2</b> Get your exact price</li>
+            <li><b>3</b> We come to you</li>
           </ol>
-          <FielddWidget bare />
+          <QuoteForm bare compact />
         </section>
         <blockquote class="hero__quote hero__quote--desktop">
           <p>“You can stop looking — this is the shop you want. They come to you, they don't need a power hookup or water hookup, and they do a great job!”</p>
@@ -153,7 +152,7 @@ const stars = Array.from({ length: 5 });
   </section>
 
   <!-- ============ 8. CLOSING BAND ============ -->
-  <CtaBand variant="dark" title="Ready for a showroom finish — without leaving home?" text="Exact price in 60 seconds. No deposit. We come to you anywhere in Oakland & the East Bay." href="#book" label={CTA} />
+  <CtaBand variant="dark" title="Ready for a showroom finish — without leaving home?" text="Exact price in 60 seconds. No deposit. We come to you anywhere in Oakland & the East Bay." href="#book" label={CTA.label} />
 </Base>
 
 <style>

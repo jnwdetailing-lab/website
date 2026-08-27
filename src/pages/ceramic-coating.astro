@@ -8,7 +8,7 @@ import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import Icon from '../components/Icons.astro';
-import { SITE } from '../data/site';
+import { SITE, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/ceramic-coating/';
@@ -64,7 +64,6 @@ const steps = [
     priceNote="complete · incl. decontamination & correction · 2026 pricing"
     image="/images/ceramic-coating-oakland.jpg"
     imageAlt="Ceramic coating being poured onto an applicator pad before a mobile application in Oakland, CA"
-    ctaLabel="Book Ceramic Coating"
     bullets={['~3 years of protection — one coating ≈ 20 wax jobs', 'Correction included: the coating seals a flawless finish', 'Hydrophobic: water, dirt & dust slide off; every wash is easier']}
   />
 
@@ -89,8 +88,8 @@ const steps = [
         </div>
         <p style="font-size:0.95rem;color:var(--muted)">A quote far below $800 usually means the decontamination and correction are being skipped — and prep is the whole ballgame. Full breakdown in our <a href="/blog/what-does-ceramic-coating-cost-in-oakland-ca/">Oakland ceramic coating cost guide</a>.</p>
         <div class="btn-row">
-          <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book ceramic coating</a>
-          <a href="#quote" class="btn btn--ghost">Get my exact price</a>
+          <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
+          <a href={CTA.href} class="btn btn--ghost" data-scroll-book>{CTA.label}</a>
         </div>
       </div>
       <div>
@@ -137,7 +136,7 @@ const steps = [
         </div>
       </div>
       <div class="center" style="margin-top:2rem">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book ceramic coating</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
         <p class="fud" style="justify-content:center"><Icon name="check" /> Exact quote by vehicle before booking · No deposit · Applied at your home</p>
       </div>
     </div>
@@ -174,7 +173,7 @@ const steps = [
         <span class="eyebrow">Get your exact price</span>
         <h2>Tell us year, make, model and color. We'll quote Silver vs. Gold.</h2>
         <p class="lead">If you can, add a photo of the paint in sunlight so we can see the swirl level. Quotes usually go out within the hour during business hours.</p>
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Or book straight into the calendar</a>
+        <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
       </div>
       <QuoteForm heading="Ceramic coating quote" />
     </div>

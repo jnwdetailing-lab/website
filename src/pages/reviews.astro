@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
 import Icon from '../components/Icons.astro';
 import { SITE, REVIEWS } from '../data/site';
 import { breadcrumbSchema, reviewSchema } from '../data/schema';
@@ -22,7 +23,6 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
     text="Every review below is a real, verbatim Google review from a J&W customer — name attached, verifiable on our Google Business Profile. 216 of 223 are five stars. Read what they say about the work, the communication and the results, then book your own."
     image="/images/work-2.jpg"
     imageAlt="Jalil applying ceramic coating to a black sedan at a customer's home in Oakland"
-    ctaLabel="Book Online"
   />
 
   <section class="section section--soft">
@@ -71,6 +71,7 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
     </div>
   </section>
 
+  <QuoteSection />
   <CtaBand title="Ready to write the next one?" />
 </Base>
 

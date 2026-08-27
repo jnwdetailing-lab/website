@@ -6,7 +6,7 @@ import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icons.astro';
-import { SITE, AREAS } from '../data/site';
+import { SITE, AREAS, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema } from '../data/schema';
 
 const path = '/service-areas/';
@@ -62,7 +62,7 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Service Areas', hre
             <p class="area__note"><strong>Good to know:</strong> {extra[a.city].note}</p>
             <p class="area__hoods"><strong>Neighborhoods:</strong> {extra[a.city].local.join(' · ')}</p>
             <div class="btn-row">
-              <a href={SITE.booking} class="btn btn--primary btn--sm" target="_blank" rel="noopener">Book in {a.city}</a>
+              <a href={CTA.href} class="btn btn--primary btn--sm" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
               <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost btn--sm">Call</a>
             </div>
           </article>
@@ -96,7 +96,7 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Service Areas', hre
   <Reviews limit={3} />
   <Faq faqs={faqs} heading="Service area questions" />
 
-  <section class="section">
+  <section class="section" id="quote">
     <div class="container two-col">
       <div>
         <span class="eyebrow">Get a quote</span>

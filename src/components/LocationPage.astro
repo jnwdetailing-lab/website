@@ -8,7 +8,7 @@ import Reviews from './Reviews.astro';
 import CtaBand from './CtaBand.astro';
 import QuoteForm from './QuoteForm.astro';
 import Icon from './Icons.astro';
-import { SITE, type FAQ } from '../data/site';
+import { SITE, type FAQ, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 export interface Props {
@@ -83,7 +83,7 @@ const schema = [
         </>
       ))}
       <div class="btn-row" style="margin-top:1.5rem">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book in {p.city}</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
         <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
       </div>
     </div>
@@ -92,13 +92,13 @@ const schema = [
   <Reviews limit={3} heading={`What East Bay drivers say about J&W`} />
   <Faq faqs={p.faqs} heading={`${p.city} detailing questions`} />
 
-  <section class="section">
+  <section class="section" id="quote">
     <div class="container two-col">
       <div>
         <span class="eyebrow">Get a quote in {p.city}</span>
         <h2>Tell us the vehicle and your {p.city} address. We'll send an exact price.</h2>
         <p class="lead">Quotes usually go out within the hour during business hours ({SITE.hours.label}). Or book a slot straight into the calendar.</p>
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book Online</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
       </div>
       <QuoteForm heading={`${p.city} detailing quote`} />
     </div>

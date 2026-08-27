@@ -8,7 +8,7 @@ import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import Icon from '../components/Icons.astro';
-import { SITE } from '../data/site';
+import { SITE, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/paint-correction/';
@@ -95,7 +95,7 @@ const steps = [
       </div>
       <p style="margin-top:1rem;color:var(--muted);font-size:0.95rem">Every correction includes: detailed hand wash · clay bar on all surfaces · iron contamination removal · tires and rims cleaned & dressed · removal of compound residue · sealant or wax protection. Prices vary by vehicle size and paint condition — exact quote after we see photos or the car.</p>
       <div class="center" style="margin-top:1.5rem">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book paint correction</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
         <p class="fud" style="justify-content:center"><Icon name="check" /> Free paint assessment · No deposit · We come to you</p>
       </div>
     </div>
@@ -115,13 +115,13 @@ const steps = [
   <Reviews limit={3} filterService="Paint Correction" heading="Before-and-after reactions from Oakland drivers" />
   <Faq faqs={faqs} heading="Paint correction questions, answered" />
 
-  <section class="section section--soft">
+  <section class="section section--soft" id="quote">
     <div class="container two-col">
       <div>
         <span class="eyebrow">Get a quote</span>
         <h2>Send two photos of your paint in the sun. We'll tell you one-step or two.</h2>
         <p class="lead">Year, make, color and a couple of photos showing the swirls or scratches — that's enough for an honest assessment and a real price.</p>
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Or book straight into the calendar</a>
+        <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
       </div>
       <QuoteForm heading="Paint correction quote" />
     </div>

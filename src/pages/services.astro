@@ -7,7 +7,7 @@ import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import Icon from '../components/Icons.astro';
-import { SITE, ADDONS } from '../data/site';
+import { SITE, ADDONS, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema } from '../data/schema';
 
 const path = '/services/';
@@ -62,7 +62,7 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Services', href: pa
         </table>
       </div>
       <div class="center" style="margin-top:1.5rem">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book online</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
         <p class="fud" style="justify-content:center"><Icon name="check" /> Exact quote before booking · No deposit · Pay after the walk-around</p>
       </div>
     </div>
@@ -85,13 +85,13 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Services', href: pa
   <Reviews limit={3} />
   <Faq faqs={faqs} heading="Choosing a service — common questions" />
 
-  <section class="section section--soft">
+  <section class="section section--soft" id="quote">
     <div class="container two-col">
       <div>
         <span class="eyebrow">Not sure what you need?</span>
         <h2>Send us a couple of photos. We'll tell you straight.</h2>
         <p class="lead">Whether a Classic covers it or the car needs the deeper tier — free quote, no pressure, and we come to you.</p>
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book online</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
       </div>
       <QuoteForm />
     </div>

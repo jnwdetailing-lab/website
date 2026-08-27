@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE, SERVICES } from '../data/site';
+import { SITE, SERVICES, CTA } from '../data/site';
 ---
 <Base title="Page not found | J&W Mobile Detailing" description="That page moved or doesn't exist. Find services, pricing and booking for mobile detailing in Oakland." canonical="/404/" noindex>
   <section class="section">
@@ -11,7 +11,7 @@ import { SITE, SERVICES } from '../data/site';
       <div class="btn-row" style="justify-content:center;margin-bottom:2rem">
         <a href="/" class="btn btn--dark">Home</a>
         <a href="/services/" class="btn btn--ghost">Services & pricing</a>
-        <a href={SITE.booking} class="btn btn--primary" target="_blank" rel="noopener">Book online</a>
+        <a href={CTA.hrefHome} class="btn btn--primary">{CTA.label}</a>
       </div>
       <ul style="list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:0.5rem 1.25rem;justify-content:center">
         {SERVICES.map((s) => <li><a href={s.slug}>{s.name}</a></li>)}

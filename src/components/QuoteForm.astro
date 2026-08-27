@@ -1,15 +1,17 @@
 ---
-import { SITE, SERVICES } from '../data/site';
+import { SITE, SERVICES, CTA } from '../data/site';
 import Icon from './Icons.astro';
-export interface Props { compact?: boolean; heading?: string }
-const { compact = false, heading = 'Get your exact price in minutes' } = Astro.props;
+export interface Props { compact?: boolean; heading?: string; bare?: boolean }
+// `bare` drops the heading and the card chrome — for slots that already have both
+// (e.g. the home hero card, which supplies its own <h2> and border).
+const { compact = false, heading = 'Get your exact price in minutes', bare = false } = Astro.props;
 ---
 <!--
   Form posts to Netlify Forms when hosted on Netlify (data-netlify). On Vercel/Cloudflare,
   swap the action for a Formspree/Basin endpoint or a serverless function. See README.
 -->
 <form
-  class:list={['qform', { 'qform--compact': compact }]}
+  class:list={['qform', { 'qform--compact': compact, 'qform--bare': bare }]}
   name="quote"
   method="POST"
   action="/thank-you/"
@@ -19,7 +21,7 @@ const { compact = false, heading = 'Get your exact price in minutes' } = Astro.p
 >
   <input type="hidden" name="form-name" value="quote" />
   <p class="hp"><label>Company <input name="company" tabindex="-1" autocomplete="off" /></label></p>
-  <h3>{heading}</h3>
+  {!bare && <h3>{heading}</h3>}
   <p class="qform__sub">Tell us about your vehicle — Jalil replies personally, usually within the hour during business hours.</p>
   <div class="qform__grid">
     <label><span>Name</span><input name="name" type="text" required autocomplete="name" placeholder="Your name" /></label>
@@ -38,11 +40,13 @@ const { compact = false, heading = 'Get your exact price in minutes' } = Astro.p
     <label class="full"><span>Anything we should know? <small>(pet hair, stains, swirls, parking situation)</small></span><textarea name="notes" rows="3" placeholder="Optional"></textarea></label>
   </div>
   <label class="qform__consent"><input type="checkbox" name="sms_consent" value="yes" required /> <span>I agree to be contacted by {SITE.name} by phone, text or email about my quote. Message/data rates may apply. See our <a href="/privacy-policy/">privacy policy</a>.</span></label>
-  <button type="submit" class="btn btn--primary btn--lg"><Icon name="arrow" /> Get my free quote</button>
+  <button type="submit" class="btn btn--primary btn--lg"><Icon name="arrow" /> {CTA.label}</button>
   <p class="fud"><Icon name="check" /> No obligation · No spam · Or just call/text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></p>
+  <p class="qform__book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} →</a></p>
 </form>
 <style>
   .qform { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+  .qform--bare { border: 0; padding: 0; box-shadow: none; background: transparent; }
   .qform h3 { margin-bottom: 0.25rem; }
   .qform__sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
   .qform__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
@@ -56,5 +60,9 @@ const { compact = false, heading = 'Get your exact price in minutes' } = Astro.p
   .qform__consent { display: flex !important; gap: 0.6rem; align-items: flex-start; font-size: 0.8rem !important; font-weight: 400 !important; color: var(--muted) !important; margin: 1rem 0; }
   .qform__consent input { width: auto; margin-top: 3px; }
   .qform .btn { width: 100%; }
+  /* Deliberately quiet: self-bookers still get through, everyone else fills the form. */
+  .qform__book { text-align: center; margin-top: 0.6rem; font-size: 0.82rem; }
+  .qform__book a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  .qform__book a:hover { color: var(--ink); }
   .hp { position: absolute; left: -9999px; }
 </style>

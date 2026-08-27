@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import QuoteSection from '../../components/QuoteSection.astro';
 import { breadcrumbSchema } from '../../data/schema';
 import meta from '../../content/blog/meta.json';
 
@@ -45,6 +46,7 @@ const schema = [breadcrumbSchema([{ label: 'Blog', href: path }])];
       ))}
     </div>
   </section>
+  <QuoteSection />
   <CtaBand />
 </Base>
 <style>.post { color: inherit; text-decoration: none !important; }</style>

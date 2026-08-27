@@ -38,6 +38,25 @@ export const SITE = {
   ogImage: '/images/og-default.jpg',
 };
 
+// ---------------------------------------------------------------------------
+// CTA — single source of truth for every call-to-action on the site.
+//
+// Lead capture first: every primary button points at the on-page #quote form
+// so we get a name and a number BEFORE anyone sees a price list. The fieldd
+// booking portal is kept only as a low-key secondary link for the minority who
+// want to self-serve into the calendar.
+//
+// Change `label` here and every button on every page changes with it.
+// ---------------------------------------------------------------------------
+export const CTA = {
+  label: 'Get Quote Now',
+  short: 'Get Quote',
+  href: '#quote',
+  /** Use on pages that have no #quote section of their own (404, thank-you). */
+  hrefHome: '/#quote',
+  bookLabel: 'or book instantly online',
+};
+
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
 export const NAV: NavItem[] = [
@@ -208,7 +227,7 @@ export const HOME_FAQS: FAQ[] = [
   { q: 'Do you really come to me? What do I need to provide?', a: 'Yes — we are 100% mobile across Oakland and the East Bay. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: 'An exterior detail takes about 1.5–3 hours, an interior deep clean 2–4 hours, and a full detail 3–7 hours depending on vehicle size and condition. Ceramic coating with paint correction is typically a full-day appointment.' },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek and nearby East Bay communities. If you are just outside that list, call us — we can usually make it work.' },
-  { q: 'How do I book?', a: 'Use the price & booking form at the top of this page — about 60 seconds, no deposit, exact price shown before you confirm — or call/text (510) 756-4995. Same-week appointments are often available.' },
+  { q: 'How do I book?', a: 'Fill in the quote form at the top of this page — your name, phone and what you drive, about 30 seconds. Jalil sends back an exact price personally, usually within the hour during business hours, and you pick a time from there. No deposit, and you inspect the work before you pay. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
   { q: 'How much does ceramic coating cost and how long does it last?', a: 'A complete ceramic coating in Oakland costs $800–$1,550 depending on vehicle size (coupes/sedans $800–$1,000, mid-size SUVs $1,000–$1,250, large SUVs/trucks $1,250–$1,550) and includes prep, decontamination and paint correction. Our coating is built to last around 3 years with proper hand-wash maintenance.' },
 ];
 

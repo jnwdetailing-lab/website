@@ -1,0 +1,51 @@
+---
+/**
+ * The universal #quote target.
+ *
+ * Every primary CTA on the site points at `#quote`, so every page needs one of
+ * these (or its own hand-rolled `<section id="quote">`, which several service
+ * pages already have). Drop this in just above the closing <CtaBand /> on any
+ * page that doesn't have a quote block of its own.
+ */
+import QuoteForm from './QuoteForm.astro';
+import { SITE, CTA } from '../data/site';
+
+export interface Props {
+  /** Heading inside the form card. */
+  heading?: string;
+  /** Left-column headline. */
+  title?: string;
+  text?: string;
+  eyebrow?: string;
+  soft?: boolean;
+}
+
+const {
+  heading = 'Get your exact price',
+  title = "Tell us what you drive — we'll send an exact price.",
+  text = 'No deposit and no obligation. Jalil replies personally, usually within the hour during business hours.',
+  eyebrow = 'Free quote',
+  soft = true,
+} = Astro.props;
+---
+
+<section class:list={['section', { 'section--soft': soft }]} id="quote">
+  <div class="container two-col">
+    <div>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{title}</h2>
+      <p class="lead">{text}</p>
+      <p class="quote-sec__alt">
+        Prefer to talk? Call or text
+        <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a> —
+        <a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} →</a>
+      </p>
+    </div>
+    <QuoteForm {heading} />
+  </div>
+</section>
+
+<style>
+  .quote-sec__alt { margin-top: 1rem; font-size: 0.95rem; color: var(--muted); }
+  .quote-sec__alt a { font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+</style>

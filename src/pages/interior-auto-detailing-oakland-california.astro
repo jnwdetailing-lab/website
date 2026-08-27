@@ -9,7 +9,7 @@ import QuoteForm from '../components/QuoteForm.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import Icon from '../components/Icons.astro';
-import { SITE } from '../data/site';
+import { SITE, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/interior-auto-detailing-oakland-california/';
@@ -140,7 +140,7 @@ const steps = [
       </div>
       <p class="center" style="margin-top:1.5rem;color:var(--muted);font-size:0.95rem">Add-ons: pet hair removal · ozone odor treatment · engine bay · headlight restoration. Bundle with an <a href="/exterior-auto-detailing-oakland-california/">exterior detail</a> for a full detail ($180–$600+).</p>
       <div class="center" style="margin-top:1.5rem">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book an interior detail</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
         <p class="fud" style="justify-content:center"><Icon name="check" /> Exact quote before we book · No deposit · We come to you</p>
       </div>
     </div>
@@ -167,13 +167,13 @@ const steps = [
   <Reviews limit={3} filterService="Full Detail" heading="What Oakland drivers say after an interior detail" />
   <Faq faqs={faqs} heading="Interior detailing questions, answered" />
 
-  <section class="section section--soft">
+  <section class="section section--soft" id="quote">
     <div class="container two-col">
       <div>
         <span class="eyebrow">Get a quote</span>
         <h2>Send a photo of the worst seat. Get a real price back.</h2>
         <p class="lead">Tell us the vehicle and what's going on inside — pet hair, stains, smell, how long since it was cleaned — and we'll quote the right tier, usually within the hour.</p>
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Or book straight into the calendar</a>
+        <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
       </div>
       <QuoteForm heading="Interior detail quote" />
     </div>

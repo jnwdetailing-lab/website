@@ -1,5 +1,5 @@
 ---
-import { SITE } from '../data/site';
+import { SITE, CTA } from '../data/site';
 import Icon from './Icons.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
 export interface Props {
@@ -15,7 +15,7 @@ export interface Props {
   ctaLabel?: string;
   bullets?: string[];
 }
-const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, price, priceNote, ctaLabel = 'Book Online', bullets } = Astro.props;
+const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, price, priceNote, ctaLabel = CTA.label, bullets } = Astro.props;
 ---
 <section class="phero">
   <div class="container phero__inner">
@@ -35,7 +35,7 @@ const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, price, pr
         </div>
       )}
       <div class="btn-row">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> {ctaLabel}</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {ctaLabel}</a>
         <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
       </div>
       <p class="fud"><Icon name="check" /> Free exact quote · No deposit · We come to you</p>

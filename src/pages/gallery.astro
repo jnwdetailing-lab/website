@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
 import { GALLERY, SITE } from '../data/site';
 import { breadcrumbSchema } from '../data/schema';
 
@@ -58,6 +59,7 @@ const schema = [imgSchema, breadcrumbSchema([{ label: 'Gallery', href: path }])]
     </div>
   </section>
 
+  <QuoteSection />
   <CtaBand title="Want yours in here?" text="Book a detail and send us your own before/after — we love posting them." />
 </Base>
 

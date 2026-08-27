@@ -1,5 +1,5 @@
 ---
-import { SITE, SERVICES, AREAS } from '../data/site';
+import { SITE, SERVICES, AREAS, CTA } from '../data/site';
 import Icon from './Icons.astro';
 const year = new Date().getFullYear();
 ---
@@ -49,7 +49,8 @@ const year = new Date().getFullYear();
           <li><a href="/reviews/">Reviews</a></li>
           <li><a href="/gallery/">Gallery</a></li>
           <li><a href="/blog/">Blog & pricing guides</a></li>
-          <li><a href="/contact/">Contact / Get a quote</a></li>
+          <li><a href={CTA.hrefHome}>{CTA.label}</a></li>
+          <li><a href="/contact/">Contact</a></li>
           <li><a href={SITE.booking} target="_blank" rel="noopener">Book online</a></li>
           <li><a href="/privacy-policy/">Privacy policy</a></li>
           <li><a href="/terms-conditions/">Terms & conditions</a></li>

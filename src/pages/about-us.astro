@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
 import AreasGrid from '../components/AreasGrid.astro';
 import Icon from '../components/Icons.astro';
 import { SITE } from '../data/site';
@@ -91,6 +92,7 @@ const schema = [person, breadcrumbSchema([{ label: 'About Us', href: path }])];
 
   <Reviews limit={6} heading="Don't take our word for it" />
   <AreasGrid compact />
+  <QuoteSection />
   <CtaBand title="Want to meet the guy who'll actually detail your car?" text="Call or text Jalil directly, or book online and he'll confirm personally." />
 </Base>
 
