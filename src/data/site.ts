@@ -80,6 +80,10 @@ export const NAV: NavItem[] = [
     children: [
       { label: 'Alameda', href: '/auto-detailing-alameda-ca/' },
       { label: 'Berkeley', href: '/auto-detailing-berkeley-ca/' },
+      { label: 'Emeryville', href: '/auto-detailing-emeryville-ca/' },
+      { label: 'Piedmont', href: '/auto-detailing-piedmont-ca/' },
+      { label: 'San Leandro', href: '/auto-detailing-san-leandro-ca/' },
+      { label: 'Orinda', href: '/auto-detailing-orinda-ca/' },
       { label: 'Walnut Creek', href: '/auto-detailing-walnut-creek-ca/' },
       { label: 'All areas', href: '/service-areas/' },
     ],
@@ -196,10 +200,10 @@ export const AREAS: Area[] = [
   { slug: '/auto-detailing-alameda-ca/', city: 'Alameda', hasPage: true, neighborhoods: ['Bay Farm Island', 'Gold Coast', 'Park Street', 'Alameda Point', 'South Shore'], blurb: 'Island living means salt air on your paint year-round. Decontamination and sealant matter more here than almost anywhere.' },
   { slug: '/auto-detailing-berkeley-ca/', city: 'Berkeley', hasPage: true, neighborhoods: ['Elmwood', 'North Berkeley', 'Claremont', 'Berkeley Hills', 'West Berkeley', 'Downtown'], blurb: 'Tree-lined streets, tight parking and street sweeping schedules. We work around all of it — curbside or in your driveway.' },
   { slug: '/auto-detailing-walnut-creek-ca/', city: 'Walnut Creek', hasPage: true, neighborhoods: ['Rossmoor', 'Northgate', 'Downtown', 'Saranap', 'Walnut Heights'], blurb: 'Inland heat bakes interiors and fades paint fast. Ceramic coating and interior conditioning are our most-booked services here.' },
-  { slug: '/service-areas/#san-leandro', city: 'San Leandro', hasPage: false, neighborhoods: ['Bay-O-Vista', 'Washington Manor', 'Estudillo Estates', 'Marina Faire'], blurb: 'A quick hop down 880 from our base — same-week appointments are usually available.' },
-  { slug: '/service-areas/#piedmont', city: 'Piedmont', hasPage: false, neighborhoods: ['Piedmont Hills', 'Baja Piedmont', 'Upper Piedmont'], blurb: 'Multi-car households and ceramic coatings for newer vehicles — we book recurring maintenance details here often.' },
-  { slug: '/service-areas/#emeryville', city: 'Emeryville', hasPage: false, neighborhoods: ['Watergate', 'Bay Street', 'Park Avenue District'], blurb: 'Condo garages and office parking lots are no problem — we bring our own water and power.' },
-  { slug: '/service-areas/#orinda', city: 'Orinda', hasPage: false, neighborhoods: ['Orinda Village', 'Sleepy Hollow', 'Orinda Downs', 'Glorietta'], blurb: 'Through the Caldecott and up the hill. Driveway details, coatings and RV washes for the Lamorinda side.' },
+  { slug: '/auto-detailing-san-leandro-ca/', city: 'San Leandro', hasPage: true, neighborhoods: ['Bay-O-Vista', 'Washington Manor', 'Estudillo Estates', 'Marina Faire'], blurb: 'A quick hop down 880 from our base — same-week appointments are usually available.' },
+  { slug: '/auto-detailing-piedmont-ca/', city: 'Piedmont', hasPage: true, neighborhoods: ['Piedmont Hills', 'Baja Piedmont', 'Upper Piedmont'], blurb: 'Multi-car households and ceramic coatings for newer vehicles — we book recurring maintenance details here often.' },
+  { slug: '/auto-detailing-emeryville-ca/', city: 'Emeryville', hasPage: true, neighborhoods: ['Watergate', 'Bay Street', 'Park Avenue District'], blurb: 'Condo garages and office parking lots are no problem — we bring our own water and power.' },
+  { slug: '/auto-detailing-orinda-ca/', city: 'Orinda', hasPage: true, neighborhoods: ['Orinda Village', 'Sleepy Hollow', 'Orinda Downs', 'Glorietta'], blurb: 'Through the Caldecott and up the hill. Driveway details, coatings and RV washes for the Lamorinda side.' },
 ];
 
 export type Review = { name: string; text: string; service?: string; source: 'Google'; date?: string; city?: string };
