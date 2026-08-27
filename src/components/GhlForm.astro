@@ -1,0 +1,74 @@
+---
+/**
+ * GoHighLevel (LeadConnector) form embed slot.
+ *
+ * ── HOW TO INSTALL YOUR EMBED ───────────────────────────────────────────────
+ * 1. In GoHighLevel:  Sites → Forms → Builder → open (or build) your form
+ *      → Integrate  →  Inline  →  Copy Code
+ *
+ * 2. Paste that snippet between  <!-- GHL:START -->  and  <!-- GHL:END -->  below.
+ *
+ * 3. IMPORTANT — Astro will try to bundle the LeadConnector <script> tag and
+ *    break it. Add  is:inline  so Astro leaves it alone:
+ *
+ *      <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
+ *
+ * 4. Set  FORM_PROVIDER = 'ghl'  in src/data/site.ts.
+ *    Until you do, the site keeps using the built-in form — nothing breaks.
+ *
+ * 5. Set --ghl-min-h below to roughly your form's height so the page doesn't
+ *    jump while the iframe loads (GHL's script auto-resizes after that).
+ * ────────────────────────────────────────────────────────────────────────────
+ */
+import { SITE, CTA } from '../data/site';
+import Icon from './Icons.astro';
+
+export interface Props { heading?: string; bare?: boolean; compact?: boolean }
+const { heading = 'Get your exact price', bare = false } = Astro.props;
+
+// Flip once a real embed is pasted in — hides the "not installed yet" notice.
+const hasEmbed = false;
+---
+
+<div class:list={['ghl', { 'ghl--bare': bare }]}>
+  {!bare && (
+    <div class="ghl__head">
+      <h3>{heading}</h3>
+      <p>Tell us about your vehicle — Jalil replies personally, usually within the hour during business hours.</p>
+    </div>
+  )}
+
+  <div class="ghl__embed">
+    <!-- GHL:START — paste the GoHighLevel inline embed here (add is:inline to its <script>) -->
+    {!hasEmbed && (
+      <p class="ghl__todo">
+        GoHighLevel form not installed yet — paste the embed into
+        <code>src/components/GhlForm.astro</code>.
+      </p>
+    )}
+    <!-- GHL:END -->
+  </div>
+
+  <p class="fud">
+    <Icon name="check" /> No obligation · No spam · Or just call/text
+    <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>
+  </p>
+  <p class="ghl__book">
+    <a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} →</a>
+  </p>
+</div>
+
+<style>
+  /* Set this to roughly your GHL form's height to avoid layout shift on load. */
+  .ghl { --ghl-min-h: 620px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+  .ghl--bare { border: 0; padding: 0; box-shadow: none; background: transparent; }
+  .ghl__head h3 { margin-bottom: 0.25rem; }
+  .ghl__head p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .ghl__embed { min-height: var(--ghl-min-h); }
+  .ghl__embed :global(iframe) { width: 100%; min-height: var(--ghl-min-h); border: 0; border-radius: 10px; display: block; }
+  .ghl__todo { padding: 1rem; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); font-size: 0.9rem; }
+  .ghl__todo code { font-size: 0.85em; }
+  .ghl__book { text-align: center; margin-top: 0.6rem; font-size: 0.82rem; }
+  .ghl__book a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  .ghl__book a:hover { color: var(--ink); }
+</style>

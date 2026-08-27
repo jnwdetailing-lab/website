@@ -57,6 +57,18 @@ export const CTA = {
   bookLabel: 'or book instantly online',
 };
 
+// ---------------------------------------------------------------------------
+// Which form engine the #quote sections render.
+//
+//   'native' — the built-in QuoteForm, posting to Netlify Forms.
+//   'ghl'    — the GoHighLevel embed in src/components/GhlForm.astro.
+//
+// Switch to 'ghl' only AFTER pasting the embed into GhlForm.astro, so the site
+// never renders an empty form. Changing this one value swaps the form on all
+// 20 pages that render it.
+// ---------------------------------------------------------------------------
+export const FORM_PROVIDER: 'native' | 'ghl' = 'native';
+
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
 export const NAV: NavItem[] = [

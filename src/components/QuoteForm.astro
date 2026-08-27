@@ -1,15 +1,19 @@
 ---
-import { SITE, SERVICES, CTA } from '../data/site';
+import { SITE, SERVICES, CTA, FORM_PROVIDER } from '../data/site';
 import Icon from './Icons.astro';
+import GhlForm from './GhlForm.astro';
 export interface Props { compact?: boolean; heading?: string; bare?: boolean }
 // `bare` drops the heading and the card chrome — for slots that already have both
 // (e.g. the home hero card, which supplies its own <h2> and border).
 const { compact = false, heading = 'Get your exact price in minutes', bare = false } = Astro.props;
 ---
 <!--
-  Form posts to Netlify Forms when hosted on Netlify (data-netlify). On Vercel/Cloudflare,
-  swap the action for a Formspree/Basin endpoint or a serverless function. See README.
+  Two engines, switched by FORM_PROVIDER in src/data/site.ts:
+    'ghl'    → the GoHighLevel embed (src/components/GhlForm.astro)
+    'native' → the form below, posting to Netlify Forms (data-netlify).
+  Every #quote slot on the site renders this component, so the switch is global.
 -->
+{FORM_PROVIDER === 'ghl' ? <GhlForm {heading} {bare} {compact} /> : (
 <form
   class:list={['qform', { 'qform--compact': compact, 'qform--bare': bare }]}
   name="quote"
@@ -44,6 +48,7 @@ const { compact = false, heading = 'Get your exact price in minutes', bare = fal
   <p class="fud"><Icon name="check" /> No obligation · No spam · Or just call/text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></p>
   <p class="qform__book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} →</a></p>
 </form>
+)}
 <style>
   .qform { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
   .qform--bare { border: 0; padding: 0; box-shadow: none; background: transparent; }
