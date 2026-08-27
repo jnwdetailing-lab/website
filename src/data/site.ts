@@ -67,7 +67,7 @@ export const CTA = {
 // never renders an empty form. Changing this one value swaps the form on all
 // 20 pages that render it.
 // ---------------------------------------------------------------------------
-export const FORM_PROVIDER: 'native' | 'ghl' = 'native';
+export const FORM_PROVIDER: 'native' | 'ghl' = 'ghl';
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 

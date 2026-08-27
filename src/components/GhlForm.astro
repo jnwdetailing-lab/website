@@ -1,23 +1,25 @@
 ---
 /**
- * GoHighLevel (LeadConnector) form embed slot.
+ * GoHighLevel (LeadConnector) form embed.
  *
- * ── HOW TO INSTALL YOUR EMBED ───────────────────────────────────────────────
- * 1. In GoHighLevel:  Sites → Forms → Builder → open (or build) your form
- *      → Integrate  →  Inline  →  Copy Code
+ * Active form: "8/26 Website Form"  ·  id GwLyoWy5IUhL15W1VIVq
  *
- * 2. Paste that snippet between  <!-- GHL:START -->  and  <!-- GHL:END -->  below.
+ * ── REPLACING THE FORM LATER ────────────────────────────────────────────────
+ * In GHL: Sites → Forms → Builder → open the form → Integrate → Inline → Copy Code.
+ * Paste it between GHL:START and GHL:END below, then keep two local edits:
+ *   1. add  is:inline  to the <script> tag, or Astro bundles and breaks it
+ *   2. leave the src expression alone if you want per-page service prefill
+ * Set FORM_PROVIDER back to 'native' in src/data/site.ts to fall back to the
+ * built-in form at any time.
  *
- * 3. IMPORTANT — Astro will try to bundle the LeadConnector <script> tag and
- *    break it. Add  is:inline  so Astro leaves it alone:
- *
- *      <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
- *
- * 4. Set  FORM_PROVIDER = 'ghl'  in src/data/site.ts.
- *    Until you do, the site keeps using the built-in form — nothing breaks.
- *
- * 5. Set --ghl-min-h below to roughly your form's height so the page doesn't
- *    jump while the iframe loads (GHL's script auto-resizes after that).
+ * ── PER-PAGE SERVICE PREFILL (optional) ─────────────────────────────────────
+ * To have the Service field arrive pre-selected on each service page:
+ *   1. In the GHL form builder, open the Service field → set its Query Key
+ *      (e.g. "service").
+ *   2. Put that same key in SERVICE_QUERY_KEY below.
+ *   3. Make sure the values in SERVICE_BY_PATH exactly match your dropdown
+ *      options in GHL, or the prefill silently won't match.
+ * Leave it as '' to disable — the form works fine either way.
  * ────────────────────────────────────────────────────────────────────────────
  */
 import { SITE, CTA } from '../data/site';
@@ -26,8 +28,26 @@ import Icon from './Icons.astro';
 export interface Props { heading?: string; bare?: boolean; compact?: boolean }
 const { heading = 'Get your exact price', bare = false } = Astro.props;
 
-// Flip once a real embed is pasted in — hides the "not installed yet" notice.
-const hasEmbed = false;
+const FORM_ID = 'GwLyoWy5IUhL15W1VIVq';
+const FORM_NAME = '8/26 Website Form';
+
+// '' disables prefill. Set to the Query Key you gave the Service field in GHL.
+const SERVICE_QUERY_KEY = '';
+
+const SERVICE_BY_PATH: Record<string, string> = {
+  '/ceramic-coating/': 'Ceramic Coating',
+  '/paint-correction/': 'Paint Correction',
+  '/interior-auto-detailing-oakland-california/': 'Interior Detailing',
+  '/exterior-auto-detailing-oakland-california/': 'Exterior Detailing',
+  '/odor-removal-oakland/': 'Odor Removal',
+  '/rv-wash-and-rv-detailing-oakland-california/': 'RV Wash & Detailing',
+};
+
+const service = SERVICE_BY_PATH[Astro.url.pathname];
+const formSrc =
+  SERVICE_QUERY_KEY && service
+    ? `https://api.leadconnectorhq.com/widget/form/${FORM_ID}?${SERVICE_QUERY_KEY}=${encodeURIComponent(service)}`
+    : `https://api.leadconnectorhq.com/widget/form/${FORM_ID}`;
 ---
 
 <div class:list={['ghl', { 'ghl--bare': bare }]}>
@@ -39,13 +59,28 @@ const hasEmbed = false;
   )}
 
   <div class="ghl__embed">
-    <!-- GHL:START — paste the GoHighLevel inline embed here (add is:inline to its <script>) -->
-    {!hasEmbed && (
-      <p class="ghl__todo">
-        GoHighLevel form not installed yet — paste the embed into
-        <code>src/components/GhlForm.astro</code>.
-      </p>
-    )}
+    <!-- GHL:START -->
+    <iframe
+      src={formSrc}
+      style="width:100%;border:none;border-radius:8px"
+      id={`inline-${FORM_ID}`}
+      data-layout={"{'id':'INLINE'}"}
+      data-trigger-type="alwaysShow"
+      data-trigger-value=""
+      data-activation-type="alwaysActivated"
+      data-activation-value=""
+      data-deactivation-type="neverDeactivate"
+      data-deactivation-value=""
+      data-form-name={FORM_NAME}
+      data-height="undefined"
+      data-layout-iframe-id={`inline-${FORM_ID}`}
+      data-form-id={FORM_ID}
+      data-cookie-consent="true"
+      data-cookie-consent-provider="auto"
+      title={FORM_NAME}
+      loading="lazy"
+    ></iframe>
+    <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
     <!-- GHL:END -->
   </div>
 
@@ -59,15 +94,15 @@ const hasEmbed = false;
 </div>
 
 <style>
-  /* Set this to roughly your GHL form's height to avoid layout shift on load. */
-  .ghl { --ghl-min-h: 620px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+  /* --ghl-min-h reserves space so the page doesn't jump while the iframe loads.
+     GHL's form_embed.js sets the real height once the form renders. Tune this
+     to roughly your form's actual height. */
+  .ghl { --ghl-min-h: 560px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
   .ghl--bare { border: 0; padding: 0; box-shadow: none; background: transparent; }
   .ghl__head h3 { margin-bottom: 0.25rem; }
   .ghl__head p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
   .ghl__embed { min-height: var(--ghl-min-h); }
-  .ghl__embed :global(iframe) { width: 100%; min-height: var(--ghl-min-h); border: 0; border-radius: 10px; display: block; }
-  .ghl__todo { padding: 1rem; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); font-size: 0.9rem; }
-  .ghl__todo code { font-size: 0.85em; }
+  .ghl__embed :global(iframe) { width: 100%; min-height: var(--ghl-min-h); border: 0; border-radius: 8px; display: block; }
   .ghl__book { text-align: center; margin-top: 0.6rem; font-size: 0.82rem; }
   .ghl__book a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
   .ghl__book a:hover { color: var(--ink); }
