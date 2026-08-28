@@ -71,12 +71,19 @@ export const FORM_PROVIDER: 'native' | 'ghl' = 'ghl';
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
-// Instagram posts embedded on the home page. Open a reel or post on Instagram →
-// ⋯ → Copy link, and paste the permalink here. Public posts only. Leave the list
-// empty and the strip falls back to a plain follow card.
-export const INSTAGRAM_POSTS: string[] = [
-  // 'https://www.instagram.com/reel/XXXXXXXXXXX/',
-];
+// Google map shown on the home page. To use your Business Profile pin instead of
+// the street address: Google Maps, find your business, Share, "Embed a map", then
+// copy the src="..." URL out of the iframe code and paste it here.
+export const GOOGLE_MAP_EMBED =
+  'https://www.google.com/maps?q=2127+23rd+Ave,+Oakland,+CA+94606&output=embed&z=14';
+
+// BBB seal. Get these from your BBB business profile ("Get the Seal"): the link to
+// your profile, and the seal image URL BBB gives you. Both must be filled in or the
+// seal is not rendered, so nothing claims an accreditation that is not verifiable.
+export const BBB = {
+  profileUrl: '',
+  sealImage: '',
+};
 
 export const NAV: NavItem[] = [
   {
@@ -126,7 +133,7 @@ export const SERVICES: Service[] = [
     name: 'Interior Detailing',
     menuName: 'Interior Deep Clean',
     short:
-      'Full vacuum, steam cleaning, shampoo, stain & odor removal, leather conditioning — your cabin reset to like-new.',
+      'Full vacuum, steam cleaning, shampoo, stain & odor removal, leather conditioning. Your cabin reset to like-new.',
     image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
     alt: 'Jalil steam cleaning a car interior during a mobile interior detail in Oakland, CA',
     icon: 'seat',
@@ -136,7 +143,7 @@ export const SERVICES: Service[] = [
     name: 'Exterior Detailing',
     menuName: 'Exterior Detail',
     short:
-      'Two-bucket hand wash, clay bar decontamination, wheels & tires, then wax or sealant — shine that lasts months, not days.',
+      'Two-bucket hand wash, clay bar decontamination, wheels & tires, then wax or sealant. Shine that lasts months, not days.',
     image: '/images/exterior-detailing-oakland.jpg',
     alt: 'Foam pre-soak on a white sedan during a mobile exterior detail in Oakland',
     icon: 'wash',
@@ -156,7 +163,7 @@ export const SERVICES: Service[] = [
     name: 'Ceramic Coating',
     menuName: 'Ceramic Coating',
     short:
-      'Multi-year, hydrophobic protection bonded to your paint. Includes prep, decontamination and correction — applied in your driveway.',
+      'Multi-year, hydrophobic protection bonded to your paint. Includes prep, decontamination and correction, applied in your driveway.',
     image: '/images/ceramic-coating-oakland.jpg',
     alt: 'Ceramic coating being poured onto an applicator before application in Oakland',
     icon: 'shield',
@@ -166,7 +173,7 @@ export const SERVICES: Service[] = [
     name: 'Odor Removal',
     menuName: 'Ozone Odor Removal',
     short:
-      'Ozone treatment that destroys smoke, pet, mildew and food odors at the source — not an air freshener that masks them.',
+      'Ozone treatment that destroys smoke, pet, mildew and food odors at the source, not an air freshener that masks them.',
     image: '/images/odor-removal-oakland.jpg',
     alt: 'Ozone generator running inside a vehicle for odor removal in Oakland',
     icon: 'wind',
@@ -232,17 +239,17 @@ export const REVIEWS: Review[] = [
 export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
-  { q: 'How much does mobile car detailing cost in Oakland?', a: 'Every vehicle is quoted individually — size, condition and the service you want all move the number, so a blanket price list would only mislead you. Tell us what you drive and Jalil sends your exact price personally, usually within the hour during business hours. No deposit, and you approve the price before anything is booked.' },
-  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes — we are 100% mobile across Oakland and the East Bay. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
+  { q: 'How much does mobile car detailing cost in Oakland?', a: 'Every vehicle is quoted individually. Size, condition and the service you want all move the number, so a blanket price list would only mislead you. Tell us what you drive and Jalil sends your price personally, usually within the hour during business hours. No deposit, and you approve the price before anything is booked.' },
+  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the East Bay. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: 'An exterior detail takes about 1.5–3 hours, an interior deep clean 2–4 hours, and a full detail 3–7 hours depending on vehicle size and condition. Ceramic coating with paint correction is typically a full-day appointment.' },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek and nearby East Bay communities. If you are just outside that list, call us — we can usually make it work.' },
-  { q: 'How do I book?', a: 'Fill in the quote form on this page — your name, phone and what you drive, about 30 seconds. Jalil sends back an exact price personally, usually within the hour during business hours, and you pick a time from there. No deposit, and you inspect the work before you pay. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
+  { q: 'How do I book?', a: 'Fill in the quote form on this page. Name, phone and what you drive, about 30 seconds. Jalil sends back a price personally, usually within the hour during business hours, and you pick a time from there. No deposit, and you inspect the work before you pay. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
   { q: 'How long does a ceramic coating last?', a: 'Our coatings are built to last around three years with proper hand-wash maintenance. Every coating is quoted after we see the vehicle, because the price covers full prep — decontamination and paint correction — not just the coating itself, and how much correction your paint needs is the variable. Send us your vehicle and we will come back with an exact number.' },
 ];
 
 export const GALLERY = [
-  { src: '/images/interior-detailing-oakland-before.jpg', alt: 'Before: stained cloth seat in a sedan prior to interior detailing in Oakland', label: 'Interior — before', w: 1080, h: 1080 },
-  { src: '/images/interior-detailing-oakland-after.jpg', alt: 'After: the same seat shampooed and steam cleaned by J&W Mobile Detailing', label: 'Interior — after', w: 1080, h: 1080 },
+  { src: '/images/interior-detailing-oakland-before.jpg', alt: 'Before: stained cloth seat in a sedan prior to interior detailing in Oakland', label: 'Interior before', w: 1080, h: 1080 },
+  { src: '/images/interior-detailing-oakland-after.jpg', alt: 'After: the same seat shampooed and steam cleaned by J&W Mobile Detailing', label: 'Interior after', w: 1080, h: 1080 },
   { src: '/images/interior-detailing-steam-cleaning-oakland.jpg', alt: 'Jalil steam cleaning a rear seat during a mobile interior detail', label: 'Steam cleaning', w: 1080, h: 1080 },
   { src: '/images/exterior-detailing-oakland.jpg', alt: 'Foam pre-soak on a white sedan during a mobile exterior detail', label: 'Foam pre-soak', w: 1080, h: 1080 },
   { src: '/images/paint-correction-polishing-oakland.jpg', alt: 'Machine polishing a hood during paint correction', label: 'Paint correction', w: 1080, h: 1080 },

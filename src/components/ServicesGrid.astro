@@ -1,7 +1,7 @@
 ---
 import { SERVICES } from '../data/site';
 export interface Props { exclude?: string; heading?: string; eyebrow?: string; lead?: string }
-const { exclude, heading = 'What we do — done in your driveway', eyebrow = 'Mobile detailing services in Oakland', lead = 'Pick one or bundle them. Every vehicle is quoted individually once we know what you drive and what it needs.' } = Astro.props;
+const { exclude, heading = 'What we do, done in your driveway', eyebrow = 'Mobile detailing services in Oakland', lead = 'Pick one or bundle them. Every vehicle is quoted individually once we know what you drive and what it needs.' } = Astro.props;
 const list = SERVICES.filter((s) => s.slug !== exclude);
 ---
 <section class="section" id="services">
@@ -13,7 +13,7 @@ const list = SERVICES.filter((s) => s.slug !== exclude);
     </div>
     <div class="grid grid--3">
       {list.map((s) => (
-        <a href={s.slug} class="card svc" aria-label={`${s.name} — learn more`}>
+        <a href={s.slug} class="card svc" aria-label={`${s.name}, learn more`}>
           <img class="card__img" src={s.image} alt={s.alt} width="800" height="600" loading="lazy" decoding="async" />
           <div class="card__body">
             <h3>{s.name}</h3>

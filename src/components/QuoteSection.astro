@@ -8,7 +8,7 @@
  * page that doesn't have a quote block of its own.
  */
 import QuoteForm from './QuoteForm.astro';
-import { SITE, CTA } from '../data/site';
+import { SITE } from '../data/site';
 
 export interface Props {
   /** Heading inside the form card. */
@@ -21,9 +21,9 @@ export interface Props {
 }
 
 const {
-  heading = 'Get your exact price',
-  title = "Tell us what you drive — we'll send an exact price.",
-  text = 'No deposit and no obligation. Jalil replies personally, usually within the hour during business hours.',
+  heading = 'Request a quote',
+  title = "Tell us what you drive and we will send you a price.",
+  text = 'Tell us the vehicle and what it needs. We usually reply within the hour during business hours.',
   eyebrow = 'Free quote',
   soft = true,
 } = Astro.props;
@@ -37,8 +37,7 @@ const {
       <p class="lead">{text}</p>
       <p class="quote-sec__alt">
         Prefer to talk? Call or text
-        <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a> —
-        <a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} →</a>
+        <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>.
       </p>
     </div>
     <QuoteForm {heading} />

@@ -48,7 +48,7 @@ const schema = [
     text={p.heroText}
     image={p.heroImage}
     imageAlt={p.heroAlt}
-    note="Exterior · interior · paint correction · ceramic coating — exact quote first"
+    note="Exterior · interior · paint correction · ceramic coating"
   />
 
   <section class="section">
@@ -69,7 +69,7 @@ const schema = [
     </div>
   </section>
 
-  <ServicesGrid heading={`Every service we offer — priced upfront, done in ${p.city}`} eyebrow={`Mobile detailing services in ${p.city}`} lead="Real 2026 East Bay price ranges. Your exact quote depends on vehicle size and condition — and you get it before we book." />
+  <ServicesGrid heading={`Every service we offer, done in ${p.city}`} eyebrow={`Mobile detailing services in ${p.city}`} lead="Real 2026 East Bay price ranges. Your quote depends on vehicle size and condition — and you get it before we book." />
 
   <section class="section section--soft">
     <div class="container prose max-prose" style="margin-inline:auto">
@@ -93,7 +93,7 @@ const schema = [
     <div class="container two-col">
       <div>
         <span class="eyebrow">Get a quote in {p.city}</span>
-        <h2>Tell us the vehicle and your {p.city} address. We'll send an exact price.</h2>
+        <h2>Tell us the vehicle and your {p.city} address, and we will send you a price.</h2>
         <p class="lead">Quotes usually go out within the hour during business hours ({SITE.hours.label}). Or book a slot straight into the calendar.</p>
         <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
       </div>

@@ -6,12 +6,11 @@ import BeforeAfter from '../components/BeforeAfter.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
-import InstagramFeed from '../components/InstagramFeed.astro';
-import { SITE, REVIEWS, HOME_FAQS, CTA, INSTAGRAM_POSTS } from '../data/site';
+import { SITE, REVIEWS, HOME_FAQS, CTA, GOOGLE_MAP_EMBED, BBB } from '../data/site';
 
 const title = 'Mobile Car Detailing Oakland, CA | J&W Mobile Detailing';
 const description =
-  'Owner-operated mobile car detailing in Oakland & the East Bay. Interior, exterior, paint correction & ceramic coating — we come to you. 4.9★ Google, quoted per vehicle.';
+  'Owner-operated mobile car detailing in Oakland & the East Bay. Interior, exterior, paint correction & ceramic coating, and we come to you. 4.9★ Google, quoted per vehicle.';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -64,7 +63,6 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
         <a href={`tel:${SITE.phoneE164}`} class="btn btn--light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
       </div>
 
-      <p class="hero__fud">Exact price before you book · No deposit · We come to you</p>
     </div>
   </section>
 
@@ -73,19 +71,7 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
        sells, this converts, and every CTA on the page scrolls straight here. -->
   <section class="section--tight booking" id="quote">
     <div class="container">
-      <section id="book" class="book" tabindex="-1" aria-labelledby="book-h">
-        <div class="book__head">
-          <img src="/images/jalil-avatar.webp" alt="" width="40" height="40" />
-          <div>
-            <h2 id="book-h">Get your exact price</h2>
-            <p>Jalil Wren, owner — on every job since 2022</p>
-          </div>
-        </div>
-        <ol class="book__steps">
-          <li><b>1</b> Tell us your vehicle</li>
-          <li><b>2</b> Get your exact price</li>
-          <li><b>3</b> We come to you</li>
-        </ol>
+      <section id="book" class="book" tabindex="-1" aria-label="Request a quote">
         <QuoteForm bare compact />
       </section>
     </div>
@@ -94,8 +80,8 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
   <!-- ============ 2. TRUST STRIP ============ -->
   <section class="strip" aria-label="Why J&W">
     <div class="container strip__inner">
-      <div><Icon name="user" size={22} /> <span><strong>Owner on every job</strong> — Jalil, since 2022</span></div>
-      <div><Icon name="van" size={22} /> <span><strong>100% mobile</strong> — our own water & power</span></div>
+      <div><Icon name="user" size={22} /> <span><strong>Owner-run since 2022</strong></span></div>
+      <div><Icon name="van" size={22} /> <span><strong>100% mobile</strong>, our own water and power</span></div>
       <div><Icon name="leaf" size={22} /> <span><strong>pH-neutral, eco-safe</strong> products</span></div>
     </div>
   </section>
@@ -105,7 +91,7 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
     <div class="container two-col">
       <div>
         <h2>Tunnel washes swirl your paint. We fix it in your driveway.</h2>
-        <p class="lead">Salt air off the estuary, brake dust from I-880, sap from Rockridge street trees — East Bay cars get etched and hazy fast, and most “full details” are a wash and a vacuum. Every J&W detail is a two-bucket hand wash, clay and iron decon, steam and shampoo extraction. That seat is a real Oakland interior detail — drag to compare.</p>
+        <p class="lead">Salt air off the estuary, brake dust from I-880, sap from Rockridge street trees. East Bay cars get etched and hazy fast, and most “full details” amount to a wash and a vacuum. We build each job around what your car actually needs, then show you the difference. That seat is a real Oakland interior detail, so drag the handle to compare.</p>
       </div>
       <BeforeAfter
         before="/images/interior-detailing-oakland-before.webp"
@@ -119,14 +105,14 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
   <!-- ============ 4. SERVICES ============ -->
   <ServicesGrid
     eyebrow="Mobile detailing services"
-    heading="What we do — done in your driveway"
-    lead="Every vehicle is quoted individually. Tell us what you drive and what it needs, and Jalil comes back with an exact price."
+    heading="What we do, done in your driveway"
+    lead="Every vehicle is quoted individually. Tell us what you drive and what it needs, and we come back with a price."
   />
 
   <!-- ============ 5. REVIEWS + OWNER ============ -->
   <section class="section">
     <div class="container">
-      <h2>4.9★ from <a href={SITE.social.google} target="_blank" rel="noopener">{SITE.rating.count} Google reviews</a> — here's what they say</h2>
+      <h2>4.9★ from <a href={SITE.social.google} target="_blank" rel="noopener">{SITE.rating.count} Google reviews</a>, here's what they say</h2>
       <div class="rgrid">
         {reviews.map((r) => (
           <a class="rcard" href={SITE.social.google} target="_blank" rel="noopener">
@@ -164,10 +150,36 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
   </section>
 
   <!-- ============ 8. CLOSING BAND ============ -->
-  <!-- ============ 8. INSTAGRAM ============ -->
-  <InstagramFeed posts={INSTAGRAM_POSTS} />
+  <!-- ============ 8. LOCATION + CREDIBILITY ============ -->
+  <section class="section section--soft" id="find-us">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Based in Oakland</span>
+        <h2>Where we work from</h2>
+        <p class="lead">We are a mobile service, so the van comes to your home or workplace. This is our Oakland base, and we cover the city and the wider East Bay from here.</p>
+        <p class="findus__addr">
+          <Icon name="pin" /> {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.zip}
+        </p>
+        <p><a href="/service-areas/">See every area we cover</a></p>
+        {BBB.profileUrl && BBB.sealImage && (
+          <a class="findus__bbb" href={BBB.profileUrl} target="_blank" rel="noopener">
+            <img src={BBB.sealImage} alt="J&W Mobile Detailing BBB business profile" loading="lazy" decoding="async" />
+          </a>
+        )}
+      </div>
+      <div class="findus__map">
+        <iframe
+          src={GOOGLE_MAP_EMBED}
+          title="J&W Mobile Detailing on Google Maps"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
 
-  <CtaBand variant="dark" title="Ready for a showroom finish — without leaving home?" text="Exact price in 60 seconds. No deposit. We come to you anywhere in Oakland & the East Bay." href="#book" label={CTA.label} />
+  <CtaBand variant="dark" title="Ready for a showroom finish without leaving home?" text="Tell us what you drive and we will get you a price. We come to you anywhere in Oakland and the East Bay." href="#book" label={CTA.label} />
 </Base>
 
 <style>
@@ -207,6 +219,15 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
   .book__steps { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.85rem; color: var(--muted); }
   .book__steps li { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; }
   .book__steps b { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 0.7rem; display: grid; place-items: center; }
+
+  /* Location + credibility */
+  .findus__addr { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.95rem; }
+  .findus__addr :global(svg) { width: 1.05em; height: 1.05em; flex: none; color: var(--ink); }
+  .findus__bbb { display: inline-block; margin-top: 1.25rem; }
+  .findus__bbb img { max-width: 200px; height: auto; }
+  .findus__map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: #fff; }
+  .findus__map iframe { display: block; width: 100%; height: 380px; border: 0; }
+  @media (max-width: 900px) { .findus__map iframe { height: 300px; } }
 
   /* Trust strip */
   .strip { border-bottom: 1px solid var(--line); background: #fff; }
