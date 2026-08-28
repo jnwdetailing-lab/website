@@ -71,11 +71,12 @@ export const FORM_PROVIDER: 'native' | 'ghl' = 'ghl';
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
-// Google map shown on the home page. To use your Business Profile pin instead of
-// the street address: Google Maps, find your business, Share, "Embed a map", then
-// copy the src="..." URL out of the iframe code and paste it here.
+// Google map shown on the home page. This is the Business Profile embed, so the
+// pin is the J&W listing itself rather than just the street address. To replace
+// it: Google Maps, find the business, Share, "Embed a map", then copy the src
+// URL out of the iframe code.
 export const GOOGLE_MAP_EMBED =
-  'https://www.google.com/maps?q=2127+23rd+Ave,+Oakland,+CA+94606&output=embed&z=14';
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0317277051945!2d-122.2340449244489!3d37.789296211323816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d6fb452df51eebd%3A0x27abe75bf3d02297!2sJ%26W%20Mobile%20Detailing%20%E2%80%93%20Ceramic%20Coating%20%26%20Paint%20Correction!5e0!3m2!1sen!2sus!4v1787906283402!5m2!1sen!2sus';
 
 // BBB seal. Get these from your BBB business profile ("Get the Seal"): the link to
 // your profile, and the seal image URL BBB gives you. Both must be filled in or the
