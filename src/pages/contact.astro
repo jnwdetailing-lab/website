@@ -12,11 +12,11 @@ const title = 'Contact & Book | J&W Mobile Detailing Oakland | (510) 756-4995';
 const description =
   'Book mobile detailing in Oakland & the East Bay: call/text (510) 756-4995, book online 24/7, or request a quote. Open 7 days, 8 AM–8 PM. We come to you.';
 const faqs = [
-  { q: 'What is the fastest way to get a price?', a: 'Send the quote form on this page — name, phone and what you drive takes about 30 seconds, and Jalil replies personally with an exact price, usually within the hour during business hours. For questions or odd requests, text or call (510) 756-4995. If you would rather pick a slot yourself, you can still book straight into the calendar at jnwdetail.fieldd.co.' },
-  { q: 'Do I need to pay a deposit?', a: 'No. You pay after the walk-around, when you are happy — cash, credit/debit card, Zelle or Venmo.' },
+  { q: 'What is the fastest way to get a price?', a: 'Send the quote form on this page. Name, phone and what you drive takes about 30 seconds, and Jalil replies personally with a price, usually within the hour during business hours. For questions or odd requests, text or call (510) 756-4995. If you would rather pick a slot yourself, you can still book straight into the calendar at jnwdetail.fieldd.co.' },
+  { q: 'Do I need to pay a deposit?', a: 'No. You pay after the walk-around, when you are happy. Cash, credit/debit card, Zelle or Venmo.' },
   { q: 'How far out are you booking?', a: 'Usually within the week, sometimes next day. Ceramic coatings and two-step corrections take a full day so they book 1–2 weeks out in busy months.' },
-  { q: 'What if it rains?', a: 'Interiors go ahead as long as we can work in a garage or under cover. Exteriors and coatings are rescheduled — we will text you the evening before if the forecast is bad, and you never pay for a cancelled visit.' },
-  { q: 'Can I cancel or reschedule?', a: 'Yes — just give us 24 hours\' notice if you can so the slot can go to someone else. No cancellation fee.' },
+  { q: 'What if it rains?', a: 'Interiors go ahead as long as we can work in a garage or under cover. Exteriors and coatings are rescheduled, we will text you the evening before if the forecast is bad, and you never pay for a cancelled visit.' },
+  { q: 'Can I cancel or reschedule?', a: 'Yes. Just give us 24 hours\' notice if you can so the slot can go to someone else. No cancellation fee.' },
 ];
 const contactSchema = { '@context': 'https://schema.org', '@type': 'ContactPage', url: `${SITE.url}${path}`, mainEntity: { '@id': `${SITE.url}/#business` } };
 const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Contact', href: path }])];
@@ -27,7 +27,7 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
     crumbs={[{ label: 'Contact' }]}
     eyebrow="Contact & booking"
     titleHtml="Book a detail, get a quote, or <em>just ask Jalil</em>"
-    text="Three ways, all fast: book online 24/7, call or text, or send the form. We reply personally — usually within the hour during business hours."
+    text="Three ways, all fast: book online 24/7, call or text, or send the form. We reply personally, usually within the hour during business hours."
   />
 
   <section class="section" id="quote">
@@ -36,7 +36,7 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
         <div class="ways">
           <a href={SITE.booking} class="way" target="_blank" rel="noopener">
             <Icon name="calendar" size={28} />
-            <div><strong>Book online — 24/7</strong><span>Pick service, date & time. ~60 seconds. No deposit.</span></div>
+            <div><strong>Book online, 24/7</strong><span>Pick service, date & time. ~60 seconds.</span></div>
           </a>
           <a href={`tel:${SITE.phoneE164}`} class="way">
             <Icon name="phone" size={28} />
@@ -58,7 +58,7 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
 
         <div class="nap">
           <h3>J&W Mobile Detailing</h3>
-          <p><Icon name="pin" size={18} /> Based in Oakland, CA 94606 · <strong>mobile service — we come to you</strong> across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda & Walnut Creek</p>
+          <p><Icon name="pin" size={18} /> Based in Oakland, CA 94606 · <strong>mobile service. We come to you</strong> across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda & Walnut Creek</p>
           <p><Icon name="clock" size={18} /> {SITE.hours.label}, 7 days a week</p>
           <p><Icon name="shield" size={18} /> Licensed & insured · Owner-operated since 2022 · Cash, card, Zelle, Venmo</p>
           <div class="btn-row" style="margin-top:1rem">
@@ -69,7 +69,7 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
           </div>
         </div>
       </div>
-      <QuoteForm heading="Get your exact price" />
+      <QuoteForm heading="Request a quote" />
     </div>
   </section>
 
@@ -77,7 +77,7 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
     <div class="container">
       <div class="map">
         <iframe
-          title="J&W Mobile Detailing — Oakland, CA service area map"
+          title="J&W Mobile Detailing, Oakland, CA service area map"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d50445.0!2d-122.2711!3d37.8044!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d6fb452df51eebd%3A0x27abe75bf3d02297!2sJ%26W%20Mobile%20Detailing%20%E2%80%93%20Ceramic%20Coating%20%26%20Paint%20Correction!5e0!3m2!1sen!2sus!4v1780698036384!5m2!1sen!2sus"
           width="1200" height="400" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>

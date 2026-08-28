@@ -10,7 +10,7 @@ import { breadcrumbSchema, reviewSchema } from '../data/schema';
 const path = '/reviews/';
 const title = 'J&W Mobile Detailing Reviews | 4.9★ on Google | Oakland, CA';
 const description =
-  'Read verbatim Google reviews of J&W Mobile Detailing — 4.9 stars from 220+ Oakland & East Bay drivers on interior, exterior, paint correction & ceramic coating.';
+  'Read verbatim Google reviews of J&W Mobile Detailing, 4.9 stars from 220+ Oakland & East Bay drivers on interior, exterior, paint correction & ceramic coating.';
 const schema = [...reviewSchema(REVIEWS.slice(0, 8)), breadcrumbSchema([{ label: 'Reviews', href: path }])];
 const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
 ---
@@ -20,7 +20,7 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
     crumbs={[{ label: 'Reviews' }]}
     eyebrow="Customer reviews"
     titleHtml={`<em>${SITE.rating.value} stars</em> from ${SITE.rating.count} Oakland & East Bay drivers`}
-    text="Every review below is a real, verbatim Google review from a J&W customer — name attached, verifiable on our Google Business Profile. 216 of 223 are five stars. Read what they say about the work, the communication and the results, then book your own."
+    text="Every review below is a real, verbatim Google review from a J&W customer. Name attached, verifiable on our Google Business Profile. 216 of 223 are five stars. Read what they say about the work, the communication and the results, then book your own."
     image="/images/work-2.jpg"
     imageAlt="Jalil applying ceramic coating to a black sedan at a customer's home in Oakland"
   />
@@ -64,10 +64,10 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
       <h2 class="mt-0">Three things come up in almost every review</h2>
       <ul>
         <li><strong>Communication and scheduling.</strong> “Contacted and scheduled me quickly,” “super easy through their site on my phone,” “very communicative.” Booking is online in about a minute, and Jalil confirms personally.</li>
-        <li><strong>Results on paint and interiors.</strong> “Brought my paint back — looks like a brand new car,” “sparkling and spotless inside and out,” “super glossy.”</li>
+        <li><strong>Results on paint and interiors.</strong> “Brought my paint back, looks like a brand new car,” “sparkling and spotless inside and out,” “super glossy.”</li>
         <li><strong>The mobile part actually working.</strong> “They come to you, they don't need a power hookup or water hookup, and they do a great job.”</li>
       </ul>
-      <p>Had a detail with us? A review with the service you booked (interior, ceramic coating, paint correction…) helps the next Oakland driver know what to expect — <a href={SITE.social.googleReview} target="_blank" rel="noopener">leave it here</a>. Not happy with something? <a href={`tel:${SITE.phoneE164}`}>Call Jalil first</a> — we fix it.</p>
+      <p>Had a detail with us? A review with the service you booked (interior, ceramic coating, paint correction…) helps the next Oakland driver know what to expect, <a href={SITE.social.googleReview} target="_blank" rel="noopener">leave it here</a>. Not happy with something? <a href={`tel:${SITE.phoneE164}`}>Call Jalil first</a>, we fix it.</p>
     </div>
   </section>
 

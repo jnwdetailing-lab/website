@@ -17,12 +17,12 @@ const description =
   'Mobile RV wash & detailing in Oakland & the East Bay: motorhomes, trailers, fifth wheels & campers washed, de-bugged, oxidation-treated & waxed on site.';
 
 const faqs = [
-  { q: 'How much does RV detailing cost in Oakland?', a: 'Every RV is priced individually because motorhomes, travel trailers and campers vary so much in length, surface (gelcoat, fiberglass, painted aluminum) and condition. Tell us the type, length and what it needs — wash & wax, oxidation treatment, roof, interior — and we send a free exact quote before any work begins.' },
-  { q: 'Do you come to the storage lot?', a: 'Yes. We service RVs wherever they are parked — your driveway, a storage facility, a marina lot or a campground across Oakland and the East Bay — as long as the facility allows mobile washing and we have room to work. We bring our own water and power.' },
+  { q: 'How much does RV detailing cost in Oakland?', a: 'Every RV is priced individually because motorhomes, travel trailers and campers vary so much in length, surface (gelcoat, fiberglass, painted aluminum) and condition. Tell us the type, length and what it needs. Wash & wax, oxidation treatment, roof, interior. And we send a free quote before any work begins.' },
+  { q: 'Do you come to the storage lot?', a: 'Yes. We service RVs wherever they are parked, your driveway, a storage facility, a marina lot or a campground across Oakland and the East Bay. As long as the facility allows mobile washing and we have room to work. We bring our own water and power.' },
   { q: 'How often should I wash and wax my RV in the Bay Area?', a: 'We recommend a wash and wax every 3–6 months. Sun exposure oxidizes gelcoat and fiberglass, and salt air plus road grime etch the finish; protecting it quarterly keeps the chalky white oxidation from setting in.' },
-  { q: 'Can you remove oxidation from my RV?', a: 'Yes. Light to moderate chalky oxidation on gelcoat and fiberglass is removed with an oxidation compound and machine polishing, then sealed with wax. Heavy, long-neglected oxidation may need multiple stages — we will assess and quote honestly.' },
+  { q: 'Can you remove oxidation from my RV?', a: 'Yes. Light to moderate chalky oxidation on gelcoat and fiberglass is removed with an oxidation compound and machine polishing, then sealed with wax. Heavy, long-neglected oxidation may need multiple stages. We will assess and quote honestly.' },
   { q: 'Do you clean RV roofs?', a: 'Yes. Roof cleaning (rubber, TPO or fiberglass) removes the black streaks at the source and is included or added depending on the package. We use roof-safe cleaners that will not degrade the membrane.' },
-  { q: 'Do you detail RV interiors?', a: 'Yes — vacuum, steam, shampoo, cabinetry, bathroom and kitchen surfaces, windows and odor treatment, the same process as our automotive interior detailing, scaled to the rig.' },
+  { q: 'Do you detail RV interiors?', a: 'Yes. Vacuum, steam, shampoo, cabinetry, bathroom and kitchen surfaces, windows and odor treatment. The same process as our automotive interior detailing, scaled to the rig.' },
 ];
 
 const schema = [
@@ -48,13 +48,12 @@ const steps = [
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'RV Wash & Detailing' }]}
     eyebrow="Mobile RV detailing · Oakland & East Bay"
-    titleHtml="Mobile RV Wash & Detailing in Oakland — <em>washed, de-oxidized and waxed wherever it's parked</em>"
-    text="Motorhomes, travel trailers, fifth wheels and campers. Full hand wash of paint, gelcoat or fiberglass, bug and black-streak removal, roof cleaning, oxidation treatment and UV wax — at your home or storage lot. We bring the water and power."
-    price="Custom quote"
-    priceNote="by type, length & condition · free exact quote"
+    titleHtml="Mobile RV Wash & Detailing in Oakland, <em>washed, de-oxidized and waxed wherever it's parked</em>"
+    text="Motorhomes, travel trailers, fifth wheels and campers. Full hand wash of paint, gelcoat or fiberglass, bug and black-streak removal, roof cleaning, oxidation treatment and UV wax. At your home or storage lot. We bring the water and power."
+    note="By type, length & condition · free quote"
     image="/images/rv-wash-wax-oakland.jpg"
     imageAlt="J&W technician washing the roof line of a motorhome during mobile RV detailing in Oakland, CA"
-    bullets={['Driveway, storage facility or marina — we come to the rig', 'Gelcoat & fiberglass oxidation removed, not just washed over', 'Roof cleaning with membrane-safe chemistry']}
+    bullets={['Driveway, storage facility or marina. We come to the rig', 'Gelcoat & fiberglass oxidation removed, not just washed over', 'Roof cleaning with membrane-safe chemistry']}
   />
 
   <section class="section">
@@ -62,9 +61,9 @@ const steps = [
       <div class="prose">
         <span class="eyebrow">What's included</span>
         <h2 class="mt-0">Everything a big rig needs, done by hand</h2>
-        <p><strong>J&W's mobile RV wash and detail covers the whole exterior of your motorhome, trailer or camper — wherever it sits in Oakland or the East Bay.</strong> Hand wash of paint, gelcoat or fiberglass, bug and road-grime removal, oxidation treatment, roof cleaning, wheels and tires, windows and mirrors, and wax or UV sealant. Interior detailing available.</p>
+        <p><strong>J&W's mobile RV wash and detail covers the whole exterior of your motorhome, trailer or camper. Wherever it sits in Oakland or the East Bay.</strong> Hand wash of paint, gelcoat or fiberglass, bug and road-grime removal, oxidation treatment, roof cleaning, wheels and tires, windows and mirrors, and wax or UV sealant. Interior detailing available.</p>
         <ul class="checklist">
-          <li>Hand wash of paint, gelcoat or fiberglass — full height, slides out</li>
+          <li>Hand wash of paint, gelcoat or fiberglass. Full height, slides out</li>
           <li>Bug and road-grime removal from the front cap and mirrors</li>
           <li>Black streak removal on sidewalls</li>
           <li>Roof cleaning (rubber / TPO / fiberglass)</li>
@@ -74,7 +73,7 @@ const steps = [
           <li>Wax or sealant with UV protection</li>
           <li>Optional interior: vacuum, steam, shampoo, kitchen & bath</li>
         </ul>
-        <p>Bay Area sun and salt air oxidize gelcoat faster than most owners expect — the chalky white haze you can rub off with a finger is the finish breaking down. We recommend a wash and wax every 3–6 months to keep it sealed.</p>
+        <p>Bay Area sun and salt air oxidize gelcoat faster than most owners expect, the chalky white haze you can rub off with a finger is the finish breaking down. We recommend a wash and wax every 3–6 months to keep it sealed.</p>
       </div>
       <div class="img-frame"><img src="/images/rv-detailing-oakland.jpg" alt="Foam wash running down the side of a motorhome during mobile RV detailing" width="1600" height="1076" loading="lazy" decoding="async" /></div>
     </div>
@@ -85,8 +84,8 @@ const steps = [
   <section class="section section--soft">
     <div class="container prose max-prose" style="margin-inline:auto">
       <span class="eyebrow">Pricing</span>
-      <h2 class="mt-0">Every RV is quoted individually — here's what moves the price</h2>
-      <p>Length (a 22 ft Class B vs. a 40 ft Class A), surface type, how much oxidation has set in, whether the roof needs a full clean, and whether you want the interior done. Tell us those things and we send an exact quote — free, before any work begins. We also coat larger vehicles: see <a href="/ceramic-coating/">ceramic coating</a> for multi-year protection on painted or gelcoat surfaces.</p>
+      <h2 class="mt-0">Every RV is quoted individually, here's what moves the price</h2>
+      <p>Length (a 22 ft Class B vs. a 40 ft Class A), surface type, how much oxidation has set in, whether the roof needs a full clean, and whether you want the interior done. Tell us those things and we send a quote, free, before any work begins. We also coat larger vehicles: see <a href="/ceramic-coating/">ceramic coating</a> for multi-year protection on painted or gelcoat surfaces.</p>
       <div class="btn-row">
         <a href="#quote" class="btn btn--primary btn--lg"><Icon name="arrow" /> Get my RV quote</a>
         <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost"><Icon name="phone" /> {SITE.phoneDisplay}</a>
@@ -102,12 +101,12 @@ const steps = [
       <div>
         <span class="eyebrow">Get a quote</span>
         <h2>Tell us the type, length and where it's parked.</h2>
-        <p class="lead">Add a photo if you can — especially of any oxidation or the roof — and we'll send an exact price, usually within the hour.</p>
+        <p class="lead">Add a photo if you can, especially of any oxidation or the roof. And we'll send a price, usually within the hour.</p>
       </div>
       <QuoteForm heading="RV detailing quote" />
     </div>
   </section>
 
   <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
-  <CtaBand title="Get the rig road-trip ready — without moving it." />
+  <CtaBand title="Get the rig road-trip ready, without moving it." />
 </Base>

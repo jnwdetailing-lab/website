@@ -40,12 +40,11 @@ const localBusiness = {
   logo: `${SITE.url}/images/logo.webp`,
   image: [`${SITE.url}/images/work-1.jpg`, `${SITE.url}/images/jalil-owner-jw-mobile-detailing-oakland.jpg`],
   description:
-    'Owner-operated mobile auto detailing and ceramic coating company serving Oakland and the East Bay since 2022. Interior & exterior detailing, paint correction, ceramic coating, odor removal and RV detailing — done at your home or workplace.',
+    'Owner-operated mobile auto detailing and ceramic coating company serving Oakland and the East Bay since 2022. Interior & exterior detailing, paint correction, ceramic coating, odor removal and RV detailing. Done at your home or workplace.',
   telephone: SITE.phoneE164,
   email: SITE.email,
   founder: { '@type': 'Person', name: SITE.founder },
   foundingDate: SITE.founded,
-  priceRange: '$120 - $1,550',
   currenciesAccepted: 'USD',
   paymentAccepted: 'Cash, Credit Card, Debit Card, Zelle, Venmo',
   address: {
@@ -82,10 +81,10 @@ const localBusiness = {
     '@type': 'OfferCatalog',
     name: 'Mobile Detailing Services',
     itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Interior Detailing', url: `${SITE.url}/interior-auto-detailing-oakland-california/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 150, maxPrice: 350, priceCurrency: 'USD' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Exterior Detailing', url: `${SITE.url}/exterior-auto-detailing-oakland-california/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 120, maxPrice: 250, priceCurrency: 'USD' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Paint Correction', url: `${SITE.url}/paint-correction/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 250, maxPrice: 800, priceCurrency: 'USD' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ceramic Coating', url: `${SITE.url}/ceramic-coating/` }, priceSpecification: { '@type': 'PriceSpecification', minPrice: 800, maxPrice: 1550, priceCurrency: 'USD' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Interior Detailing', url: `${SITE.url}/interior-auto-detailing-oakland-california/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Exterior Detailing', url: `${SITE.url}/exterior-auto-detailing-oakland-california/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Paint Correction', url: `${SITE.url}/paint-correction/` } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ceramic Coating', url: `${SITE.url}/ceramic-coating/` } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Odor Removal', url: `${SITE.url}/odor-removal-oakland/` } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'RV Wash & Detailing', url: `${SITE.url}/rv-wash-and-rv-detailing-oakland-california/` } },
     ],

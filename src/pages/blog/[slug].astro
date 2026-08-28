@@ -21,17 +21,17 @@ const path = `/blog/${slug}/`;
 const seo: Record<string, { title: string; description: string; image: string }> = {
   'whats-included-in-a-full-detailing-service': {
     title: "What's Included in a Full Detail? Checklist, Time & Oakland Cost",
-    description: 'A full detail = two-bucket wash, clay, wheels, wax/sealant + interior vacuum, steam, shampoo, leather. 3–7 hours, $180–$600+ in Oakland. The full checklist.',
+    description: 'A full detail = two-bucket wash, clay, wheels, wax/sealant + interior vacuum, steam, shampoo, leather. 3–7 hours, from $250 in Oakland. The full checklist.',
     image: '/images/exterior-detailing-oakland.jpg',
   },
   'what-does-ceramic-coating-cost-in-oakland-ca': {
-    title: 'Ceramic Coating Cost in Oakland, CA (2026): $800–$1,550 Explained',
-    description: 'Ceramic coating in Oakland costs $800–$1,550 complete — sedan $800–1,000, mid SUV $1,000–1,250, large SUV/truck $1,250–1,550 — incl. prep & correction.',
+    title: 'Ceramic Coating Cost in Oakland, CA: $500–$1,800 Explained',
+    description: 'Ceramic coating in Oakland typically costs $500–$1,800 complete, depending on vehicle size, paint condition and the service you choose. Incl. prep & correction.',
     image: '/images/blog/compressed-watermarked_img_17093029742238375971.jpg',
   },
   'what-does-auto-detailing-cost-in-oakland-ca': {
     title: 'Auto Detailing Cost in Oakland, CA (2026 Price Guide) | J&W',
-    description: 'Oakland detailing prices: wash & wax $120–$150, full detail $180–$250, premium $300–$600+, interior $150–$350, paint correction $250–$800+, ceramic $800–$1,550.',
+    description: 'Oakland detailing prices: exterior from $150, full detail from $250, premium from $350, interior from $200, paint correction from $350, ceramic $500–$1,800.',
     image: '/images/blog/car-detailing-cost-in-oakland-featured-image.jpg',
   },
 };
@@ -59,7 +59,7 @@ const fmt = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'l
         <img src="/images/jalil-owner-jw-mobile-detailing-oakland.jpg" alt="Jalil Wren, founder of J&W Mobile Detailing" width="96" height="96" loading="lazy" />
         <div>
           <strong>About the author</strong>
-          <p>{SITE.founder} founded J&W Mobile Detailing in Oakland in 2022 and still details every car the company takes on. Ceramic coatings, paint correction, interiors — 1,000+ East Bay vehicles and a 4.9★ Google rating.</p>
+          <p>{SITE.founder} founded J&W Mobile Detailing in Oakland in 2022 and still details every car the company takes on. Ceramic coatings, paint correction, interiors, 1,000+ East Bay vehicles and a 4.9★ Google rating.</p>
           <div class="btn-row"><a href={CTA.href} class="btn btn--primary btn--sm" data-scroll-book><Icon name="calendar" /> {CTA.label}</a><a href="/about-us/" class="btn btn--ghost btn--sm">About J&W</a></div>
         </div>
       </aside>

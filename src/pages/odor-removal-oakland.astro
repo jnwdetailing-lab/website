@@ -14,14 +14,14 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 const path = '/odor-removal-oakland/';
 const title = 'Car Odor Removal Oakland, CA | Ozone Treatment | J&W Mobile';
 const description =
-  'Mobile car odor removal in Oakland: ozone treatment destroys smoke, pet, mildew & food smells at the source — with steam & shampoo. At your home. 4.9★ Google.';
+  'Mobile car odor removal in Oakland: ozone treatment destroys smoke, pet, mildew & food smells at the source. With steam & shampoo. At your home. 4.9★ Google.';
 
 const faqs = [
-  { q: 'How much does car odor removal cost in Oakland?', a: 'Ozone odor treatment is an add-on to an interior detail with J&W — the shampoo and steam remove the source in fabric, and ozone finishes what has soaked into the headliner, vents and foam. Pricing depends on the interior tier (interior details run $150–$350) and severity; smoke and mildew usually need the Diamond Reset plus ozone. Exact quote before we book.' },
+  { q: 'How does ozone odor removal work?', a: 'Ozone is the finish, not the fix. The shampoo and steam of an interior detail remove the source in the fabric first; ozone then oxidises what has soaked into the headliner, vents and foam, where cleaning cannot reach. That is why it is an add-on to an interior detail rather than a standalone service. The tier your car needs depends on severity, smoke and mildew usually call for the Diamond Reset underneath. And we quote it exactly once we know the vehicle.' },
   { q: 'Does ozone treatment really remove smoke smell?', a: 'Yes, when combined with proper cleaning. Ozone (O₃) oxidizes the odor-causing molecules and bacteria in carpets, seats, headliner and HVAC rather than covering them. For heavy cigarette or cannabis smoke we shampoo and steam first, then run ozone with the HVAC cycling so the vents are treated too.' },
   { q: 'How long does odor removal take?', a: 'The interior detail portion takes 2–4 hours; the ozone treatment runs 30–90 minutes depending on severity, then the vehicle airs out for 30+ minutes before you get back in.' },
-  { q: 'Is ozone safe for my car and for me?', a: 'Ozone is safe for the vehicle\'s materials at the concentrations and durations we use. No one (people or pets) should be inside during treatment, and we ventilate the car fully afterward — you may notice a faint clean "after-thunderstorm" smell for a day, which fades.' },
-  { q: 'What odors can you remove?', a: 'Cigarette and cannabis smoke, pet odor and urine, mildew and musty smells from wet carpet or a leak, spilled milk and food, vomit, gasoline and sweat. If a smell comes from a leak or wet padding, we\'ll tell you — the source has to be dried or the smell returns.' },
+  { q: 'Is ozone safe for my car and for me?', a: 'Ozone is safe for the vehicle\'s materials at the concentrations and durations we use. No one (people or pets) should be inside during treatment, and we ventilate the car fully afterward. You may notice a faint clean "after-thunderstorm" smell for a day, which fades.' },
+  { q: 'What odors can you remove?', a: 'Cigarette and cannabis smoke, pet odor and urine, mildew and musty smells from wet carpet or a leak, spilled milk and food, vomit, gasoline and sweat. If a smell comes from a leak or wet padding, we\'ll tell you. The source has to be dried or the smell returns.' },
   { q: 'Why not just use an air freshener or a bomb?', a: 'Those mask odor for a few days. The smell lives in fibers, foam and the HVAC evaporator. Extraction + steam removes the residue; ozone neutralizes what is left. That is why it stays gone.' },
 ];
 
@@ -37,7 +37,7 @@ const schema = [
 ];
 
 const steps = [
-  { title: 'Find the source', text: 'We check carpet padding, under seats, the trunk, the cabin filter and the HVAC for the actual cause — wet padding, a spill that soaked through, smoke residue on the headliner.' },
+  { title: 'Find the source', text: 'We check carpet padding, under seats, the trunk, the cabin filter and the HVAC for the actual cause. Wet padding, a spill that soaked through, smoke residue on the headliner.' },
   { title: 'Remove it', text: 'Shampoo extraction and high-temp steam pull the residue and bacteria out of seats, carpet and headliner. Hard surfaces wiped with an enzyme or alkaline cleaner as needed.' },
   { title: 'Ozone treatment', text: 'A commercial ozone generator runs sealed inside the vehicle with the HVAC on recirculate, oxidizing odor molecules in the fibers and the vent system.' },
   { title: 'Ventilate & verify', text: 'Doors open, fans on, fresh cabin filter if needed. We do a sniff test with you before we leave.' },
@@ -48,22 +48,21 @@ const steps = [
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Odor Removal' }]}
     eyebrow="Mobile odor removal · Oakland & East Bay"
-    titleHtml="Car Odor Removal in Oakland — <em>smoke, pet, mildew & food smells gone for good</em>, not masked"
-    text="Stubborn smells don't leave with air fresheners — they have to be eliminated at the source. We shampoo and steam the residue out, then run a commercial ozone treatment that neutralizes the bacteria deep in carpets, seats, headliner and vents. At your home."
-    price="Add-on"
-    priceNote="with any interior detail ($150–$350) · ~1 hr ozone + airing"
+    titleHtml="Car Odor Removal in Oakland, <em>smoke, pet, mildew & food smells gone for good</em>, not masked"
+    text="Stubborn smells don't leave with air fresheners, they have to be eliminated at the source. We shampoo and steam the residue out, then run a commercial ozone treatment that neutralizes the bacteria deep in carpets, seats, headliner and vents. At your home."
+    note="Add-on with any interior detail · ~1 hr ozone + airing"
     image="/images/odor-removal-oakland.jpg"
     imageAlt="Commercial ozone generator running inside a vehicle for odor removal in Oakland, CA"
-    bullets={['Cigarette & cannabis smoke · pet & urine · mildew · spilled milk · gas', 'Extraction + steam + ozone — the full method, not a bomb', 'HVAC and vents treated too']}
+    bullets={['Cigarette & cannabis smoke · pet & urine · mildew · spilled milk · gas', 'Extraction + steam + ozone. The full method, not a bomb', 'HVAC and vents treated too']}
   />
 
   <section class="section">
     <div class="container two-col">
       <div class="prose">
         <span class="eyebrow">How it works</span>
-        <h2 class="mt-0">Why the smell keeps coming back — and how we actually stop it</h2>
-        <p><strong>Car odor removal with J&W is an ozone treatment paired with an interior detail, done at your home in Oakland or the East Bay.</strong> Smells live in fabric fibers, seat foam, the headliner and the HVAC evaporator. A freshener coats the air for a few days; the source is still there. We extract and steam the residue out, then ozone neutralizes what cleaning can't reach — so smoke, pet, mildew, lingering food and even that forgotten gallon of milk are gone.</p>
-        <p>Common in the East Bay: mildew smell after the rainy season (a leaking seal soaks the carpet padding), dog smell from weekend trips to Point Isabel or Redwood Regional, rideshare and pre-sale cars that have been smoked in, and kids' car seats. If the cause is an active leak or soaked padding, we'll tell you — the source has to be dried or the smell returns.</p>
+        <h2 class="mt-0">Why the smell keeps coming back, and how we actually stop it</h2>
+        <p><strong>Car odor removal with J&W is an ozone treatment paired with an interior detail, done at your home in Oakland or the East Bay.</strong> Smells live in fabric fibers, seat foam, the headliner and the HVAC evaporator. A freshener coats the air for a few days; the source is still there. We extract and steam the residue out, then ozone neutralizes what cleaning can't reach. So smoke, pet, mildew, lingering food and even that forgotten gallon of milk are gone.</p>
+        <p>Common in the East Bay: mildew smell after the rainy season (a leaking seal soaks the carpet padding), dog smell from weekend trips to Point Isabel or Redwood Regional, rideshare and pre-sale cars that have been smoked in, and kids' car seats. If the cause is an active leak or soaked padding, we'll tell you. The source has to be dried or the smell returns.</p>
       </div>
       <div class="img-frame"><img src="/images/odor-removal-treatment-oakland.jpg" alt="Ozone odor treatment running during a mobile interior detail in Oakland" width="1600" height="900" loading="lazy" decoding="async" /></div>
     </div>
@@ -75,7 +74,7 @@ const steps = [
     <div class="container prose max-prose" style="margin-inline:auto">
       <span class="eyebrow">Pricing</span>
       <h2 class="mt-0">What odor removal costs</h2>
-      <p>Ozone treatment is an add-on to an <a href="/interior-auto-detailing-oakland-california/">interior detail</a> because the cleaning is what removes the source. Light odors (food, mild pet) pair with Deep Shampoo; smoke, urine and mildew usually need the Diamond Reset (sanitization, headliner, leather) plus ozone. Interior details run <strong>$150–$350</strong> by vehicle size and condition; the ozone add-on is quoted with it. Tell us what the smell is and how long it's been there and we'll give you an exact price.</p>
+      <p>Ozone treatment is an add-on to an <a href="/interior-auto-detailing-oakland-california/">interior detail</a> because the cleaning is what removes the source. Light odors (food, mild pet) pair with Deep Shampoo; smoke, urine and mildew usually need the Diamond Reset (sanitization, headliner, leather) plus ozone.</p>
       <div class="btn-row">
         <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
         <a href={CTA.href} class="btn btn--ghost" data-scroll-book>{CTA.label}</a>
@@ -91,7 +90,7 @@ const steps = [
       <div>
         <span class="eyebrow">Get a quote</span>
         <h2>Tell us what it smells like and how long it's been there.</h2>
-        <p class="lead">That — plus the vehicle — is enough for an honest answer about what it will take and what it costs.</p>
+        <p class="lead">That, plus the vehicle. Is enough for an honest answer about what it will take and what it costs.</p>
         <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
       </div>
       <QuoteForm heading="Odor removal quote" />

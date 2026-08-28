@@ -10,11 +10,11 @@ import { breadcrumbSchema } from '../data/schema';
 const path = '/gallery/';
 const title = 'Gallery | Before & After Detailing Photos | J&W Oakland';
 const description =
-  'Real before-and-after photos from J&W Mobile Detailing jobs in Oakland & the East Bay — interior resets, paint correction, ceramic coating, RV washes. No stock.';
+  'Real before-and-after photos from J&W Mobile Detailing jobs in Oakland & the East Bay, interior resets, paint correction, ceramic coating, RV washes. No stock.';
 const imgSchema = {
   '@context': 'https://schema.org',
   '@type': 'ImageGallery',
-  name: 'J&W Mobile Detailing — recent work in Oakland & the East Bay',
+  name: 'J&W Mobile Detailing, recent work in Oakland & the East Bay',
   url: `${SITE.url}${path}`,
   image: GALLERY.map((g) => ({ '@type': 'ImageObject', contentUrl: `${SITE.url}${g.src}`, caption: g.alt, width: g.w, height: g.h })),
 };
@@ -26,7 +26,7 @@ const schema = [imgSchema, breadcrumbSchema([{ label: 'Gallery', href: path }])]
     crumbs={[{ label: 'Gallery' }]}
     eyebrow="Recent work"
     titleHtml="Real cars, real driveways, <em>no filters</em>"
-    text="A selection of recent J&W jobs across Oakland and the East Bay. For daily photos and videos — coatings, interior rescues, paint correction under the light — follow @jnwdetail on Instagram."
+    text="A selection of recent J&W jobs across Oakland and the East Bay. For daily photos and videos, coatings, interior rescues, paint correction under the light. Follow @jnwdetail on Instagram."
     image="/images/work-1.jpg"
     imageAlt="Black sedan freshly ceramic coated by J&W Mobile Detailing in an Oakland driveway"
   />
@@ -35,7 +35,7 @@ const schema = [imgSchema, breadcrumbSchema([{ label: 'Gallery', href: path }])]
     <div class="container two-col">
       <div>
         <span class="eyebrow">Before / after</span>
-        <h2>Interior Deep Shampoo — Oakland</h2>
+        <h2>Interior Deep Shampoo, Oakland</h2>
         <p class="lead">Drag the slider. Cloth seat, years of wear, one visit: pre-treat, hot-water extraction, steam.</p>
         <a href="/interior-auto-detailing-oakland-california/" class="btn btn--dark">Interior detailing packages</a>
       </div>
@@ -60,7 +60,7 @@ const schema = [imgSchema, breadcrumbSchema([{ label: 'Gallery', href: path }])]
   </section>
 
   <QuoteSection />
-  <CtaBand title="Want yours in here?" text="Book a detail and send us your own before/after — we love posting them." />
+  <CtaBand title="Want yours in here?" text="Book a detail and send us your own before/after, we love posting them." />
 </Base>
 
 <style>

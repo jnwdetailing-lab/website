@@ -6,9 +6,10 @@
  *
  * ── REPLACING THE FORM LATER ────────────────────────────────────────────────
  * In GHL: Sites → Forms → Builder → open the form → Integrate → Inline → Copy Code.
- * Paste it between GHL:START and GHL:END below, then keep two local edits:
+ * Paste it between GHL:START and GHL:END below, then keep three local edits:
  *   1. add  is:inline  to the <script> tag, or Astro bundles and breaks it
- *   2. leave the src expression alone if you want per-page service prefill
+ *   2. do NOT add loading="lazy" to the iframe — see the note at GHL:START
+ *   3. leave the src expression alone if you want per-page service prefill
  * Set FORM_PROVIDER back to 'native' in src/data/site.ts to fall back to the
  * built-in form at any time.
  *
@@ -22,11 +23,11 @@
  * Leave it as '' to disable — the form works fine either way.
  * ────────────────────────────────────────────────────────────────────────────
  */
-import { SITE, CTA } from '../data/site';
+import { SITE } from '../data/site';
 import Icon from './Icons.astro';
 
 export interface Props { heading?: string; bare?: boolean; compact?: boolean }
-const { heading = 'Get your exact price', bare = false } = Astro.props;
+const { heading = 'Request a quote', bare = false } = Astro.props;
 
 const FORM_ID = 'GwLyoWy5IUhL15W1VIVq';
 const FORM_NAME = '8/26 Website Form';
@@ -54,12 +55,22 @@ const formSrc =
   {!bare && (
     <div class="ghl__head">
       <h3>{heading}</h3>
-      <p>Tell us about your vehicle — Jalil replies personally, usually within the hour during business hours.</p>
+      <p>Tell us about your vehicle and we will get back to you, usually within the hour during business hours.</p>
     </div>
   )}
 
   <div class="ghl__embed">
     <!-- GHL:START -->
+    <!--
+      No loading="lazy" here, deliberately.
+
+      On desktop the form card sits in the hero's right column, inside the first
+      screenful. On mobile the hero stacks to one column, which pushes the iframe
+      to roughly 960px down the page, below the fold. A lazy iframe there defers
+      its load, but form_embed.js has already run and done its init/postMessage
+      handshake against the frame, so the form never gets set up and the visitor
+      sees an empty box. That is why it broke on phones and not on desktop.
+    -->
     <iframe
       src={formSrc}
       style="width:100%;border:none;border-radius:8px"
@@ -78,32 +89,107 @@ const formSrc =
       data-cookie-consent="true"
       data-cookie-consent-provider="auto"
       title={FORM_NAME}
-      loading="lazy"
+      scrolling="no"
     ></iframe>
     <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
     <!-- GHL:END -->
   </div>
 
-  <p class="fud">
-    <Icon name="check" /> No obligation · No spam · Or just call/text
-    <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>
-  </p>
-  <p class="ghl__book">
-    <a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} →</a>
-  </p>
+  <!--
+    Revealed by the script below only if the embed never renders, a phone
+    content blocker, iOS Private Relay or a GHL outage all leave a blank box
+    otherwise, on the one page that earns the leads.
+  -->
+  <div class="ghl__fallback" hidden>
+    <p class="ghl__fallback-h"><Icon name="phone" /> Form not loading?</p>
+    <p>Call or text and we will price your vehicle directly, no form needed.</p>
+    <div class="ghl__fallback-actions">
+      <a class="btn btn--primary" href={`tel:${SITE.phoneE164}`}>Call {SITE.phoneDisplay}</a>
+      <a class="btn btn--ghost" href={`sms:${SITE.phoneE164}`}>Text us</a>
+    </div>
+    <p class="ghl__fallback-alt">
+      <a href={formSrc} target="_blank" rel="noopener">Open the quote form in a new tab →</a>
+    </p>
+  </div>
 </div>
 
 <style>
   /* --ghl-min-h reserves space so the page doesn't jump while the iframe loads.
-     GHL's form_embed.js sets the real height once the form renders. Tune this
-     to roughly your form's actual height. */
+     GHL's form_embed.js sets the real height once the form renders, and .is-sized
+     below then drops this floor so the box matches the form exactly.
+     Phones need a taller reserve: the same form stacks to one column there, so a
+     desktop-sized floor clips it, cutting off the submit button. */
   .ghl { --ghl-min-h: 560px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+  @media (max-width: 820px) { .ghl { --ghl-min-h: 820px; } }
   .ghl--bare { border: 0; padding: 0; box-shadow: none; background: transparent; }
   .ghl__head h3 { margin-bottom: 0.25rem; }
   .ghl__head p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
   .ghl__embed { min-height: var(--ghl-min-h); }
   .ghl__embed :global(iframe) { width: 100%; min-height: var(--ghl-min-h); border: 0; border-radius: 8px; display: block; }
-  .ghl__book { text-align: center; margin-top: 0.6rem; font-size: 0.82rem; }
-  .ghl__book a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
-  .ghl__book a:hover { color: var(--ink); }
+
+  /* GHL has reported a real height — let it win, so no dead space under the form. */
+  .ghl.is-sized .ghl__embed,
+  .ghl.is-sized .ghl__embed :global(iframe) { min-height: 0; }
+
+  /* Embed never rendered: collapse the reserved space and show the fallback. */
+  .ghl.is-failed .ghl__embed,
+  .ghl.is-failed .ghl__embed :global(iframe) { min-height: 0; }
+  .ghl.is-failed .ghl__embed { display: none; }
+
+  .ghl__fallback { border: 1.5px solid var(--line); border-radius: 10px; padding: 1.25rem; background: #fff; }
+  .ghl__fallback-h { font-weight: 700; color: var(--ink); margin-bottom: 0.35rem; }
+  .ghl__fallback-h :global(svg) { display: inline-block; width: 1em; height: 1em; vertical-align: -2px; margin-right: 0.35rem; }
+  .ghl__fallback p { font-size: 0.92rem; color: var(--muted); margin-bottom: 0.9rem; }
+  .ghl__fallback-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+  .ghl__fallback-actions .btn { width: 100%; }
+  .ghl__fallback-alt { margin: 0.9rem 0 0 !important; text-align: center; font-size: 0.82rem !important; }
+  .ghl__fallback-alt a { color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 400px) { .ghl__fallback-actions { grid-template-columns: 1fr; } }
+
 </style>
+
+<script>
+  /**
+   * Watchdog for the third-party embed.
+   *
+   * form_embed.js sets an inline height on the iframe once the form has actually
+   * rendered, so that height is our proof of life. If it never arrives — blocked
+   * host, dead frame, GHL outage — we swap in call/text rather than leaving a
+   * blank box on the page every CTA points at.
+   */
+  const READY_TIMEOUT_MS = 8000;
+
+  document.querySelectorAll<HTMLElement>('.ghl').forEach((wrap) => {
+    const frame = wrap.querySelector<HTMLIFrameElement>('iframe[data-form-id]');
+    const fallback = wrap.querySelector<HTMLElement>('.ghl__fallback');
+    if (!frame || !fallback) return;
+
+    const sized = () => parseInt(frame.style.height, 10) > 0;
+
+    // Keep watching after the timeout: a slow phone connection can deliver the
+    // form late, and it should take the page back rather than leave the visitor
+    // on the fallback for the rest of the visit.
+    const markSized = () => {
+      wrap.classList.remove('is-failed');
+      wrap.classList.add('is-sized');
+      fallback.hidden = true;
+      observer.disconnect();
+      clearTimeout(timer);
+    };
+
+    const showFallback = () => {
+      if (wrap.classList.contains('is-sized')) return;
+      wrap.classList.add('is-failed');
+      fallback.hidden = false;
+    };
+
+    const observer = new MutationObserver(() => { if (sized()) markSized(); });
+    observer.observe(frame, { attributes: true, attributeFilter: ['style'] });
+
+    const timer = setTimeout(showFallback, READY_TIMEOUT_MS);
+    frame.addEventListener('error', showFallback);
+
+    // Height may already be set if the form rendered before this script ran.
+    if (sized()) markSized();
+  });
+</script>

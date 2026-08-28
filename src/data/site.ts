@@ -71,6 +71,26 @@ export const FORM_PROVIDER: 'native' | 'ghl' = 'ghl';
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
+// Google map shown on the home page. This is the Business Profile embed, so the
+// pin is the J&W listing itself rather than just the street address. To replace
+// it: Google Maps, find the business, Share, "Embed a map", then copy the src
+// URL out of the iframe code.
+export const GOOGLE_MAP_EMBED =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0317277051945!2d-122.2340449244489!3d37.789296211323816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d6fb452df51eebd%3A0x27abe75bf3d02297!2sJ%26W%20Mobile%20Detailing%20%E2%80%93%20Ceramic%20Coating%20%26%20Paint%20Correction!5e0!3m2!1sen!2sus!4v1787906283402!5m2!1sen!2sus';
+
+// BBB seal. Get these from your BBB business profile ("Get the Seal"): the link to
+// your profile, and the seal image URL BBB gives you. Both must be filled in or the
+// seal is not rendered, so nothing claims an accreditation that is not verifiable.
+export const BBB = {
+  profileUrl:
+    'https://www.bbb.org/us/ca/oakland/profile/mobile-auto-detailing/j-w-mobile-detailing-1116-984246/#sealclick',
+  // BBB hosts this, so the rating on it stays current on its own. Native size is
+  // 250x52; there is no larger asset, so it is shown at 1:1 rather than scaled.
+  sealImage: 'https://seal-goldengate.bbb.org/seals/black-seal-250-52-bbb-984246.png',
+  sealWidth: 250,
+  sealHeight: 52,
+};
+
 export const NAV: NavItem[] = [
   {
     label: 'Services',
@@ -108,8 +128,6 @@ export type Service = {
   name: string;
   short: string;
   menuName: string;
-  price: string;
-  priceNote?: string;
   image: string;
   alt: string;
   icon: string;
@@ -121,10 +139,8 @@ export const SERVICES: Service[] = [
     name: 'Interior Detailing',
     menuName: 'Interior Deep Clean',
     short:
-      'Full vacuum, steam cleaning, shampoo, stain & odor removal, leather conditioning — your cabin reset to like-new.',
-    price: '$150 – $350',
-    priceNote: 'by size & condition',
-    image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
+      'Full vacuum, steam cleaning, shampoo, stain & odor removal, leather conditioning. Your cabin reset to like-new.',
+    image: '/images/interior-detailing-steam-cleaning-oakland-800.webp',
     alt: 'Jalil steam cleaning a car interior during a mobile interior detail in Oakland, CA',
     icon: 'seat',
   },
@@ -133,10 +149,8 @@ export const SERVICES: Service[] = [
     name: 'Exterior Detailing',
     menuName: 'Exterior Detail',
     short:
-      'Two-bucket hand wash, clay bar decontamination, wheels & tires, then wax or sealant — shine that lasts months, not days.',
-    price: '$120 – $250',
-    priceNote: 'wash & wax to clay & seal',
-    image: '/images/exterior-detailing-oakland.jpg',
+      'Two-bucket hand wash, clay bar decontamination, wheels & tires, then wax or sealant. Shine that lasts months, not days.',
+    image: '/images/exterior-detailing-oakland-800.webp',
     alt: 'Foam pre-soak on a white sedan during a mobile exterior detail in Oakland',
     icon: 'wash',
   },
@@ -146,9 +160,7 @@ export const SERVICES: Service[] = [
     menuName: 'Paint Correction',
     short:
       'Machine polishing that removes swirl marks, scratches and oxidation. One-step or two-step. The right prep before any coating.',
-    price: '$250 – $800+',
-    priceNote: 'one-step vs. two-step',
-    image: '/images/paint-correction-polishing-oakland.jpg',
+    image: '/images/paint-correction-polishing-oakland-800.webp',
     alt: 'Dual-action polisher removing swirl marks during paint correction in Oakland, CA',
     icon: 'polish',
   },
@@ -157,10 +169,8 @@ export const SERVICES: Service[] = [
     name: 'Ceramic Coating',
     menuName: 'Ceramic Coating',
     short:
-      'Multi-year, hydrophobic protection bonded to your paint. Includes prep, decontamination and correction — applied in your driveway.',
-    price: '$800 – $1,550',
-    priceNote: 'complete, incl. correction',
-    image: '/images/ceramic-coating-oakland.jpg',
+      'Multi-year, hydrophobic protection bonded to your paint. Includes prep, decontamination and correction, applied in your driveway.',
+    image: '/images/ceramic-coating-oakland-800.webp',
     alt: 'Ceramic coating being poured onto an applicator before application in Oakland',
     icon: 'shield',
   },
@@ -169,10 +179,8 @@ export const SERVICES: Service[] = [
     name: 'Odor Removal',
     menuName: 'Ozone Odor Removal',
     short:
-      'Ozone treatment that destroys smoke, pet, mildew and food odors at the source — not an air freshener that masks them.',
-    price: 'Add-on',
-    priceNote: 'with any interior detail',
-    image: '/images/odor-removal-oakland.jpg',
+      'Ozone treatment that destroys smoke, pet, mildew and food odors at the source, not an air freshener that masks them.',
+    image: '/images/odor-removal-oakland-800.webp',
     alt: 'Ozone generator running inside a vehicle for odor removal in Oakland',
     icon: 'wind',
   },
@@ -182,9 +190,7 @@ export const SERVICES: Service[] = [
     menuName: 'RV Wash & Wax',
     short:
       'Motorhomes, travel trailers, fifth wheels & campers washed, de-bugged, oxidation-treated and waxed wherever they are parked.',
-    price: 'Custom quote',
-    priceNote: 'by length & condition',
-    image: '/images/rv-wash-wax-oakland.jpg',
+    image: '/images/rv-wash-wax-oakland-800.webp',
     alt: 'Technician washing the roof line of a motorhome during mobile RV detailing in Oakland',
     icon: 'rv',
   },
@@ -208,13 +214,13 @@ export type Area = {
 };
 
 export const AREAS: Area[] = [
-  { slug: '/', city: 'Oakland', hasPage: true, neighborhoods: ['Rockridge', 'Temescal', 'Fruitvale', 'Lake Merritt', 'Montclair', 'Jack London Square', 'Oakland Hills', 'Dimond'], blurb: 'Our home base. Daily drivers in Rockridge, family SUVs in Montclair, fleet vans near the Port — we cover every neighborhood.' },
+  { slug: '/', city: 'Oakland', hasPage: true, neighborhoods: ['Rockridge', 'Temescal', 'Fruitvale', 'Lake Merritt', 'Montclair', 'Jack London Square', 'Oakland Hills', 'Dimond'], blurb: 'Our home base. Daily drivers in Rockridge, family SUVs in Montclair, fleet vans near the Port. We cover every neighborhood.' },
   { slug: '/auto-detailing-alameda-ca/', city: 'Alameda', hasPage: true, neighborhoods: ['Bay Farm Island', 'Gold Coast', 'Park Street', 'Alameda Point', 'South Shore'], blurb: 'Island living means salt air on your paint year-round. Decontamination and sealant matter more here than almost anywhere.' },
-  { slug: '/auto-detailing-berkeley-ca/', city: 'Berkeley', hasPage: true, neighborhoods: ['Elmwood', 'North Berkeley', 'Claremont', 'Berkeley Hills', 'West Berkeley', 'Downtown'], blurb: 'Tree-lined streets, tight parking and street sweeping schedules. We work around all of it — curbside or in your driveway.' },
+  { slug: '/auto-detailing-berkeley-ca/', city: 'Berkeley', hasPage: true, neighborhoods: ['Elmwood', 'North Berkeley', 'Claremont', 'Berkeley Hills', 'West Berkeley', 'Downtown'], blurb: 'Tree-lined streets, tight parking and street sweeping schedules. We work around all of it, curbside or in your driveway.' },
   { slug: '/auto-detailing-walnut-creek-ca/', city: 'Walnut Creek', hasPage: true, neighborhoods: ['Rossmoor', 'Northgate', 'Downtown', 'Saranap', 'Walnut Heights'], blurb: 'Inland heat bakes interiors and fades paint fast. Ceramic coating and interior conditioning are our most-booked services here.' },
-  { slug: '/auto-detailing-san-leandro-ca/', city: 'San Leandro', hasPage: true, neighborhoods: ['Bay-O-Vista', 'Washington Manor', 'Estudillo Estates', 'Marina Faire'], blurb: 'A quick hop down 880 from our base — same-week appointments are usually available.' },
-  { slug: '/auto-detailing-piedmont-ca/', city: 'Piedmont', hasPage: true, neighborhoods: ['Piedmont Hills', 'Baja Piedmont', 'Upper Piedmont'], blurb: 'Multi-car households and ceramic coatings for newer vehicles — we book recurring maintenance details here often.' },
-  { slug: '/auto-detailing-emeryville-ca/', city: 'Emeryville', hasPage: true, neighborhoods: ['Watergate', 'Bay Street', 'Park Avenue District'], blurb: 'Condo garages and office parking lots are no problem — we bring our own water and power.' },
+  { slug: '/auto-detailing-san-leandro-ca/', city: 'San Leandro', hasPage: true, neighborhoods: ['Bay-O-Vista', 'Washington Manor', 'Estudillo Estates', 'Marina Faire'], blurb: 'A quick hop down 880 from our base. Same-week appointments are usually available.' },
+  { slug: '/auto-detailing-piedmont-ca/', city: 'Piedmont', hasPage: true, neighborhoods: ['Piedmont Hills', 'Baja Piedmont', 'Upper Piedmont'], blurb: 'Multi-car households and ceramic coatings for newer vehicles. We book recurring maintenance details here often.' },
+  { slug: '/auto-detailing-emeryville-ca/', city: 'Emeryville', hasPage: true, neighborhoods: ['Watergate', 'Bay Street', 'Park Avenue District'], blurb: 'Condo garages and office parking lots are no problem. We bring our own water and power.' },
   { slug: '/auto-detailing-orinda-ca/', city: 'Orinda', hasPage: true, neighborhoods: ['Orinda Village', 'Sleepy Hollow', 'Orinda Downs', 'Glorietta'], blurb: 'Through the Caldecott and up the hill. Driveway details, coatings and RV washes for the Lamorinda side.' },
 ];
 
@@ -239,17 +245,17 @@ export const REVIEWS: Review[] = [
 export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
-  { q: 'How much does mobile car detailing cost in Oakland?', a: 'In Oakland, a basic exterior wash and wax runs $120–$150, a standard full detail (interior + exterior) is $180–$250 for a typical sedan, interior deep cleans are $150–$350, premium full details are $300–$600+, paint correction is $250–$800+, and a complete ceramic coating is $800–$1,550. Final price depends on vehicle size and condition — you see the exact price before you book.' },
-  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes — we are 100% mobile across Oakland and the East Bay. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
+  { q: 'How much does mobile car detailing cost in Oakland?', a: 'Every vehicle is quoted individually. Size, condition and the service you want all move the number, so a blanket price list would only mislead you. Tell us what you drive and Jalil sends your price personally, usually within the hour during business hours. You approve the price before anything is booked.' },
+  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the East Bay. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: 'An exterior detail takes about 1.5–3 hours, an interior deep clean 2–4 hours, and a full detail 3–7 hours depending on vehicle size and condition. Ceramic coating with paint correction is typically a full-day appointment.' },
-  { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek and nearby East Bay communities. If you are just outside that list, call us — we can usually make it work.' },
-  { q: 'How do I book?', a: 'Fill in the quote form at the top of this page — your name, phone and what you drive, about 30 seconds. Jalil sends back an exact price personally, usually within the hour during business hours, and you pick a time from there. No deposit, and you inspect the work before you pay. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
-  { q: 'How much does ceramic coating cost and how long does it last?', a: 'A complete ceramic coating in Oakland costs $800–$1,550 depending on vehicle size (coupes/sedans $800–$1,000, mid-size SUVs $1,000–$1,250, large SUVs/trucks $1,250–$1,550) and includes prep, decontamination and paint correction. Our coating is built to last around 3 years with proper hand-wash maintenance.' },
+  { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek and nearby East Bay communities. If you are just outside that list, call us. We can usually make it work.' },
+  { q: 'How do I book?', a: 'Fill in the quote form on this page. Name, phone and what you drive, about 30 seconds. Jalil sends back a price personally, usually within the hour during business hours, and you pick a time from there. You inspect the work before you pay. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
+  { q: 'How long does a ceramic coating last?', a: 'Our coatings are built to last around three years with proper hand-wash maintenance. Every coating is quoted after we see the vehicle, because the price covers full prep. Decontamination and paint correction, not just the coating itself, and how much correction your paint needs is the variable. Send us your vehicle and we will come back with an exact number.' },
 ];
 
 export const GALLERY = [
-  { src: '/images/interior-detailing-oakland-before.jpg', alt: 'Before: stained cloth seat in a sedan prior to interior detailing in Oakland', label: 'Interior — before', w: 1080, h: 1080 },
-  { src: '/images/interior-detailing-oakland-after.jpg', alt: 'After: the same seat shampooed and steam cleaned by J&W Mobile Detailing', label: 'Interior — after', w: 1080, h: 1080 },
+  { src: '/images/interior-detailing-oakland-before.jpg', alt: 'Before: stained cloth seat in a sedan prior to interior detailing in Oakland', label: 'Interior before', w: 1080, h: 1080 },
+  { src: '/images/interior-detailing-oakland-after.jpg', alt: 'After: the same seat shampooed and steam cleaned by J&W Mobile Detailing', label: 'Interior after', w: 1080, h: 1080 },
   { src: '/images/interior-detailing-steam-cleaning-oakland.jpg', alt: 'Jalil steam cleaning a rear seat during a mobile interior detail', label: 'Steam cleaning', w: 1080, h: 1080 },
   { src: '/images/exterior-detailing-oakland.jpg', alt: 'Foam pre-soak on a white sedan during a mobile exterior detail', label: 'Foam pre-soak', w: 1080, h: 1080 },
   { src: '/images/paint-correction-polishing-oakland.jpg', alt: 'Machine polishing a hood during paint correction', label: 'Paint correction', w: 1080, h: 1080 },
