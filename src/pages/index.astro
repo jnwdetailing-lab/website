@@ -20,50 +20,72 @@ const faqSchema = {
 const pick = (name: string) => REVIEWS.find((r) => r.name === name)!;
 const reviews = [pick('Luis Carranza'), pick('Roo Sczesnak'), pick('Lorie Curtis')];
 const stars = Array.from({ length: 5 });
+
+// ── HERO ────────────────────────────────────────────────────────────────────
+// The hero is built to take a background video. Drop the file in /public/videos/
+// and put its path in HERO_VIDEO — nothing else changes, the layout and the copy
+// sit on top either way. HERO_POSTER is the still: it paints first while the
+// video buffers, and it's what shows on phones set to reduced motion.
+const HERO_VIDEO = ''; // e.g. '/videos/hero.mp4'
+const HERO_POSTER = '/images/hero-oakland-mobile-detailing.webp';
+
+// H1 names the city (Oakland carries the local search intent); the H2 widens the
+// promise to the whole Bay Area so Alameda / Contra Costa / Marin visitors don't
+// bounce thinking we don't cover them.
+const HERO_H1 = 'Professional Mobile Car Detailing & Ceramic Coating in Oakland, CA';
+const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services across the Greater Bay Area.';
 ---
 
-<Base {title} {description} canonical="/" schema={[faqSchema]} bodyClass="home" ogImage="/images/og-default.jpg">
-  <!-- ============ 1. HERO + BOOKING CARD ============ -->
+<Base {title} {description} canonical="/" schema={[faqSchema]} bodyClass="home" ogImage="/images/og-default.jpg" preloadImage={HERO_POSTER}>
+  <!-- ============ 1. HERO ============ -->
   <section class="hero">
+    <div class="hero__media" aria-hidden="true">
+      {HERO_VIDEO ? (
+        <video class="hero__vid" src={HERO_VIDEO} poster={HERO_POSTER} autoplay muted loop playsinline preload="metadata"></video>
+      ) : (
+        <img class="hero__vid" src={HERO_POSTER} alt="" width="1080" height="608" fetchpriority="high" decoding="async" />
+      )}
+      <div class="hero__scrim"></div>
+    </div>
+
     <div class="container hero__inner">
-      <div class="hero__copy">
-        <h1>Mobile Car Detailing in Oakland — Done in Your Driveway</h1>
-        <p class="hero__sub">Owner-operated. We bring our own water and power. Interior, exterior, paint correction and ceramic coating <strong>from $120</strong> — exact price before you book.</p>
-        <a href={SITE.social.google} class="hero__proof" target="_blank" rel="noopener">
-          <span class="stars" role="img" aria-label="5 stars">{stars.map(() => <Icon name="star" size={18} />)}</span>
-          <span><strong>4.9</strong> · {SITE.rating.count} Google reviews</span>
-        </a>
-        <a href="#book" class="btn btn--primary btn--lg hero__cta" data-scroll-book>{CTA.label}</a>
-        <p class="hero__alt">or call / text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></p>
-        <p class="fud"><Icon name="check" /> Exact price before you book · No deposit · Same-week slots · You inspect before you pay</p>
-        <blockquote class="hero__quote hero__quote--mobile">
-          <p>“You can stop looking — this is the shop you want. They come to you, they don't need a power hookup or water hookup, and they do a great job!”</p>
-          <cite>— <a href={SITE.social.google} target="_blank" rel="noopener">Roo Sczesnak, Google</a></cite>
-        </blockquote>
+      <h1>{HERO_H1}</h1>
+      <h2 class="hero__sub">{HERO_H2}</h2>
+
+      <a href={SITE.social.google} class="hero__proof" target="_blank" rel="noopener">
+        <span class="stars" role="img" aria-label="5 stars">{stars.map(() => <Icon name="star" size={18} />)}</span>
+        <span><strong>4.9</strong> · {SITE.rating.count} Google reviews</span>
+      </a>
+
+      <div class="hero__actions">
+        <a href="#book" class="btn btn--primary btn--lg" data-scroll-book>{CTA.label}</a>
+        <a href={`tel:${SITE.phoneE164}`} class="btn btn--light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
       </div>
 
-      <div class="hero__card">
-        <span id="quote" aria-hidden="true"></span>
-        <section id="book" class="book" tabindex="-1" aria-labelledby="book-h">
-          <div class="book__head">
-            <img src="/images/jalil-avatar.webp" alt="" width="40" height="40" />
-            <div>
-              <h2 id="book-h">Get your exact price</h2>
-              <p>Jalil Wren, owner — on every job since 2022</p>
-            </div>
+      <p class="hero__fud">Exact price before you book · No deposit · We come to you</p>
+    </div>
+  </section>
+
+  <!-- ============ 1b. BOOKING CARD — the #quote / #book target ============ -->
+  <!-- Lifted out of the hero so the fold stays clean for paid traffic: the hero
+       sells, this converts, and every CTA on the page scrolls straight here. -->
+  <section class="section--tight booking" id="quote">
+    <div class="container">
+      <section id="book" class="book" tabindex="-1" aria-labelledby="book-h">
+        <div class="book__head">
+          <img src="/images/jalil-avatar.webp" alt="" width="40" height="40" />
+          <div>
+            <h2 id="book-h">Get your exact price</h2>
+            <p>Jalil Wren, owner — on every job since 2022</p>
           </div>
-          <ol class="book__steps">
-            <li><b>1</b> Tell us your vehicle</li>
-            <li><b>2</b> Get your exact price</li>
-            <li><b>3</b> We come to you</li>
-          </ol>
-          <QuoteForm bare compact />
-        </section>
-        <blockquote class="hero__quote hero__quote--desktop">
-          <p>“You can stop looking — this is the shop you want. They come to you, they don't need a power hookup or water hookup, and they do a great job!”</p>
-          <cite>— <a href={SITE.social.google} target="_blank" rel="noopener">Roo Sczesnak, Google</a></cite>
-        </blockquote>
-      </div>
+        </div>
+        <ol class="book__steps">
+          <li><b>1</b> Tell us your vehicle</li>
+          <li><b>2</b> Get your exact price</li>
+          <li><b>3</b> We come to you</li>
+        </ol>
+        <QuoteForm bare compact />
+      </section>
     </div>
   </section>
 
@@ -156,27 +178,34 @@ const stars = Array.from({ length: 5 });
 </Base>
 
 <style>
-  /* Hero */
-  .hero { background: var(--ink); color: #d7dae0; padding: clamp(2rem, 5vw, 4rem) 0 clamp(2rem, 5vw, 3.5rem); }
-  .hero__inner { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(2rem, 4vw, 4rem); align-items: start; }
-  .hero h1 { color: #fff; font-size: clamp(2.2rem, 4.5vw, 3.6rem); margin-bottom: 0.75rem; }
-  .hero__sub { font-size: clamp(1.05rem, 1.4vw, 1.15rem); color: #c4c9d2; max-width: 60ch; margin-bottom: 1rem; }
-  .hero__sub strong { color: #fff; }
-  .hero__proof { display: inline-flex; align-items: center; gap: 0.5rem; color: #e7e9ee; margin-bottom: 1.25rem; text-decoration: none; font-size: 0.98rem; }
+  /* Hero — full-bleed media with the copy centred over it. Setting HERO_VIDEO
+     swaps the <img> for a <video>; both fill the same box, so the layout holds. */
+  .hero { position: relative; isolation: isolate; display: grid; align-items: center; min-height: clamp(460px, 66vh, 640px); padding: clamp(3rem, 8vw, 5rem) 0; background: var(--ink); color: #d7dae0; text-align: center; }
+  .hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+  .hero__vid { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* Darkened top-to-bottom so white type clears AA contrast wherever the frame
+     happens to be bright — important once a video is swapped in and the pixels
+     underneath are no longer known ahead of time. */
+  .hero__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,17,21,0.78) 0%, rgba(15,17,21,0.70) 45%, rgba(15,17,21,0.88) 100%); }
+  .hero__inner { max-width: 960px; }
+  .hero h1 { color: #fff; font-size: clamp(1.55rem, 5.6vw, 3.15rem); margin-bottom: 0.7rem; }
+  /* Semantically an <h2> for structure, styled as a subheadline rather than a
+     second display heading. */
+  .hero__sub { font-family: var(--font-body); font-size: clamp(1.02rem, 1.6vw, 1.2rem); font-weight: 400; text-transform: none; letter-spacing: 0; line-height: 1.5; color: #d7dae0; max-width: 48ch; margin: 0 auto 1.4rem; }
+  .hero__proof { display: inline-flex; align-items: center; gap: 0.5rem; color: #e7e9ee; margin-bottom: 1.5rem; text-decoration: none; font-size: 0.98rem; }
   .hero__proof:hover { text-decoration: underline; }
   .hero__proof strong { color: #fff; font-size: 1.1rem; }
-  .hero__cta { width: auto; }
-  .hero__alt { margin: 0.75rem 0 0.35rem; font-size: 0.98rem; color: #c4c9d2; }
-  .hero__alt a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-  .hero .fud { color: #b9bec8; font-size: 0.88rem; display: block; }
-  .hero .fud svg { display: inline; vertical-align: -2px; margin-right: 0.25rem; }
-  .hero__quote { margin: 1.25rem 0 0; padding: 0 0 0 1rem; border-left: 3px solid rgba(255,255,255,0.2); color: #c4c9d2; font-size: 0.95rem; }
-  .hero__quote p { margin: 0 0 0.3rem; }
-  .hero__quote cite { font-style: normal; font-size: 0.85rem; }
-  .hero__quote a { color: #fff; }
-  .hero__quote--mobile { display: none; }
-  .hero__card { max-width: 460px; justify-self: end; width: 100%; }
-  .book { background: #fff; color: var(--body); border-radius: var(--radius); box-shadow: var(--shadow); padding: 1.5rem; scroll-margin-top: calc(var(--nav-h) + 1rem); }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+  .hero__fud { margin: 1.1rem 0 0; font-size: 0.88rem; color: #b9bec8; }
+  @media (max-width: 640px) {
+    .hero { min-height: 0; }
+    .hero__actions { flex-direction: column; align-items: stretch; }
+    .hero__actions .btn { width: 100%; }
+  }
+
+  /* Booking card */
+  .booking { padding-top: clamp(2rem, 5vw, 3rem); }
+  .book { background: #fff; color: var(--body); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(1.25rem, 3vw, 2rem); max-width: 640px; margin: 0 auto; scroll-margin-top: calc(var(--nav-h) + 1rem); }
   .book:focus { outline: none; box-shadow: var(--shadow), 0 0 0 3px var(--red); }
   .book__head { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.9rem; }
   .book__head img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
@@ -185,14 +214,6 @@ const stars = Array.from({ length: 5 });
   .book__steps { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.85rem; color: var(--muted); }
   .book__steps li { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; }
   .book__steps b { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 0.7rem; display: grid; place-items: center; }
-  @media (max-width: 960px) {
-    .hero__inner { grid-template-columns: 1fr; gap: 1.5rem; }
-    .hero__card { max-width: none; justify-self: stretch; }
-    .hero__quote--desktop { display: none; }
-    .hero__quote--mobile { display: block; }
-    .hero__cta { width: 100%; }
-    .hero h1 { font-size: clamp(2rem, 8vw, 2.6rem); }
-  }
 
   /* Trust strip */
   .strip { border-bottom: 1px solid var(--line); background: #fff; }
@@ -245,4 +266,12 @@ const stars = Array.from({ length: 5 });
       history.replaceState(null, '', '#book');
     })
   );
+
+  // Background clip never autoplays for visitors who ask for reduced motion —
+  // the poster frame stands in. No-op until HERO_VIDEO is set.
+  const heroVid = document.querySelector('.hero__vid');
+  if (heroVid instanceof HTMLVideoElement && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    heroVid.removeAttribute('autoplay');
+    heroVid.pause();
+  }
 </script>
