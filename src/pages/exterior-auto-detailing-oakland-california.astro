@@ -14,16 +14,16 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 const path = '/exterior-auto-detailing-oakland-california/';
 const title = 'Exterior Car Detailing Oakland, CA | At Your Home | J&W Mobile';
 const description =
-  'Mobile exterior car detailing in Oakland: two-bucket hand wash, clay bar & iron decon, wheels & tires, wax or sealant — done in your driveway. Quoted per vehicle. 4.9★ Google.';
+  'Mobile exterior car detailing in Oakland: two-bucket hand wash, clay bar & iron decon, wheels & tires, wax or sealant. Done in your driveway. Quoted per vehicle. 4.9★ Google.';
 
 const faqs = [
-  { q: 'What is the difference between the Classic and Clay & Seal exterior?', a: 'Classic is a proper two-bucket hand wash with wheels, tires, glass and a protective wax — the right call for a car that is already decontaminated. Clay & Seal adds full clay bar and iron removal to pull bonded contamination out of the paint, then a synthetic sealant that holds for months rather than weeks. If your car has not been decontaminated in six months or more, Clay & Seal is the one. We quote your vehicle exactly either way.' },
-  { q: 'What is the difference between a car wash and exterior detailing?', a: 'A car wash removes loose dirt. Exterior detailing decontaminates the paint — clay bar for bonded grit, iron remover for embedded brake dust — cleans wheels, tires, wells and trim properly, and finishes with real protection (wax or sealant). The result looks better and lasts months instead of days.' },
+  { q: 'What is the difference between the Classic and Clay & Seal exterior?', a: 'Classic is a proper two-bucket hand wash with wheels, tires, glass and a protective wax. The right call for a car that is already decontaminated. Clay & Seal adds full clay bar and iron removal to pull bonded contamination out of the paint, then a synthetic sealant that holds for months rather than weeks. If your car has not been decontaminated in six months or more, Clay & Seal is the one. We quote your vehicle exactly either way.' },
+  { q: 'What is the difference between a car wash and exterior detailing?', a: 'A car wash removes loose dirt. Exterior detailing decontaminates the paint, clay bar for bonded grit, iron remover for embedded brake dust. Cleans wheels, tires, wells and trim properly, and finishes with real protection (wax or sealant). The result looks better and lasts months instead of days.' },
   { q: 'How often should I get an exterior detail in the Bay Area?', a: 'Every 3–4 months for a daily driver in Oakland. Salt air, I-880 brake dust and tree sap bond to paint quickly here; a quarterly clay and seal keeps the clear coat from etching. Ceramic-coated cars can stretch to maintenance washes with a yearly decon.' },
-  { q: 'Will exterior detailing remove scratches and swirl marks?', a: 'No — washing and decontamination clean the paint but do not remove defects in the clear coat. Swirls, light scratches and oxidation are removed by machine polishing, which is our paint correction service. We will tell you honestly if your paint needs it.' },
+  { q: 'Will exterior detailing remove scratches and swirl marks?', a: 'No. Washing and decontamination clean the paint but do not remove defects in the clear coat. Swirls, light scratches and oxidation are removed by machine polishing, which is our paint correction service. We will tell you honestly if your paint needs it.' },
   { q: 'How long does an exterior detail take?', a: 'About 1.5 hours for a Classic wash & wax on a sedan, 2–3 hours for Clay & Seal on an SUV or truck.' },
-  { q: 'Do you need my hose or outlet?', a: 'No. We bring our own water and power. Driveway, legal curb spot, office lot or garage — anywhere in Oakland and the East Bay.' },
-  { q: 'Wax or sealant — which should I choose?', a: 'Wax gives a warm gloss for 6–8 weeks. A synthetic paint sealant bonds harder and lasts 4–6 months, which is why our Clay & Seal package uses it. For multi-year protection, step up to a ceramic coating.' },
+  { q: 'Do you need my hose or outlet?', a: 'No. We bring our own water and power. Driveway, legal curb spot, office lot or garage. Anywhere in Oakland and the East Bay.' },
+  { q: 'Wax or sealant, which should I choose?', a: 'Wax gives a warm gloss for 6–8 weeks. A synthetic paint sealant bonds harder and lasts 4–6 months, which is why our Clay & Seal package uses it. For multi-year protection, step up to a ceramic coating.' },
 ];
 
 const schema = [
@@ -42,9 +42,9 @@ const schema = [
 ];
 
 const steps = [
-  { title: 'Two-bucket hand wash', text: 'Decontamination pre-soak, then a careful two-bucket wash with pH-neutral shampoo and a clean mitt — never automated brushes, never grit dragged across your clear coat.' },
+  { title: 'Two-bucket hand wash', text: 'Decontamination pre-soak, then a careful two-bucket wash with pH-neutral shampoo and a clean mitt. Never automated brushes, never grit dragged across your clear coat.' },
   { title: 'Decontaminate & clay bar', text: 'Iron remover dissolves embedded brake dust; clay bar pulls tar, sap and industrial fallout off the paint until it feels like glass.' },
-  { title: 'Wheels, tires & trim', text: 'Dedicated brushes and chemicals for baked-on brake dust, fender liners and wheel wells; trim cleaned; tires dressed satin — not greasy.' },
+  { title: 'Wheels, tires & trim', text: 'Dedicated brushes and chemicals for baked-on brake dust, fender liners and wheel wells; trim cleaned; tires dressed satin. Not greasy.' },
   { title: 'Protect & inspect', text: 'Wax (Classic) or synthetic paint sealant (Clay & Seal) locks in gloss and shields against UV and grime. Glass streak-free. Walk-around before you pay.' },
 ];
 ---
@@ -53,12 +53,12 @@ const steps = [
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Exterior Detailing' }]}
     eyebrow="Mobile exterior detailing · Oakland & East Bay"
-    titleHtml="Exterior Car Detailing in Oakland — <em>hand-washed, decontaminated, protected</em>. Never a tunnel."
-    text="Two-bucket hand wash, clay bar & iron decontamination, wheels and tires done properly, then wax or a months-long paint sealant — in your driveway, with our own water and power."
+    titleHtml="Exterior Car Detailing in Oakland, <em>hand-washed, decontaminated, protected</em>. Never a tunnel."
+    text="Two-bucket hand wash, clay bar & iron decontamination, wheels and tires done properly, then wax or a months-long paint sealant. In your driveway, with our own water and power."
     note="Classic wash & wax → Clay & Seal · 1.5–3 hours"
     image="/images/exterior-detailing-oakland.jpg"
     imageAlt="Foam pre-soak on a white sedan during a mobile exterior detail by J&W in Oakland, CA"
-    bullets={['No automated brushes — ever', 'Clay bar + iron remover pulls what washes leave behind', 'Sealant that lasts months, not days']}
+    bullets={['No automated brushes, ever', 'Clay bar + iron remover pulls what washes leave behind', 'Sealant that lasts months, not days']}
   />
 
   <section class="section">
@@ -66,8 +66,8 @@ const steps = [
       <div class="prose">
         <span class="eyebrow">What you get</span>
         <h2 class="mt-0">Exterior detailing that makes your paint feel like glass again</h2>
-        <p><strong>An exterior detail with J&W takes 1.5–3 hours and is quoted per vehicle.</strong> We hand-wash with the two-bucket method, decontaminate the paint with iron remover and clay bar, detail wheels, tires, wells and trim, and finish with wax or a synthetic paint sealant — at your home or office anywhere in Oakland and the East Bay.</p>
-        <p>Run your hand over your hood after a car wash. If it feels gritty, that's bonded contamination — salt from the marine layer, iron from I-880 brake dust, sap from the street trees on Piedmont Avenue — and a wash will never remove it. Clay and iron remover do. Protection then keeps it from re-bonding, which is why our most-booked package is Clay & Seal.</p>
+        <p><strong>An exterior detail with J&W takes 1.5–3 hours and is quoted per vehicle.</strong> We hand-wash with the two-bucket method, decontaminate the paint with iron remover and clay bar, detail wheels, tires, wells and trim, and finish with wax or a synthetic paint sealant. At your home or office anywhere in Oakland and the East Bay.</p>
+        <p>Run your hand over your hood after a car wash. If it feels gritty, that's bonded contamination. Salt from the marine layer, iron from I-880 brake dust, sap from the street trees on Piedmont Avenue. And a wash will never remove it. Clay and iron remover do. Protection then keeps it from re-bonding, which is why our most-booked package is Clay & Seal.</p>
         <p>Paint with visible swirls or scratches needs more than cleaning: that's <a href="/paint-correction/">paint correction</a>, and we'll tell you honestly if yours needs it.</p>
       </div>
       <div class="img-frame"><img src="/images/work-2.jpg" alt="J&W technician finishing a black sedan's paint in an Oakland driveway" width="1376" height="768" loading="lazy" decoding="async" /></div>
@@ -96,11 +96,11 @@ const steps = [
         </div>
         <div class="tier tier--featured">
           <span class="pill pill--dark">Most popular</span>
-          <h3>Exterior Detail — Clay & Seal</h3>
+          <h3>Exterior Detail, Clay & Seal</h3>
           <p class="tier__for">For any car that hasn't been decontaminated in 6+ months. The right quarterly detail for the East Bay.</p>
           <ul class="checklist">
             <li><strong>Everything in Classic, plus:</strong></li>
-            <li>Full clay bar decontamination — every panel & glass</li>
+            <li>Full clay bar decontamination, every panel & glass</li>
             <li>Iron contamination removal</li>
             <li>Trim cleaned & treated</li>
             <li>Synthetic paint sealant (4–6 months of protection)</li>
@@ -122,7 +122,7 @@ const steps = [
     <div class="container prose max-prose" style="margin-inline:auto">
       <span class="eyebrow">Oakland-specific</span>
       <h2 class="mt-0">Why East Bay paint needs decontamination, not just washing</h2>
-      <p>Bay Area cars pick up three things fast: salt-carrying marine air off the estuary and the Bay, a fine layer of iron-rich brake dust from stop-and-go traffic on I-880, I-580 and Highway 24, and sap and berry drop from Oakland's street trees. All three etch into unprotected clear coat within weeks — which is why the clay and sealant steps matter more here than in a dry inland climate, and why we recommend a Clay & Seal every 3–4 months for daily drivers parked outside in Rockridge, Temescal, Grand Lake or Alameda.</p>
+      <p>Bay Area cars pick up three things fast: salt-carrying marine air off the estuary and the Bay, a fine layer of iron-rich brake dust from stop-and-go traffic on I-880, I-580 and Highway 24, and sap and berry drop from Oakland's street trees. All three etch into unprotected clear coat within weeks, which is why the clay and sealant steps matter more here than in a dry inland climate, and why we recommend a Clay & Seal every 3–4 months for daily drivers parked outside in Rockridge, Temescal, Grand Lake or Alameda.</p>
       <p>Want protection that lasts years instead of months? A <a href="/ceramic-coating/">ceramic coating</a> includes all of this decontamination plus paint correction, and means you never wax again.</p>
     </div>
   </section>
@@ -135,7 +135,7 @@ const steps = [
       <div>
         <span class="eyebrow">Get a quote</span>
         <h2>Tell us the vehicle. We'll tell you the price.</h2>
-        <p class="lead">Year, make, model and when it was last detailed — that's all we need to quote Classic vs. Clay & Seal, usually within the hour.</p>
+        <p class="lead">Year, make, model and when it was last detailed. That's all we need to quote Classic vs. Clay & Seal, usually within the hour.</p>
         <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
       </div>
       <QuoteForm heading="Exterior detail quote" />
@@ -143,7 +143,7 @@ const steps = [
   </section>
 
   <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
-  <CtaBand title="Paint that feels like glass — without leaving the house." />
+  <CtaBand title="Paint that feels like glass, without leaving the house." />
 </Base>
 
 <style>

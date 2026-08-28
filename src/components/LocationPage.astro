@@ -55,7 +55,7 @@ const schema = [
     <div class="container two-col">
       <div class="prose">
         <span class="eyebrow">Detailing in {p.city}</span>
-        <h2 class="mt-0">Same van, same checklist, same owner — in your {p.city} driveway</h2>
+        <h2 class="mt-0">Same van, same checklist, same owner. In your {p.city} driveway</h2>
         {p.intro.map((para) => <p set:html={para} />)}
       </div>
       <div>
@@ -69,7 +69,7 @@ const schema = [
     </div>
   </section>
 
-  <ServicesGrid heading={`Every service we offer, done in ${p.city}`} eyebrow={`Mobile detailing services in ${p.city}`} lead="Real 2026 East Bay price ranges. Your quote depends on vehicle size and condition — and you get it before we book." />
+  <ServicesGrid heading={`Every service we offer, done in ${p.city}`} eyebrow={`Mobile detailing services in ${p.city}`} lead="Real 2026 East Bay price ranges. Your quote depends on vehicle size and condition, and you get it before we book." />
 
   <section class="section section--soft">
     <div class="container prose max-prose" style="margin-inline:auto">
@@ -101,7 +101,7 @@ const schema = [
     </div>
   </section>
 
-  <CtaBand title={`Ready for a showroom finish in ${p.city} — without leaving home?`} />
+  <CtaBand title={`Ready for a showroom finish in ${p.city}, without leaving home?`} />
 </Base>
 
 <style>

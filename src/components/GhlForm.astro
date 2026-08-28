@@ -66,7 +66,7 @@ const formSrc =
 
       On desktop the form card sits in the hero's right column, inside the first
       screenful. On mobile the hero stacks to one column, which pushes the iframe
-      to roughly 960px down the page — below the fold. A lazy iframe there defers
+      to roughly 960px down the page, below the fold. A lazy iframe there defers
       its load, but form_embed.js has already run and done its init/postMessage
       handshake against the frame, so the form never gets set up and the visitor
       sees an empty box. That is why it broke on phones and not on desktop.
@@ -96,7 +96,7 @@ const formSrc =
   </div>
 
   <!--
-    Revealed by the script below only if the embed never renders — a phone
+    Revealed by the script below only if the embed never renders, a phone
     content blocker, iOS Private Relay or a GHL outage all leave a blank box
     otherwise, on the one page that earns the leads.
   -->
@@ -118,7 +118,7 @@ const formSrc =
      GHL's form_embed.js sets the real height once the form renders, and .is-sized
      below then drops this floor so the box matches the form exactly.
      Phones need a taller reserve: the same form stacks to one column there, so a
-     desktop-sized floor clips it — cutting off the submit button. */
+     desktop-sized floor clips it, cutting off the submit button. */
   .ghl { --ghl-min-h: 560px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
   @media (max-width: 820px) { .ghl { --ghl-min-h: 820px; } }
   .ghl--bare { border: 0; padding: 0; box-shadow: none; background: transparent; }

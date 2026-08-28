@@ -14,19 +14,19 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 const path = '/ceramic-coating/';
 const title = 'Ceramic Coating Oakland, CA | Applied at Your Home | J&W';
 const description =
-  'Ceramic coating in Oakland, applied in your driveway — complete incl. decontamination & paint correction. ~3-year protection. Quoted per vehicle. 4.9★ Google.';
+  'Ceramic coating in Oakland, applied in your driveway. Complete incl. decontamination & paint correction. ~3-year protection. Quoted per vehicle. 4.9★ Google.';
 
 const faqs = [
-  { q: 'What does a complete ceramic coating include?', a: 'The whole job, not just the coating: a deep hand wash, clay and iron decontamination, machine paint correction, panel prep, the coating itself, then cure and inspection. Prep is most of the labour and most of the result. Every vehicle is quoted individually by size and paint condition — send us what you drive and we come back with an exact number.' },
+  { q: 'What does a complete ceramic coating include?', a: 'The whole job, not just the coating: a deep hand wash, clay and iron decontamination, machine paint correction, panel prep, the coating itself, then cure and inspection. Prep is most of the labour and most of the result. Every vehicle is quoted individually by size and paint condition, send us what you drive and we come back with an exact number.' },
   { q: 'How long does ceramic coating last?', a: 'Our coating is built to last around 3 years when properly maintained. Regular hand washing with pH-neutral soap extends its life; automatic brush washes, harsh chemicals and bird droppings or sap left to bake shorten it. Driving habits and whether the car is garaged also matter.' },
-  { q: 'Is paint correction required before a ceramic coating?', a: 'Not strictly required, but strongly recommended — and included in our complete packages. A coating seals in whatever is under it. Correction removes existing swirls and scratches first so the coating locks in a flawless finish rather than years of defects. Silver includes one-step correction; Gold includes two-step.' },
-  { q: 'What is the difference between your Silver and Gold ceramic packages?', a: 'Silver: full decontamination + one-step paint correction + ~3-year coating — right for newer cars and well-kept daily drivers. Gold: full decontamination + two-step paint correction + ~3-year coating — for heavily swirled, oxidized, black or show paint. Both can add coated glass, wheels and trim.' },
-  { q: 'How do I wash a ceramic coated car?', a: 'Hand wash with a pH-neutral shampoo, two buckets and soft microfiber, then dry with clean microfiber towels. Stay away from automatic brush washes — touchless is fine. No more waxing, ever. An occasional maintenance exterior detail keeps it performing.' },
+  { q: 'Is paint correction required before a ceramic coating?', a: 'Not strictly required, but strongly recommended, and it is included in our complete packages. A coating seals in whatever is under it. Correction removes existing swirls and scratches first so the coating locks in a flawless finish rather than years of defects. Silver includes one-step correction; Gold includes two-step.' },
+  { q: 'What is the difference between your Silver and Gold ceramic packages?', a: 'Silver: full decontamination + one-step paint correction + ~3-year coating. Right for newer cars and well-kept daily drivers. Gold: full decontamination + two-step paint correction + ~3-year coating, for heavily swirled, oxidized, black or show paint. Both can add coated glass, wheels and trim.' },
+  { q: 'How do I wash a ceramic coated car?', a: 'Hand wash with a pH-neutral shampoo, two buckets and soft microfiber, then dry with clean microfiber towels. Stay away from automatic brush washes, touchless is fine. No more waxing, ever. An occasional maintenance exterior detail keeps it performing.' },
   { q: 'What destroys a ceramic coating?', a: 'Automatic brush washes, harsh or high-alkaline chemicals, neglected maintenance, and bird droppings, bug splatter or tree sap left on too long. Gentle, regular care is the key.' },
-  { q: 'Does ceramic coating prevent rock chips and scratches?', a: 'No. A coating resists light scratches, chemical etching, UV and contamination, and makes the car much easier to keep clean — but it is microns thick. Rock chips and deep scratches are a paint protection film (PPF) job.' },
+  { q: 'Does ceramic coating prevent rock chips and scratches?', a: 'No. A coating resists light scratches, chemical etching, UV and contamination, and makes the car much easier to keep clean. But it is microns thick. Rock chips and deep scratches are a paint protection film (PPF) job.' },
   { q: 'Can I apply a ceramic coating myself?', a: 'DIY kits exist, but they offer less durability and demand flawless prep. Uneven or short-lived results are common, and fixing a poorly applied coating often costs more than professional installation. A complete professional application ensures full coverage and maximum performance.' },
-  { q: 'Do you come to me for ceramic coating? What do you need?', a: 'Yes — we apply coatings at your home or workplace across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda and Walnut Creek. We need a garage, carport or shaded driveway out of direct sun and rain, and about a day. We bring water, power and lighting.' },
-  { q: 'How long does ceramic coating take?', a: 'A complete coating with one-step correction is a full-day appointment (6–9 hours). Gold with two-step correction can be 10+ hours or a two-visit job. The coating then cures for 24 hours — keep it dry and don\'t wash it for 7 days.' },
+  { q: 'Do you come to me for ceramic coating? What do you need?', a: 'Yes. We apply coatings at your home or workplace across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda and Walnut Creek. We need a garage, carport or shaded driveway out of direct sun and rain, and about a day. We bring water, power and lighting.' },
+  { q: 'How long does ceramic coating take?', a: 'A complete coating with one-step correction is a full-day appointment (6–9 hours). Gold with two-step correction can be 10+ hours or a two-visit job. The coating then cures for 24 hours, keep it dry and don\'t wash it for 7 days.' },
 ];
 
 const schema = [
@@ -45,9 +45,9 @@ const schema = [
 ];
 
 const steps = [
-  { title: 'Deep clean & decontamination', text: 'Detailed hand wash, iron remover and clay bar across every exterior surface. Oakland cars collect brake dust from 880 traffic and fallout near the Port — all of it has to come off first.' },
+  { title: 'Deep clean & decontamination', text: 'Detailed hand wash, iron remover and clay bar across every exterior surface. Oakland cars collect brake dust from 880 traffic and fallout near the Port, all of it has to come off first.' },
   { title: 'Paint correction & surface prep', text: 'Machine polishing removes swirls and scratches so the coating locks in a flawless finish, not old defects. Then a panel-wipe removes every trace of oil so the coating can bond.' },
-  { title: 'Ceramic coating application', text: 'The coating is applied panel by panel, leveled and checked under light — paint, and optionally trim, wheels and glass.' },
+  { title: 'Ceramic coating application', text: 'The coating is applied panel by panel, leveled and checked under light. Paint, and optionally trim, wheels and glass.' },
   { title: 'Cure & final inspection', text: 'The coating flashes and bonds; we inspect every panel for high spots before handing the vehicle back with care instructions. Full cure over the next 24 hours; no washing for 7 days.' },
 ];
 ---
@@ -56,12 +56,12 @@ const steps = [
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating' }]}
     eyebrow="Professional ceramic coating · Oakland & East Bay"
-    titleHtml="Ceramic Coating in Oakland — <em>stop waxing, lock in the gloss for ~3 years</em>. Applied in your driveway."
-    text="A complete coating, not a spray-on: hand wash, clay & iron decontamination, paint correction, then a multi-year hydrophobic ceramic coating — by the owner, at your home or office, priced by vehicle size."
+    titleHtml="Ceramic Coating in Oakland, <em>stop waxing, lock in the gloss for ~3 years</em>. Applied in your driveway."
+    text="A complete coating, not a spray-on: hand wash, clay & iron decontamination, paint correction, then a multi-year hydrophobic ceramic coating. By the owner, at your home or office, priced by vehicle size."
     note="Complete · incl. decontamination & paint correction · full-day appointment"
     image="/images/ceramic-coating-oakland.jpg"
     imageAlt="Ceramic coating being poured onto an applicator pad before a mobile application in Oakland, CA"
-    bullets={['~3 years of protection — one coating ≈ 20 wax jobs', 'Correction included: the coating seals a flawless finish', 'Hydrophobic: water, dirt & dust slide off; every wash is easier']}
+    bullets={['~3 years of protection, one coating ≈ 20 wax jobs', 'Correction included: the coating seals a flawless finish', 'Hydrophobic: water, dirt & dust slide off; every wash is easier']}
   />
 
   <!-- Answer + pricing -->
@@ -70,7 +70,7 @@ const steps = [
       <div class="prose">
         <span class="eyebrow">Ceramic coating in Oakland</span>
         <h2 class="mt-0">What your coating quote depends on</h2>
-        <p><strong>A complete ceramic coating from J&W is quoted per vehicle.</strong> The quote covers the entire job — deep hand wash, clay and iron decontamination, paint correction, and a coating built to last around 3 years — applied at your home anywhere in Oakland and the East Bay. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
+        <p><strong>A complete ceramic coating from J&W is quoted per vehicle.</strong> The quote covers the entire job, deep hand wash, clay and iron decontamination, paint correction, and a coating built to last around 3 years. Applied at your home anywhere in Oakland and the East Bay. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Vehicle type</th><th>What it means for the job</th></tr></thead>
@@ -83,7 +83,7 @@ const steps = [
             </tbody>
           </table>
         </div>
-        <p style="font-size:0.95rem;color:var(--muted)">A quote far below the going rate usually means the decontamination and correction are being skipped — and prep is the whole ballgame.</p>
+        <p style="font-size:0.95rem;color:var(--muted)">A quote far below the going rate usually means the decontamination and correction are being skipped, and prep is the whole ballgame.</p>
         <div class="btn-row">
           <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
           <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost"><Icon name="phone" /> {SITE.phoneDisplay}</a>
@@ -100,7 +100,7 @@ const steps = [
     <div class="container">
       <div class="center" style="margin-bottom:2.5rem">
         <span class="eyebrow">Packages</span>
-        <h2>Silver or Gold — the difference is how much correction your paint needs</h2>
+        <h2>Silver or Gold, the difference is how much correction your paint needs</h2>
       </div>
       <div class="grid grid--2 pk" style="max-width:960px;margin-inline:auto">
         <div class="pk__card">
@@ -138,22 +138,22 @@ const steps = [
     </div>
   </section>
 
-  <Process steps={steps} heading="Four stages — prep is where cheap coatings fail, so we don't skip it" eyebrow="Our process" />
+  <Process steps={steps} heading="Four stages, prep is where cheap coatings fail, so we don't skip it" eyebrow="Our process" />
 
   <!-- Why worth it in Oakland -->
   <section class="section">
     <div class="container two-col">
       <div class="prose">
         <span class="eyebrow">Is it worth it in the Bay Area?</span>
-        <h2 class="mt-0">Yes — Oakland conditions are exactly what a coating is for</h2>
-        <p>A quality wax lasts 6–8 weeks before Bay Area detergents and sun break it down. A professional ceramic coating lasts around 3 years with proper care — one application outlasts roughly 20 wax jobs. It also makes the paint hydrophobic, so water, dirt and dust slide off and every wash is faster and safer.</p>
-        <p>Local conditions make the case stronger: UV on clear days fades unprotected paint; salt air works on anything parked near the water in Alameda or Jack London Square; tree sap in Rockridge and the Oakland Hills etches clear coat fast; brake dust from 880 bonds to bare paint. A coating resists all of it. One honest caveat: no coating stops rock chips or deep scratches — that's paint protection film.</p>
+        <h2 class="mt-0">Yes, Oakland conditions are exactly what a coating is for</h2>
+        <p>A quality wax lasts 6–8 weeks before Bay Area detergents and sun break it down. A professional ceramic coating lasts around 3 years with proper care, one application outlasts roughly 20 wax jobs. It also makes the paint hydrophobic, so water, dirt and dust slide off and every wash is faster and safer.</p>
+        <p>Local conditions make the case stronger: UV on clear days fades unprotected paint; salt air works on anything parked near the water in Alameda or Jack London Square; tree sap in Rockridge and the Oakland Hills etches clear coat fast; brake dust from 880 bonds to bare paint. A coating resists all of it. One honest caveat: no coating stops rock chips or deep scratches, that's paint protection film.</p>
         <h3>Who books a coating with us</h3>
         <ul>
-          <li><strong>New-car owners</strong> — coat it before the first swirl. Teslas, Rivians, Toyotas, BMWs.</li>
-          <li><strong>Black & dark paint</strong> — Gold package, because dark paint shows everything.</li>
-          <li><strong>Outdoor parkers</strong> — street-parked in Temescal, Berkeley or Emeryville, or a sunny driveway in Walnut Creek.</li>
-          <li><strong>People who hate washing</strong> — coated cars rinse clean; a maintenance wash takes half the time.</li>
+          <li><strong>New-car owners</strong>, coat it before the first swirl. Teslas, Rivians, Toyotas, BMWs.</li>
+          <li><strong>Black & dark paint</strong>, Gold package, because dark paint shows everything.</li>
+          <li><strong>Outdoor parkers</strong>, street-parked in Temescal, Berkeley or Emeryville, or a sunny driveway in Walnut Creek.</li>
+          <li><strong>People who hate washing</strong>, coated cars rinse clean; a maintenance wash takes half the time.</li>
         </ul>
       </div>
       <div class="img-frame"><img src="/images/work-1.jpg" alt="Black sedan freshly ceramic coated by J&W Mobile Detailing in an Oakland driveway" width="1376" height="768" loading="lazy" decoding="async" /></div>
@@ -176,7 +176,7 @@ const steps = [
   </section>
 
   <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
-  <CtaBand title="Ready for years of gloss — without leaving home?" text="220+ five-star reviews · Owner-operated · Eco-friendly products · We come to you across Oakland & the East Bay." />
+  <CtaBand title="Ready for years of gloss, without leaving home?" text="220+ five-star reviews · Owner-operated · Eco-friendly products · We come to you across Oakland & the East Bay." />
 </Base>
 
 <style>
