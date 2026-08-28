@@ -140,7 +140,7 @@ export const SERVICES: Service[] = [
     menuName: 'Interior Deep Clean',
     short:
       'Full vacuum, steam cleaning, shampoo, stain & odor removal, leather conditioning. Your cabin reset to like-new.',
-    image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
+    image: '/images/interior-detailing-steam-cleaning-oakland-800.webp',
     alt: 'Jalil steam cleaning a car interior during a mobile interior detail in Oakland, CA',
     icon: 'seat',
   },
@@ -150,7 +150,7 @@ export const SERVICES: Service[] = [
     menuName: 'Exterior Detail',
     short:
       'Two-bucket hand wash, clay bar decontamination, wheels & tires, then wax or sealant. Shine that lasts months, not days.',
-    image: '/images/exterior-detailing-oakland.jpg',
+    image: '/images/exterior-detailing-oakland-800.webp',
     alt: 'Foam pre-soak on a white sedan during a mobile exterior detail in Oakland',
     icon: 'wash',
   },
@@ -160,7 +160,7 @@ export const SERVICES: Service[] = [
     menuName: 'Paint Correction',
     short:
       'Machine polishing that removes swirl marks, scratches and oxidation. One-step or two-step. The right prep before any coating.',
-    image: '/images/paint-correction-polishing-oakland.jpg',
+    image: '/images/paint-correction-polishing-oakland-800.webp',
     alt: 'Dual-action polisher removing swirl marks during paint correction in Oakland, CA',
     icon: 'polish',
   },
@@ -170,7 +170,7 @@ export const SERVICES: Service[] = [
     menuName: 'Ceramic Coating',
     short:
       'Multi-year, hydrophobic protection bonded to your paint. Includes prep, decontamination and correction, applied in your driveway.',
-    image: '/images/ceramic-coating-oakland.jpg',
+    image: '/images/ceramic-coating-oakland-800.webp',
     alt: 'Ceramic coating being poured onto an applicator before application in Oakland',
     icon: 'shield',
   },
@@ -180,7 +180,7 @@ export const SERVICES: Service[] = [
     menuName: 'Ozone Odor Removal',
     short:
       'Ozone treatment that destroys smoke, pet, mildew and food odors at the source, not an air freshener that masks them.',
-    image: '/images/odor-removal-oakland.jpg',
+    image: '/images/odor-removal-oakland-800.webp',
     alt: 'Ozone generator running inside a vehicle for odor removal in Oakland',
     icon: 'wind',
   },
@@ -190,7 +190,7 @@ export const SERVICES: Service[] = [
     menuName: 'RV Wash & Wax',
     short:
       'Motorhomes, travel trailers, fifth wheels & campers washed, de-bugged, oxidation-treated and waxed wherever they are parked.',
-    image: '/images/rv-wash-wax-oakland.jpg',
+    image: '/images/rv-wash-wax-oakland-800.webp',
     alt: 'Technician washing the roof line of a motorhome during mobile RV detailing in Oakland',
     icon: 'rv',
   },

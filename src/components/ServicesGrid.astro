@@ -14,7 +14,7 @@ const list = SERVICES.filter((s) => s.slug !== exclude);
     <div class="grid grid--3">
       {list.map((s) => (
         <a href={s.slug} class="card svc" aria-label={`${s.name}, learn more`}>
-          <img class="card__img" src={s.image} alt={s.alt} width="800" height="600" loading="lazy" decoding="async" />
+          <img class="card__img" src={s.image} alt={s.alt} width="800" height="800" loading="lazy" decoding="async" />
           <div class="card__body">
             <h3>{s.name}</h3>
             <p>{s.short}</p>
