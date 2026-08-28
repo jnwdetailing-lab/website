@@ -12,12 +12,12 @@ import { SITE, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/ceramic-coating/';
-const title = 'Ceramic Coating Oakland, CA | $800–$1,550 Complete';
+const title = 'Ceramic Coating Oakland, CA | Applied at Your Home | J&W';
 const description =
-  'Ceramic coating in Oakland, applied in your driveway: $800–$1,550 complete incl. decontamination & paint correction. ~3-year protection. 4.9★ Google. Book now.';
+  'Ceramic coating in Oakland, applied in your driveway — complete incl. decontamination & paint correction. ~3-year protection. Quoted per vehicle. 4.9★ Google.';
 
 const faqs = [
-  { q: 'How much does ceramic coating cost in Oakland, CA?', a: 'A complete professional ceramic coating in Oakland costs $800–$1,550 with J&W Mobile Detailing (2026 pricing). Coupes and sedans are $800–$1,000, mid-size SUVs and crossovers $1,000–$1,250, large SUVs and trucks $1,250–$1,550. That includes hand wash, clay and iron decontamination, one-step paint correction, the multi-year coating, cure and inspection. Multi-step correction for heavily swirled paint adds $300–$500.' },
+  { q: 'What does a complete ceramic coating include?', a: 'The whole job, not just the coating: a deep hand wash, clay and iron decontamination, machine paint correction, panel prep, the coating itself, then cure and inspection. Prep is most of the labour and most of the result. Every vehicle is quoted individually by size and paint condition — send us what you drive and we come back with an exact number.' },
   { q: 'How long does ceramic coating last?', a: 'Our coating is built to last around 3 years when properly maintained. Regular hand washing with pH-neutral soap extends its life; automatic brush washes, harsh chemicals and bird droppings or sap left to bake shorten it. Driving habits and whether the car is garaged also matter.' },
   { q: 'Is paint correction required before a ceramic coating?', a: 'Not strictly required, but strongly recommended — and included in our complete packages. A coating seals in whatever is under it. Correction removes existing swirls and scratches first so the coating locks in a flawless finish rather than years of defects. Silver includes one-step correction; Gold includes two-step.' },
   { q: 'What is the difference between your Silver and Gold ceramic packages?', a: 'Silver: full decontamination + one-step paint correction + ~3-year coating — right for newer cars and well-kept daily drivers. Gold: full decontamination + two-step paint correction + ~3-year coating — for heavily swirled, oxidized, black or show paint. Both can add coated glass, wheels and trim.' },
@@ -36,8 +36,8 @@ const schema = [
     path,
     image: '/images/ceramic-coating-oakland.jpg',
     offers: [
-      { name: 'Silver Ceramic Package', description: 'Hand wash, clay & iron decontamination, one-step paint correction, ~3-year ceramic coating, cure & inspection. Sedan $800–$1,000 · Mid SUV $1,000–$1,250 · Large SUV/Truck $1,250–$1,550.' },
-      { name: 'Gold Ceramic Package', description: 'Everything in Silver with two-step paint correction for heavily swirled or oxidized paint. Add $300–$500 to Silver pricing.' },
+      { name: 'Silver Ceramic Package', description: 'Hand wash, clay & iron decontamination, one-step paint correction, ~3-year ceramic coating, cure & inspection.' },
+      { name: 'Gold Ceramic Package', description: 'Everything in Silver with two-step paint correction for heavily swirled or oxidized paint.' },
     ],
   }),
   faqSchema(faqs),
@@ -68,30 +68,29 @@ const steps = [
   <section class="section" id="pricing">
     <div class="container two-col">
       <div class="prose">
-        <span class="eyebrow">Ceramic coating cost in Oakland</span>
-        <h2 class="mt-0">Real 2026 prices, by vehicle size</h2>
-        <p><strong>A complete ceramic coating in Oakland costs $800–$1,550 with J&W.</strong> That price covers the entire job — deep hand wash, clay and iron decontamination, paint correction, and a coating built to last around 3 years — applied at your home anywhere in Oakland and the East Bay. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
+        <span class="eyebrow">Ceramic coating in Oakland</span>
+        <h2 class="mt-0">What your coating quote depends on</h2>
+        <p><strong>A complete ceramic coating from J&W is quoted per vehicle.</strong> The quote covers the entire job — deep hand wash, clay and iron decontamination, paint correction, and a coating built to last around 3 years — applied at your home anywhere in Oakland and the East Bay. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>Vehicle type</th><th>Complete coating</th><th>Notes</th></tr></thead>
+            <thead><tr><th>Vehicle type</th><th>What it means for the job</th></tr></thead>
             <tbody>
-              <tr><td><strong>Coupe / Sedan</strong></td><td class="price">$800 – $1,000</td><td>Least surface area, fastest prep</td></tr>
-              <tr><td><strong>Mid-size SUV / Crossover</strong></td><td class="price">$1,000 – $1,250</td><td>The most common booking</td></tr>
-              <tr><td><strong>Large SUV / Truck</strong></td><td class="price">$1,250 – $1,550</td><td>Up to 40% more product and labor</td></tr>
-              <tr><td><strong>Add: multi-step correction (Gold)</strong></td><td class="price">+ $300 – $500</td><td>Heavily swirled, oxidized or black paint</td></tr>
-              <tr><td><strong>Add: wheels, glass, trim</strong></td><td class="price">Quoted</td><td>Extend coverage for easier cleaning</td></tr>
+              <tr><td><strong>Coupe / Sedan</strong></td><td>Least surface area, fastest prep</td></tr>
+              <tr><td><strong>Mid-size SUV / Crossover</strong></td><td>The most common booking</td></tr>
+              <tr><td><strong>Large SUV / Truck</strong></td><td>Up to 40% more product and labor</td></tr>
+              <tr><td><strong>Add: multi-step correction (Gold)</strong></td><td>Heavily swirled, oxidized or black paint</td></tr>
+              <tr><td><strong>Add: wheels, glass, trim</strong></td><td>Extend coverage for easier cleaning</td></tr>
             </tbody>
           </table>
         </div>
-        <p style="font-size:0.95rem;color:var(--muted)">A quote far below $800 usually means the decontamination and correction are being skipped — and prep is the whole ballgame. Full breakdown in our <a href="/blog/what-does-ceramic-coating-cost-in-oakland-ca/">Oakland ceramic coating cost guide</a>.</p>
+        <p style="font-size:0.95rem;color:var(--muted)">A quote far below the going rate usually means the decontamination and correction are being skipped — and prep is the whole ballgame.</p>
         <div class="btn-row">
           <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-          <a href={CTA.href} class="btn btn--ghost" data-scroll-book>{CTA.label}</a>
+          <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost"><Icon name="phone" /> {SITE.phoneDisplay}</a>
         </div>
       </div>
       <div>
-        <img src="/images/blog/watermarked_img_17712754608486944834.jpg" alt="J&W Mobile Detailing 2026 ceramic coating price chart for Oakland: sedan $800–$1,000, mid-size SUV $1,000–$1,250, large SUV or truck $1,250–$1,550, multi-step correction +$300–$500" width="1376" height="768" loading="lazy" decoding="async" class="img-frame" style="margin-bottom:1rem" />
-        <img src="/images/blog/watermarked_img_5120554255449340524.jpg" alt="Ceramic coating vs traditional wax comparison: ~3 year lifespan vs 6–8 weeks, hydrophobic, never wax again" width="1376" height="768" loading="lazy" decoding="async" class="img-frame" />
+        <img src="/images/ceramic-coating-oakland.jpg" alt="Ceramic coating being applied to an applicator block before going onto the paint in Oakland" width="1080" height="1080" loading="lazy" decoding="async" />
       </div>
     </div>
   </section>
@@ -116,7 +115,7 @@ const steps = [
             <li>~3-year ceramic coating on all paint</li>
             <li>Cure, inspection & care guide</li>
           </ul>
-          <p class="pk__price">$800 – $1,550 <small>by vehicle size</small></p>
+          <p class="pk__price">Quoted by vehicle size</p>
         </div>
         <div class="pk__card pk__card--gold">
           <span class="pill pill--gold">Gold</span>
@@ -129,7 +128,7 @@ const steps = [
             <li>Extra inspection pass under LED light</li>
             <li>Optional: coated wheels, glass & trim</li>
           </ul>
-          <p class="pk__price">Silver + $300 – $500</p>
+          <p class="pk__price">Silver + two-step correction</p>
         </div>
       </div>
       <div class="center" style="margin-top:2rem">
