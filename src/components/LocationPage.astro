@@ -32,8 +32,6 @@ const schema = [
     name: `Mobile Car Detailing in ${p.city}`,
     description: p.description,
     path: p.path,
-    minPrice: 120,
-    maxPrice: 1550,
     image: p.heroImage,
     areaServed: [p.city],
   }),
@@ -50,8 +48,7 @@ const schema = [
     text={p.heroText}
     image={p.heroImage}
     imageAlt={p.heroAlt}
-    price="$120 – $1,550"
-    priceNote="exterior → full detail → ceramic coating · exact quote first"
+    note="Exterior · interior · paint correction · ceramic coating — exact quote first"
   />
 
   <section class="section">

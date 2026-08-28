@@ -36,7 +36,7 @@ const { compact = false, heading = 'Get your exact price in minutes', bare = fal
     <label><span>Service</span>
       <select name="service" required>
         <option value="">Select a service…</option>
-        {SERVICES.map((s) => <option value={s.name}>{s.name} — {s.price}</option>)}
+        {SERVICES.map((s) => <option value={s.name}>{s.name}</option>)}
         <option value="Full Detail (Interior + Exterior)">Full Detail (Interior + Exterior)</option>
         <option value="Not sure — recommend for me">Not sure — recommend for me</option>
       </select>

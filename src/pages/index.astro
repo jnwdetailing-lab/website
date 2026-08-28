@@ -5,11 +5,13 @@ import QuoteForm from '../components/QuoteForm.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE, SERVICES, REVIEWS, HOME_FAQS, CTA } from '../data/site';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import InstagramFeed from '../components/InstagramFeed.astro';
+import { SITE, REVIEWS, HOME_FAQS, CTA, INSTAGRAM_POSTS } from '../data/site';
 
 const title = 'Mobile Car Detailing Oakland, CA | J&W Mobile Detailing';
 const description =
-  'Owner-operated mobile car detailing in Oakland & the East Bay. Interior, exterior, paint correction & ceramic coating from $120 — we come to you. 4.9★ Google.';
+  'Owner-operated mobile car detailing in Oakland & the East Bay. Interior, exterior, paint correction & ceramic coating — we come to you. 4.9★ Google, quoted per vehicle.';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -114,24 +116,12 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
     </div>
   </section>
 
-  <!-- ============ 4. SERVICES & PRICES ============ -->
-  <section class="section section--soft" id="services">
-    <div class="container prices">
-      <h2>Services & 2026 prices — we come to you</h2>
-      <p class="lead">Real East Bay ranges; the exact price for your vehicle shows before you book.</p>
-      <ul class="plist">
-        {SERVICES.map((s) => (
-          <li>
-            <a href={s.slug} class="plist__name">{s.name}</a>
-            <span class="plist__price">{s.price}</span>
-            <span class="plist__note">{s.slug === '/ceramic-coating/' ? 'complete, incl. correction · sedan $800–$1,000 · mid SUV $1,000–$1,250 · large SUV/truck $1,250–$1,550 · ~3 yrs' : s.priceNote}</span>
-          </li>
-        ))}
-      </ul>
-      <p class="plist__foot">Add-ons: headlight restoration · engine bay · trim · pet hair · windows & rims coating — <a href="/services/">all services</a> · <a href="/blog/what-does-auto-detailing-cost-in-oakland-ca/">Full Oakland cost guide →</a></p>
-      <a href="#book" class="btn btn--primary btn--lg" data-scroll-book>{CTA.label}</a>
-    </div>
-  </section>
+  <!-- ============ 4. SERVICES ============ -->
+  <ServicesGrid
+    eyebrow="Mobile detailing services"
+    heading="What we do — done in your driveway"
+    lead="Every vehicle is quoted individually. Tell us what you drive and what it needs, and Jalil comes back with an exact price."
+  />
 
   <!-- ============ 5. REVIEWS + OWNER ============ -->
   <section class="section">
@@ -174,6 +164,9 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
   </section>
 
   <!-- ============ 8. CLOSING BAND ============ -->
+  <!-- ============ 8. INSTAGRAM ============ -->
+  <InstagramFeed posts={INSTAGRAM_POSTS} />
+
   <CtaBand variant="dark" title="Ready for a showroom finish — without leaving home?" text="Exact price in 60 seconds. No deposit. We come to you anywhere in Oakland & the East Bay." href="#book" label={CTA.label} />
 </Base>
 
@@ -221,16 +214,6 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
   .strip__inner div { display: inline-flex; align-items: center; gap: 0.5rem; }
   .strip__inner svg { color: var(--ink); flex: none; }
   .strip__inner strong { color: var(--ink); }
-
-  /* Prices */
-  .prices { max-width: 820px; }
-  .plist { list-style: none; padding: 0; margin: 1.5rem 0 1rem; border-top: 1px solid var(--line); }
-  .plist li { display: grid; grid-template-columns: 1fr auto; gap: 0.1rem 1.5rem; padding: 0.95rem 0; border-bottom: 1px solid var(--line); margin: 0; align-items: baseline; }
-  .plist__name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--ink); text-transform: uppercase; }
-  .plist__price { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--ink); white-space: nowrap; }
-  .plist__note { grid-column: 1 / -1; font-size: 0.9rem; color: var(--muted); }
-  .plist__foot { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.25rem; }
-  @media (max-width: 560px) { .plist li { grid-template-columns: 1fr; } .plist__price { font-size: 1.4rem; } }
 
   /* Reviews */
   .rgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }

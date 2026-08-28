@@ -71,6 +71,13 @@ export const FORM_PROVIDER: 'native' | 'ghl' = 'ghl';
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
+// Instagram posts embedded on the home page. Open a reel or post on Instagram →
+// ⋯ → Copy link, and paste the permalink here. Public posts only. Leave the list
+// empty and the strip falls back to a plain follow card.
+export const INSTAGRAM_POSTS: string[] = [
+  // 'https://www.instagram.com/reel/XXXXXXXXXXX/',
+];
+
 export const NAV: NavItem[] = [
   {
     label: 'Services',
@@ -108,8 +115,6 @@ export type Service = {
   name: string;
   short: string;
   menuName: string;
-  price: string;
-  priceNote?: string;
   image: string;
   alt: string;
   icon: string;
@@ -122,8 +127,6 @@ export const SERVICES: Service[] = [
     menuName: 'Interior Deep Clean',
     short:
       'Full vacuum, steam cleaning, shampoo, stain & odor removal, leather conditioning — your cabin reset to like-new.',
-    price: '$150 – $350',
-    priceNote: 'by size & condition',
     image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
     alt: 'Jalil steam cleaning a car interior during a mobile interior detail in Oakland, CA',
     icon: 'seat',
@@ -134,8 +137,6 @@ export const SERVICES: Service[] = [
     menuName: 'Exterior Detail',
     short:
       'Two-bucket hand wash, clay bar decontamination, wheels & tires, then wax or sealant — shine that lasts months, not days.',
-    price: '$120 – $250',
-    priceNote: 'wash & wax to clay & seal',
     image: '/images/exterior-detailing-oakland.jpg',
     alt: 'Foam pre-soak on a white sedan during a mobile exterior detail in Oakland',
     icon: 'wash',
@@ -146,8 +147,6 @@ export const SERVICES: Service[] = [
     menuName: 'Paint Correction',
     short:
       'Machine polishing that removes swirl marks, scratches and oxidation. One-step or two-step. The right prep before any coating.',
-    price: '$250 – $800+',
-    priceNote: 'one-step vs. two-step',
     image: '/images/paint-correction-polishing-oakland.jpg',
     alt: 'Dual-action polisher removing swirl marks during paint correction in Oakland, CA',
     icon: 'polish',
@@ -158,8 +157,6 @@ export const SERVICES: Service[] = [
     menuName: 'Ceramic Coating',
     short:
       'Multi-year, hydrophobic protection bonded to your paint. Includes prep, decontamination and correction — applied in your driveway.',
-    price: '$800 – $1,550',
-    priceNote: 'complete, incl. correction',
     image: '/images/ceramic-coating-oakland.jpg',
     alt: 'Ceramic coating being poured onto an applicator before application in Oakland',
     icon: 'shield',
@@ -170,8 +167,6 @@ export const SERVICES: Service[] = [
     menuName: 'Ozone Odor Removal',
     short:
       'Ozone treatment that destroys smoke, pet, mildew and food odors at the source — not an air freshener that masks them.',
-    price: 'Add-on',
-    priceNote: 'with any interior detail',
     image: '/images/odor-removal-oakland.jpg',
     alt: 'Ozone generator running inside a vehicle for odor removal in Oakland',
     icon: 'wind',
@@ -182,8 +177,6 @@ export const SERVICES: Service[] = [
     menuName: 'RV Wash & Wax',
     short:
       'Motorhomes, travel trailers, fifth wheels & campers washed, de-bugged, oxidation-treated and waxed wherever they are parked.',
-    price: 'Custom quote',
-    priceNote: 'by length & condition',
     image: '/images/rv-wash-wax-oakland.jpg',
     alt: 'Technician washing the roof line of a motorhome during mobile RV detailing in Oakland',
     icon: 'rv',
@@ -239,12 +232,12 @@ export const REVIEWS: Review[] = [
 export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
-  { q: 'How much does mobile car detailing cost in Oakland?', a: 'In Oakland, a basic exterior wash and wax runs $120–$150, a standard full detail (interior + exterior) is $180–$250 for a typical sedan, interior deep cleans are $150–$350, premium full details are $300–$600+, paint correction is $250–$800+, and a complete ceramic coating is $800–$1,550. Final price depends on vehicle size and condition — you see the exact price before you book.' },
+  { q: 'How much does mobile car detailing cost in Oakland?', a: 'Every vehicle is quoted individually — size, condition and the service you want all move the number, so a blanket price list would only mislead you. Tell us what you drive and Jalil sends your exact price personally, usually within the hour during business hours. No deposit, and you approve the price before anything is booked.' },
   { q: 'Do you really come to me? What do I need to provide?', a: 'Yes — we are 100% mobile across Oakland and the East Bay. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: 'An exterior detail takes about 1.5–3 hours, an interior deep clean 2–4 hours, and a full detail 3–7 hours depending on vehicle size and condition. Ceramic coating with paint correction is typically a full-day appointment.' },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek and nearby East Bay communities. If you are just outside that list, call us — we can usually make it work.' },
-  { q: 'How do I book?', a: 'Fill in the quote form at the top of this page — your name, phone and what you drive, about 30 seconds. Jalil sends back an exact price personally, usually within the hour during business hours, and you pick a time from there. No deposit, and you inspect the work before you pay. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
-  { q: 'How much does ceramic coating cost and how long does it last?', a: 'A complete ceramic coating in Oakland costs $800–$1,550 depending on vehicle size (coupes/sedans $800–$1,000, mid-size SUVs $1,000–$1,250, large SUVs/trucks $1,250–$1,550) and includes prep, decontamination and paint correction. Our coating is built to last around 3 years with proper hand-wash maintenance.' },
+  { q: 'How do I book?', a: 'Fill in the quote form on this page — your name, phone and what you drive, about 30 seconds. Jalil sends back an exact price personally, usually within the hour during business hours, and you pick a time from there. No deposit, and you inspect the work before you pay. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
+  { q: 'How long does a ceramic coating last?', a: 'Our coatings are built to last around three years with proper hand-wash maintenance. Every coating is quoted after we see the vehicle, because the price covers full prep — decontamination and paint correction — not just the coating itself, and how much correction your paint needs is the variable. Send us your vehicle and we will come back with an exact number.' },
 ];
 
 export const GALLERY = [

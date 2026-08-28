@@ -10,12 +10,12 @@ export interface Props {
   image?: string;
   imageAlt?: string;
   crumbs: { label: string; href?: string }[];
-  price?: string;
-  priceNote?: string;
+  /** Short scope/duration line under the intro. Never a price. */
+  note?: string;
   ctaLabel?: string;
   bullets?: string[];
 }
-const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, price, priceNote, ctaLabel = CTA.label, bullets } = Astro.props;
+const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, ctaLabel = CTA.label, bullets } = Astro.props;
 ---
 <section class="phero">
   <div class="container phero__inner">
@@ -29,11 +29,7 @@ const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, price, pr
           {bullets.map((b) => <li>{b}</li>)}
         </ul>
       )}
-      {price && (
-        <div class="phero__price">
-          <span>{price}</span>{priceNote && <small>{priceNote}</small>}
-        </div>
-      )}
+      {note && <p class="phero__note">{note}</p>}
       <div class="btn-row">
         <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {ctaLabel}</a>
         <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
@@ -59,8 +55,7 @@ const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, price, pr
   .phero h1 :global(em) { color: var(--red); font-style: normal; }
   .phero__text { font-size: 1.15rem; color: #c4c9d2; max-width: 60ch; }
   .phero__bullets { margin: 0.25rem 0 1.25rem; color: #e7e9ee; }
-  .phero__price { font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; color: #fff; margin: 0 0 1rem; display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
-  .phero__price small { font-family: var(--font-body); font-size: 0.95rem; font-weight: 500; color: #b9bec8; }
+  .phero__note { font-size: 0.95rem; color: #b9bec8; margin: 0 0 1.1rem; }
   .phero__proof { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.25rem; font-size: 0.95rem; color: #c4c9d2; flex-wrap: wrap; }
   .phero__proof strong { color: #fff; }
   .phero__media img { border-radius: var(--radius); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); aspect-ratio: 1; object-fit: cover; width: 100%; }
