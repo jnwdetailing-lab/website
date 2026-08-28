@@ -20,7 +20,7 @@ const faqs = [
   { q: 'What is included in a full detail?', a: 'A full detail combines our exterior detail (two-bucket hand wash, clay bar and iron decontamination, wheels and tires, wax or sealant) with an interior detail (full vacuum and air blowout, steam, shampoo extraction, glass, leather conditioning). It takes 3–7 hours and runs for a standard sedan up to for premium tiers on large or heavily soiled vehicles.' },
   { q: 'How do I know which service I need?', a: 'Rough paint that feels gritty after a wash = exterior Clay & Seal. Visible swirls or scratches = paint correction. Stains, smells or pet hair = interior Deep Shampoo or Diamond Reset. New car or you want to stop waxing = ceramic coating. Not sure? Send photos and we will tell you honestly.' },
   { q: 'Do you offer packages or discounts?', a: 'Bundling interior + exterior into a full detail is always cheaper than separate bookings, and repeat customers on a maintenance schedule (every 2–3 months) get priority booking and maintenance pricing. Ask when you book.' },
-  { q: 'How do I pay?', a: 'Cash, credit/debit card, Zelle or Venmo. After the walk-around, once you are happy. No deposit is required to book.' },
+  { q: 'How do I pay?', a: 'Cash, credit/debit card, Zelle or Venmo. After the walk-around, once you are happy.' },
 ];
 
 const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Services', href: path }])];
@@ -63,7 +63,7 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Services', href: pa
       </div>
       <div class="center" style="margin-top:1.5rem">
         <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-        <p class="fud" style="justify-content:center"><Icon name="check" /> Quote before booking · No deposit · Pay after the walk-around</p>
+        <p class="fud" style="justify-content:center"><Icon name="check" /> Quote before booking · Pay after the walk-around</p>
       </div>
     </div>
   </section>
