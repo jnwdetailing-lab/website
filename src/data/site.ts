@@ -81,8 +81,13 @@ export const GOOGLE_MAP_EMBED =
 // your profile, and the seal image URL BBB gives you. Both must be filled in or the
 // seal is not rendered, so nothing claims an accreditation that is not verifiable.
 export const BBB = {
-  profileUrl: '',
-  sealImage: '',
+  profileUrl:
+    'https://www.bbb.org/us/ca/oakland/profile/mobile-auto-detailing/j-w-mobile-detailing-1116-984246/#sealclick',
+  // BBB hosts this, so the rating on it stays current on its own. Native size is
+  // 250x52; there is no larger asset, so it is shown at 1:1 rather than scaled.
+  sealImage: 'https://seal-goldengate.bbb.org/seals/black-seal-250-52-bbb-984246.png',
+  sealWidth: 250,
+  sealHeight: 52,
 };
 
 export const NAV: NavItem[] = [
