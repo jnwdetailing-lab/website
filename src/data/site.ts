@@ -90,6 +90,17 @@ export const FORM_PROVIDER: 'native' | 'ghl' = 'ghl';
 // ---------------------------------------------------------------------------
 export const ADS_LEAD_CONVERSION = '';
 
+// Google Ads "Calls from a website" conversion, a separate action from the lead
+// form above. Paired with the base tag it swaps the number shown on the page for
+// a Google forwarding number, so calls from ad visitors get counted.
+//
+// The number handed to it has to match what the page actually renders or Google
+// finds nothing to swap, so src/layouts/Base.astro passes SITE.phoneDisplay
+// rather than repeating the number here where the two could drift apart.
+//
+// Leave '' to switch call tracking off.
+export const ADS_CALL_CONVERSION = 'AW-10856672755/I36ECLDX4O0cEPPb7rgo';
+
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
 // Google map shown on the home page. This is the Business Profile embed, so the

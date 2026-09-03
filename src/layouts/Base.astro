@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import StickyCta from '../components/StickyCta.astro';
-import { SITE } from '../data/site';
+import { SITE, ADS_CALL_CONVERSION } from '../data/site';
 
 export interface Props {
   title: string;
@@ -120,6 +120,17 @@ const allSchema = [localBusiness, website, ...schema];
 
       gtag('config', 'AW-10856672755');
     </script>
+
+    <!--
+      Call conversion. gtag() is defined by the block above, so this has to stay
+      after it. define:vars implies is:inline, which keeps Astro from bundling the
+      call into a module where the global gtag would be out of reach.
+    -->
+    {ADS_CALL_CONVERSION && (
+      <script define:vars={{ callSendTo: ADS_CALL_CONVERSION, phone: SITE.phoneDisplay }}>
+        gtag('config', callSendTo, { phone_conversion_number: phone });
+      </script>
+    )}
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
