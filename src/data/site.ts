@@ -69,6 +69,27 @@ export const CTA = {
 // ---------------------------------------------------------------------------
 export const FORM_PROVIDER: 'native' | 'ghl' = 'ghl';
 
+// ---------------------------------------------------------------------------
+// Google Ads conversion tracking.
+//
+// The base tag (AW-10856672755) is installed sitewide in src/layouts/Base.astro.
+// This constant is the *conversion action* layered on top of it: the event that
+// fires once on /thank-you/ to tell Google Ads a quote request came in.
+//
+// To switch it on:
+//   Google Ads -> Goals -> Conversions -> New conversion action -> Website ->
+//   add it manually. Google then shows a snippet containing a line like
+//       'send_to': 'AW-10856672755/AbC-D_efGhIj'
+//   Copy that whole 'AW-.../...' string and paste it below.
+//
+// Leave it '' and no conversion event is emitted. The page still renders and the
+// base tag still records the pageview, so nothing breaks either way.
+//
+// Set Count to "One" (not "Every") on the conversion action, or one visitor
+// refreshing the thank-you page is counted as a second lead.
+// ---------------------------------------------------------------------------
+export const ADS_LEAD_CONVERSION = '';
+
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 
 // Google map shown on the home page. This is the Business Profile embed, so the

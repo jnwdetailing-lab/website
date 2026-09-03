@@ -1,9 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icons.astro';
-import { SITE } from '../data/site';
+import { SITE, ADS_LEAD_CONVERSION } from '../data/site';
 ---
 <Base title="Thanks, we got your request | J&W Mobile Detailing" description="Your quote request was received. Jalil will reply shortly." canonical="/thank-you/" noindex>
+  {ADS_LEAD_CONVERSION && (
+    /*
+      Google Ads conversion for a completed quote request. Paste the label into
+      ADS_LEAD_CONVERSION in src/data/site.ts to switch this on.
+
+      define:vars implies is:inline, which this needs twice over: Astro would
+      otherwise bundle the script (and template expressions are not evaluated
+      inside a processed <script> at all), and gtag has to stay a plain global
+      call rather than module-scoped code.
+
+      gtag() itself is defined in the <head> by Base.astro. Calls made before
+      gtag.js has finished loading queue up on dataLayer, so firing from the body
+      is safe and needs no readiness check. The window.gtag guard is only for the
+      case where a content blocker stripped the base tag entirely.
+    */
+    <script define:vars={{ sendTo: ADS_LEAD_CONVERSION }}>
+      if (window.gtag) gtag('event', 'conversion', { send_to: sendTo });
+    </script>
+  )}
   <section class="section">
     <div class="container center" style="max-width:640px">
       <span class="eyebrow">Request received</span>
