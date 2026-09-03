@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icons.astro';
 import { SITE, ADS_LEAD_CONVERSION } from '../data/site';
 ---
-<Base title="Thanks, we got your request | J&W Mobile Detailing" description="Your quote request was received. Jalil will reply shortly." canonical="/thank-you/" noindex>
+<Base title="Thanks, we got your request | J&W Mobile Detailing" description="Your quote request was received. We will be in contact shortly." canonical="/thank-you/" noindex>
   {ADS_LEAD_CONVERSION && (
     /*
       Google Ads conversion for a completed quote request. Paste the label into
@@ -26,7 +26,7 @@ import { SITE, ADS_LEAD_CONVERSION } from '../data/site';
   <section class="section">
     <div class="container center" style="max-width:640px">
       <span class="eyebrow">Request received</span>
-      <h1>Thanks, Jalil will text or call you shortly.</h1>
+      <h1>Thanks, we will be in contact shortly.</h1>
       <p class="lead">Usually within the hour during business hours ({SITE.hours.label}). Want to lock in a time right now?</p>
       <div class="btn-row" style="justify-content:center">
         <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book a time online</a>
