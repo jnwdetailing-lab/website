@@ -93,7 +93,7 @@ Rebuilt 2026-08-21 from a 10-persona design review (spec saved at `docs/home-red
 Everything priced is from the business's own published ranges (blog posts + 2026 pricing graphics). A few operational statements were written as sensible defaults and should be confirmed or edited (all live in `src/data/site.ts` or the page files):
 
 - Hours **Mon–Sun 8 AM–8 PM** (about page said so; old homepage template said Mon–Fri 8–6)
-- Payment methods: cash, card, **Zelle, Venmo** · "**no deposit** to book" · "**24 h** cancellation notice, no fee"
+- Payment methods: cash, card, **Zelle, Venmo** · a **deposit is required** to book (never claim "no deposit"; the site does not mention the deposit) · "**24 h** cancellation notice, no fee"
 - "**No travel fee**" inside the 8-city core area; nearby cities "by request" (Lafayette, Pleasant Hill, Concord, Alamo, Albany, Kensington, El Cerrito, Castro Valley, Hayward, Richmond)
 - "**Licensed & insured**"
 - Time estimates: exterior 1.5–3 h, interior 2–4 h, ceramic full day (full detail 3–7 h is published)
