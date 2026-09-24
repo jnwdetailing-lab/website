@@ -14,29 +14,39 @@ import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 const path = '/ceramic-coating/';
 const title = 'Ceramic Coating Oakland, CA | Applied at Your Home | J&W';
 const description =
-  'Ceramic coating in Oakland, applied in your driveway. Complete incl. decontamination & paint correction. ~3-year protection. Quoted per vehicle. 4.9★ Google.';
+  'Professional ceramic coating in Oakland, applied at your home. Decontamination and paint correction included, then a coating bonded to the paint. Quoted per vehicle. 4.9★ Google.';
 
+// The questions people actually ask before they buy a coating, answered
+// straight. No lifespan promises: the expected life of the specific coating
+// is part of the quote, because it depends on the product, the prep and how
+// the car is washed.
 const faqs = [
-  { q: 'What does a complete ceramic coating include?', a: 'The whole job, not just the coating: a deep hand wash, clay and iron decontamination, machine paint correction, panel prep, the coating itself, then cure and inspection. Prep is most of the labour and most of the result. Every vehicle is quoted individually by size and paint condition, send us what you drive and we come back with an exact number.' },
-  { q: 'How long does ceramic coating last?', a: 'Our coating is built to last around 3 years when properly maintained. Regular hand washing with pH-neutral soap extends its life; automatic brush washes, harsh chemicals and bird droppings or sap left to bake shorten it. Driving habits and whether the car is garaged also matter.' },
-  { q: 'Is paint correction required before a ceramic coating?', a: 'Not strictly required, but strongly recommended, and it is included in our complete packages. A coating seals in whatever is under it. Correction removes existing swirls and scratches first so the coating locks in a flawless finish rather than years of defects. Silver includes one-step correction; Gold includes two-step.' },
-  { q: 'What is the difference between your Silver and Gold ceramic packages?', a: 'Silver: full decontamination + one-step paint correction + ~3-year coating. Right for newer cars and well-kept daily drivers. Gold: full decontamination + two-step paint correction + ~3-year coating, for heavily swirled, oxidized, black or show paint. Both can add coated glass, wheels and trim.' },
-  { q: 'How do I wash a ceramic coated car?', a: 'Hand wash with a pH-neutral shampoo, two buckets and soft microfiber, then dry with clean microfiber towels. Stay away from automatic brush washes, touchless is fine. No more waxing, ever. An occasional maintenance exterior detail keeps it performing.' },
-  { q: 'What destroys a ceramic coating?', a: 'Automatic brush washes, harsh or high-alkaline chemicals, neglected maintenance, and bird droppings, bug splatter or tree sap left on too long. Gentle, regular care is the key.' },
-  { q: 'Does ceramic coating prevent rock chips and scratches?', a: 'No. A coating resists light scratches, chemical etching, UV and contamination, and makes the car much easier to keep clean. But it is microns thick. Rock chips and deep scratches are a paint protection film (PPF) job.' },
-  { q: 'Can I apply a ceramic coating myself?', a: 'DIY kits exist, but they offer less durability and demand flawless prep. Uneven or short-lived results are common, and fixing a poorly applied coating often costs more than professional installation. A complete professional application ensures full coverage and maximum performance.' },
+  { q: 'What does a ceramic coating actually do?', a: 'It bonds a hard, glass-like layer to your clear coat. Once cured, that layer takes the abuse the paint used to take: sun works on the coating instead of oxidizing the clear coat, bird droppings, tree sap and bug splatter sit on top instead of etching in, brake dust and road film cannot bond, and water beads and sheets off instead of drying into spots and grime. Because it goes on over freshly corrected paint, the finish also looks deeper and glossier, and the coating locks that clarity in. The everyday result is a car that stays cleaner longer, washes in half the time and keeps its colour.' },
+  { q: 'Is a ceramic coating worth it?', a: 'For most people who keep a car more than a year and park it outside at least some of the time, yes. The value is not one big moment, it is hundreds of small ones: rinsing off a week of dust in five minutes, sap that wipes away instead of etching, paint that is still deep and unfaded when you sell or trade the car. It is worth the most on new or freshly corrected paint, dark colours, cars that live outdoors, and anyone who dislikes washing. It is worth the least on paint whose clear coat is already failing, which no coating can fix.' },
+  { q: 'How long does a ceramic coating last?', a: 'A professional coating is measured in years, not months. How many depends on the grade of coating, how well the paint was prepared, whether the car is garaged, and above all how it is washed. Hand or touchless washing with a pH-neutral soap keeps it working; brush car washes, harsh chemicals and contamination left to bake all shorten it. When we quote your vehicle we tell you the expected life of the specific coating we will use, and exactly how to get all of it.' },
+  { q: 'Does a ceramic coating stop scratches and rock chips?', a: 'No. A coating is a few microns thick. It resists the fine swirls that washing puts into paint and it shrugs off chemical damage, but it cannot absorb a rock at freeway speed, a key or a shopping cart. That is what paint protection film (PPF) is for: a thick, clear urethane film that takes the impact. Many owners do both, film on the hood, bumper and mirrors where chips happen, and a coating over the whole car for gloss, chemical resistance and easy cleaning. For a daily driver that is not always behind trucks on the freeway, a coating alone is usually the right call.' },
+  { q: 'Do I need paint correction before a ceramic coating?', a: 'Yes. A coating locks in whatever is under it, so swirls, water spots and haze sealed beneath a coating stay there for its entire life. Correction removes them first, and a corrected, fully decontaminated surface is also what lets the coating bond properly to the clear coat. It is included in both of our packages: one-step polishing for newer or well-kept paint, two-step compounding and polishing for heavily swirled, oxidized or dark paint.' },
+  { q: 'Can I coat a brand-new car?', a: 'It is the best time. New paint has the fewest defects to correct, and coating it before its first automatic wash means it never picks up the swirls most cars carry within a year. It still needs decontamination and a light polish, because transport, the dealer lot and the pre-delivery wash leave more behind than you would think. A professionally applied coating does not affect the manufacturer\'s paint warranty. If a dealership offers you a protection package, ask what product is applied and whether any correction is done before you pay for it. Teslas, Rivians and other cars with thin, soft paint benefit the most.' },
+  { q: 'How do I wash a ceramic-coated car?', a: 'Gently and regularly. Two-bucket hand wash with a pH-neutral car shampoo and a clean microfiber mitt, every two to three weeks if the car lives outside, then dry it with plush microfiber towels or a blower rather than letting it air-dry. Touchless car washes are fine. Avoid brush and cloth tunnel washes, degreasers, and anything acidic or strongly alkaline on the paint. Do not put wax or a paint sealant over a coating; they cannot bond to it and only mask how it behaves. A maintenance detail once or twice a year keeps it performing.' },
+  { q: 'Can I take a coated car through an automatic car wash?', a: 'Touchless, yes. Brush or cloth tunnels, no: the spinning brushes carry grit from every car before yours, and they are the fastest way to put swirls into a coating. If a touchless wash is your routine, dry the car afterwards, because the recycled water those systems use leaves mineral spots.' },
+  { q: 'How long does the job take, and when can I drive and wash the car?', a: 'A complete coating with one-step correction is a full-day appointment. Two-step correction can run longer or split over two visits. You can drive the car the same evening. Keep it dry and out of direct rain, sprinklers and bird droppings for the first 24 hours while the coating hardens, and do not wash it at all for the first week; no soap, chemicals or waxes for two weeks. If it gets rained on early, dry it, do not scrub it. You get written cure and care instructions for the exact coating we used.' },
+  { q: 'Will a ceramic coating stop water spots?', a: 'It makes them less likely and easier to remove, not impossible. Water spots are minerals left behind when tap or sprinkler water dries on the paint. A coating keeps them from bonding into the clear coat, but they can still etch the coating itself if left in the sun for weeks. Dry the car after washing, keep it away from lawn sprinklers, and wipe fresh spots with a quick detailer as soon as you see them. Caught early they come off; ignored, they need polishing.' },
+  { q: 'What can damage a ceramic coating?', a: 'Abrasion and chemistry, in that order. Brush car washes, dirty wash mitts and dry wiping put fine scratches into it. Strong wheel cleaners, degreasers, tar removers and alkaline truck-wash soaps eat into it. Bird droppings, bug splatter and tree sap left to bake in the sun will etch through eventually. Neglect is the quiet one: a coating that is never washed gets buried in road film and stops beading, which people mistake for the coating failing. Regular gentle washing prevents all of it.' },
+  { q: 'How do I know the coating is still working?', a: 'Water behaviour is the tell. A working coating beads tightly and sheets off when you rinse. When beading goes flat and the paint stays dusty after a wash, it is almost always road film sitting on top of the coating, not the coating wearing out, and a decontamination wash brings it back. When the paint stops beading even after a proper decontamination, the coating has reached the end of its life and it is time to correct and re-coat.' },
+  { q: 'Can wheels, glass, trim, wraps or PPF be coated too?', a: 'Yes, with coatings made for each surface. Wheel coatings shrug off brake dust so wheels rinse clean instead of needing harsh cleaners. Glass coatings sheet rain off the windshield at speed and make bugs and ice easier to clear. Trim coatings keep black plastic dark. Wraps, paint protection film and matte paint can be coated with matte-safe products that protect without adding gloss. We quote these as add-ons to the paint.' },
+  { q: 'What is the difference between a spray-on ceramic and a professional coating?', a: 'Spray ceramics and ceramic-infused waxes are toppers: a thin layer applied in an afternoon that lasts a few months, with no prep. A professional coating is a far denser product applied panel by panel over corrected, decontaminated paint, then cured, and it protects for years. Sprays are a good way to maintain a professional coating between details. They are not a substitute for one.' },
+  { q: 'What decides the price of a ceramic coating?', a: 'Three things: the size of the vehicle, because more panels mean more prep and more product; the condition of the paint, which sets whether one-step or two-step correction is needed; and how much you want coated beyond the paint, such as wheels, glass and trim. We quote every vehicle individually from its year, make, model and a photo of the paint in sunlight. A quote far below the going rate usually means the correction is being skipped, and correction is most of the work.' },
   { q: 'Do you come to me for ceramic coating? What do you need?', a: 'Yes. We apply coatings at your home or workplace across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda and Walnut Creek. We need a garage, carport or shaded driveway out of direct sun and rain, and about a day. We bring water, power and lighting.' },
-  { q: 'How long does ceramic coating take?', a: 'A complete coating with one-step correction is a full-day appointment (6–9 hours). Gold with two-step correction can be 10+ hours or a two-visit job. The coating then cures for 24 hours, keep it dry and don\'t wash it for 7 days.' },
 ];
 
 const schema = [
   serviceSchema({
     name: 'Ceramic Coating',
-    description: 'Professional mobile ceramic coating in Oakland and the East Bay. Complete application includes decontamination, paint correction and a ~3-year hydrophobic ceramic coating applied at your home or workplace.',
+    description: 'Professional mobile ceramic coating in Oakland and the East Bay. Complete application includes decontamination, paint correction and a hydrophobic ceramic coating bonded to the paint, applied at your home or workplace.',
     path,
     image: '/images/ceramic-coating-oakland.jpg',
     offers: [
-      { name: 'Silver Ceramic Package', description: 'Hand wash, clay & iron decontamination, one-step paint correction, ~3-year ceramic coating, cure & inspection.' },
+      { name: 'Silver Ceramic Package', description: 'Hand wash, clay & iron decontamination, one-step paint correction, professional ceramic coating, cure & inspection.' },
       { name: 'Gold Ceramic Package', description: 'Everything in Silver with two-step paint correction for heavily swirled or oxidized paint.' },
     ],
   }),
@@ -56,12 +66,12 @@ const steps = [
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating' }]}
     eyebrow="Professional ceramic coating · Oakland & East Bay"
-    titleHtml="Ceramic Coating in Oakland, <em>stop waxing, lock in the gloss for ~3 years</em>. Applied in your driveway."
-    text="A complete coating, not a spray-on: hand wash, clay & iron decontamination, paint correction, then a multi-year hydrophobic ceramic coating. By the owner, at your home or office, priced by vehicle size."
+    titleHtml="Ceramic Coating in Oakland, <em>a harder, glossier, easier-to-clean finish</em>. Applied in your driveway."
+    text="A complete coating, not a spray-on: hand wash, clay & iron decontamination, paint correction, then a professional-grade ceramic coating bonded to the paint. By the owner, at your home or office, quoted per vehicle."
     note="Complete · incl. decontamination & paint correction · full-day appointment"
     image="/images/ceramic-coating-oakland.jpg"
     imageAlt="Ceramic coating being poured onto an applicator pad before a mobile application in Oakland, CA"
-    bullets={['~3 years of protection, one coating ≈ 20 wax jobs', 'Correction included: the coating seals a flawless finish', 'Hydrophobic: water, dirt & dust slide off; every wash is easier']}
+    bullets={['Resists UV, sap, bird droppings, brake dust and road film', 'Correction included: the coating seals a flawless finish, not old defects', 'Hydrophobic: water sheets off, dirt lets go, every wash is faster']}
   />
 
   <!-- Answer + pricing -->
@@ -70,7 +80,7 @@ const steps = [
       <div class="prose">
         <span class="eyebrow">Ceramic coating in Oakland</span>
         <h2 class="mt-0">What your coating quote depends on</h2>
-        <p><strong>A complete ceramic coating from J&W is quoted per vehicle.</strong> The quote covers the entire job, deep hand wash, clay and iron decontamination, paint correction, and a coating built to last around 3 years. Applied at your home anywhere in Oakland and the East Bay. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
+        <p><strong>A complete ceramic coating from J&W is quoted per vehicle.</strong> The quote covers the entire job: deep hand wash, clay and iron decontamination, paint correction, and a professional-grade coating applied and cured at your home anywhere in Oakland and the East Bay. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Vehicle type</th><th>What it means for the job</th></tr></thead>
@@ -112,7 +122,7 @@ const steps = [
             <li>Iron removal + full clay bar</li>
             <li>One-step machine paint correction</li>
             <li>Panel prep wipe</li>
-            <li>~3-year ceramic coating on all paint</li>
+            <li>Professional-grade ceramic coating on all paint</li>
             <li>Cure, inspection & care guide</li>
           </ul>
           <p class="pk__price">Quoted by vehicle size</p>
@@ -140,14 +150,17 @@ const steps = [
 
   <Process steps={steps} heading="Four stages, prep is where cheap coatings fail, so we don't skip it" eyebrow="Our process" />
 
-  <!-- Why worth it in Oakland -->
+  <!-- What a coating does -->
   <section class="section">
     <div class="container two-col">
       <div class="prose">
-        <span class="eyebrow">Is it worth it in the Bay Area?</span>
-        <h2 class="mt-0">Yes, Oakland conditions are exactly what a coating is for</h2>
-        <p>A quality wax lasts 6–8 weeks before Bay Area detergents and sun break it down. A professional ceramic coating lasts around 3 years with proper care, one application outlasts roughly 20 wax jobs. It also makes the paint hydrophobic, so water, dirt and dust slide off and every wash is faster and safer.</p>
-        <p>Local conditions make the case stronger: UV on clear days fades unprotected paint; salt air works on anything parked near the water in Alameda or Jack London Square; tree sap in Rockridge and the Oakland Hills etches clear coat fast; brake dust from 880 bonds to bare paint. A coating resists all of it. One honest caveat: no coating stops rock chips or deep scratches, that's paint protection film.</p>
+        <span class="eyebrow">What a coating actually does</span>
+        <h2 class="mt-0">Four things that change once your paint is coated</h2>
+        <p><strong>It stops damage before it reaches the paint.</strong> A cured coating is a hard, chemically resistant layer on top of the clear coat. Bird droppings, tree sap, bug splatter, brake dust and industrial fallout sit on the coating instead of bonding to the paint and etching it, so they rinse or wipe off instead of leaving marks. UV works on the coating instead of oxidizing the clear coat, which is what keeps colour deep instead of chalky.</p>
+        <p><strong>It makes the car dramatically easier to keep clean.</strong> The surface is hydrophobic: water beads, then sheets off, and takes loose dirt with it. Dust and road film have far less to grip. A maintenance wash takes half the time, needs less scrubbing, and puts fewer swirls into the paint, because you are barely touching it.</p>
+        <p><strong>It locks in gloss.</strong> The coating is applied over paint that has just been corrected, so it seals a flawless, deep finish rather than old defects. Coated paint has a wet, reflective look that a topper cannot match, and it keeps it.</p>
+        <p><strong>It protects the value of the car.</strong> Paint condition is one of the first things a buyer or a dealer looks at. A coated car that has been washed properly still presents like new years later, which shows at trade-in time.</p>
+        <p>Oakland conditions make the case: salt air on anything parked near the water in Alameda or Jack London Square, sap in Rockridge and the hills, brake dust from 880, and strong sun most of the year. Two honest limits: a coating does not stop rock chips or deep scratches, that is paint protection film, and it is not maintenance-free, it just makes maintenance easy.</p>
         <h3>Who books a coating with us</h3>
         <ul>
           <li><strong>New-car owners</strong>, coat it before the first swirl. Teslas, Rivians, Toyotas, BMWs.</li>
@@ -161,7 +174,7 @@ const steps = [
   </section>
 
   <Reviews limit={3} filterService="Ceramic" heading="What Oakland drivers say after their coating" />
-  <Faq faqs={faqs} heading="Ceramic coating questions Oakland drivers ask" />
+  <Faq faqs={faqs} heading="Ceramic coating questions, answered straight" />
 
   <section class="section section--soft" id="quote">
     <div class="container two-col">
