@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://jnwdetailing.com',
   trailingSlash: 'always',
-  build: { format: 'directory', inlineStylesheets: 'auto' },
+  build: { format: 'directory', inlineStylesheets: 'always' },
   compressHTML: true,
   redirects: {
     '/paint-correction-2/': '/paint-correction/',

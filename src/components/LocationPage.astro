@@ -8,7 +8,7 @@ import Reviews from './Reviews.astro';
 import CtaBand from './CtaBand.astro';
 import QuoteForm from './QuoteForm.astro';
 import Icon from './Icons.astro';
-import { SITE, type FAQ, CTA } from '../data/site';
+import { SITE, type FAQ, CTA, HERO_SIZES } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 export interface Props {
@@ -27,6 +27,8 @@ export interface Props {
   mapEmbed: string;
 }
 const p = Astro.props;
+const heroWebp = p.heroImage.replace(/\.jpg$/, '.webp');
+const heroSet = `${heroWebp.replace(/\.webp$/, '-720.webp')} 720w, ${heroWebp} 1080w`;
 const schema = [
   serviceSchema({
     name: `Mobile Car Detailing in ${p.city}`,
@@ -40,7 +42,7 @@ const schema = [
 ];
 ---
 
-<Base title={p.title} description={p.description} canonical={p.path} {schema} ogImage={p.heroImage} preloadImage={p.heroImage}>
+<Base title={p.title} description={p.description} canonical={p.path} {schema} ogImage={p.heroImage} preloadImage={heroWebp} preloadImageSrcset={heroSet} preloadImageSizes={HERO_SIZES}>
   <PageHero
     crumbs={[{ label: 'Service Areas', href: '/service-areas/' }, { label: p.city }]}
     eyebrow={`Mobile detailing · ${p.city}, CA`}

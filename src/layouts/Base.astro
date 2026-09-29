@@ -14,6 +14,8 @@ export interface Props {
   noindex?: boolean;
   bodyClass?: string;
   preloadImage?: string; // hero image for LCP
+  preloadImageSrcset?: string; // optional responsive candidates for the same hero
+  preloadImageSizes?: string;
 }
 
 const {
@@ -25,6 +27,8 @@ const {
   noindex = false,
   bodyClass = '',
   preloadImage,
+  preloadImageSrcset,
+  preloadImageSizes,
 } = Astro.props;
 
 const canonicalUrl = new URL(canonical, SITE.url).href;
@@ -113,13 +117,7 @@ const allSchema = [localBusiness, website, ...schema];
   <head>
     <!-- Google tag (gtag.js) - Google Ads AW-10856672755 -->
     <script async is:inline src="https://www.googletagmanager.com/gtag/js?id=AW-10856672755"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'AW-10856672755');
-    </script>
+    <script is:inline>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','AW-10856672755');</script>
 
     <!--
       Call conversion. gtag() is defined by the block above, so this has to stay
@@ -163,14 +161,13 @@ const allSchema = [localBusiness, website, ...schema];
     <link rel="apple-touch-icon" href="/images/icon.webp" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Fonts: preconnect + swap so text never blocks paint -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700&display=swap"
-    />
-    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+    <!-- Fonts are self-hosted (see @font-face in global.css). Preload the two
+         every page paints above the fold: body text and the display headline. -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-variable.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/barlow-condensed-800.woff2" crossorigin />
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} imagesrcset={preloadImageSrcset} imagesizes={preloadImageSizes} fetchpriority="high" />
+    )}
 
     <!-- JSON-LD -->
     {allSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}

@@ -53,10 +53,10 @@ const fmt = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'l
       </div>
     </header>
     <div class="container post__body">
-      <img class="post__hero" src={s.image} alt={postTitle} width="1376" height="768" fetchpriority="high" decoding="async" />
+      <img class="post__hero" src={s.image.replace(/\.jpg$/, '.webp')} alt={postTitle} width="1376" height="768" fetchpriority="high" decoding="async" />
       <div set:html={html} />
       <aside class="author">
-        <img src="/images/jalil-owner-jw-mobile-detailing-oakland.jpg" alt="Jalil Wren, founder of J&W Mobile Detailing" width="96" height="96" loading="lazy" />
+        <img src="/images/jalil-96.webp" alt="Jalil Wren, founder of J&W Mobile Detailing" width="96" height="96" loading="lazy" />
         <div>
           <strong>About the author</strong>
           <p>{SITE.founder} founded J&W Mobile Detailing in Oakland in 2022 and still details every car the company takes on. Ceramic coatings, paint correction, interiors, 1,000+ East Bay vehicles and a 4.9★ Google rating.</p>

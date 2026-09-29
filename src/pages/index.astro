@@ -29,6 +29,9 @@ const stars = Array.from({ length: 5 });
 // video buffers, and it's what shows on phones set to reduced motion.
 const HERO_VIDEO = ''; // e.g. '/videos/hero.mp4'
 const HERO_POSTER = '/images/hero-oakland-mobile-detailing.webp';
+// Phones get the 720px cut; the full 1080px frame is only worth it on wide screens.
+const HERO_POSTER_SET = '/images/hero-oakland-mobile-detailing-720.webp 720w, /images/hero-oakland-mobile-detailing.webp 1080w';
+const HERO_POSTER_SIZES = '100vw';
 
 // H1 names the city (Oakland carries the local search intent); the H2 widens the
 // promise to the whole Bay Area so Alameda / Contra Costa / Marin visitors don't
@@ -37,14 +40,14 @@ const HERO_H1 = 'Professional Mobile Car Detailing & Ceramic Coating in Oakland,
 const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services across the Greater Bay Area.';
 ---
 
-<Base {title} {description} canonical="/" schema={[faqSchema]} bodyClass="home" ogImage="/images/og-default.jpg" preloadImage={HERO_POSTER}>
+<Base {title} {description} canonical="/" schema={[faqSchema]} bodyClass="home" ogImage="/images/og-default.jpg" preloadImage={HERO_POSTER} preloadImageSrcset={HERO_POSTER_SET} preloadImageSizes={HERO_POSTER_SIZES}>
   <!-- ============ 1. HERO ============ -->
   <section class="hero">
     <div class="hero__media" aria-hidden="true">
       {HERO_VIDEO ? (
         <video class="hero__vid" src={HERO_VIDEO} poster={HERO_POSTER} autoplay muted loop playsinline preload="metadata"></video>
       ) : (
-        <img class="hero__vid" src={HERO_POSTER} alt="" width="1080" height="608" fetchpriority="high" decoding="async" />
+        <img class="hero__vid" src={HERO_POSTER} srcset={HERO_POSTER_SET} sizes={HERO_POSTER_SIZES} alt="" width="1080" height="608" fetchpriority="high" decoding="async" />
       )}
       <div class="hero__scrim"></div>
     </div>

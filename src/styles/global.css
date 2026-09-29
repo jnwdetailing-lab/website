@@ -2,6 +2,31 @@
    J&W Mobile Detailing — global styles
    Brand: charcoal / white / signal red. Automotive, confident, clean.
    ============================================================ */
+/* Self-hosted fonts (latin subsets, formerly loaded from Google Fonts).
+   Serving them from our own origin removes a render-blocking third-party
+   stylesheet and two extra connections from every page load. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/inter-variable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/barlow-condensed-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/barlow-condensed-800.woff2') format('woff2');
+}
+
 :root {
   --red: #e11d2a;
   --red-dark: #b8121d;

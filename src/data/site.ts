@@ -286,16 +286,19 @@ export const HOME_FAQS: FAQ[] = [
 ];
 
 export const GALLERY = [
-  { src: '/images/interior-detailing-oakland-before.jpg', alt: 'Before: stained cloth seat in a sedan prior to interior detailing in Oakland', label: 'Interior before', w: 1080, h: 1080 },
-  { src: '/images/interior-detailing-oakland-after.jpg', alt: 'After: the same seat shampooed and steam cleaned by J&W Mobile Detailing', label: 'Interior after', w: 1080, h: 1080 },
-  { src: '/images/interior-detailing-steam-cleaning-oakland.jpg', alt: 'Jalil steam cleaning a rear seat during a mobile interior detail', label: 'Steam cleaning', w: 1080, h: 1080 },
-  { src: '/images/exterior-detailing-oakland.jpg', alt: 'Foam pre-soak on a white sedan during a mobile exterior detail', label: 'Foam pre-soak', w: 1080, h: 1080 },
-  { src: '/images/paint-correction-polishing-oakland.jpg', alt: 'Machine polishing a hood during paint correction', label: 'Paint correction', w: 1080, h: 1080 },
-  { src: '/images/paint-correction-oakland.jpg', alt: 'Swirl marks visible under inspection light before paint correction', label: 'Swirl inspection', w: 1080, h: 1080 },
-  { src: '/images/ceramic-coating-oakland.jpg', alt: 'Ceramic coating poured onto an applicator pad', label: 'Ceramic coating', w: 1080, h: 1080 },
-  { src: '/images/work-1.jpg', alt: 'Black sedan freshly ceramic coated in an Oakland driveway by J&W Mobile Detailing', label: 'Ceramic coated sedan', w: 1376, h: 768 },
-  { src: '/images/work-2.jpg', alt: 'Jalil applying ceramic coating to a black sedan at a customer home', label: 'Coating application', w: 1376, h: 768 },
-  { src: '/images/odor-removal-oakland.jpg', alt: 'Ozone generator running for odor removal treatment', label: 'Ozone odor removal', w: 1080, h: 1080 },
-  { src: '/images/rv-wash-wax-oakland.jpg', alt: 'Washing the roof line of a motorhome', label: 'RV wash & wax', w: 1080, h: 1080 },
-  { src: '/images/jalil-owner-jw-mobile-detailing-oakland.jpg', alt: 'Jalil Wren, owner of J&W Mobile Detailing, detailing a steering wheel', label: 'Owner-operated', w: 1080, h: 1080 },
+  { src: '/images/interior-detailing-oakland-before.webp', alt: 'Before: stained cloth seat in a sedan prior to interior detailing in Oakland', label: 'Interior before', w: 1080, h: 1080 },
+  { src: '/images/interior-detailing-oakland-after.webp', alt: 'After: the same seat shampooed and steam cleaned by J&W Mobile Detailing', label: 'Interior after', w: 1080, h: 1080 },
+  { src: '/images/interior-detailing-steam-cleaning-oakland.webp', alt: 'Jalil steam cleaning a rear seat during a mobile interior detail', label: 'Steam cleaning', w: 1080, h: 1080 },
+  { src: '/images/exterior-detailing-oakland.webp', alt: 'Foam pre-soak on a white sedan during a mobile exterior detail', label: 'Foam pre-soak', w: 1080, h: 1080 },
+  { src: '/images/paint-correction-polishing-oakland.webp', alt: 'Machine polishing a hood during paint correction', label: 'Paint correction', w: 1080, h: 1080 },
+  { src: '/images/paint-correction-oakland.webp', alt: 'Swirl marks visible under inspection light before paint correction', label: 'Swirl inspection', w: 1080, h: 1080 },
+  { src: '/images/ceramic-coating-oakland.webp', alt: 'Ceramic coating poured onto an applicator pad', label: 'Ceramic coating', w: 1080, h: 1080 },
+  { src: '/images/work-1.webp', alt: 'Black sedan freshly ceramic coated in an Oakland driveway by J&W Mobile Detailing', label: 'Ceramic coated sedan', w: 1376, h: 768 },
+  { src: '/images/work-2.webp', alt: 'Jalil applying ceramic coating to a black sedan at a customer home', label: 'Coating application', w: 1376, h: 768 },
+  { src: '/images/odor-removal-oakland.webp', alt: 'Ozone generator running for odor removal treatment', label: 'Ozone odor removal', w: 1080, h: 1080 },
+  { src: '/images/rv-wash-wax-oakland.webp', alt: 'Washing the roof line of a motorhome', label: 'RV wash & wax', w: 1080, h: 1080 },
+  { src: '/images/jalil-owner-jw-mobile-detailing-oakland.webp', alt: 'Jalil Wren, owner of J&W Mobile Detailing, detailing a steering wheel', label: 'Owner-operated', w: 1080, h: 1080 },
 ];
+
+/** `sizes` for the page-hero photo: full width (capped at 420px) when the hero stacks, ~40vw beside the copy. */
+export const HERO_SIZES = '(max-width: 900px) min(100vw, 420px), 40vw';

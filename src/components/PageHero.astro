@@ -1,5 +1,5 @@
 ---
-import { SITE, CTA } from '../data/site';
+import { SITE, CTA, HERO_SIZES } from '../data/site';
 import Icon from './Icons.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
 export interface Props {
@@ -16,6 +16,9 @@ export interface Props {
   bullets?: string[];
 }
 const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, ctaLabel = CTA.label, bullets } = Astro.props;
+// Every hero photo ships as JPG (kept for og:image) plus a WebP and a 720px WebP.
+const heroWebp = image ? image.replace(/\.jpg$/, '.webp') : '';
+const heroSet = heroWebp ? `${heroWebp.replace(/\.webp$/, '-720.webp')} 720w, ${heroWebp} 1080w` : '';
 ---
 <section class="phero">
   <div class="container phero__inner">
@@ -42,7 +45,7 @@ const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, cta
     </div>
     {image && (
       <div class="phero__media">
-        <img src={image} alt={imageAlt} width="1080" height="1080" fetchpriority="high" decoding="async" />
+        <img src={heroWebp} srcset={heroSet} sizes={HERO_SIZES} alt={imageAlt} width="1080" height="1080" fetchpriority="high" decoding="async" />
       </div>
     )}
   </div>
