@@ -139,6 +139,8 @@ const allSchema = [localBusiness, website, ...schema];
     <link rel="canonical" href={canonicalUrl} />
     {noindex ? <meta name="robots" content="noindex,follow" /> : <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />}
     <meta name="theme-color" content="#0f1115" />
+    <!-- Google Search Console ownership (URL-prefix property); the DNS TXT record covers the domain property -->
+    <meta name="google-site-verification" content="BaAZzlk0FEgjw6aQ5wQrkWu1VpRJrp8k-me6L3SZEbs" />
     <meta name="geo.region" content="US-CA" />
     <meta name="geo.placename" content="Oakland" />
     <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
