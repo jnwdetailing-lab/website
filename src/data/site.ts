@@ -99,7 +99,44 @@ export const ADS_LEAD_CONVERSION = '';
 // rather than repeating the number here where the two could drift apart.
 //
 // Leave '' to switch call tracking off.
-export const ADS_CALL_CONVERSION = 'AW-10856672755/I36ECLDX4O0cEPPb7rgo';
+// TURNED OFF 2026-09-29. Call attribution moved to the GoHighLevel number pool below,
+// so that GHL owns call source tracking and reports conversions back to Google Ads as
+// offline imports (which can also carry a dollar value — Google's own WEBSITE_CALL
+// action cannot).
+//
+// Two scripts cannot both rewrite the on-page number, so this had to go off for the
+// pool to work. To restore Google's call tracking, put the value back:
+//     'AW-10856672755/I36ECLDX4O0cEPPb7rgo'
+// and set GHL_TRACKING.numberPool to '' in the same commit.
+export const ADS_CALL_CONVERSION = '';
+
+// ---------------------------------------------------------------------------
+// GoHighLevel / LeadConnector tracking scripts.
+//
+//   userSession — attribution and session tracking. Passive, no conflicts.
+//   numberPool  — DYNAMIC NUMBER INSERTION. Rewrites the phone number rendered on
+//                 the page to a pooled tracking number so GHL can attribute calls.
+//
+// numberPool is now the ONLY thing rewriting the on-page number. ADS_CALL_CONVERSION
+// above was switched off on 2026-09-29 to make room for it — two scripts rewriting the
+// same number is last-one-wins, and which one wins is a load-order race.
+//
+// !! Do not re-enable ADS_CALL_CONVERSION while numberPool is set. !!
+//
+// Consequence of the swap, so it is not a surprise later: Google's "Website Calls
+// (4995)" conversion stops recording (8 conversions in the 30 days to 28 Sep, out of
+// 100 counted). "Extension Calls" (19) is served off the ad / Business Profile and is
+// NOT affected by anything on this site. Until GoHighLevel is uploading offline
+// conversions back into Google Ads, those 8/month are simply missing from a campaign
+// running Maximize Conversions with a $28 tCPA.
+//
+// Set either value to '' and that script is not emitted.
+// ---------------------------------------------------------------------------
+export const GHL_TRACKING = {
+  numberPool:
+    'https://backend.leadconnectorhq.com/appengine/loc/fg9hK2RNMe5wrXGFH0GL/pool/1DxDeDMwDfdxfkdvg6d2/number_pool.js',
+  userSession: 'https://backend.leadconnectorhq.com/appengine/js/user_session.js',
+};
 
 export type NavItem = { label: string; href: string; children?: NavItem[] };
 

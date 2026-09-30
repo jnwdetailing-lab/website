@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import StickyCta from '../components/StickyCta.astro';
-import { SITE, ADS_CALL_CONVERSION } from '../data/site';
+import { SITE, ADS_CALL_CONVERSION, GHL_TRACKING } from '../data/site';
 
 export interface Props {
   title: string;
@@ -183,6 +183,23 @@ const allSchema = [localBusiness, website, ...schema];
     </main>
     <Footer />
     <StickyCta />
+
+    <!--
+      GoHighLevel / LeadConnector number pool + session tracking.
+
+      GHL's own install guide (Number Pools -> "How To Use Number Pool", step 3)
+      says to place these "just above closing body tag", so every phone number is
+      already in the DOM when the swapper runs. Putting them in <head> risks the
+      script finding nothing to replace. is:inline emits them verbatim; no
+      async/defer added, because the two files depend on their execution order.
+
+      numberPool rewrites (510) 756-4995 wherever it appears in page text, but
+      only for visitors the pool is configured to track (source: google_ads).
+      Add class="noswap" to any element that must always show the real number.
+      ADS_CALL_CONVERSION in src/data/site.ts must stay '' while this is on.
+    -->
+    {GHL_TRACKING.numberPool && <script is:inline src={GHL_TRACKING.numberPool}></script>}
+    {GHL_TRACKING.userSession && <script is:inline src={GHL_TRACKING.userSession}></script>}
     <style>
       .skip { position: absolute; left: -999px; top: 8px; background: var(--red); color: #fff; padding: 0.6rem 1rem; border-radius: 6px; z-index: 1000; }
       .skip:focus { left: 8px; }
