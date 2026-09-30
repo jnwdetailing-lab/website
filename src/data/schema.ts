@@ -36,7 +36,7 @@ export const serviceSchema = (opts: {
   url: `${SITE.url}${opts.path}`,
   image: opts.image ? `${SITE.url}${opts.image}` : undefined,
   provider: { '@id': `${SITE.url}/#business` },
-  areaServed: (opts.areaServed ?? ['Oakland', 'Alameda', 'Berkeley', 'San Leandro', 'Piedmont', 'Emeryville', 'Orinda', 'Walnut Creek']).map((c) => ({ '@type': 'City', name: c })),
+  areaServed: (opts.areaServed ?? ['Oakland', 'Alameda', 'Berkeley', 'San Leandro', 'Piedmont', 'Emeryville', 'Orinda', 'Walnut Creek', 'Richmond']).map((c) => ({ '@type': 'City', name: c })),
   ...(opts.minPrice
     ? {
         offers: {

@@ -30,6 +30,7 @@ const extra: Record<string, { local: string[]; note: string }> = {
   Piedmont: { local: ['Piedmont Hills', 'Baja Piedmont', 'Upper Piedmont', 'Civic Center'], note: 'Recurring maintenance details for multi-car households.' },
   Emeryville: { local: ['Watergate', 'Bay Street', 'Park Avenue District', 'Triangle', 'Powell Street'], note: 'Condo garages & office lots. We bring water and power.' },
   Orinda: { local: ['Orinda Village', 'Sleepy Hollow', 'Glorietta', 'Orinda Downs', 'Ivy Drive'], note: 'Through the Caldecott, Lamorinda driveways, coatings & RVs.' },
+  Richmond: { local: ['Point Richmond', 'Marina Bay', 'Hilltop', 'Richmond Annex', 'Richmond Heights', 'Iron Triangle', 'Atchison Village', 'May Valley', 'Park Plaza'], note: 'Refinery & rail fallout plus shoreline salt. Iron decontamination comes first here.' },
 };
 
 const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Service Areas', href: path }])];
@@ -40,7 +41,7 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Service Areas', hre
     crumbs={[{ label: 'Service Areas' }]}
     eyebrow="Where we work"
     titleHtml="Mobile detailing across Oakland & the East Bay, <em>we come to you</em>"
-    text="Based in Oakland, serving eight East Bay cities with the same van, the same checklist and the same owner. Our rig carries its own water and power, so a driveway, curb, office lot or garage is all we need."
+    text="Based in Oakland, serving nine East Bay cities with the same van, the same checklist and the same owner. Our rig carries its own water and power, so a driveway, curb, office lot or garage is all we need."
     image="/images/oakland-california-skyline.jpg"
     imageAlt="Oakland, California skyline and Lake Merritt, J&W Mobile Detailing's home base"
   />
@@ -49,7 +50,7 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Service Areas', hre
     <div class="container">
       <div class="center" style="margin-bottom:2rem">
         <span class="eyebrow">Cities we serve</span>
-        <h2>Eight cities, no travel fee, one standard</h2>
+        <h2>Nine cities, no travel fee, one standard</h2>
       </div>
       <div class="grid grid--2 areas">
         {AREAS.map((a) => (
@@ -59,8 +60,8 @@ const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Service Areas', hre
               {a.hasPage && <a href={a.slug} class="btn btn--sm btn--ghost">{a.city} page</a>}
             </div>
             <p>{a.blurb}</p>
-            <p class="area__note"><strong>Good to know:</strong> {extra[a.city].note}</p>
-            <p class="area__hoods"><strong>Neighborhoods:</strong> {extra[a.city].local.join(' · ')}</p>
+            {extra[a.city]?.note && <p class="area__note"><strong>Good to know:</strong> {extra[a.city].note}</p>}
+            <p class="area__hoods"><strong>Neighborhoods:</strong> {(extra[a.city]?.local ?? a.neighborhoods).join(' · ')}</p>
             <div class="btn-row">
               <a href={CTA.href} class="btn btn--primary btn--sm" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
               <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost btn--sm">Call</a>

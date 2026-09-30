@@ -11,3 +11,62 @@
 /?page_id=*                 /  301!
 /feed/                      /  301!
 /comments/feed/             /  301!
+
+# Legacy WordPress city pages (/mobile-car-detailing-<city>), all 404ing as of 2026-09-29.
+# /mobile-car-detailing-richmond is CONFIRMED still indexed and served by Google; the rest share
+# its naming pattern and were almost certainly part of the same set. Both the slash and no-slash
+# form is listed for each, matching the style above — Netlify splats are documented for whole path
+# segments, so a partial-segment wildcard is not relied on here.
+# Cities that have their own page redirect to it; the rest go to /service-areas/.
+
+# --- cities with a destination page ---
+/mobile-car-detailing-oakland/        /  301!
+/mobile-car-detailing-oakland         /  301!
+/mobile-car-detailing-berkeley/       /auto-detailing-berkeley-ca/  301!
+/mobile-car-detailing-berkeley        /auto-detailing-berkeley-ca/  301!
+/mobile-car-detailing-alameda/        /auto-detailing-alameda-ca/  301!
+/mobile-car-detailing-alameda         /auto-detailing-alameda-ca/  301!
+/mobile-car-detailing-san-leandro/    /auto-detailing-san-leandro-ca/  301!
+/mobile-car-detailing-san-leandro     /auto-detailing-san-leandro-ca/  301!
+/mobile-car-detailing-piedmont/       /auto-detailing-piedmont-ca/  301!
+/mobile-car-detailing-piedmont        /auto-detailing-piedmont-ca/  301!
+/mobile-car-detailing-emeryville/     /auto-detailing-emeryville-ca/  301!
+/mobile-car-detailing-emeryville      /auto-detailing-emeryville-ca/  301!
+/mobile-car-detailing-orinda/         /auto-detailing-orinda-ca/  301!
+/mobile-car-detailing-orinda          /auto-detailing-orinda-ca/  301!
+/mobile-car-detailing-walnut-creek/   /auto-detailing-walnut-creek-ca/  301!
+/mobile-car-detailing-walnut-creek    /auto-detailing-walnut-creek-ca/  301!
+/mobile-car-detailing-richmond/       /auto-detailing-richmond-ca/  301!
+/mobile-car-detailing-richmond        /auto-detailing-richmond-ca/  301!
+
+# --- no page yet: send to the service-areas hub rather than a 404 ---
+/mobile-car-detailing-hayward/        /service-areas/  301!
+/mobile-car-detailing-hayward         /service-areas/  301!
+/mobile-car-detailing-el-cerrito/     /service-areas/  301!
+/mobile-car-detailing-el-cerrito      /service-areas/  301!
+/mobile-car-detailing-albany/         /service-areas/  301!
+/mobile-car-detailing-albany          /service-areas/  301!
+/mobile-car-detailing-san-pablo/      /service-areas/  301!
+/mobile-car-detailing-san-pablo       /service-areas/  301!
+/mobile-car-detailing-pinole/         /service-areas/  301!
+/mobile-car-detailing-pinole          /service-areas/  301!
+/mobile-car-detailing-hercules/       /service-areas/  301!
+/mobile-car-detailing-hercules        /service-areas/  301!
+/mobile-car-detailing-concord/        /service-areas/  301!
+/mobile-car-detailing-concord         /service-areas/  301!
+/mobile-car-detailing-fremont/        /service-areas/  301!
+/mobile-car-detailing-fremont         /service-areas/  301!
+/mobile-car-detailing-castro-valley/  /service-areas/  301!
+/mobile-car-detailing-castro-valley   /service-areas/  301!
+/mobile-car-detailing-san-francisco/  /service-areas/  301!
+/mobile-car-detailing-san-francisco   /service-areas/  301!
+/mobile-car-detailing-novato/         /service-areas/  301!
+/mobile-car-detailing-novato          /service-areas/  301!
+/mobile-car-detailing-san-rafael/     /service-areas/  301!
+/mobile-car-detailing-san-rafael      /service-areas/  301!
+/mobile-car-detailing-marin/          /service-areas/  301!
+/mobile-car-detailing-marin           /service-areas/  301!
+
+# Belt-and-braces catch-all for any city slug not enumerated above. Harmless if Netlify
+# declines the partial-segment wildcard; useful if it honours it. Must stay last.
+/mobile-car-detailing-*               /service-areas/  301!

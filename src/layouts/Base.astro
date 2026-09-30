@@ -56,7 +56,7 @@ const localBusiness = {
     addressCountry: SITE.address.country,
   },
   geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
-  areaServed: ['Oakland', 'Alameda', 'Berkeley', 'San Leandro', 'Piedmont', 'Emeryville', 'Orinda', 'Walnut Creek'].map((c) => ({
+  areaServed: ['Oakland', 'Alameda', 'Berkeley', 'San Leandro', 'Piedmont', 'Emeryville', 'Orinda', 'Walnut Creek', 'Richmond'].map((c) => ({
     '@type': 'City',
     name: c,
     containedInPlace: { '@type': 'State', name: 'California' },
