@@ -317,9 +317,9 @@ export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
   { q: 'How much does mobile car detailing cost in Oakland?', a: 'Every vehicle is quoted individually. Size, condition and the service you want all move the number, so a blanket price list would only mislead you. Tell us what you drive and Jalil sends your price personally, usually within the hour during business hours. You approve the price before anything is booked.' },
-  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the East Bay. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
+  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the Bay Area. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: 'An exterior detail takes about 1.5–3 hours, an interior deep clean 2–4 hours, and a full detail 3–7 hours depending on vehicle size and condition. Ceramic coating with paint correction is typically a full-day appointment.' },
-  { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond and nearby East Bay communities. If you are just outside that list, call us. We can usually make it work.' },
+  { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond and nearby Bay Area communities. If you are just outside that list, call us. We can usually make it work.' },
   { q: 'How do I book?', a: 'Fill in the quote form on this page. Name, phone and what you drive, about 30 seconds. Jalil sends back a price personally, usually within the hour during business hours, and you pick a time from there. You inspect the work with us before we leave. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
   { q: 'How long does a ceramic coating last?', a: 'A professional coating is measured in years, not months. How long depends on the grade of coating, how well the paint is prepared underneath it and how the car is washed afterwards. Every coating is quoted after we see the vehicle, because the price covers full prep: decontamination and paint correction, not just the coating itself, and how much correction your paint needs is the variable. Send us your vehicle and we will come back with an exact number and the expected life of the coating we quote.' },
 ];
@@ -336,5 +336,5 @@ export const GALLERY = [
   { src: '/images/work-2.jpg', alt: 'Jalil applying ceramic coating to a black sedan at a customer home', label: 'Coating application', w: 1376, h: 768 },
   { src: '/images/odor-removal-oakland.jpg', alt: 'Ozone generator running for odor removal treatment', label: 'Ozone odor removal', w: 1080, h: 1080 },
   { src: '/images/rv-wash-wax-oakland.jpg', alt: 'Washing the roof line of a motorhome', label: 'RV wash & wax', w: 1080, h: 1080 },
-  { src: '/images/jalil-owner-jw-mobile-detailing-oakland.jpg', alt: 'Jalil Wren, owner of J&W Mobile Detailing, detailing a steering wheel', label: 'Owner-operated', w: 1080, h: 1080 },
+  { src: '/images/jalil-owner-jw-mobile-detailing-oakland.jpg', alt: 'Jalil Wren, owner of J&W Mobile Detailing, detailing a steering wheel', label: 'Our founder', w: 1080, h: 1080 },
 ];
