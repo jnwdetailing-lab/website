@@ -8,6 +8,7 @@ import CtaBand from '../components/CtaBand.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import Icon from '../components/Icons.astro';
+import ServiceVideo from '../components/ServiceVideo.astro';
 import { SITE, CTA } from '../data/site';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
@@ -101,11 +102,19 @@ const steps = [
   <Process steps={steps} heading="How we correct paint without risking it" eyebrow="Our process" />
 
   <section class="section">
-    <div class="container prose max-prose" style="margin-inline:auto">
-      <span class="eyebrow">Why J&W</span>
-      <h2 class="mt-0">Experience on real East Bay paint, and honesty about what correction can and can't do</h2>
-      <p>Jalil has corrected everything from daily-driver Civics to Teslas, Rivians and black German sedans across Oakland and the East Bay. The rule is the same on every one: least aggressive combination first, measured and checked under light, never chasing a rock chip or a through-the-clear scratch with a polisher. If your fingernail catches in a scratch, it needs touch-up or body work and we'll say so before we start.</p>
-      <p>Correction also only makes sense if you protect it. Corrected paint is unprotected paint, which is why most customers pair it with a <a href="/ceramic-coating/">ceramic coating</a> (correction is built into our Silver and Gold packages) or at minimum a sealant from our <a href="/exterior-auto-detailing-oakland-california/">Clay & Seal exterior detail</a>.</p>
+    <div class="container two-col">
+      <div class="prose">
+        <span class="eyebrow">Why J&W</span>
+        <h2 class="mt-0">Experience on real East Bay paint, and honesty about what correction can and can't do</h2>
+        <p>Jalil has corrected everything from daily-driver Civics to Teslas, Rivians and black German sedans across Oakland and the East Bay. The rule is the same on every one: least aggressive combination first, measured and checked under light, never chasing a rock chip or a through-the-clear scratch with a polisher. If your fingernail catches in a scratch, it needs touch-up or body work and we'll say so before we start.</p>
+        <p>Correction also only makes sense if you protect it. Corrected paint is unprotected paint, which is why most customers pair it with a <a href="/ceramic-coating/">ceramic coating</a> (correction is built into our Silver and Gold packages) or at minimum a sealant from our <a href="/exterior-auto-detailing-oakland-california/">Clay & Seal exterior detail</a>.</p>
+      </div>
+      <ServiceVideo
+        src="/video/paint-correction-polishing"
+        poster="/images/paint-correction-polishing-poster.jpg"
+        label="Jalil machine polishing with a dual-action polisher"
+        caption="Jalil on the polisher. Same dual-action technique, pads and compounds we bring to your driveway, whether it's a car, truck, RV or boat."
+      />
     </div>
   </section>
 

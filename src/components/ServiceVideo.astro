@@ -1,0 +1,77 @@
+---
+/**
+ * Short, silent, looping clip for service pages. Native <video> (no third-party
+ * player), lazy-loaded when it scrolls near the viewport, poster shown until
+ * then and permanently for visitors who prefer reduced motion.
+ */
+export interface Props {
+  /** Base path without extension; expects `${src}.webm` and `${src}.mp4`. */
+  src: string;
+  poster: string;
+  /** Describes the clip for screen readers. */
+  label: string;
+  caption?: string;
+  /** CSS aspect ratio, e.g. "16 / 9". */
+  ratio?: string;
+}
+const { src, poster, label, caption, ratio = '16 / 9' } = Astro.props;
+---
+<figure class="svid" data-service-video>
+  <video
+    class="svid__media"
+    style={`aspect-ratio:${ratio}`}
+    poster={poster}
+    muted
+    loop
+    playsinline
+    preload="none"
+    aria-label={label}
+    disablepictureinpicture
+    disableremoteplayback
+  >
+    <source data-src={`${src}.webm`} type="video/webm" />
+    <source data-src={`${src}.mp4`} type="video/mp4" />
+  </video>
+  {caption && <figcaption class="svid__caption">{caption}</figcaption>}
+</figure>
+<style>
+  .svid { margin: 0; }
+  .svid__media { display: block; width: 100%; height: auto; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); background: #000; }
+  .svid__caption { margin-top: 0.75rem; font-size: 0.9rem; color: var(--muted); }
+</style>
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const videos = document.querySelectorAll<HTMLVideoElement>('[data-service-video] video');
+
+  const load = (v: HTMLVideoElement) => {
+    if (v.dataset.loaded) return;
+    v.dataset.loaded = '1';
+    v.querySelectorAll<HTMLSourceElement>('source[data-src]').forEach((s) => {
+      s.src = s.dataset.src!;
+    });
+    v.load();
+    v.play().catch(() => {});
+  };
+
+  if (!reduce && videos.length) {
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            const v = e.target as HTMLVideoElement;
+            if (e.isIntersecting) {
+              load(v);
+              if (v.paused) v.play().catch(() => {});
+            } else if (!v.paused) {
+              v.pause();
+            }
+          });
+        },
+        { rootMargin: '200px 0px' },
+      );
+      videos.forEach((v) => io.observe(v));
+    } else {
+      videos.forEach(load);
+    }
+  }
+</script>
