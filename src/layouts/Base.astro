@@ -4,6 +4,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import StickyCta from '../components/StickyCta.astro';
 import { SITE, ADS_CALL_CONVERSION, GHL_TRACKING } from '../data/site';
+import { srcsetFor, PAGE_HERO_SIZES } from '../lib/srcset';
 
 export interface Props {
   title: string;
@@ -14,6 +15,19 @@ export interface Props {
   noindex?: boolean;
   bodyClass?: string;
   preloadImage?: string; // hero image for LCP
+  /**
+   * srcset/sizes matching the hero <img>, so the preload fetches the same file the
+   * img picks. Default to the PageHero layout, which every page passing only
+   * preloadImage uses.
+   */
+  preloadImageSrcset?: string;
+  preloadImageSizes?: string;
+  /**
+   * Load the Google tag as soon as the page has loaded instead of waiting for the
+   * visitor's first interaction. For pages whose whole job is to report something,
+   * like the thank-you page a form submission lands on.
+   */
+  eagerTags?: boolean;
 }
 
 const {
@@ -25,6 +39,9 @@ const {
   noindex = false,
   bodyClass = '',
   preloadImage,
+  preloadImageSrcset = srcsetFor(preloadImage),
+  preloadImageSizes = PAGE_HERO_SIZES,
+  eagerTags = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(canonical, SITE.url).href;
@@ -111,14 +128,55 @@ const allSchema = [localBusiness, website, ...schema];
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Must stay first: browsers only honour a charset declared in the first 1024 bytes. -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <!-- Google tag (gtag.js) - Google Ads AW-10856672755 -->
-    <script async is:inline src="https://www.googletagmanager.com/gtag/js?id=AW-10856672755"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'AW-10856672755');
+    </script>
+    <!--
+      Loading gtag.js itself is delayed. It is ~190 KB and was the single biggest
+      cause of the slow mobile PageSpeed score: it competed with the hero image
+      for bandwidth and blocked the main thread for ~700 ms during page load.
+
+      Every gtag() call above and anywhere else on the page still queues on
+      dataLayer immediately and is sent the moment the library arrives, so
+      nothing is dropped. The library loads:
+        - right after the page finishes loading, when the URL carries an ad click
+          id or UTM tags (gclid / gbraid / wbraid / dclid / _gl / utm_*), so paid
+          clicks are always captured on the landing page, and on pages that pass
+          eagerTags (the thank-you page);
+        - otherwise on the visitor's first scroll, tap, click, key press or mouse
+          move. Visitors who leave without touching the page are not recorded.
+    -->
+    <script define:vars={{ eagerTags }}>
+      (function () {
+        var done = false;
+        var events = ['pointerdown', 'touchstart', 'keydown', 'scroll', 'wheel', 'mousemove'];
+        var opts = { passive: true, capture: true };
+        function load() {
+          if (done) return;
+          done = true;
+          events.forEach(function (e) { removeEventListener(e, load, opts); });
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-10856672755';
+          document.head.appendChild(s);
+        }
+        var tagged = /[?&](gclid|gbraid|wbraid|dclid|_gl|utm_[a-z]+)=/i.test(location.search);
+        if (eagerTags || tagged) {
+          if (document.readyState === 'complete') load();
+          else addEventListener('load', load, { once: true });
+        } else {
+          events.forEach(function (e) { addEventListener(e, load, opts); });
+        }
+      })();
     </script>
 
     <!--
@@ -132,8 +190,6 @@ const allSchema = [localBusiness, website, ...schema];
       </script>
     )}
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
@@ -163,14 +219,17 @@ const allSchema = [localBusiness, website, ...schema];
     <link rel="apple-touch-icon" href="/images/icon.webp" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Fonts: preconnect + swap so text never blocks paint -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700&display=swap"
-    />
-    {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
+    <!-- Fonts are self-hosted, see the @font-face rules at the top of global.css. -->
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage}
+        imagesrcset={preloadImageSrcset}
+        imagesizes={preloadImageSrcset ? preloadImageSizes : undefined}
+        fetchpriority="high"
+      />
+    )}
 
     <!-- JSON-LD -->
     {allSchema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}

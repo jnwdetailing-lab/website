@@ -1,11 +1,14 @@
 ---
-export interface Props { before: string; after: string; altBefore: string; altAfter: string }
-const { before, after, altBefore, altAfter } = Astro.props;
+import { srcsetFor } from '../lib/srcset';
+export interface Props { before: string; after: string; altBefore: string; altAfter: string; /** pixel width of the source files */ width?: number }
+const { before, after, altBefore, altAfter, width = 900 } = Astro.props;
+// Full container width on phones and tablets, about half the page beside text on desktop.
+const sizes = '(max-width: 900px) calc(100vw - 2.5rem), 560px';
 ---
 <div class="ba" data-ba>
-  <img src={after} alt={altAfter} width="1080" height="1080" loading="lazy" decoding="async" />
+  <img src={after} srcset={srcsetFor(after, width)} {sizes} alt={altAfter} width="1080" height="1080" loading="lazy" decoding="async" />
   <div class="ba__before" style="width:50%">
-    <img src={before} alt={altBefore} width="1080" height="1080" loading="lazy" decoding="async" />
+    <img src={before} srcset={srcsetFor(before, width)} {sizes} alt={altBefore} width="1080" height="1080" loading="lazy" decoding="async" />
   </div>
   <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after" class="ba__range" />
   <div class="ba__handle" style="left:50%"><span>⇆</span></div>

@@ -12,7 +12,7 @@ const bookHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.h
   <div class="nav__bar">
     <div class="container nav__inner">
       <a href="/" class="nav__logo" aria-label="J&W Mobile Detailing home">
-        <img src="/images/logo-nav.webp" alt="J&W Mobile Detailing logo" width="120" height="100" />
+        <img src="/images/logo-nav.webp" srcset="/images/logo-nav-140w.webp 140w, /images/logo-nav.webp 300w" sizes="(max-width: 560px) 53px, 67px" alt="J&W Mobile Detailing logo" width="120" height="100" />
       </a>
 
       <nav class="nav__links" aria-label="Primary">
@@ -50,7 +50,7 @@ const bookHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.h
 
   <div class="mobile" id="mobileMenu" hidden>
     <div class="mobile__head">
-      <img src="/images/logo-nav.webp" alt="" width="90" height="75" />
+      <img src="/images/logo-nav.webp" srcset="/images/logo-nav-140w.webp 140w, /images/logo-nav.webp 300w" sizes="90px" alt="" width="90" height="75" loading="lazy" />
       <button class="nav__burger" id="navClose" aria-label="Close menu"><Icon name="close" size={26} /></button>
     </div>
     <nav aria-label="Mobile">
@@ -123,7 +123,8 @@ const bookHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.h
   @media (max-width: 1180px) {
     .nav__links { display: none; }
     .nav__burger { display: inline-flex; }
-    .nav__phone span { display: none; }
+    /* Visually hidden, not display:none, so the icon-only link keeps the number as its name for screen readers. */
+    .nav__phone span { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   }
   @media (max-width: 560px) {
     .nav__inner { height: 60px; }

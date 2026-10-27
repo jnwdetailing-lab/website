@@ -8,7 +8,7 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <img src="/images/logo-nav.webp" alt="J&W Mobile Detailing" width="150" height="125" loading="lazy" />
+        <img src="/images/logo-nav.webp" srcset="/images/logo-nav-140w.webp 140w, /images/logo-nav.webp 300w" sizes="96px" alt="J&W Mobile Detailing" width="150" height="125" loading="lazy" />
         <p>
           Mobile auto detailing & ceramic coating. We bring the shop to your driveway across Oakland and the Bay Area, with our own water, power and eco-friendly products.
         </p>
@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
       </div>
 
       <nav class="footer__col" aria-label="Services">
-        <h4>Services</h4>
+        <h2 class="footer__h">Services</h2>
         <ul>
           {SERVICES.map((s) => <li><a href={s.slug}>{s.name}</a></li>)}
           <li><a href="/services/">All services & pricing</a></li>
@@ -36,14 +36,14 @@ const year = new Date().getFullYear();
       </nav>
 
       <nav class="footer__col" aria-label="Service areas">
-        <h4>Service Areas</h4>
+        <h2 class="footer__h">Service Areas</h2>
         <ul>
           {AREAS.map((a) => <li><a href={a.slug}>{a.city}, CA</a></li>)}
         </ul>
       </nav>
 
       <nav class="footer__col" aria-label="Company">
-        <h4>Company</h4>
+        <h2 class="footer__h">Company</h2>
         <ul>
           <li><a href="/about-us/">About J&W</a></li>
           <li><a href="/reviews/">Reviews</a></li>
@@ -58,7 +58,7 @@ const year = new Date().getFullYear();
       </nav>
 
       <div class="footer__col footer__contact">
-        <h4>Contact</h4>
+        <h2 class="footer__h">Contact</h2>
         <ul>
           <li><Icon name="phone" size={18} /> <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></li>
           <li><Icon name="message" size={18} /> <a href={`sms:${SITE.phoneE164}`}>Text us</a></li>
@@ -80,7 +80,8 @@ const year = new Date().getFullYear();
   .footer { background: var(--ink); color: #b9bec8; padding: 3.5rem 0 5.5rem; font-size: 0.95rem; }
   .footer a { color: #e7e9ee; }
   .footer a:hover { color: #fff; }
-  .footer h4 { color: #fff; text-transform: uppercase; letter-spacing: 0.08em; font-size: 1rem; margin-bottom: 0.9rem; }
+  /* h2 rather than h4 so headings never skip a level after the page content; styled small. */
+  .footer .footer__h { color: #fff; text-transform: uppercase; letter-spacing: 0.08em; font-size: 1rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.9rem; }
   .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1.2fr; gap: 2rem; }
   .footer__brand img { height: 80px; width: auto; margin-bottom: 1rem; }
   .footer__brand p { max-width: 38ch; }

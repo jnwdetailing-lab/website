@@ -6,6 +6,7 @@ import BeforeAfter from '../components/BeforeAfter.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
+import { srcsetFor } from '../lib/srcset';
 import { SITE, REVIEWS, HOME_FAQS, CTA, GOOGLE_MAP_EMBED, BBB } from '../data/site';
 
 const title = 'Mobile Car Detailing Oakland, CA | J&W Mobile Detailing';
@@ -29,6 +30,9 @@ const stars = Array.from({ length: 5 });
 // video buffers, and it's what shows on phones set to reduced motion.
 const HERO_VIDEO = ''; // e.g. '/videos/hero.mp4'
 const HERO_POSTER = '/images/hero-oakland-mobile-detailing.webp';
+// Phones get the 760px copy, larger screens the 1080px one (see src/lib/srcset.ts).
+const HERO_SRCSET = srcsetFor(HERO_POSTER, 1080);
+const HERO_SIZES = '100vw';
 
 // H1 names the city (Oakland carries the local search intent); the H2 widens the
 // promise to the whole Bay Area so Alameda / Contra Costa / Marin visitors don't
@@ -37,14 +41,14 @@ const HERO_H1 = 'Professional Mobile Car Detailing & Ceramic Coating in Oakland,
 const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services across the Greater Bay Area.';
 ---
 
-<Base {title} {description} canonical="/" schema={[faqSchema]} bodyClass="home" ogImage="/images/og-default.jpg" preloadImage={HERO_POSTER}>
+<Base {title} {description} canonical="/" schema={[faqSchema]} bodyClass="home" ogImage="/images/og-default.jpg" preloadImage={HERO_POSTER} preloadImageSrcset={HERO_SRCSET} preloadImageSizes={HERO_SIZES}>
   <!-- ============ 1. HERO ============ -->
   <section class="hero">
     <div class="hero__media" aria-hidden="true">
       {HERO_VIDEO ? (
         <video class="hero__vid" src={HERO_VIDEO} poster={HERO_POSTER} autoplay muted loop playsinline preload="metadata"></video>
       ) : (
-        <img class="hero__vid" src={HERO_POSTER} alt="" width="1080" height="608" fetchpriority="high" decoding="async" />
+        <img class="hero__vid" src={HERO_POSTER} srcset={HERO_SRCSET} sizes={HERO_SIZES} alt="" width="1080" height="608" fetchpriority="high" decoding="async" />
       )}
       <div class="hero__scrim"></div>
     </div>
@@ -80,7 +84,7 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
   <!-- ============ 2. TRUST STRIP ============ -->
   <section class="strip" aria-label="Why J&W">
     <div class="container strip__inner">
-      <div><Icon name="user" size={22} /> <span><strong>Owner-run since 2022</strong></span></div>
+      <div><Icon name="user" size={22} /> <span><strong>Serving the Bay Area</strong> since 2022</span></div>
       <div><Icon name="van" size={22} /> <span><strong>100% mobile</strong>, our own water and power</span></div>
       <div><Icon name="leaf" size={22} /> <span><strong>pH-neutral, eco-safe</strong> products</span></div>
     </div>

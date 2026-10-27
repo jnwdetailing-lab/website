@@ -6,10 +6,11 @@
  *
  * ── REPLACING THE FORM LATER ────────────────────────────────────────────────
  * In GHL: Sites → Forms → Builder → open the form → Integrate → Inline → Copy Code.
- * Paste it between GHL:START and GHL:END below, then keep three local edits:
- *   1. add  is:inline  to the <script> tag, or Astro bundles and breaks it
- *   2. do NOT add loading="lazy" to the iframe — see the note at GHL:START
- *   3. leave the src expression alone if you want per-page service prefill
+ * Paste the <iframe> between GHL:START and GHL:END below, then keep three local edits:
+ *   1. rename its  src=  attribute to  data-src={formSrc}  (the loader script at
+ *      the bottom of this file sets the real src once the page has loaded)
+ *   2. leave out GHL's <script src=".../form_embed.js"> tag, the loader adds it
+ *   3. do NOT add loading="lazy" to the iframe — see the note at GHL:START
  * Set FORM_PROVIDER back to 'native' in src/data/site.ts to fall back to the
  * built-in form at any time.
  *
@@ -60,19 +61,22 @@ const formSrc =
   )}
 
   <div class="ghl__embed">
+    <p class="ghl__loading" aria-hidden="true">Loading the quote form…</p>
     <!-- GHL:START -->
     <!--
-      No loading="lazy" here, deliberately.
-
-      On desktop the form card sits in the hero's right column, inside the first
-      screenful. On mobile the hero stacks to one column, which pushes the iframe
-      to roughly 960px down the page, below the fold. A lazy iframe there defers
-      its load, but form_embed.js has already run and done its init/postMessage
+      No loading="lazy" here, deliberately: a lazy iframe loads on its own
+      schedule, after form_embed.js has already run its init/postMessage
       handshake against the frame, so the form never gets set up and the visitor
-      sees an empty box. That is why it broke on phones and not on desktop.
+      sees an empty box. That is why it once broke on phones and not on desktop.
+
+      Instead the frame starts with data-src only, and the loader at the bottom of
+      this file sets src and then adds form_embed.js, in that order, once the page
+      has loaded (or sooner, on the first scroll or tap). The form pulls in ~3 MB
+      (GoHighLevel's app plus a Cloudflare bot check); letting it load alongside
+      the page made the hero image and fonts wait behind it.
     -->
     <iframe
-      src={formSrc}
+      data-src={formSrc}
       style="width:100%;border:none;border-radius:8px"
       id={`inline-${FORM_ID}`}
       data-layout={"{'id':'INLINE'}"}
@@ -91,8 +95,8 @@ const formSrc =
       title={FORM_NAME}
       scrolling="no"
     ></iframe>
-    <script is:inline src="https://link.msgsndr.com/js/form_embed.js"></script>
     <!-- GHL:END -->
+    <noscript><p class="ghl__noscript"><a href={formSrc} target="_blank" rel="noopener">Open the quote form →</a></p></noscript>
   </div>
 
   <!--
@@ -115,16 +119,19 @@ const formSrc =
 
 <style>
   /* --ghl-min-h reserves space so the page doesn't jump while the iframe loads.
-     GHL's form_embed.js sets the real height once the form renders, and .is-sized
-     below then drops this floor so the box matches the form exactly.
-     Phones need a taller reserve: the same form stacks to one column there, so a
-     desktop-sized floor clips it, cutting off the submit button. */
-  .ghl { --ghl-min-h: 560px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
-  @media (max-width: 820px) { .ghl { --ghl-min-h: 820px; } }
+     It matches the height GHL gives the form once rendered (measured Oct 2026:
+     1034px from desktop down to ~400px wide, 1056px at 360px), so when .is-sized
+     below drops the floor the box changes by a few pixels at most. Re-measure if
+     fields are added to or removed from the form in GHL. */
+  .ghl { --ghl-min-h: 1040px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.25rem, 3vw, 2rem); box-shadow: var(--shadow); }
+  @media (max-width: 380px) { .ghl { --ghl-min-h: 1060px; } }
   .ghl--bare { border: 0; padding: 0; box-shadow: none; background: transparent; }
   .ghl__head h3 { margin-bottom: 0.25rem; }
   .ghl__head p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
-  .ghl__embed { min-height: var(--ghl-min-h); }
+  .ghl__embed { position: relative; min-height: var(--ghl-min-h); }
+  .ghl__loading { position: absolute; top: 1.25rem; left: 0; right: 0; margin: 0; text-align: center; font-size: 0.95rem; color: var(--muted); }
+  .ghl.is-sized .ghl__loading, .ghl.is-failed .ghl__loading { display: none; }
+  .ghl__noscript { margin: 0; text-align: center; }
   .ghl__embed :global(iframe) { width: 100%; min-height: var(--ghl-min-h); border: 0; border-radius: 8px; display: block; }
 
   /* GHL has reported a real height — let it win, so no dead space under the form. */
@@ -150,26 +157,34 @@ const formSrc =
 
 <script>
   /**
-   * Watchdog for the third-party embed.
+   * Loader + watchdog for the third-party embed.
    *
-   * form_embed.js sets an inline height on the iframe once the form has actually
-   * rendered, so that height is our proof of life. If it never arrives — blocked
-   * host, dead frame, GHL outage — we swap in call/text rather than leaving a
-   * blank box on the page every CTA points at.
+   * Loader: sets each frame's src from data-src, then adds GHL's form_embed.js,
+   * once the window has finished loading, or earlier on the visitor's first
+   * scroll, tap or key press (someone heading for the form shouldn't wait).
+   *
+   * Watchdog: form_embed.js sets an inline height on the iframe and then makes
+   * it visible once the form has actually rendered, so a height on a visible
+   * frame is our proof of life. GHL sets the height while the frame is still
+   * hidden off-screen; treating that as ready dropped the reserved space early
+   * and made the page collapse and jump (most of the old layout-shift score).
+   * If the form never shows (blocked host, dead frame, GHL outage) we swap in
+   * call/text rather than leaving a blank box on the page every CTA points at.
    */
+  const EMBED_JS = 'https://link.msgsndr.com/js/form_embed.js';
   const READY_TIMEOUT_MS = 8000;
+  const wraps = Array.from(document.querySelectorAll<HTMLElement>('.ghl'));
 
-  document.querySelectorAll<HTMLElement>('.ghl').forEach((wrap) => {
-    const frame = wrap.querySelector<HTMLIFrameElement>('iframe[data-form-id]');
+  const watch = (wrap: HTMLElement, frame: HTMLIFrameElement) => {
     const fallback = wrap.querySelector<HTMLElement>('.ghl__fallback');
-    if (!frame || !fallback) return;
+    if (!fallback) return;
 
-    const sized = () => parseInt(frame.style.height, 10) > 0;
+    const ready = () => parseInt(frame.style.height, 10) > 0 && getComputedStyle(frame).visibility !== 'hidden';
 
     // Keep watching after the timeout: a slow phone connection can deliver the
     // form late, and it should take the page back rather than leave the visitor
     // on the fallback for the rest of the visit.
-    const markSized = () => {
+    const markReady = () => {
       wrap.classList.remove('is-failed');
       wrap.classList.add('is-sized');
       fallback.hidden = true;
@@ -183,13 +198,41 @@ const formSrc =
       fallback.hidden = false;
     };
 
-    const observer = new MutationObserver(() => { if (sized()) markSized(); });
+    const observer = new MutationObserver(() => { if (ready()) markReady(); });
     observer.observe(frame, { attributes: true, attributeFilter: ['style'] });
 
     const timer = setTimeout(showFallback, READY_TIMEOUT_MS);
     frame.addEventListener('error', showFallback);
+    if (ready()) markReady();
+  };
 
-    // Height may already be set if the form rendered before this script ran.
-    if (sized()) markSized();
-  });
+  if (wraps.length) {
+    let started = false;
+    const triggers = ['pointerdown', 'touchstart', 'keydown', 'scroll', 'wheel'];
+    const opts = { passive: true, capture: true };
+
+    const start = () => {
+      if (started) return;
+      started = true;
+      triggers.forEach((t) => removeEventListener(t, start, opts));
+      wraps.forEach((wrap) => {
+        const frame = wrap.querySelector<HTMLIFrameElement>('iframe[data-src]');
+        if (!frame) return;
+        frame.src = frame.dataset.src!;
+        watch(wrap, frame);
+      });
+      // After the frames have their src: form_embed.js initialises whatever
+      // GHL iframes are in the DOM when it runs.
+      const s = document.createElement('script');
+      s.src = EMBED_JS;
+      s.async = true;
+      document.body.appendChild(s);
+    };
+
+    if (document.readyState === 'complete') start();
+    else {
+      addEventListener('load', start, { once: true });
+      triggers.forEach((t) => addEventListener(t, start, opts));
+    }
+  }
 </script>

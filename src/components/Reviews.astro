@@ -21,7 +21,7 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
       <div class="reviews__score">
         <div class="reviews__num">{SITE.rating.value}</div>
         <div>
-          <span class="stars" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" />)}</span>
+          <span class="stars" role="img" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" />)}</span>
           <div class="reviews__count">Based on <a href={SITE.social.google} target="_blank" rel="noopener">{SITE.rating.count} Google reviews</a></div>
         </div>
       </div>
@@ -35,7 +35,7 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
             <div>
               <div class="review__name">{r.name}</div>
               <div class="review__meta">
-                <span class="stars" aria-label="5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={14} />)}</span>
+                <span class="stars" role="img" aria-label="5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={14} />)}</span>
                 <span>Google{r.date ? ` · ${r.date}` : ''}</span>
               </div>
             </div>

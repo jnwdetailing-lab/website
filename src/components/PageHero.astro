@@ -2,6 +2,7 @@
 import { SITE, CTA } from '../data/site';
 import Icon from './Icons.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
+import { srcsetFor, PAGE_HERO_SIZES } from '../lib/srcset';
 export interface Props {
   eyebrow?: string;
   title: string;
@@ -42,7 +43,7 @@ const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, cta
     </div>
     {image && (
       <div class="phero__media">
-        <img src={image} alt={imageAlt} width="1080" height="1080" fetchpriority="high" decoding="async" />
+        <img src={image} srcset={srcsetFor(image)} sizes={PAGE_HERO_SIZES} alt={imageAlt} width="1080" height="1080" fetchpriority="high" decoding="async" />
       </div>
     )}
   </div>
