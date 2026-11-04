@@ -1,0 +1,45 @@
+---
+// Where we can work. Icon cards rather than stock photos: swap in real job
+// photos from each setting as they come in (driveway, office lot, apartment
+// stall, parking garage) by adding an `image` to each item.
+import Icon from './Icons.astro';
+export interface Props { heading?: string; lead?: string; city?: string }
+const {
+  city = 'the Bay Area',
+  heading = 'We come to you. Wherever the car is parked.',
+  lead,
+} = Astro.props;
+const items = [
+  { icon: 'home', title: 'Your driveway', text: 'The easiest spot. Leave the keys out or hand them over, and get on with your day.' },
+  { icon: 'building', title: 'Your office lot', text: 'Detailed while you work and done before you head home. We check the lot rules first.' },
+  { icon: 'apartment', title: 'Apartment parking', text: 'Assigned stall or street spot. We need room to open the doors and walk around the car.' },
+  { icon: 'parking', title: 'Parking garages', text: 'Covered garages work well, and keep the sun off fresh sealant. Some building rules apply.' },
+];
+---
+<section class="section come">
+  <div class="container">
+    <div class="head head--left come__head">
+      <h2>{heading}</h2>
+      <p class="lead">{lead ?? `Home, work or an apartment stall anywhere in ${city}. The van carries its own water and power, so you do not need a hose, an outlet or to be standing there.`}</p>
+    </div>
+    <div class="come__grid">
+      {items.map((it) => (
+        <div class="come__card">
+          <span class="come__icon"><Icon name={it.icon} size={22} /></span>
+          <h3>{it.title}</h3>
+          <p>{it.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .come__head { max-width: 780px; }
+  .come__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  @media (max-width: 1000px) { .come__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .come__grid { grid-template-columns: 1fr; } }
+  .come__card { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; background: #fff; }
+  .come__icon { width: 46px; height: 46px; border-radius: 14px; background: var(--ink); color: #fff; display: grid; place-items: center; margin-bottom: 1rem; }
+  .come__card h3 { font-size: 1.15rem; margin-bottom: 0.35rem; }
+  .come__card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+</style>

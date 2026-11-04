@@ -5,13 +5,17 @@ import QuoteForm from '../components/QuoteForm.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
-import ServicesGrid from '../components/ServicesGrid.astro';
+import Reviews from '../components/Reviews.astro';
+import ComeToYou from '../components/ComeToYou.astro';
+import PriceExplorer from '../components/PriceExplorer.astro';
+import MembershipPlans from '../components/MembershipPlans.astro';
+import WorkGallery from '../components/WorkGallery.astro';
 import { srcsetFor } from '../lib/srcset';
-import { SITE, REVIEWS, HOME_FAQS, CTA, GOOGLE_MAP_EMBED, BBB } from '../data/site';
+import { SITE, HOME_FAQS, CTA, BOOK, AREAS, GOOGLE_MAP_EMBED, BBB } from '../data/site';
+import { PACKAGES, from, usd } from '../data/pricing';
 
 const title = 'Mobile Car Detailing Oakland, CA | J&W Mobile Detailing';
-const description =
-  'Mobile car detailing in Oakland & the Bay Area. Interior, exterior, paint correction & ceramic coating, and we come to you. 4.9★ Google, quoted per vehicle.';
+const description = `Mobile car detailing in Oakland and the Bay Area, done at your home or office. Full Detail from ${usd(from(PACKAGES[0].insideOut))}, ceramic coating, memberships. 4.9★ on Google.`;
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -19,83 +23,95 @@ const faqSchema = {
   mainEntity: HOME_FAQS.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
 };
 
-const pick = (name: string) => REVIEWS.find((r) => r.name === name)!;
-const reviews = [pick('Luis Carranza'), pick('Roo Sczesnak'), pick('Lorie Curtis')];
-const stars = Array.from({ length: 5 });
-
 // ── HERO ────────────────────────────────────────────────────────────────────
-// The hero is built to take a background video. Drop the file in /public/videos/
-// and put its path in HERO_VIDEO — nothing else changes, the layout and the copy
-// sit on top either way. HERO_POSTER is the still: it paints first while the
-// video buffers, and it's what shows on phones set to reduced motion.
-const HERO_VIDEO = ''; // e.g. '/videos/hero.mp4'
+// Built to take a background video: drop the file in /public/video/ and put its
+// path in HERO_VIDEO. HERO_POSTER is the still that paints first, and what
+// visitors who prefer reduced motion see.
+const HERO_VIDEO = ''; // e.g. '/video/hero.mp4'
 const HERO_POSTER = '/images/hero-oakland-mobile-detailing.webp';
-// Phones get the 760px copy, larger screens the 1080px one (see src/lib/srcset.ts).
 const HERO_SRCSET = srcsetFor(HERO_POSTER, 1080);
 const HERO_SIZES = '100vw';
-
-// H1 names the city (Oakland carries the local search intent); the H2 widens the
-// promise to the whole Bay Area so Alameda / Contra Costa / Marin visitors don't
-// bounce thinking we don't cover them.
-const HERO_H1 = 'Professional Mobile Car Detailing & Ceramic Coating in Oakland, CA';
-const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services across the Greater Bay Area.';
 ---
 
 <Base {title} {description} canonical="/" schema={[faqSchema]} bodyClass="home" ogImage="/images/og-default.jpg" preloadImage={HERO_POSTER} preloadImageSrcset={HERO_SRCSET} preloadImageSizes={HERO_SIZES}>
-  <!-- ============ 1. HERO ============ -->
+  <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="hero__media" aria-hidden="true">
-      {HERO_VIDEO ? (
-        <video class="hero__vid" src={HERO_VIDEO} poster={HERO_POSTER} autoplay muted loop playsinline preload="metadata"></video>
-      ) : (
-        <img class="hero__vid" src={HERO_POSTER} srcset={HERO_SRCSET} sizes={HERO_SIZES} alt="" width="1080" height="608" fetchpriority="high" decoding="async" />
-      )}
-      <div class="hero__scrim"></div>
-    </div>
-
-    <div class="container hero__inner">
-      <h1>{HERO_H1}</h1>
-      <h2 class="hero__sub">{HERO_H2}</h2>
-
-      <a href={SITE.social.google} class="hero__proof" target="_blank" rel="noopener">
-        <span class="stars" role="img" aria-label="5 stars">{stars.map(() => <Icon name="star" size={18} />)}</span>
-        <span><strong>4.9</strong> · {SITE.rating.count} Google reviews</span>
-      </a>
-
-      <div class="hero__actions">
-        <a href="#book" class="btn btn--primary btn--lg" data-scroll-book>{CTA.label}</a>
-        <a href={`tel:${SITE.phoneE164}`} class="btn btn--light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+    <div class="hero__card">
+      <div class="hero__media" aria-hidden="true">
+        {HERO_VIDEO ? (
+          <video class="hero__vid" src={HERO_VIDEO} poster={HERO_POSTER} autoplay muted loop playsinline preload="metadata"></video>
+        ) : (
+          <img class="hero__vid" src={HERO_POSTER} srcset={HERO_SRCSET} sizes={HERO_SIZES} alt="" width="1080" height="608" fetchpriority="high" decoding="async" />
+        )}
+        <div class="hero__scrim"></div>
       </div>
 
+      <div class="container hero__inner">
+        <span class="hero__tag"><Icon name="pin" size={15} /> Oakland & the Bay Area</span>
+        <h1>Mobile Car Detailing & Ceramic Coating in Oakland, CA</h1>
+        <p class="hero__sub">We bring the water, the power and a fully stocked van to your driveway, office or apartment. You get a car that looks and smells new, without losing a Saturday at a shop.</p>
+
+        <a href={SITE.social.google} class="hero__proof" target="_blank" rel="noopener">
+          <span class="hero__g" aria-hidden="true">G</span>
+          <strong>{SITE.rating.value}</strong>
+          <span class="stars" role="img" aria-label="5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={15} />)}</span>
+          <span>{SITE.rating.count} Google reviews</span>
+        </a>
+
+        <div class="hero__actions">
+          <a href="#book" class="btn btn--primary btn--lg" data-scroll-book>{CTA.label}</a>
+          <a href={BOOK.href} class="btn btn--light btn--lg"><Icon name="calendar" /> {BOOK.label}</a>
+          <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg hero__call"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+        </div>
+
+        <ul class="hero__facts">
+          <li><Icon name="droplet" size={16} /> Our own water & power</li>
+          <li><Icon name="dollar" size={16} /> Prices posted up front</li>
+          <li><Icon name="leaf" size={16} /> pH-neutral, biodegradable products</li>
+        </ul>
+      </div>
     </div>
   </section>
 
-  <!-- ============ 1b. BOOKING CARD — the #quote / #book target ============ -->
-  <!-- Lifted out of the hero so the fold stays clean for paid traffic: the hero
-       sells, this converts, and every CTA on the page scrolls straight here. -->
+  <!-- ============ QUOTE: the #quote / #book target every CTA scrolls to ============ -->
   <section class="section--tight booking" id="quote">
-    <div class="container">
+    <div class="container booking__inner">
+      <div class="booking__copy">
+        <span class="eyebrow">Get your price</span>
+        <h2>Tell us the car. We text back a price and a time.</h2>
+        <ol class="booking__steps">
+          <li><b>1</b><span><strong>Tell us what you drive</strong> and where it parks. About 30 seconds.</span></li>
+          <li><b>2</b><span><strong>We confirm the price</strong> and the next openings, usually within minutes during business hours.</span></li>
+          <li><b>3</b><span><strong>We come to you</strong>, and you look the car over with us before we leave.</span></li>
+        </ol>
+        <p class="booking__alt">Know what you want? <a href={BOOK.href}>Book a time online</a> or call / text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>.</p>
+      </div>
       <section id="book" class="book" tabindex="-1" aria-label="Request a quote">
         <QuoteForm bare compact />
       </section>
     </div>
   </section>
 
-  <!-- ============ 2. TRUST STRIP ============ -->
-  <section class="strip" aria-label="Why J&W">
-    <div class="container strip__inner">
-      <div><Icon name="user" size={22} /> <span><strong>Serving the Bay Area</strong> since 2022</span></div>
-      <div><Icon name="van" size={22} /> <span><strong>100% mobile</strong>, our own water and power</span></div>
-      <div><Icon name="leaf" size={22} /> <span><strong>pH-neutral, eco-safe</strong> products</span></div>
-    </div>
-  </section>
+  <ComeToYou />
 
-  <!-- ============ 3. PROBLEM → PROOF ============ -->
+  <PriceExplorer />
+
+  <MembershipPlans />
+
+  <!-- ============ WHY J&W ============ -->
   <section class="section">
     <div class="container two-col">
       <div>
-        <h2>Tunnel washes swirl your paint. We fix it in your driveway.</h2>
-        <p class="lead">Salt air off the estuary, brake dust from I-880, sap from Rockridge street trees. Bay Area cars get etched and hazy fast, and most “full details” amount to a wash and a vacuum. We build each job around what your car actually needs, then show you the difference. That seat is a real Oakland interior detail, so drag the handle to compare.</p>
+        <span class="eyebrow">Why people switch to us</span>
+        <h2>What a detail does that a car wash can't</h2>
+        <p class="lead">A tunnel wash drags the last hundred cars' grit across your paint and leaves the inside alone. We wash by hand with clean mitts, pull bonded contamination off with iron remover and clay, and take the cabin apart: vents, seat rails, cup holders, the carpet under the mats.</p>
+        <ul class="checklist why">
+          <li><strong>Hand wash only.</strong> No brushes, ever, so we never add the swirls a tunnel wash does.</li>
+          <li><strong>Extraction, not just a vacuum.</strong> Steam and hot-water extraction pull out what a vacuum leaves in the fibers.</li>
+          <li><strong>One checklist on every car.</strong> The same steps whether it is a Civic or a Range Rover.</li>
+          <li><strong>You inspect it with us.</strong> We walk the car together before we pack up.</li>
+        </ul>
+        <p class="why__drag">Drag the slider: one cloth seat from a real Oakland job, before and after extraction.</p>
       </div>
       <BeforeAfter
         before="/images/interior-detailing-oakland-before.webp"
@@ -106,173 +122,123 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
     </div>
   </section>
 
-  <!-- ============ 4. SERVICES ============ -->
-  <ServicesGrid
-    eyebrow="Mobile detailing services"
-    heading="What we do, done in your driveway"
-    lead="Every vehicle is quoted individually. Tell us what you drive and what it needs, and we come back with a price."
-  />
+  <Reviews limit={6} heading="What Bay Area drivers say after we leave" />
 
-  <!-- ============ 5. REVIEWS + OWNER ============ -->
+  <WorkGallery />
+
+  <!-- ============ AREAS ============ -->
   <section class="section">
     <div class="container">
-      <h2>4.9★ from <a href={SITE.social.google} target="_blank" rel="noopener">{SITE.rating.count} Google reviews</a>, here's what they say</h2>
-      <div class="rgrid">
-        {reviews.map((r) => (
-          <a class="rcard" href={SITE.social.google} target="_blank" rel="noopener">
-            <div class="rcard__top">
-              <strong>{r.name}</strong>
-              <span class="stars" role="img" aria-label="5 stars">{stars.map(() => <Icon name="star" size={14} />)}</span>
-              <span class="rcard__src"><Icon name="google" size={14} /> Google{r.date ? ` · ${r.date}` : ''}</span>
-            </div>
-            <p>“{r.text}”</p>
-            {r.service && <span class="rcard__svc">{r.service}</span>}
+      <div class="head">
+        <span class="eyebrow">Service areas</span>
+        <h2>Based in Oakland. Booked across the Bay Area.</h2>
+        <p class="lead">The van leaves from East Oakland most mornings. These are the cities we work in every week. Just outside them? Call, and we will usually make it work.</p>
+      </div>
+      <div class="areas">
+        {AREAS.map((a) => (
+          <a class="area" href={a.slug}>
+            <h3>{a.city}</h3>
+            <p>{a.blurb}</p>
+            <span class="area__hoods">{a.neighborhoods.slice(0, 4).join(' · ')}</span>
           </a>
         ))}
-        <div class="owner">
-          <img src="/images/jalil-96.webp" alt="J&W Mobile Detailing" width="96" height="96" loading="lazy" />
-          <div>
-            <p>We started J&W in Oakland in 2022 with one van and one standard: every car leaves looking like we'd want our own to.</p>
-            <a href="/about-us/">About J&W →</a>
-          </div>
-        </div>
       </div>
-      <p class="center" style="margin-top:1.25rem"><a href={SITE.social.google} target="_blank" rel="noopener">Read all {SITE.rating.count} reviews on Google →</a></p>
+      <p class="center" style="margin-top:1.5rem"><a href="/service-areas/">Every area we cover →</a></p>
     </div>
   </section>
 
-  <!-- ============ 6. FAQ (+ retained Oakland local copy) ============ -->
+  <!-- ============ FAQ (+ Oakland local copy) ============ -->
   <Faq faqs={HOME_FAQS} heading="Before you book" single open={0}>
-    <p slot="intro">Oakland sits between the Bay and the hills, and your car pays for the view: the marine layer leaves salt on every panel overnight, stop-and-go traffic on I-880 and I-580 bakes iron-rich brake dust into clear coat, and street trees from Lake Merritt to Piedmont Avenue drop sap that etches in days. A tunnel wash adds swirls; <a href="/exterior-auto-detailing-oakland-california/">exterior detailing</a> with clay and iron remover pulls the contamination out, a sealant or <a href="/ceramic-coating/">ceramic coating</a> keeps it off, and our <a href="/interior-auto-detailing-oakland-california/">interior detailing</a> tiers are built around steam and shampoo extraction, not a vacuum and a wipe. Text <a href={`sms:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a> if your question isn't here.</p>
+    <p slot="intro">Oakland sits between the Bay and the hills, and your car pays for the view: the marine layer leaves salt on every panel overnight, stop-and-go traffic on I-880 and I-580 bakes iron-rich brake dust into clear coat, and street trees from Lake Merritt to Piedmont Avenue drop sap that etches in days. A tunnel wash adds swirls; <a href="/exterior-auto-detailing-oakland-california/">exterior detailing</a> with clay and iron remover pulls the contamination out, a sealant or <a href="/ceramic-coating/">ceramic coating</a> keeps it off, and our <a href="/interior-auto-detailing-oakland-california/">interior detailing</a> is built around steam and shampoo extraction, not a vacuum and a wipe. Text <a href={`sms:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a> if your question isn't here.</p>
   </Faq>
 
-  <!-- ============ 7. SERVICE AREAS LINE ============ -->
-  <section class="section--tight areas-line">
-    <div class="container">
-      <p>We come to you across <strong>Oakland</strong> (Rockridge · Temescal · Montclair · Fruitvale · Lake Merritt · Jack London Square) and <a href="/auto-detailing-alameda-ca/">Alameda</a>, <a href="/auto-detailing-berkeley-ca/">Berkeley</a>, <a href="/auto-detailing-piedmont-ca/">Piedmont</a>, <a href="/auto-detailing-emeryville-ca/">Emeryville</a>, <a href="/auto-detailing-san-leandro-ca/">San Leandro</a>, <a href="/auto-detailing-orinda-ca/">Orinda</a> and <a href="/auto-detailing-walnut-creek-ca/">Walnut Creek</a>, <a href="/service-areas/">all areas →</a></p>
-    </div>
-  </section>
-
-  <!-- ============ 8. CLOSING BAND ============ -->
-  <!-- ============ 8. LOCATION + CREDIBILITY ============ -->
-  <section class="section section--soft" id="find-us">
+  <!-- ============ LOCATION + CREDIBILITY ============ -->
+  <section class="section" id="find-us">
     <div class="container two-col">
       <div>
         <span class="eyebrow">Based in Oakland</span>
         <h2>Where we work from</h2>
         <p class="lead">We are a mobile service, so the van comes to your home or workplace. This is our Oakland base, and we cover the city and the wider Bay Area from here.</p>
-        <p class="findus__addr">
-          <Icon name="pin" /> {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.zip}
-        </p>
+        <p class="findus__addr"><Icon name="pin" /> {SITE.address.street}, {SITE.address.city}, {SITE.address.region} {SITE.address.zip}</p>
         <p><a href="/service-areas/">See every area we cover</a></p>
-        <!-- rel="nofollow" is BBB's own requirement on the seal link; noopener
-             goes with it because the link opens in a new tab. -->
+        <!-- rel="nofollow" is BBB's own requirement on the seal link. -->
         {BBB.profileUrl && BBB.sealImage && (
           <a class="findus__bbb" href={BBB.profileUrl} target="_blank" rel="nofollow noopener">
-            <img
-              src={BBB.sealImage}
-              alt="J&W Mobile Detailing BBB Business Review"
-              width={BBB.sealWidth}
-              height={BBB.sealHeight}
-              loading="lazy"
-              decoding="async"
-            />
+            <img src={BBB.sealImage} alt="J&W Mobile Detailing BBB Business Review" width={BBB.sealWidth} height={BBB.sealHeight} loading="lazy" decoding="async" />
           </a>
         )}
       </div>
       <div class="findus__map">
-        <iframe
-          src={GOOGLE_MAP_EMBED}
-          title="J&W Mobile Detailing on Google Maps"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
-        ></iframe>
+        <iframe src={GOOGLE_MAP_EMBED} title="J&W Mobile Detailing on Google Maps" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       </div>
     </div>
   </section>
 
-  <CtaBand variant="dark" title="Ready for a showroom finish without leaving home?" text="Tell us what you drive and we will get you a price. We come to you anywhere in Oakland and the Bay Area." href="#book" label={CTA.label} />
+  <CtaBand title="Ready when you are. We bring everything." href="#book" />
 </Base>
 
 <style>
-  /* Hero — full-bleed media with the copy centred over it. Setting HERO_VIDEO
-     swaps the <img> for a <video>; both fill the same box, so the layout holds. */
-  .hero { position: relative; isolation: isolate; display: grid; align-items: center; min-height: clamp(460px, 66vh, 640px); padding: clamp(3rem, 8vw, 5rem) 0; background: var(--ink); color: #d7dae0; text-align: center; }
-  .hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+  /* Hero: a rounded photo card inside the page margins. */
+  .hero { padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.5rem, 1.5vw, 1rem) 0; }
+  .hero__card { position: relative; isolation: isolate; max-width: 1320px; margin-inline: auto; border-radius: var(--radius-lg); overflow: hidden; background: var(--ink); color: #dfe3e8; min-height: clamp(520px, 74vh, 700px); display: grid; align-items: end; }
+  .hero__media { position: absolute; inset: 0; z-index: -1; }
   .hero__vid { width: 100%; height: 100%; object-fit: cover; display: block; }
-  /* Darkened top-to-bottom so white type clears AA contrast wherever the frame
-     happens to be bright, important once a video is swapped in and the pixels
-     underneath are no longer known ahead of time. */
-  .hero__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,17,21,0.78) 0%, rgba(15,17,21,0.70) 45%, rgba(15,17,21,0.88) 100%); }
-  .hero__inner { max-width: 960px; }
-  .hero h1 { color: #fff; font-size: clamp(1.55rem, 5.6vw, 3.15rem); margin-bottom: 0.7rem; }
-  /* Semantically an <h2> for structure, styled as a subheadline rather than a
-     second display heading. */
-  .hero__sub { font-family: var(--font-body); font-size: clamp(1.02rem, 1.6vw, 1.2rem); font-weight: 400; text-transform: none; letter-spacing: 0; line-height: 1.5; color: #d7dae0; max-width: 48ch; margin: 0 auto 1.4rem; }
-  .hero__proof { display: inline-flex; align-items: center; gap: 0.5rem; color: #e7e9ee; margin-bottom: 1.5rem; text-decoration: none; font-size: 0.98rem; }
-  .hero__proof:hover { text-decoration: underline; }
-  .hero__proof strong { color: #fff; font-size: 1.1rem; }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
-  .hero__fud { margin: 1.1rem 0 0; font-size: 0.88rem; color: #b9bec8; }
+  /* Dark from the left and bottom so white type clears contrast on any frame. */
+  .hero__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,15,18,0.86) 0%, rgba(13,15,18,0.62) 55%, rgba(13,15,18,0.35) 100%), linear-gradient(0deg, rgba(13,15,18,0.75) 0%, rgba(13,15,18,0) 55%); }
+  .hero__inner { padding: clamp(3rem, 8vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem); max-width: var(--container); }
+  .hero__tag { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); color: #fff; font-size: 0.85rem; font-weight: 600; padding: 0.35rem 0.8rem; border-radius: 999px; margin-bottom: 1.1rem; }
+  .hero h1 { color: #fff; max-width: 15ch; font-size: clamp(2.3rem, 5.6vw, 4.2rem); margin-bottom: 1rem; }
+  .hero__sub { font-size: clamp(1.05rem, 1.7vw, 1.22rem); color: #d4d8de; max-width: 52ch; margin-bottom: 1.4rem; }
+  .hero__proof { display: inline-flex; align-items: center; gap: 0.5rem; background: #fff; color: var(--ink); padding: 0.5rem 0.95rem; border-radius: 999px; font-size: 0.92rem; margin-bottom: 1.5rem; text-decoration: none !important; }
+  .hero__proof strong { font-size: 1rem; }
+  .hero__g { width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(#ea4335 0 25%, #fbbc05 0 50%, #34a853 0 75%, #4285f4 0); color: #fff; font-weight: 800; font-size: 0.78rem; display: grid; place-items: center; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+  .hero__facts { list-style: none; padding: 0; margin: 1.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; font-size: 0.9rem; color: #c3c8cf; }
+  .hero__facts li { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; }
+  .hero__facts :global(svg) { color: #ff6b75; }
   @media (max-width: 640px) {
-    .hero { min-height: 0; }
+    .hero__card { min-height: 0; }
     .hero__actions { flex-direction: column; align-items: stretch; }
     .hero__actions .btn { width: 100%; }
+    .hero__call { display: none; }
   }
 
-  /* Booking card */
-  .booking { padding-top: clamp(2rem, 5vw, 3rem); }
-  .book { background: #fff; color: var(--body); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: clamp(1.25rem, 3vw, 2rem); max-width: 640px; margin: 0 auto; scroll-margin-top: calc(var(--nav-h) + 1rem); }
+  /* Quote card */
+  .booking { padding-top: clamp(2rem, 5vw, 3.5rem); }
+  .booking__inner { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+  @media (max-width: 900px) { .booking__inner { grid-template-columns: 1fr; } }
+  .booking__copy { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+  @media (max-width: 900px) { .booking__copy { position: static; } }
+  .booking__steps { list-style: none; padding: 0; margin: 1.25rem 0; display: grid; gap: 0.9rem; }
+  .booking__steps li { display: flex; gap: 0.8rem; align-items: flex-start; margin: 0; }
+  .booking__steps b { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 0.85rem; }
+  .booking__alt { color: var(--muted); font-size: 0.95rem; }
+  .book { background: #fff; border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); padding: clamp(1.1rem, 3vw, 1.75rem); scroll-margin-top: calc(var(--nav-h) + 1rem); }
   .book:focus { outline: none; box-shadow: var(--shadow), 0 0 0 3px var(--red); }
-  .book__head { display: flex; gap: 0.75rem; align-items: center; margin-bottom: 0.9rem; }
-  .book__head img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
-  .book__head h2 { font-size: 1.5rem; margin: 0; text-transform: none; letter-spacing: 0; }
-  .book__head p { margin: 0; font-size: 0.85rem; color: var(--muted); }
-  .book__steps { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.85rem; color: var(--muted); }
-  .book__steps li { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; }
-  .book__steps b { width: 20px; height: 20px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 0.7rem; display: grid; place-items: center; }
 
-  /* Location + credibility */
+  .why { margin-top: 1.5rem; }
+  .why__drag { font-size: 0.9rem; color: var(--muted); margin: 0; }
+
+  .areas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  @media (max-width: 900px) { .areas { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .areas { grid-template-columns: 1fr; } }
+  .area { display: flex; flex-direction: column; gap: 0.4rem; border: 1px solid var(--line); border-radius: 20px; padding: 1.3rem 1.4rem; color: inherit; text-decoration: none !important; transition: border-color 0.15s, transform 0.15s; }
+  .area:hover { border-color: var(--ink); transform: translateY(-2px); }
+  .area h3 { margin: 0; font-size: 1.2rem; }
+  .area p { margin: 0; font-size: 0.93rem; color: var(--muted); }
+  .area__hoods { margin-top: auto; padding-top: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+
   .findus__addr { display: flex; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.95rem; }
   .findus__addr :global(svg) { width: 1.05em; height: 1.05em; flex: none; color: var(--ink); }
   .findus__bbb { display: inline-block; margin-top: 1.25rem; }
   .findus__bbb img { width: 250px; max-width: 100%; height: auto; }
-  .findus__map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow); background: #fff; }
+  .findus__map { border-radius: 20px; overflow: hidden; border: 1px solid var(--line); background: #fff; }
   .findus__map iframe { display: block; width: 100%; height: 380px; border: 0; }
   @media (max-width: 900px) { .findus__map iframe { height: 300px; } }
-
-  /* Trust strip */
-  .strip { border-bottom: 1px solid var(--line); background: #fff; }
-  .strip__inner { display: flex; flex-wrap: wrap; gap: 0.75rem 2.5rem; padding: 1rem 0; font-size: 0.95rem; color: var(--muted); }
-  .strip__inner div { display: inline-flex; align-items: center; gap: 0.5rem; }
-  .strip__inner svg { color: var(--ink); flex: none; }
-  .strip__inner strong { color: var(--ink); }
-
-  /* Reviews */
-  .rgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
-  @media (max-width: 960px) { .rgrid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 600px) { .rgrid { grid-template-columns: 1fr; } }
-  .rcard { display: flex; flex-direction: column; gap: 0.5rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow-sm); color: var(--body); text-decoration: none !important; }
-  .rcard:hover { border-color: var(--ink); }
-  .rcard__top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.7rem; }
-  .rcard__top strong { color: var(--ink); }
-  .rcard__src { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; color: var(--muted); }
-  .rcard p { margin: 0; font-size: 0.97rem; }
-  .rcard__svc { font-size: 0.8rem; color: var(--muted); }
-  .owner { grid-column: 1 / -1; display: flex; gap: 1rem; align-items: center; padding: 1rem 1.25rem; background: var(--bg-soft); border-radius: var(--radius); }
-  .owner img { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: none; }
-  .owner p { margin: 0 0 0.25rem; font-size: 0.97rem; }
-  .owner a { font-weight: 700; }
-
-  /* Areas line */
-  .areas-line { background: #fff; padding: 1.5rem 0; border-top: 1px solid var(--line); }
-  .areas-line p { margin: 0; font-size: 0.95rem; color: var(--muted); max-width: 80ch; }
-  .areas-line a { font-weight: 600; }
 </style>
 
 <script>
-  // Smooth-scroll CTAs to the booking card and move focus into it.
+  // Smooth-scroll CTAs to the quote card and move focus into it.
   document.querySelectorAll<HTMLAnchorElement>('[data-scroll-book]').forEach((a) =>
     a.addEventListener('click', (e) => {
       const t = document.getElementById('book');
@@ -284,8 +250,7 @@ const HERO_H2 = 'Trusted experts in car detailing and ceramic coating services a
     })
   );
 
-  // Background clip never autoplays for visitors who ask for reduced motion —
-  // the poster frame stands in. No-op until HERO_VIDEO is set.
+  // Background clip never autoplays for visitors who ask for reduced motion.
   const heroVid = document.querySelector('.hero__vid');
   if (heroVid instanceof HTMLVideoElement && matchMedia('(prefers-reduced-motion: reduce)').matches) {
     heroVid.removeAttribute('autoplay');

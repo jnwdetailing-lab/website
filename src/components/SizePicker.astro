@@ -1,0 +1,78 @@
+---
+// Vehicle size buttons. Any element on the page with data-prices="a,b,c,d"
+// shows the price for the chosen size; inside a [data-mode] card it switches
+// to data-prices-int when the card is set to interior only. The choice is
+// remembered between pages, so pricing and membership agree.
+import { SIZES } from '../data/pricing';
+export interface Props { label?: string; dark?: boolean }
+const { label = 'Your vehicle', dark = false } = Astro.props;
+// Unique per instance: the picker can appear more than once on a page.
+const uid = `sizes-${Math.random().toString(36).slice(2, 8)}`;
+---
+<div class:list={['sizes', { 'sizes--dark': dark }]}>
+  <p class="sizes__label" id={uid}>{label}</p>
+  <div class="sizes__row" role="group" aria-labelledby={uid}>
+    {SIZES.map((s, i) => (
+      <button type="button" class="sizes__btn" data-size-btn={i} data-label={s.label} aria-pressed={i === 0 ? 'true' : 'false'}>
+        <span class="sizes__name">{s.label}</span>
+        <span class="sizes__ex">{s.examples}</span>
+      </button>
+    ))}
+  </div>
+</div>
+<style>
+  .sizes { margin: 0 auto 2rem; max-width: 880px; }
+  .sizes__label { text-align: center; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.75rem; }
+  .sizes--dark .sizes__label { color: #9aa1ac; }
+  .sizes__row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+  @media (max-width: 700px) { .sizes__row { grid-template-columns: repeat(2, 1fr); } }
+  .sizes__btn { font: inherit; text-align: left; cursor: pointer; border: 1.5px solid var(--line); background: #fff; border-radius: 14px; padding: 0.8rem 0.95rem; display: flex; flex-direction: column; gap: 0.15rem; transition: border-color 0.15s, box-shadow 0.15s; }
+  .sizes__btn:hover { border-color: #b9bec7; }
+  .sizes__btn[aria-pressed='true'] { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink) inset; }
+  .sizes__name { font-weight: 700; color: var(--ink); font-size: 0.97rem; }
+  .sizes__ex { font-size: 0.8rem; color: var(--muted); line-height: 1.35; }
+  .sizes--dark .sizes__btn { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.14); }
+  .sizes--dark .sizes__btn[aria-pressed='true'] { border-color: #fff; box-shadow: 0 0 0 1px #fff inset; }
+  .sizes--dark .sizes__name { color: #fff; }
+  .sizes--dark .sizes__ex { color: #9aa1ac; }
+</style>
+<script>
+  const KEY = 'jw-size';
+  const buttons = () => Array.from(document.querySelectorAll<HTMLButtonElement>('[data-size-btn]'));
+  let current = 0;
+  try { current = Math.min(3, Math.max(0, Number(localStorage.getItem(KEY)) || 0)); } catch {}
+
+  const money = (n: number) => '$' + n.toLocaleString('en-US');
+
+  const apply = (i: number) => {
+    current = i;
+    buttons().forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.sizeBtn) === i)));
+    const label = buttons().find((b) => Number(b.dataset.sizeBtn) === i)?.dataset.label ?? '';
+    document.querySelectorAll<HTMLElement>('[data-size-label]').forEach((el) => (el.textContent = label));
+    document.querySelectorAll<HTMLElement>('[data-prices]').forEach((el) => {
+      const card = el.closest<HTMLElement>('[data-mode]');
+      const src = card?.dataset.mode === 'int' && el.dataset.pricesInt ? el.dataset.pricesInt : el.dataset.prices!;
+      const n = Number(src.split(',')[i]);
+      if (!Number.isNaN(n)) el.textContent = money(n);
+    });
+  };
+
+  buttons().forEach((b) =>
+    b.addEventListener('click', () => {
+      apply(Number(b.dataset.sizeBtn));
+      try { localStorage.setItem(KEY, String(current)); } catch {}
+    })
+  );
+
+  document.querySelectorAll<HTMLButtonElement>('[data-mode-btn]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const card = b.closest<HTMLElement>('[data-mode]');
+      if (!card) return;
+      card.dataset.mode = b.dataset.modeBtn!;
+      card.querySelectorAll<HTMLButtonElement>('[data-mode-btn]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      apply(current);
+    })
+  );
+
+  apply(current);
+</script>

@@ -1,0 +1,172 @@
+---
+// Packages with live prices by vehicle size. Used on the home page, the
+// pricing page and the service pages. All numbers come from src/data/pricing.ts.
+import { SITE, CTA, BOOK } from '../data/site';
+import { PACKAGES, EXTERIOR_ONLY, MEMBERSHIP, SIZES, from, usd, type PriceRow } from '../data/pricing';
+import SizePicker from './SizePicker.astro';
+import Icon from './Icons.astro';
+export interface Props {
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  /** Show the full per-size price grid under the cards (pricing page). */
+  showTable?: boolean;
+  /** Hide the "what's included" lists (compact use on service pages). */
+  compact?: boolean;
+  id?: string;
+  /** Which option the package cards open on: inside & out, or interior only. */
+  defaultMode?: 'io' | 'int';
+}
+const {
+  eyebrow = 'Packages & pricing',
+  heading = 'Two packages. Pick your vehicle, see your price.',
+  lead = 'No tiers to decode. Most cars need the Full Detail. If yours has stains, pet hair or a smell, the Deep Reset is built for it. Add-ons cover the rest.',
+  showTable = false,
+  compact = false,
+  id = 'packages',
+  defaultMode = 'io',
+} = Astro.props;
+const csv = (r: PriceRow) => r.join(',');
+const lowestMember = from(MEMBERSHIP.cadences[0].prices);
+---
+<section class="section" id={id}>
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{heading}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+
+    <SizePicker />
+
+    <div class="pkgs">
+      {PACKAGES.map((p) => (
+        <article class:list={['pkg', { 'pkg--featured': p.featured }]} data-mode={p.interiorOnly ? defaultMode : 'io'}>
+          {p.featured && <span class="pkg__flag">Most booked</span>}
+          <div class="pkg__top">
+            <span class="pkg__level">Level {p.level}</span>
+            <h3 class="pkg__name">{p.name}</h3>
+            <p class="pkg__tag">{p.tagline}</p>
+          </div>
+
+          {p.interiorOnly && (
+            <div class="pkg__modes" role="group" aria-label={`${p.name} options`}>
+              <button type="button" data-mode-btn="io" aria-pressed={defaultMode === 'io' ? 'true' : 'false'}>Inside & out</button>
+              <button type="button" data-mode-btn="int" aria-pressed={defaultMode === 'int' ? 'true' : 'false'}>Interior only</button>
+            </div>
+          )}
+
+          <div class="pkg__price">
+            <span class="pkg__amount" data-prices={csv(p.insideOut)} data-prices-int={p.interiorOnly ? csv(p.interiorOnly) : undefined}>{usd(defaultMode === 'int' && p.interiorOnly ? p.interiorOnly[0] : p.insideOut[0])}</span>
+            <span class="pkg__per">for a <span data-size-label>{SIZES[0].label}</span></span>
+          </div>
+          <p class="pkg__meta"><Icon name="clock" size={16} /> {p.hours}</p>
+          <p class="pkg__best"><strong>Best for:</strong> {p.bestFor}</p>
+
+          {!compact && (
+            <div class="pkg__lists">
+              <div>
+                <h4>Interior</h4>
+                <ul class="checklist">{p.interior.map((i) => <li>{i}</li>)}</ul>
+              </div>
+              <div class="pkg__ext">
+                <h4>Exterior</h4>
+                <ul class="checklist">{p.exterior.map((i) => <li>{i}</li>)}</ul>
+              </div>
+            </div>
+          )}
+
+          <div class="pkg__cta">
+            <a href={CTA.href} class="btn btn--primary btn--block" data-scroll-book>{CTA.label}</a>
+            <a href={BOOK.href} class="btn btn--ghost btn--block"><Icon name="calendar" /> {BOOK.label}</a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="pkg-extra">
+      <div class="pkg-extra__item">
+        <div>
+          <h3>Just the outside? {EXTERIOR_ONLY.name}</h3>
+          <p>{EXTERIOR_ONLY.items.join(' · ')}. About {EXTERIOR_ONLY.hours.toLowerCase()}.</p>
+        </div>
+        <p class="pkg-extra__price"><span data-prices={csv(EXTERIOR_ONLY.prices)}>{usd(EXTERIOR_ONLY.prices[0])}</span></p>
+      </div>
+      <a class="pkg-extra__item pkg-extra__member" href="/membership/">
+        <div>
+          <h3><Icon name="repeat" size={20} /> Keep it this way with a membership</h3>
+          <p>After your first detail, members get a Level 1 Maintenance Detail monthly, every two months or quarterly, from {usd(lowestMember)} a visit.</p>
+        </div>
+        <span class="pkg-extra__go">See plans <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+
+    {showTable && (
+      <details class="ptable" open>
+        <summary>Every price, every vehicle size</summary>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Package</th>{SIZES.map((s) => <th>{s.label}</th>)}</tr>
+            </thead>
+            <tbody>
+              {PACKAGES.map((p) => (
+                <>
+                  <tr><td><strong>Level {p.level} · {p.name}</strong><br /><small>Inside & out</small></td>{p.insideOut.map((v) => <td class="price">{usd(v)}</td>)}</tr>
+                  {p.interiorOnly && <tr><td><strong>Level {p.level} · {p.name}</strong><br /><small>Interior only</small></td>{p.interiorOnly.map((v) => <td class="price">{usd(v)}</td>)}</tr>}
+                </>
+              ))}
+              <tr><td><strong>{EXTERIOR_ONLY.name}</strong><br /><small>Exterior only</small></td>{EXTERIOR_ONLY.prices.map((v) => <td class="price">{usd(v)}</td>)}</tr>
+              {MEMBERSHIP.cadences.map((c) => (
+                <tr><td><strong>Level 1 · {MEMBERSHIP.visitName}</strong><br /><small>Members, {c.label.toLowerCase()}</small></td>{c.prices.map((v) => <td class="price">{usd(v)}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="ptable__note">Prices are for a car in normal condition. Heavy pet hair, mold, biohazards or a car that has gone years without a clean are priced on the add-ons below, and we confirm before we start. Questions? Call or text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>.</p>
+      </details>
+    )}
+  </div>
+</section>
+
+<style>
+  .pkgs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+  @media (max-width: 820px) { .pkgs { grid-template-columns: 1fr; } }
+  .pkg { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: clamp(1.4rem, 3vw, 2rem); display: flex; flex-direction: column; gap: 1rem; }
+  .pkg--featured { border: 2px solid var(--ink); box-shadow: var(--shadow); }
+  .pkg__flag { position: absolute; top: -0.8rem; left: 1.5rem; background: var(--red); color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; padding: 0.3rem 0.75rem; border-radius: 999px; }
+  .pkg__level { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--red-text); margin-bottom: 0.35rem; }
+  .pkg__name { font-size: clamp(1.5rem, 2.6vw, 1.85rem); margin: 0 0 0.35rem; }
+  .pkg__tag { margin: 0; color: var(--muted); }
+  .pkg__modes { display: inline-grid; grid-template-columns: 1fr 1fr; background: var(--bg-soft); border-radius: 999px; padding: 4px; gap: 4px; align-self: flex-start; }
+  .pkg__modes button { font: inherit; font-size: 0.88rem; font-weight: 650; border: 0; border-radius: 999px; padding: 0.5rem 0.95rem; background: transparent; color: var(--muted); cursor: pointer; }
+  .pkg__modes button[aria-pressed='true'] { background: #fff; color: var(--ink); box-shadow: var(--shadow-sm); }
+  .pkg__price { display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .pkg__amount { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 6vw, 3.3rem); letter-spacing: -0.04em; color: var(--ink); line-height: 1; }
+  .pkg__per { color: var(--muted); font-size: 0.95rem; }
+  .pkg__meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; margin: 0; font-size: 0.92rem; color: var(--muted); }
+  .pkg__meta :global(svg) { color: var(--ink); }
+  .pkg__best { margin: -0.5rem 0 0; font-size: 0.92rem; color: var(--muted); }
+  .pkg__lists { display: grid; grid-template-columns: 1fr; gap: 0.25rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  .pkg__lists h4 { font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0.25rem 0 0.6rem; }
+  .pkg__lists .checklist { font-size: 0.95rem; }
+  .pkg[data-mode='int'] .pkg__ext { opacity: 0.35; text-decoration: line-through; }
+  .pkg__cta { margin-top: auto; display: grid; gap: 0.55rem; }
+
+  .pkg-extra { max-width: 1000px; margin: 1.25rem auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 820px) { .pkg-extra { grid-template-columns: 1fr; } }
+  .pkg-extra__item { display: flex; justify-content: space-between; gap: 1rem; align-items: center; border: 1px solid var(--line); border-radius: 18px; padding: 1.2rem 1.4rem; background: var(--bg-soft); }
+  .pkg-extra__item h3 { font-size: 1.08rem; margin: 0 0 0.3rem; display: flex; align-items: center; gap: 0.45rem; }
+  .pkg-extra__item p { margin: 0; font-size: 0.92rem; color: var(--muted); }
+  .pkg-extra__price { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--ink) !important; white-space: nowrap; }
+  a.pkg-extra__member { background: var(--ink); border-color: var(--ink); color: #fff; text-decoration: none !important; }
+  .pkg-extra__member h3 { color: #fff; }
+  .pkg-extra__member p { color: #b6bcc6; }
+  .pkg-extra__member :global(svg) { color: #ff6b75; }
+  .pkg-extra__go { font-weight: 700; white-space: nowrap; color: #fff; }
+
+  .ptable { max-width: 1000px; margin: 2rem auto 0; }
+  .ptable summary { cursor: pointer; font-weight: 700; color: var(--ink); margin-bottom: 1rem; }
+  .ptable td small { color: var(--muted); }
+  .ptable__note { font-size: 0.9rem; color: var(--muted); margin-top: 0.9rem; }
+</style>

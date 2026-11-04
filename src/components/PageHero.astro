@@ -1,65 +1,90 @@
 ---
-import { SITE, CTA } from '../data/site';
+import { SITE, CTA, BOOK } from '../data/site';
 import Icon from './Icons.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
 import { srcsetFor, PAGE_HERO_SIZES } from '../lib/srcset';
 export interface Props {
   eyebrow?: string;
-  title: string;
+  title?: string;
   titleHtml?: string;
   text: string;
   image?: string;
   imageAlt?: string;
   crumbs: { label: string; href?: string }[];
-  /** Short scope/duration line under the intro. Never a price. */
+  /** Short scope/duration line under the intro. */
   note?: string;
   ctaLabel?: string;
   bullets?: string[];
+  /** Quick facts shown in a strip under the hero, e.g. { label: 'Time', value: '3 to 4 hours' }. */
+  facts?: { label: string; value: string }[];
+  showBook?: boolean;
 }
-const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, ctaLabel = CTA.label, bullets } = Astro.props;
+const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, ctaLabel = CTA.label, bullets, facts, showBook = true } = Astro.props;
 ---
 <section class="phero">
-  <div class="container phero__inner">
-    <div class="phero__copy">
-      <Breadcrumbs items={crumbs} light />
-      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-      {titleHtml ? <h1 set:html={titleHtml} /> : <h1>{title}</h1>}
-      <p class="phero__text">{text}</p>
-      {bullets && (
-        <ul class="checklist phero__bullets">
-          {bullets.map((b) => <li>{b}</li>)}
-        </ul>
+  <div class="phero__panel">
+    <div class="container phero__inner">
+      <div class="phero__copy">
+        <Breadcrumbs items={crumbs} light />
+        {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+        {titleHtml ? <h1 set:html={titleHtml} /> : <h1>{title}</h1>}
+        <p class="phero__text">{text}</p>
+        {bullets && (
+          <ul class="checklist phero__bullets">
+            {bullets.map((b) => <li>{b}</li>)}
+          </ul>
+        )}
+        <div class="btn-row">
+          <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book>{ctaLabel}</a>
+          {showBook ? (
+            <a href={BOOK.href} class="btn btn--ghost-light btn--lg"><Icon name="calendar" /> {BOOK.label}</a>
+          ) : (
+            <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+          )}
+        </div>
+        <a class="phero__proof" href={SITE.social.google} target="_blank" rel="noopener">
+          <span class="stars" aria-hidden="true">{Array.from({ length: 5 }).map(() => <Icon name="star" size={15} />)}</span>
+          <span><strong>{SITE.rating.value}</strong> · {SITE.rating.count} Google reviews</span>
+        </a>
+        {note && <p class="phero__note">{note}</p>}
+      </div>
+      {image && (
+        <div class="phero__media">
+          <img src={image} srcset={srcsetFor(image)} sizes={PAGE_HERO_SIZES} alt={imageAlt} width="1080" height="1080" fetchpriority="high" decoding="async" />
+        </div>
       )}
-      {note && <p class="phero__note">{note}</p>}
-      <div class="btn-row">
-        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {ctaLabel}</a>
-        <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
-      </div>
-      <p class="fud"><Icon name="check" /> Free quote · We come to you</p>
-      <div class="phero__proof">
-        <span class="stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={16} />)}</span>
-        <span><strong>{SITE.rating.value}</strong> · {SITE.rating.count} Google reviews · Serving the Bay Area since {SITE.founded}</span>
-      </div>
     </div>
-    {image && (
-      <div class="phero__media">
-        <img src={image} srcset={srcsetFor(image)} sizes={PAGE_HERO_SIZES} alt={imageAlt} width="1080" height="1080" fetchpriority="high" decoding="async" />
+    {facts && (
+      <div class="container">
+        <dl class="phero__facts">
+          {facts.map((f) => (
+            <div><dt>{f.label}</dt><dd>{f.value}</dd></div>
+          ))}
+        </dl>
       </div>
     )}
   </div>
 </section>
 <style>
-  .phero { background: radial-gradient(1200px 500px at 80% -10%, rgba(225,29,42,0.35), transparent 60%), linear-gradient(180deg, #15181e, var(--ink)); color: #d7dae0; padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
-  .phero__inner { display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
-  @media (max-width: 900px) { .phero__inner { grid-template-columns: 1fr; } .phero__media { order: -1; max-width: 420px; } }
-  .phero h1 { color: #fff; }
-  .phero h1 :global(em) { color: var(--red); font-style: normal; }
-  .phero__text { font-size: 1.15rem; color: #c4c9d2; max-width: 60ch; }
-  .phero__bullets { margin: 0.25rem 0 1.25rem; color: #e7e9ee; }
-  .phero__note { font-size: 0.95rem; color: #b9bec8; margin: 0 0 1.1rem; }
-  .phero__proof { display: flex; align-items: center; gap: 0.6rem; margin-top: 1.25rem; font-size: 0.95rem; color: #c4c9d2; flex-wrap: wrap; }
+  .phero { padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.5rem, 1.5vw, 1rem) 0; }
+  .phero__panel {
+    max-width: 1320px; margin-inline: auto; border-radius: var(--radius-lg); color: #c9ced6; padding: clamp(2rem, 5vw, 4rem) 0;
+    background: radial-gradient(900px 420px at 85% -10%, rgba(225,29,42,0.22), transparent 60%), var(--ink);
+  }
+  .phero__inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  @media (max-width: 900px) { .phero__inner { grid-template-columns: 1fr; } .phero__media { order: -1; max-width: 460px; } }
+  .phero h1 { color: #fff; font-size: clamp(2rem, 4.4vw, 3.3rem); }
+  .phero h1 :global(em) { color: #ff6b75; font-style: normal; }
+  .phero__text { font-size: clamp(1.02rem, 1.5vw, 1.15rem); color: #c3c8d0; max-width: 58ch; }
+  .phero__bullets { margin: 0.25rem 0 1.4rem; color: #e4e7ec; }
+  .phero__bullets :global(li::before) { background-color: rgba(255,255,255,0.1); }
+  .phero__proof { display: inline-flex; align-items: center; gap: 0.55rem; margin-top: 1.25rem; padding: 0.45rem 0.85rem; border-radius: 999px; background: rgba(255,255,255,0.07); color: #e4e7ec; font-size: 0.92rem; text-decoration: none !important; }
   .phero__proof strong { color: #fff; }
-  .phero__media img { border-radius: var(--radius); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.7); aspect-ratio: 1; object-fit: cover; width: 100%; }
-  .phero .eyebrow { color: #ff6b75; }
-  .phero .eyebrow::before { background: #ff6b75; }
+  .phero__note { font-size: 0.9rem; color: #99a0ab; margin: 1rem 0 0; }
+  .phero__media img { border-radius: var(--radius); aspect-ratio: 1; object-fit: cover; width: 100%; }
+  .phero .eyebrow { color: #ff8a92; }
+  .phero__facts { margin: clamp(2rem, 4vw, 3rem) 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: rgba(255,255,255,0.08); border-radius: var(--radius); overflow: hidden; }
+  .phero__facts div { background: var(--ink-2); padding: 1rem 1.2rem; }
+  .phero__facts dt { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: #8d94a0; font-weight: 700; margin-bottom: 0.25rem; }
+  .phero__facts dd { margin: 0; color: #fff; font-weight: 650; font-size: 1rem; }
 </style>

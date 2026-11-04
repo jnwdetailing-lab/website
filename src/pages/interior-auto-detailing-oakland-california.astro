@@ -5,188 +5,201 @@ import Process from '../components/Process.astro';
 import Faq from '../components/Faq.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
-import QuoteForm from '../components/QuoteForm.astro';
+import QuoteSection from '../components/QuoteSection.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
-import Icon from '../components/Icons.astro';
-import { SITE, CTA } from '../data/site';
+import PriceExplorer from '../components/PriceExplorer.astro';
+import AddonsList from '../components/AddonsList.astro';
+import { PACKAGES, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/interior-auto-detailing-oakland-california/';
-const title = 'Interior Car Detailing Oakland, CA | At Your Home | J&W Mobile';
-const description =
-  'Mobile interior car detailing in Oakland: vacuum, steam, shampoo extraction, stain & odor removal, leather conditioning. At your home. Quoted per vehicle. 4.9★ Google.';
+const fd = PACKAGES[0];
+const dr = PACKAGES[1];
+const title = 'Interior Car Detailing Oakland, CA | Mobile Interior Detail | J&W';
+const description = `Mobile interior car detailing in Oakland: vacuum, steam, hot-water shampoo extraction, stain and odor treatment, leather care. Interior only from ${usd(from(fd.interiorOnly!))}. At your home or office.`;
 
 const faqs = [
-  { q: 'Which interior tier does my car need?', a: 'It comes down to size and condition. A compact or sedan that is tidy and just needs a reset sits at the Classic tier; pet hair, ground-in stains, spilled drinks or a three-row SUV push it to Deep Shampoo or the Diamond Reset, where steam and hot-water extraction do the heavy lifting. Send a couple of photos of the inside and we\'ll tell you which tier it actually needs and quote it exactly.' },
-  { q: 'How long does an interior detail take?', a: 'Most interior details take 2–4 hours. A Classic interior on a sedan is about 2 hours; a Deep Shampoo or Diamond Reset on a large SUV with heavy condition can take 4+ hours because shampoo extraction and steam passes take time to do right.' },
-  { q: 'Can you remove stains from seats and carpet?', a: 'Yes. Stain removal is what our Deep Shampoo and Diamond Reset tiers are built for. We pre-treat, agitate, hot-water extract and steam. Coffee, soda, food, mud, makeup and most pet accidents come out. Old dye transfer and bleach spots are permanent and we will tell you up front.' },
-  { q: 'Is steam cleaning safe for leather and electronics?', a: 'Yes. We use controlled, low-moisture steam designed for automotive interiors, keep it away from screens and switchgear, and follow leather with a pH-balanced cleaner and conditioner so it does not dry out or crack.' },
-  { q: 'Do I need to provide water or power?', a: 'No. Our van is fully self-contained with its own water tank and generator. We can detail in your driveway, on a legal curb spot, in an office lot or a roomy condo garage stall anywhere in Oakland and the Bay Area.' },
-  { q: 'Can you get pet hair out?', a: 'Yes. Embedded pet hair is an add-on because it takes dedicated tools (rubber blades, pet hair stones, compressed air) and extra time. But it comes out. Mention it when you book so we schedule enough time.' },
-  { q: 'Do you remove smoke or mildew smell?', a: 'Yes. Interior shampoo and steam remove the source in fabric; for smoke, pet and mildew odors that have soaked into the headliner and vents we add an ozone treatment. See our odor removal service.' },
-  { q: 'What is the difference between Classic, Deep Shampoo and Diamond Reset?', a: 'Classic = complete vacuum, wipe-down of every surface, glass, mats, trunk, door jambs. Deep Shampoo = Classic plus shampoo extraction of seats and carpets, air blowout and steam. Diamond Reset = everything plus 99.9% sanitization, leather conditioning and spot stain treatment. The full reset for neglected or pre-sale vehicles.' },
+  { q: 'Full Detail or Deep Reset for my interior?', a: `If the seats and carpet look fine and the car just needs a proper clean, the Full Detail (interior only from ${usd(from(fd.interiorOnly!))}) covers it: full vacuum, air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. If there are stains on the fabric, pet hair, spilled drinks, a smell, or the car has gone a year or more without a real clean, book the Deep Reset (from ${usd(from(dr.interiorOnly!))}), which adds hot-water extraction of the seats and carpet, stain treatment and leather conditioning. Not sure? Text us a photo of the worst seat.` },
+  { q: 'How long does an interior detail take?', a: 'A Full Detail interior on a car is about 2 hours. A Deep Reset on a three-row SUV with kids or a dog can run 4 hours or more, because shampoo extraction has to be done slowly to pull the dirt out rather than push water in. Most cabins are dry enough to drive the same day. Fabric can feel slightly damp for a few hours after extraction.' },
+  { q: 'Can you get stains out of cloth seats and carpet?', a: 'Most of them. Coffee, soda, juice, food, mud, makeup, sweat marks and most pet accidents come out with pre-treatment, agitation and hot-water extraction. Old dye transfer from jeans, bleach spots, burns and stains that have been heat-set for years usually lighten but may not disappear. We tell you which is which before we start.' },
+  { q: 'Is steam safe for leather and screens?', a: 'Yes, used the way we use it. Our steamer puts out low-moisture, high-temperature steam that we keep moving and never point at screens, switches or airbag covers. Leather gets a pH-balanced cleaner and a conditioner afterwards rather than steam soaking into it.' },
+  { q: 'Can you remove pet hair?', a: 'Yes. Light pet hair comes out with the normal vacuum. Hair woven into carpet and cloth takes rubber blades, pet-hair stones and compressed air, and more time, so it is a $45 add-on. Mention it when you book and we plan the time.' },
+  { q: 'Do I need to be home, or provide water and power?', a: 'No to both. The van carries its own water and power. We need the keys, access to the car and enough room to open every door. Many customers leave us at the car and go to work.' },
+  { q: 'Will my car smell like chemicals afterwards?', a: 'No. We use low-odor, biodegradable cleaners, and we do not hang perfume in the car. It should smell like nothing, which is how clean smells. For smoke, pet or mildew smells that live in the headliner and vents, add ozone odor removal.' },
+  { q: 'Do you clean child car seats?', a: 'Yes, as a $35 add-on: the shell, straps where safe to clean and the fabric. We do not remove or reinstall car seats unless you ask us to, and if you do, please check the installation before you drive with a child in it.' },
 ];
 
 const schema = [
   serviceSchema({
     name: 'Interior Car Detailing',
-    description: 'Mobile interior detailing in Oakland and the Bay Area: full vacuum, steam cleaning, shampoo extraction, stain and odor removal, leather cleaning and conditioning.',
+    description: 'Mobile interior detailing in Oakland and the Bay Area: full vacuum, compressed-air blowout, steam cleaning, hot-water shampoo extraction, stain treatment and leather conditioning.',
     path,
     image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
+    minPrice: from(fd.interiorOnly!),
+    maxPrice: Math.max(...dr.interiorOnly!),
     offers: [
-      { name: 'Classic Interior Detail', description: 'Complete vacuum, wipe-down of all surfaces, interior glass & mirrors, floor mats detailed, trunk, door jambs, tire dressing.' },
-      { name: 'Deep Shampoo', description: 'Everything in Classic plus shampoo extraction of seats & carpets, air compression blowout and steam cleaning.' },
-      { name: 'Diamond Reset', description: 'Everything in Deep Shampoo plus 99.9% sanitization, leather cleaning & conditioning and spot stain treatment.' },
+      { name: 'Full Detail, interior only', description: fd.interior.join('; '), price: String(from(fd.interiorOnly!)) },
+      { name: 'Deep Reset, interior only', description: dr.interior.join('; '), price: String(from(dr.interiorOnly!)) },
     ],
   }),
   faqSchema(faqs),
   breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Interior Detailing', href: path }]),
 ];
 
+const compare = [
+  ['Full vacuum: seats, carpet, trunk, under the seats', true, true],
+  ['Compressed-air blowout of vents, seams and seat rails', true, true],
+  ['Steam on plastics, cup holders and high-touch surfaces', true, true],
+  ['Every hard surface wiped and dressed', true, true],
+  ['Floor mats cleaned', true, true],
+  ['Inside glass and mirrors', true, true],
+  ['Double vacuum for embedded grit', false, true],
+  ['Hot-water shampoo extraction, seats and carpet', false, true],
+  ['Stain spot treatment', false, true],
+  ['Leather cleaned and conditioned', false, true],
+  ['Headliner spot cleaning', false, true],
+] as const;
+
 const steps = [
-  { title: 'Full vacuum & air blowout', text: 'Complete vacuum of carpets, seats, trunk and under the seats, with compressed air to blast crumbs and grit out of seams, rails and vents.' },
-  { title: 'Steam clean & sanitize', text: 'High-temperature, low-moisture steam lifts grime out of textured plastics, vents, cup holders and seat stitching and kills bacteria without soaking anything.' },
-  { title: 'Shampoo & stain treatment', text: 'Pre-treat, agitate and hot-water extract seats and carpets. Pulling dirt, stains and trapped odor out of the fibers, not just off the surface.' },
-  { title: 'Condition & final detail', text: 'Leather cleaned and conditioned, plastics dressed (satin, not greasy), glass streak-free inside, every surface checked under light before the walk-around.' },
+  { title: 'Walk-around first', text: 'We look the cabin over with you or from your notes, point out stains that may not come out, and take out anything loose so it is not lost or vacuumed up.' },
+  { title: 'Dry work before wet', text: 'Mats out. Compressed air through vents, seat rails and seams, then a full vacuum top to bottom, so we are never wetting dirt that could have been lifted dry.' },
+  { title: 'Steam and wipe-down', text: 'Low-moisture steam loosens grime in textured plastic, cup holders and door pockets. Every surface is wiped and dressed to a clean satin finish, never greasy.' },
+  { title: 'Extraction and stains', text: 'On a Deep Reset: stains pre-treated, fabric agitated, then hot-water extraction pulls the dirt out of the fibers instead of pushing it deeper.' },
+  { title: 'Glass, final check, walk-through', text: 'Glass cleaned streak-free inside, mats back in, every seat checked under light. Then we walk the car with you before we pack up.' },
 ];
 ---
 
 <Base {title} {description} canonical={path} {schema} ogImage="/images/interior-detailing-steam-cleaning-oakland.jpg" preloadImage="/images/interior-detailing-steam-cleaning-oakland.jpg">
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Interior Detailing' }]}
-    eyebrow="Mobile interior detailing · Oakland & Bay Area"
-    titleHtml="Interior Car Detailing in Oakland, <em>your cabin reset to like-new</em>, in your driveway"
-    text="Vacuum, high-temp steam, shampoo extraction, stain & odor removal, leather conditioning. Three tiers, real prices, done at your home or office by a trained J&W detailer. Not a wash-and-vac crew."
-    note="By vehicle size, tier & condition · 2–4 hours"
+    eyebrow="Mobile interior detailing"
+    titleHtml="Interior Car Detailing in Oakland, <em>done in your driveway</em>"
+    text="Steam, hot-water extraction and a lot of patience in the places a vacuum never reaches. We clean the cabin you actually sit in, at your home or office, with our own water and power."
     image="/images/interior-detailing-steam-cleaning-oakland.jpg"
-    imageAlt="Jalil steam cleaning the rear seats of an SUV during a mobile interior detail in Oakland, CA"
-    bullets={['Classic · Deep Shampoo · Diamond Reset tiers', 'Steam + hot-water extraction, not just a vacuum', 'Pet hair, stains, smoke & mildew handled']}
+    imageAlt="J&W technician steam cleaning the rear seat of an SUV during a mobile interior detail in Oakland, CA"
+    facts={[
+      { label: 'Full Detail interior', value: `from ${usd(from(fd.interiorOnly!))}` },
+      { label: 'Deep Reset interior', value: `from ${usd(from(dr.interiorOnly!))}` },
+      { label: 'Time', value: '2 to 4 hours' },
+      { label: 'Where', value: 'Home, work or garage' },
+    ]}
   />
 
-  <!-- First-100-words answer + before/after -->
   <section class="section">
     <div class="container two-col">
       <div class="prose">
-        <span class="eyebrow">What you get</span>
-        <h2 class="mt-0">An interior detail that actually reaches the dirt</h2>
-        <p><strong>An interior detail with J&W takes 2–4 hours and is quoted per vehicle.</strong> We vacuum and air-blow every seam, steam-clean and sanitize every surface, shampoo-extract seats and carpets, treat stains, and condition leather. At your home or workplace anywhere in Oakland, Alameda, Berkeley, Emeryville, Piedmont, San Leandro, Orinda or Walnut Creek.</p>
-        <p>Bay Area interiors take a beating: fog-season humidity that breeds mildew smell in carpet, coffee on the 880 commute, kids, dogs, sand from Crown Beach, and sun through the windshield baking dash plastics in Walnut Creek. A vacuum and a wipe doesn't fix any of that. Hot-water extraction and steam do, which is why every tier above Classic includes both.</p>
-        <p>Drag the slider, that's a real seat from a recent Oakland interior detail, Deep Shampoo tier. No filters, no tricks.</p>
+        <span class="eyebrow">What a real interior detail involves</span>
+        <h2>The dirt you sit in is not the dirt you can see</h2>
+        <p>Most of what makes a cabin feel dirty is in places a quick vacuum misses. Sand and grit work into the carpet, and every time you get in, your shoes grind it against the fibers like sandpaper. Skin oil builds up on the steering wheel, the door pulls and the seat bolsters. Crumbs collect in the seat rails. And a hazy film forms on the inside of the windshield that you only notice when headlights hit it at night.</p>
+        <p>An interior detail goes after all of that in order. Air first to lift what is loose, then a full vacuum, then steam on the hard surfaces, then extraction on the fabric if the car needs it. Done in that order, the dirt comes out of the car instead of moving around inside it.</p>
+        <p>Drag the slider: that is one cloth seat from a real Oakland job, before and after a Deep Reset.</p>
       </div>
       <BeforeAfter
-        before="/images/interior-detailing-oakland-before.jpg"
-        after="/images/interior-detailing-oakland-after.jpg"
+        before="/images/interior-detailing-oakland-before.webp"
+        after="/images/interior-detailing-oakland-after.webp"
         altBefore="Before: heavily stained cloth seat in a sedan prior to interior detailing in Oakland"
         altAfter="After: the same seat shampoo-extracted and steam cleaned by J&W Mobile Detailing"
       />
     </div>
   </section>
 
-  <!-- Packages -->
-  <section class="section section--soft" id="packages">
+  <section class="section section--soft">
     <div class="container">
-      <div class="center" style="margin-bottom:2.5rem">
-        <span class="eyebrow">Interior packages</span>
-        <h2>Three tiers. Pick by how far gone the cabin is.</h2>
-        <p class="lead">Not sure? Text us a photo of the worst seat and we'll tell you straight which tier it needs.</p>
+      <div class="head">
+        <span class="eyebrow">Two levels</span>
+        <h2>Full Detail or Deep Reset: what each one covers inside</h2>
+        <p class="lead">The Full Detail is a complete clean. The Deep Reset is for fabric that needs to come back: stains, spills, pet hair and smell.</p>
       </div>
-      <div class="grid grid--3 tiers">
-        <div class="tier">
-          <span class="pill">Maintenance</span>
-          <h3>Classic Interior</h3>
-          <p class="tier__for">For cars that get regular care and need a proper clean, not a rescue.</p>
-          <ul class="checklist">
-            <li>Complete vacuum, carpets, seats, trunk, under seats</li>
-            <li>Wipe-down of every surface: dash, console, doors, vents</li>
-            <li>Interior glass & mirrors streak-free</li>
-            <li>Floor mats detailed and dressed</li>
-            <li>Trunk / cargo area detailed</li>
-            <li>Door jambs wiped · tire dressing & shine</li>
-          </ul>
-          <p class="tier__price">Sedan, tidy condition</p>
-        </div>
-        <div class="tier tier--featured">
-          <span class="pill pill--dark">Most booked</span>
-          <h3>Deep Shampoo</h3>
-          <p class="tier__for">For stains, spills, kids, dogs, or a cabin that hasn't been deep-cleaned in 6+ months.</p>
-          <ul class="checklist">
-            <li><strong>Everything in Classic, plus:</strong></li>
-            <li>Shampoo & hot-water extraction of seats and carpets</li>
-            <li>Air-compression blowout of seams, rails and vents</li>
-            <li>High-temperature steam cleaning of all surfaces</li>
-            <li>Stain pre-treatment</li>
-            <li>Light odor neutralizing</li>
-          </ul>
-          <p class="tier__price">Quoted by size &amp; condition</p>
-        </div>
-        <div class="tier">
-          <span class="pill pill--gold">Full reset</span>
-          <h3>Diamond Reset</h3>
-          <p class="tier__for">For neglected, pre-sale, lease-return, rideshare or smoker vehicles. The full reset.</p>
-          <ul class="checklist">
-            <li><strong>Everything in Deep Shampoo, plus:</strong></li>
-            <li>Sanitization that kills 99.9% of germs</li>
-            <li>Leather cleaning & conditioning</li>
-            <li>Spot stain treatment, seats, carpet, headliner</li>
-            <li>Headliner & seatbelt cleaning</li>
-            <li>Ozone odor treatment available as add-on</li>
-          </ul>
-          <p class="tier__price">Large SUV, heavy condition</p>
-        </div>
-      </div>
-      <p class="center" style="margin-top:1.5rem;color:var(--muted);font-size:0.95rem">Add-ons: pet hair removal · ozone odor treatment · engine bay · headlight restoration. Bundle with an <a href="/exterior-auto-detailing-oakland-california/">exterior detail</a> for a full detail.</p>
-      <div class="center" style="margin-top:1.5rem">
-        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-        <p class="fud" style="justify-content:center"><Icon name="check" /> Quote before we book · We come to you</p>
+      <div class="table-wrap cmp">
+        <table>
+          <thead><tr><th>Interior work</th><th>Full Detail</th><th>Deep Reset</th></tr></thead>
+          <tbody>
+            {compare.map(([task, a, b]) => (
+              <tr><td>{task}</td><td class="cmp__c">{a ? '✓' : '·'}</td><td class="cmp__c">{b ? '✓' : '·'}</td></tr>
+            ))}
+            <tr><td><strong>Interior only, from</strong></td><td class="price">{usd(from(fd.interiorOnly!))}</td><td class="price">{usd(from(dr.interiorOnly!))}</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
 
-  <Process steps={steps} heading="The four-stage interior process we run on every car" eyebrow="How we do it" />
+  <Process steps={steps} heading="How we detail an interior" eyebrow="Our process" dark />
 
-  <!-- Why + local -->
   <section class="section">
+    <div class="container two-col two-col--top">
+      <div>
+        <span class="eyebrow">Honest expectations</span>
+        <h2>What comes out, and what usually does not</h2>
+        <p class="lead">We would rather tell you before we start than surprise you at the end.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Comes out</h3>
+          <ul class="checklist">
+            <li>Coffee, soda, juice and food spills</li>
+            <li>Mud, salt lines and ground-in dirt</li>
+            <li>Makeup, sunscreen and sweat marks</li>
+            <li>Most pet accidents, with ozone for the smell</li>
+            <li>Pet hair, with the pet hair add-on</li>
+            <li>Mildew smell, once the source is dry</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Usually stays</h3>
+          <ul class="xlist">
+            <li>Dye transfer from jeans on light leather, once it has set</li>
+            <li>Bleach spots and color loss</li>
+            <li>Cigarette burns and tears</li>
+            <li>Cracked or worn-through leather</li>
+            <li>Stains that have been baked in by years of sun</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <PriceExplorer id="interior-prices" compact defaultMode="int" eyebrow="Interior pricing" heading="Interior prices by vehicle size" lead="Prices open on interior only. Switch either card to inside & out to add the exterior." />
+
+  <AddonsList only="interior" soft={false} heading="Interior add-ons" lead="For the jobs a standard interior is not built for. Same price on every vehicle size." />
+
+  <section class="section section--soft">
     <div class="container prose max-prose" style="margin-inline:auto">
-      <span class="eyebrow">Why J&W for interior detailing in Oakland</span>
-      <h2 class="mt-0">Properly equipped, and honest about what comes out</h2>
-      <p>We've been pulling stains out of Bay Area cars since before J&W was a company. The van carries a commercial hot-water extractor, a dry-vapor steamer, a compressor, and pH-balanced, biodegradable chemistry for fabric, leather, plastics and screens. The same tools a good shop has, parked in your driveway in Rockridge, Alameda or Walnut Creek. Every job ends with a walk-around under light before we leave.</p>
-      <p>We'll also tell you the truth: most food, drink, mud and pet stains come out. Old dye transfer from jeans on light leather, bleach marks and burn holes do not. And we'd rather say so on the phone than surprise you.</p>
-      <h3>Related services</h3>
+      <span class="eyebrow">Bay Area interiors</span>
+      <h2>What we see most in Bay Area cabins</h2>
+      <p><strong>Mildew after the rains.</strong> A tired door seal or a sunroof drain that clogs with leaves lets water into the carpet padding, and the car starts to smell musty a week later. We extract and dry what we can reach, add ozone for the smell, and tell you where the water is getting in. If the source is not fixed, the smell comes back.</p>
+      <p><strong>Beach and trail dirt.</strong> Fine sand from Crown Beach and Point Isabel, and red dirt from the regional parks, works deep into carpet and hides under the seats. It needs air and a slow, double vacuum, not one pass.</p>
+      <p><strong>Sun on the dash.</strong> Inland, in Walnut Creek and Orinda, summer sun through the windshield dries out dashboards and leather. We clean and protect plastics with a UV-blocking dressing and condition leather so it does not crack.</p>
+      <p><strong>Commuter cabins.</strong> Coffee on the 880, lunch in the car, a gym bag in the back. A Full Detail every few months, or a <a href="/membership/">maintenance membership</a>, keeps it from building up.</p>
+
+      <h2>What we bring</h2>
+      <p>A commercial hot-water extractor, a dry-vapor steamer, a compressor for the air blowout, dedicated brushes for vents, leather and fabric, and pH-balanced, biodegradable cleaners for every surface. The van carries its own water and power, so we work the same way in a driveway, an office lot or a condo garage.</p>
+
+      <h2>Keeping it clean afterwards</h2>
       <ul>
-        <li><a href="/odor-removal-oakland/">Ozone odor removal</a>, smoke, pet, mildew, food odors eliminated at the source.</li>
-        <li><a href="/exterior-auto-detailing-oakland-california/">Exterior detailing</a>, bundle for a full detail and save vs. booking separately.</li>
-        <li><a href="/blog/whats-included-in-a-full-detailing-service/">What's included in a full detail?</a>, the complete checklist, times and Oakland prices.</li>
+        <li>Put rubber all-weather mats in from November to March. They catch the water and grit before it reaches the carpet.</li>
+        <li>Keep a microfiber towel in the glovebox for spills. Blot, do not rub.</li>
+        <li>Use a windshield sunshade if the car parks in the sun. It protects the dash and keeps the cabin cooler.</li>
+        <li>Condition leather every three to four months, or let us do it on a <a href="/membership/">membership visit</a>.</li>
       </ul>
     </div>
   </section>
 
-  <Reviews limit={3} filterService="Full Detail" heading="What Oakland drivers say after an interior detail" />
-  <Faq faqs={faqs} heading="Interior detailing questions, answered" />
-
-  <section class="section section--soft" id="quote">
-    <div class="container two-col">
-      <div>
-        <span class="eyebrow">Get a quote</span>
-        <h2>Send a photo of the worst seat. Get a real price back.</h2>
-        <p class="lead">Tell us the vehicle and what's going on inside, pet hair, stains, smell, how long since it was cleaned. And we'll quote the right tier, usually within the hour.</p>
-        <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
-      </div>
-      <QuoteForm heading="Interior detail quote" />
-    </div>
-  </section>
-
-  <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
-  <CtaBand title="Ready to actually enjoy getting in your car again?" />
+  <Reviews limit={3} filterService="Full Detail" heading="What people say about our interiors" />
+  <Faq faqs={faqs} heading="Interior detailing questions" />
+  <QuoteSection eyebrow="Interior quote" title="Send us a photo of the worst seat." text="Tell us the car and what is going on inside. We will tell you which level it needs and confirm the price, usually within minutes during business hours." />
+  <ServicesGrid exclude={path} heading="Other services we bring to you" eyebrow="More from J&W" lead="" />
+  <CtaBand title="A cabin that feels new again, without leaving home." />
 </Base>
 
 <style>
-  .tier { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
-  .tier--featured { border: 2px solid var(--red); box-shadow: var(--shadow); transform: translateY(-6px); }
-  .tier h3 { margin: 0.5rem 0 0; font-size: 1.6rem; }
-  .tier__for { color: var(--muted); font-size: 0.95rem; min-height: 3em; }
-  .tier .checklist { font-size: 0.95rem; }
-  .tier__price { margin-top: auto; font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: var(--ink); }
-  .tier__price small { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; color: var(--muted); }
-  @media (max-width: 1000px) { .tier--featured { transform: none; } }
+  .cmp table { min-width: 0; }
+  .cmp__c { text-align: center; font-weight: 700; color: var(--ink); width: 130px; }
+  @media (max-width: 560px) { .cmp th, .cmp td { padding: 0.7rem 0.6rem; font-size: 0.9rem; } .cmp__c { width: 64px; } .cmp th { font-size: 0.7rem; letter-spacing: 0.02em; } }
+  .cmp th:not(:first-child) { text-align: center; }
+  .honest { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 640px) { .honest { grid-template-columns: 1fr; } }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
 </style>

@@ -5,16 +5,18 @@ import Process from '../components/Process.astro';
 import Faq from '../components/Faq.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
-import QuoteForm from '../components/QuoteForm.astro';
+import QuoteSection from '../components/QuoteSection.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
+import SizePicker from '../components/SizePicker.astro';
 import Icon from '../components/Icons.astro';
-import { SITE, CTA } from '../data/site';
+import { CTA, BOOK } from '../data/site';
+import { CERAMIC, CERAMIC_ADDONS, SIZES, from, usd, type PriceRow } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/ceramic-coating/';
 const title = 'Ceramic Coating Oakland, CA | Applied at Your Home | J&W';
-const description =
-  'Professional ceramic coating in Oakland, applied at your home. Decontamination and paint correction included, then a coating bonded to the paint. Quoted per vehicle. 4.9★ Google.';
+const description = `Professional ceramic coating in Oakland, applied at your home. Decontamination and paint correction included. Bronze from ${usd(from(CERAMIC[0].prices))}, Silver from ${usd(from(CERAMIC[1].prices))}, Gold from ${usd(from(CERAMIC[2].prices))}.`;
+const csv = (r: PriceRow) => r.join(',');
 
 // The questions people actually ask before they buy a coating, answered
 // straight. No lifespan promises: the expected life of the specific coating
@@ -25,7 +27,7 @@ const faqs = [
   { q: 'Is a ceramic coating worth it?', a: 'For most people who keep a car more than a year and park it outside at least some of the time, yes. The value is not one big moment, it is hundreds of small ones: rinsing off a week of dust in five minutes, sap that wipes away instead of etching, paint that is still deep and unfaded when you sell or trade the car. It is worth the most on new or freshly corrected paint, dark colours, cars that live outdoors, and anyone who dislikes washing. It is worth the least on paint whose clear coat is already failing, which no coating can fix.' },
   { q: 'How long does a ceramic coating last?', a: 'A professional coating is measured in years, not months. How many depends on the grade of coating, how well the paint was prepared, whether the car is garaged, and above all how it is washed. Hand or touchless washing with a pH-neutral soap keeps it working; brush car washes, harsh chemicals and contamination left to bake all shorten it. When we quote your vehicle we tell you the expected life of the specific coating we will use, and exactly how to get all of it.' },
   { q: 'Does a ceramic coating stop scratches and rock chips?', a: 'No. A coating is a few microns thick. It resists the fine swirls that washing puts into paint and it shrugs off chemical damage, but it cannot absorb a rock at freeway speed, a key or a shopping cart. That is what paint protection film (PPF) is for: a thick, clear urethane film that takes the impact. Many owners do both, film on the hood, bumper and mirrors where chips happen, and a coating over the whole car for gloss, chemical resistance and easy cleaning. For a daily driver that is not always behind trucks on the freeway, a coating alone is usually the right call.' },
-  { q: 'Do I need paint correction before a ceramic coating?', a: 'Yes. A coating locks in whatever is under it, so swirls, water spots and haze sealed beneath a coating stay there for its entire life. Correction removes them first, and a corrected, fully decontaminated surface is also what lets the coating bond properly to the clear coat. It is included in both of our packages: one-step polishing for newer or well-kept paint, two-step compounding and polishing for heavily swirled, oxidized or dark paint.' },
+  { q: 'Do I need paint correction before a ceramic coating?', a: 'Yes. A coating locks in whatever is under it, so swirls, water spots and haze sealed beneath a coating stay there for its entire life. Correction removes them first, and a corrected, fully decontaminated surface is also what lets the coating bond properly to the clear coat. It is built into every package: an enhancement polish with Bronze for paint already in good shape, one-step correction with Silver, and two-step compounding and polishing with Gold for heavily swirled, oxidized or dark paint.' },
   { q: 'Can I coat a brand-new car?', a: 'It is the best time. New paint has the fewest defects to correct, and coating it before its first automatic wash means it never picks up the swirls most cars carry within a year. It still needs decontamination and a light polish, because transport, the dealer lot and the pre-delivery wash leave more behind than you would think. A professionally applied coating does not affect the manufacturer\'s paint warranty. If a dealership offers you a protection package, ask what product is applied and whether any correction is done before you pay for it. Teslas, Rivians and other cars with thin, soft paint benefit the most.' },
   { q: 'How do I wash a ceramic-coated car?', a: 'Gently and regularly. Two-bucket hand wash with a pH-neutral car shampoo and a clean microfiber mitt, every two to three weeks if the car lives outside, then dry it with plush microfiber towels or a blower rather than letting it air-dry. Touchless car washes are fine. Avoid brush and cloth tunnel washes, degreasers, and anything acidic or strongly alkaline on the paint. Do not put wax or a paint sealant over a coating; they cannot bond to it and only mask how it behaves. A maintenance detail once or twice a year keeps it performing.' },
   { q: 'Can I take a coated car through an automatic car wash?', a: 'Touchless, yes. Brush or cloth tunnels, no: the spinning brushes carry grit from every car before yours, and they are the fastest way to put swirls into a coating. If a touchless wash is your routine, dry the car afterwards, because the recycled water those systems use leaves mineral spots.' },
@@ -35,7 +37,7 @@ const faqs = [
   { q: 'How do I know the coating is still working?', a: 'Water behaviour is the tell. A working coating beads tightly and sheets off when you rinse. When beading goes flat and the paint stays dusty after a wash, it is almost always road film sitting on top of the coating, not the coating wearing out, and a decontamination wash brings it back. When the paint stops beading even after a proper decontamination, the coating has reached the end of its life and it is time to correct and re-coat.' },
   { q: 'Can wheels, glass, trim, wraps or PPF be coated too?', a: 'Yes, with coatings made for each surface. Wheel coatings shrug off brake dust so wheels rinse clean instead of needing harsh cleaners. Glass coatings sheet rain off the windshield at speed and make bugs and ice easier to clear. Trim coatings keep black plastic dark. Wraps, paint protection film and matte paint can be coated with matte-safe products that protect without adding gloss. We quote these as add-ons to the paint.' },
   { q: 'What is the difference between a spray-on ceramic and a professional coating?', a: 'Spray ceramics and ceramic-infused waxes are toppers: a thin layer applied in an afternoon that lasts a few months, with no prep. A professional coating is a far denser product applied panel by panel over corrected, decontaminated paint, then cured, and it protects for years. Sprays are a good way to maintain a professional coating between details. They are not a substitute for one.' },
-  { q: 'What decides the price of a ceramic coating?', a: 'Three things: the size of the vehicle, because more panels mean more prep and more product; the condition of the paint, which sets whether one-step or two-step correction is needed; and how much you want coated beyond the paint, such as wheels, glass and trim. We quote every vehicle individually from its year, make, model and a photo of the paint in sunlight. A quote far below the going rate usually means the correction is being skipped, and correction is most of the work.' },
+  { q: 'What decides the price of a ceramic coating?', a: `Two things: the size of the vehicle, because more panels mean more prep and more product, and how much paint correction goes under the coating, which is what separates Bronze, Silver and Gold. For a car, Bronze is ${usd(CERAMIC[0].prices[0])}, Silver ${usd(CERAMIC[1].prices[0])} and Gold ${usd(CERAMIC[2].prices[0])}; every size is listed on this page. Glass and interior coatings are add-ons. A quote far below the going rate usually means the correction is being skipped, and correction is most of the work.` },
   { q: 'Do you come to me for ceramic coating? What do you need?', a: 'Yes. We apply coatings at your home or workplace across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda and Walnut Creek. We need a garage, carport or shaded driveway out of direct sun and rain, and about a day. We bring water, power and lighting.' },
 ];
 
@@ -45,10 +47,9 @@ const schema = [
     description: 'Professional mobile ceramic coating in Oakland and the Bay Area. Complete application includes decontamination, paint correction and a hydrophobic ceramic coating bonded to the paint, applied at your home or workplace.',
     path,
     image: '/images/ceramic-coating-oakland.jpg',
-    offers: [
-      { name: 'Silver Ceramic Package', description: 'Hand wash, clay & iron decontamination, one-step paint correction, professional ceramic coating, cure & inspection.' },
-      { name: 'Gold Ceramic Package', description: 'Everything in Silver with two-step paint correction for heavily swirled or oxidized paint.' },
-    ],
+    minPrice: from(CERAMIC[0].prices),
+    maxPrice: Math.max(...CERAMIC[2].prices),
+    offers: CERAMIC.map((c) => ({ name: `${c.name} Ceramic Package`, description: `Hand wash, iron and clay decontamination, ${c.prep.toLowerCase()}, professional ceramic coating, cure and inspection.`, price: String(from(c.prices)) })),
   }),
   faqSchema(faqs),
   breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating', href: path }]),
@@ -65,139 +66,145 @@ const steps = [
 <Base {title} {description} canonical={path} {schema} ogImage="/images/ceramic-coating-oakland.jpg" preloadImage="/images/ceramic-coating-oakland.jpg">
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating' }]}
-    eyebrow="Professional ceramic coating · Oakland & Bay Area"
-    titleHtml="Ceramic Coating in Oakland, <em>a harder, glossier, easier-to-clean finish</em>. Applied in your driveway."
-    text="A complete coating, not a spray-on: hand wash, clay & iron decontamination, paint correction, then a professional-grade ceramic coating bonded to the paint. At your home or office, quoted per vehicle."
-    note="Complete · incl. decontamination & paint correction · full-day appointment"
+    eyebrow="Professional ceramic coating"
+    titleHtml="Ceramic Coating in Oakland, <em>applied in your driveway</em>"
+    text="A hard, glossy layer bonded to freshly corrected paint, so the car stays cleaner, washes in half the time and keeps its color. Every package includes the decontamination and polishing that make a coating worth having."
     image="/images/ceramic-coating-oakland.jpg"
     imageAlt="Ceramic coating being poured onto an applicator pad before a mobile application in Oakland, CA"
-    bullets={['Resists UV, sap, bird droppings, brake dust and road film', 'Correction included: the coating seals a flawless finish, not old defects', 'Hydrophobic: water sheets off, dirt lets go, every wash is faster']}
+    facts={[
+      { label: 'Bronze', value: `from ${usd(from(CERAMIC[0].prices))}` },
+      { label: 'Silver', value: `from ${usd(from(CERAMIC[1].prices))}` },
+      { label: 'Gold', value: `from ${usd(from(CERAMIC[2].prices))}` },
+      { label: 'Time', value: 'A full day' },
+    ]}
   />
 
-  <!-- Answer + pricing -->
-  <section class="section" id="pricing">
-    <div class="container two-col">
-      <div class="prose">
-        <span class="eyebrow">Ceramic coating in Oakland</span>
-        <h2 class="mt-0">What your coating quote depends on</h2>
-        <p><strong>A complete ceramic coating from J&W is quoted per vehicle.</strong> The quote covers the entire job: deep hand wash, clay and iron decontamination, paint correction, and a professional-grade coating applied and cured at your home anywhere in Oakland and the Bay Area. Vehicle size is the biggest factor: more surface area means more prep time and more product.</p>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Vehicle type</th><th>What it means for the job</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Coupe / Sedan</strong></td><td>Least surface area, fastest prep</td></tr>
-              <tr><td><strong>Mid-size SUV / Crossover</strong></td><td>The most common booking</td></tr>
-              <tr><td><strong>Large SUV / Truck</strong></td><td>Up to 40% more product and labor</td></tr>
-              <tr><td><strong>Add: multi-step correction (Gold)</strong></td><td>Heavily swirled, oxidized or black paint</td></tr>
-              <tr><td><strong>Add: wheels, glass, trim</strong></td><td>Extend coverage for easier cleaning</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p style="font-size:0.95rem;color:var(--muted)">A quote far below the going rate usually means the decontamination and correction are being skipped, and prep is the whole ballgame.</p>
-        <div class="btn-row">
-          <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-          <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost"><Icon name="phone" /> {SITE.phoneDisplay}</a>
-        </div>
-      </div>
-      <div>
-        <img src="/images/ceramic-coating-oakland.jpg" alt="Ceramic coating being applied to an applicator block before going onto the paint in Oakland" width="1080" height="1080" loading="lazy" decoding="async" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Packages -->
-  <section class="section section--dark" id="packages">
-    <div class="container">
-      <div class="center" style="margin-bottom:2.5rem">
-        <span class="eyebrow">Packages</span>
-        <h2>Silver or Gold, the difference is how much correction your paint needs</h2>
-      </div>
-      <div class="grid grid--2 pk" style="max-width:960px;margin-inline:auto">
-        <div class="pk__card">
-          <span class="pill">Silver</span>
-          <h3>Complete Coating + One-Step Correction</h3>
-          <p>For newer cars, well-kept daily drivers and lighter colors. Removes light swirls and restores most gloss before sealing it in.</p>
-          <ul class="checklist">
-            <li>Detailed hand wash & decon pre-soak</li>
-            <li>Iron removal + full clay bar</li>
-            <li>One-step machine paint correction</li>
-            <li>Panel prep wipe</li>
-            <li>Professional-grade ceramic coating on all paint</li>
-            <li>Cure, inspection & care guide</li>
-          </ul>
-          <p class="pk__price">Quoted by vehicle size</p>
-        </div>
-        <div class="pk__card pk__card--gold">
-          <span class="pill pill--gold">Gold</span>
-          <h3>Complete Coating + Two-Step Correction</h3>
-          <p>For heavily swirled, scratched or oxidized paint, black and dark colors, and anyone who wants show-level clarity locked in.</p>
-          <ul class="checklist">
-            <li><strong>Everything in Silver, plus:</strong></li>
-            <li>Two-step correction: compound + finishing polish</li>
-            <li>Hologram & deeper scratch removal</li>
-            <li>Extra inspection pass under LED light</li>
-            <li>Optional: coated wheels, glass & trim</li>
-          </ul>
-          <p class="pk__price">Silver + two-step correction</p>
-        </div>
-      </div>
-      <div class="center" style="margin-top:2rem">
-        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-        <p class="fud" style="justify-content:center"><Icon name="check" /> Quote by vehicle before booking · Applied at your home</p>
-      </div>
-    </div>
-  </section>
-
-  <Process steps={steps} heading="Four stages, prep is where cheap coatings fail, so we don't skip it" eyebrow="Our process" />
-
-  <!-- What a coating does -->
   <section class="section">
     <div class="container two-col">
       <div class="prose">
-        <span class="eyebrow">What a coating actually does</span>
-        <h2 class="mt-0">Four things that change once your paint is coated</h2>
-        <p><strong>It stops damage before it reaches the paint.</strong> A cured coating is a hard, chemically resistant layer on top of the clear coat. Bird droppings, tree sap, bug splatter, brake dust and industrial fallout sit on the coating instead of bonding to the paint and etching it, so they rinse or wipe off instead of leaving marks. UV works on the coating instead of oxidizing the clear coat, which is what keeps colour deep instead of chalky.</p>
-        <p><strong>It makes the car dramatically easier to keep clean.</strong> The surface is hydrophobic: water beads, then sheets off, and takes loose dirt with it. Dust and road film have far less to grip. A maintenance wash takes half the time, needs less scrubbing, and puts fewer swirls into the paint, because you are barely touching it.</p>
-        <p><strong>It locks in gloss.</strong> The coating is applied over paint that has just been corrected, so it seals a flawless, deep finish rather than old defects. Coated paint has a wet, reflective look that a topper cannot match, and it keeps it.</p>
-        <p><strong>It protects the value of the car.</strong> Paint condition is one of the first things a buyer or a dealer looks at. A coated car that has been washed properly still presents like new years later, which shows at trade-in time.</p>
-        <p>Oakland conditions make the case: salt air on anything parked near the water in Alameda or Jack London Square, sap in Rockridge and the hills, brake dust from 880, and strong sun most of the year. Two honest limits: a coating does not stop rock chips or deep scratches, that is paint protection film, and it is not maintenance-free, it just makes maintenance easy.</p>
-        <h3>Who books a coating with us</h3>
-        <ul>
-          <li><strong>New-car owners</strong>, coat it before the first swirl. Teslas, Rivians, Toyotas, BMWs.</li>
-          <li><strong>Black & dark paint</strong>, Gold package, because dark paint shows everything.</li>
-          <li><strong>Outdoor parkers</strong>, street-parked in Temescal, Berkeley or Emeryville, or a sunny driveway in Walnut Creek.</li>
-          <li><strong>People who hate washing</strong>, coated cars rinse clean; a maintenance wash takes half the time.</li>
-        </ul>
+        <span class="eyebrow">What you are paying for</span>
+        <h2>Most of a coating job happens before the coating</h2>
+        <p>A ceramic coating locks in whatever is underneath it. Put it over swirled, contaminated paint and you seal the swirls in for years. That is why the coating itself is the last hour of a full day, and the hours before it go into washing, dissolving iron, claying, polishing out defects and wiping every panel clean of oils so the coating can bond.</p>
+        <p>Once it cures, the coating takes the abuse your clear coat used to take. Sun works on the coating instead of fading the paint. Bird droppings, sap and bug splatter sit on top instead of etching in. Brake dust and road film cannot grip, and water beads and runs off instead of drying into spots.</p>
+        <p>The everyday result is simple: a car that looks freshly detailed after a rinse.</p>
       </div>
-      <div class="img-frame"><img src="/images/work-1.jpg" alt="Black sedan freshly ceramic coated by J&W Mobile Detailing in an Oakland driveway" width="1376" height="768" loading="lazy" decoding="async" /></div>
+      <div class="img-frame"><img src="/images/paint-correction-oakland.jpg" srcset="/images/paint-correction-oakland-400w.webp 400w, /images/paint-correction-oakland-680w.webp 680w, /images/paint-correction-oakland.jpg 1080w" sizes="(max-width: 900px) 100vw, 560px" alt="Swirl marks showing under an inspection light before paint correction and coating" width="1080" height="1080" loading="lazy" decoding="async" /></div>
     </div>
   </section>
 
-  <Reviews limit={3} filterService="Ceramic" heading="What Oakland drivers say after their coating" />
-  <Faq faqs={faqs} heading="Ceramic coating questions, answered straight" />
+  <section class="section section--soft" id="pricing">
+    <div class="container">
+      <div class="head">
+        <span class="eyebrow">Packages</span>
+        <h2>Three packages. The difference is the prep.</h2>
+        <p class="lead">Same professional coating in all three. What changes is how much paint correction goes underneath, which depends on the condition of your paint.</p>
+      </div>
+      <SizePicker />
+      <div class="cer">
+        {CERAMIC.map((c) => (
+          <article class:list={['cer__card', { 'cer__card--top': c.featured }]}>
+            {c.featured && <span class="cer__flag">Most booked</span>}
+            <h3>{c.name}</h3>
+            <p class="cer__prep">{c.prep}</p>
+            <p class="cer__price"><span data-prices={csv(c.prices)}>{usd(c.prices[0])}</span> <small>for a <span data-size-label>{SIZES[0].label}</span></small></p>
+            <p class="cer__for">{c.bestFor}</p>
+            <ul class="checklist">
+              <li>Hand wash, iron remover and clay bar</li>
+              <li>{c.prep}</li>
+              <li>Panel wipe so the coating bonds</li>
+              <li>Professional ceramic coating on all paint</li>
+              <li>Cure check and written care instructions</li>
+            </ul>
+            <div class="cer__cta">
+              <a href={CTA.href} class="btn btn--primary btn--block" data-scroll-book>{CTA.label}</a>
+              <a href={BOOK.href} class="btn btn--ghost btn--block"><Icon name="calendar" /> {BOOK.label}</a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="cer-add">
+        {CERAMIC_ADDONS.map((a) => (
+          <div><strong>{a.name}</strong> <span class="cer-add__price">{usd(a.price)}</span><p>{a.desc}</p></div>
+        ))}
+        <div><strong>Windshield ceramic coating</strong> <span class="cer-add__price">$95</span><p>Rain beads and blows off the glass at speed.</p></div>
+      </div>
+    </div>
+  </section>
 
-  <section class="section section--soft" id="quote">
-    <div class="container two-col">
+  <Process steps={steps} heading="How we apply a coating" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
       <div>
-        <span class="eyebrow">Request a quote</span>
-        <h2>Tell us year, make, model and color. We'll quote Silver vs. Gold.</h2>
-        <p class="lead">If you can, add a photo of the paint in sunlight so we can see the swirl level. Quotes usually go out within the hour during business hours.</p>
-        <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
+        <span class="eyebrow">Honest expectations</span>
+        <h2>What a coating does, and what it cannot do</h2>
+        <p class="lead">Coatings get oversold. Here is the straight version.</p>
       </div>
-      <QuoteForm heading="Ceramic coating quote" />
+      <div class="honest">
+        <div>
+          <h3>It will</h3>
+          <ul class="checklist">
+            <li>Keep the paint glossy and the color from fading</li>
+            <li>Stop sap, droppings and bugs etching in as fast</li>
+            <li>Make the car much faster to wash</li>
+            <li>Resist the fine marks normal washing leaves</li>
+            <li>Keep brake dust from baking onto coated wheels</li>
+          </ul>
+        </div>
+        <div>
+          <h3>It will not</h3>
+          <ul class="xlist">
+            <li>Stop rock chips or key scratches. That is paint protection film.</li>
+            <li>Survive brush car washes for long</li>
+            <li>Fix failing or peeling clear coat</li>
+            <li>Mean you never wash the car again</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
-  <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
-  <CtaBand title="Ready for years of gloss, without leaving home?" text="220+ five-star reviews · Eco-friendly products · We come to you across Oakland & the Bay Area." />
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Bay Area cars</span>
+      <h2>Why coatings make sense here</h2>
+      <p>Bay Area paint deals with salt from the marine layer, iron-heavy brake dust from the freeways, sap and pollen from street trees, and strong sun inland. A sealant handles that for a few months. A coating handles it for years, and it turns a sap-covered hood in Piedmont or a salt-filmed car in Alameda into a five-minute rinse.</p>
+      <p>Coatings pay off most on new cars, dark colors, cars that park outside and anyone who dislikes washing. New paint has the fewest defects to correct, and coating it before its first car wash means it never picks up the swirls most cars carry within a year.</p>
+
+      <h2>Keeping a coating working</h2>
+      <p>A coating needs gentle, regular washing to keep beading. Wash every two to three weeks with a pH-neutral soap, dry with microfiber or air, and skip brush car washes. Touchless washes are fine. When beading looks weak, it is usually road film on top of the coating, not the coating wearing out, and a decontamination wash brings it back.</p>
+      <p>The easiest way to do all of that is a <a href="/membership/">maintenance membership</a>: we wash it the right way on a schedule and keep an eye on how the coating is holding up.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Ceramic" heading="What people say about their coatings" />
+  <Faq faqs={faqs} heading="Ceramic coating questions" />
+  <QuoteSection eyebrow="Ceramic quote" title="Send us a photo of the paint in direct sun." text="Tell us the car and how it is parked. From a photo we can usually tell which package your paint needs, and we confirm the price and the day." />
+  <ServicesGrid exclude={path} heading="Other services we bring to you" eyebrow="More from J&W" lead="" />
+  <CtaBand title="Years of gloss, applied at your home." />
 </Base>
 
 <style>
-  .pk__card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
-  .pk__card--gold { border-color: var(--gold); box-shadow: 0 0 0 1px rgba(245,179,1,0.3), var(--shadow); }
-  .pk__card h3 { margin: 0.5rem 0 0; font-size: 1.5rem; color: #fff; }
-  .pk__card > p { color: #b9bec8; font-size: 0.95rem; }
-  .pk__card .checklist { color: #e7e9ee; font-size: 0.95rem; }
-  .pk__price { margin-top: auto; font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: #fff; }
-  .pk__price small { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; color: #b9bec8; }
+  .cer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; max-width: 1080px; margin: 0 auto; }
+  @media (max-width: 900px) { .cer { grid-template-columns: 1fr; max-width: 480px; } }
+  .cer__card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 1.6rem; display: flex; flex-direction: column; }
+  .cer__card--top { border: 2px solid var(--ink); box-shadow: var(--shadow); }
+  .cer__flag { position: absolute; top: -0.75rem; left: 1.4rem; background: var(--red); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.7rem; border-radius: 999px; }
+  .cer__card h3 { font-size: 1.5rem; margin: 0; }
+  .cer__prep { color: var(--red-text); font-weight: 650; font-size: 0.92rem; margin: 0.2rem 0 0.9rem; }
+  .cer__price { font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; letter-spacing: -0.04em; color: var(--ink); margin: 0; line-height: 1.1; }
+  .cer__price small { font-family: var(--font-body); font-size: 0.88rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .cer__for { color: var(--muted); font-size: 0.93rem; margin: 0.6rem 0 1rem; }
+  .cer__card .checklist { font-size: 0.93rem; margin-bottom: 1.3rem; }
+  .cer__cta { margin-top: auto; display: grid; gap: 0.5rem; }
+  .cer-add { max-width: 1080px; margin: 1.25rem auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  @media (max-width: 900px) { .cer-add { grid-template-columns: 1fr; } }
+  .cer-add > div { border: 1px solid var(--line); background: #fff; border-radius: 16px; padding: 1rem 1.2rem; }
+  .cer-add strong { color: var(--ink); }
+  .cer-add__price { float: right; font-family: var(--font-display); font-weight: 800; color: var(--ink); }
+  .cer-add p { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--muted); }
+  .honest { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 640px) { .honest { grid-template-columns: 1fr; } }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
 </style>

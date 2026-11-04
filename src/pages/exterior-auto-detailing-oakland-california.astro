@@ -5,152 +5,195 @@ import Process from '../components/Process.astro';
 import Faq from '../components/Faq.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
-import QuoteForm from '../components/QuoteForm.astro';
+import QuoteSection from '../components/QuoteSection.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
+import AddonsList from '../components/AddonsList.astro';
+import SizePicker from '../components/SizePicker.astro';
 import Icon from '../components/Icons.astro';
-import { SITE, CTA } from '../data/site';
+import { CTA, BOOK } from '../data/site';
+import { PACKAGES, EXTERIOR_ONLY, SIZES, from, usd, type PriceRow } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/exterior-auto-detailing-oakland-california/';
-const title = 'Exterior Car Detailing Oakland, CA | At Your Home | J&W Mobile';
-const description =
-  'Mobile exterior car detailing in Oakland: two-bucket hand wash, clay bar & iron decon, wheels & tires, wax or sealant. Done in your driveway. Quoted per vehicle. 4.9★ Google.';
+const fd = PACKAGES[0];
+const dr = PACKAGES[1];
+const csv = (r: PriceRow) => r.join(',');
+const title = 'Exterior Car Detailing Oakland, CA | Hand Wash & Sealant | J&W';
+const description = `Mobile exterior car detailing in Oakland: two-bucket hand wash, iron and clay decontamination, wheels, door jambs and ceramic sealant. From ${usd(from(EXTERIOR_ONLY.prices))}, in your driveway.`;
 
 const faqs = [
-  { q: 'What is the difference between the Classic and Clay & Seal exterior?', a: 'Classic is a proper two-bucket hand wash with wheels, tires, glass and a protective wax. The right call for a car that is already decontaminated. Clay & Seal adds full clay bar and iron removal to pull bonded contamination out of the paint, then a synthetic sealant that holds for months rather than weeks. If your car has not been decontaminated in six months or more, Clay & Seal is the one. We quote your vehicle exactly either way.' },
-  { q: 'What is the difference between a car wash and exterior detailing?', a: 'A car wash removes loose dirt. Exterior detailing decontaminates the paint, clay bar for bonded grit, iron remover for embedded brake dust. Cleans wheels, tires, wells and trim properly, and finishes with real protection (wax or sealant). The result looks better and lasts months instead of days.' },
-  { q: 'How often should I get an exterior detail in the Bay Area?', a: 'Every 3–4 months for a daily driver in Oakland. Salt air, I-880 brake dust and tree sap bond to paint quickly here; a quarterly clay and seal keeps the clear coat from etching. Ceramic-coated cars can stretch to maintenance washes with a yearly decon.' },
-  { q: 'Will exterior detailing remove scratches and swirl marks?', a: 'No. Washing and decontamination clean the paint but do not remove defects in the clear coat. Swirls, light scratches and oxidation are removed by machine polishing, which is our paint correction service. We will tell you honestly if your paint needs it.' },
-  { q: 'How long does an exterior detail take?', a: 'About 1.5 hours for a Classic wash & wax on a sedan, 2–3 hours for Clay & Seal on an SUV or truck.' },
-  { q: 'Do you need my hose or outlet?', a: 'No. We bring our own water and power. Driveway, legal curb spot, office lot or garage. Anywhere in Oakland and the Bay Area.' },
-  { q: 'Wax or sealant, which should I choose?', a: 'Wax gives a warm gloss for 6–8 weeks. A synthetic paint sealant bonds harder and lasts 4–6 months, which is why our Clay & Seal package uses it. For multi-year protection, step up to a ceramic coating.' },
+  { q: 'What is the difference between a car wash and an exterior detail?', a: 'A car wash takes off loose dirt. An exterior detail also removes what is bonded to the paint: iron particles from brake dust, tar, tree sap and industrial fallout. That is what makes paint feel rough when you run your hand over it in a plastic sandwich bag. We dissolve the iron, clay off the rest, clean the wheels, wells and door jambs properly, then protect the paint with a ceramic sealant that lasts months, not days.' },
+  { q: 'Does an exterior detail remove scratches and swirl marks?', a: 'No. Washing and decontamination clean the paint, but swirls and scratches are damage in the clear coat. Removing them takes machine polishing, which is our paint correction service. If we see swirls, we will point them out and you can decide whether to deal with them.' },
+  { q: 'How long does the sealant last?', a: 'About three months with the Exterior Detail and the Full Detail, and about six with the Deep Reset, on a car washed gently every few weeks. Brush car washes, strong degreasers and parking under sap-dropping trees all shorten it. For protection measured in years, look at ceramic coating.' },
+  { q: 'How often should I get an exterior detail in the Bay Area?', a: 'Every three to four months for a daily driver that parks outside. That is about how long sealant holds up against salt air, brake dust and sap here. A car on a maintenance membership gets a wash and a sealant top-up on every visit, so it rarely needs the full decontamination.' },
+  { q: 'Do you need my water or power?', a: 'No. The van carries its own water and a generator. We need room to walk around the car with the doors open, and ideally a spot out of direct afternoon sun so water does not dry on the paint.' },
+  { q: 'Can you clean my engine bay?', a: 'Yes, as a $75 add-on. We cover sensitive electrics, degrease, rinse gently at low pressure, dry with air and dress the plastics. We do not pressure-wash engines.' },
+  { q: 'My headlights are yellow. Can you fix them?', a: 'Yes, as a $95 add-on. We sand off the failed, yellowed layer, polish the lens clear and seal it with a UV-resistant coating so it does not yellow again in a few months.' },
 ];
 
 const schema = [
   serviceSchema({
     name: 'Exterior Car Detailing',
-    description: 'Mobile exterior detailing in Oakland and the Bay Area: two-bucket hand wash, clay bar and iron decontamination, wheels, tires and trim, protective wax or paint sealant.',
+    description: 'Mobile exterior detailing in Oakland and the Bay Area: foam pre-soak, two-bucket hand wash, iron and clay decontamination, wheels, tires, door jambs and a ceramic paint sealant.',
     path,
     image: '/images/exterior-detailing-oakland.jpg',
-    offers: [
-      { name: 'Classic Exterior Detail', description: 'Two-bucket hand wash, wheels/rims/tires detailed, exterior glass & mirrors, protective wax, tire dressing.' },
-      { name: 'Exterior Detail – Clay & Seal', description: 'Everything in Classic plus full clay bar decontamination, iron removal and a protective paint sealant. Most popular.' },
-    ],
+    minPrice: from(EXTERIOR_ONLY.prices),
+    maxPrice: Math.max(...EXTERIOR_ONLY.prices),
+    offers: [{ name: EXTERIOR_ONLY.name, description: EXTERIOR_ONLY.items.join('; '), price: String(from(EXTERIOR_ONLY.prices)) }],
   }),
   faqSchema(faqs),
   breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Exterior Detailing', href: path }]),
 ];
 
 const steps = [
-  { title: 'Two-bucket hand wash', text: 'Decontamination pre-soak, then a careful two-bucket wash with pH-neutral shampoo and a clean mitt. Never automated brushes, never grit dragged across your clear coat.' },
-  { title: 'Decontaminate & clay bar', text: 'Iron remover dissolves embedded brake dust; clay bar pulls tar, sap and industrial fallout off the paint until it feels like glass.' },
-  { title: 'Wheels, tires & trim', text: 'Dedicated brushes and chemicals for baked-on brake dust, fender liners and wheel wells; trim cleaned; tires dressed satin. Not greasy.' },
-  { title: 'Protect & inspect', text: 'Wax (Classic) or synthetic paint sealant (Clay & Seal) locks in gloss and shields against UV and grime. Glass streak-free. Walk-around before we leave.' },
+  { title: 'Wheels first', text: 'Wheels and wells hold the worst grime on the car, so they are cleaned first with their own brushes and buckets, and never touch the paint mitt.' },
+  { title: 'Foam and hand wash', text: 'A foam pre-soak loosens dirt so less of it is dragged across the paint. Then a two-bucket hand wash: one bucket of soap, one of rinse water to clean the mitt between panels.' },
+  { title: 'Decontaminate', text: 'Iron remover dissolves embedded brake dust and rail dust. A clay bar lifts tar, sap and overspray until the paint feels smooth as glass.' },
+  { title: 'Dry and detail', text: 'Dried with plush microfiber and air so nothing drips out of mirrors and trim later. Door jambs wiped, glass cleaned, tires dressed satin.' },
+  { title: 'Protect and inspect', text: 'A ceramic sealant goes on every painted panel. Then we walk the car with you in good light before we leave.' },
 ];
 ---
 
 <Base {title} {description} canonical={path} {schema} ogImage="/images/exterior-detailing-oakland.jpg" preloadImage="/images/exterior-detailing-oakland.jpg">
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Exterior Detailing' }]}
-    eyebrow="Mobile exterior detailing · Oakland & Bay Area"
-    titleHtml="Exterior Car Detailing in Oakland, <em>hand-washed, decontaminated, protected</em>. Never a tunnel."
-    text="Two-bucket hand wash, clay bar & iron decontamination, wheels and tires done properly, then wax or a months-long paint sealant. In your driveway, with our own water and power."
-    note="Classic wash & wax → Clay & Seal · 1.5–3 hours"
+    eyebrow="Mobile exterior detailing"
+    titleHtml="Exterior Car Detailing in Oakland, <em>washed by hand, never by brushes</em>"
+    text="A careful hand wash, the bonded contamination a car wash leaves behind, and months of ceramic sealant on top. Done in your driveway or office lot with our own water and power."
     image="/images/exterior-detailing-oakland.jpg"
     imageAlt="Foam pre-soak on a white sedan during a mobile exterior detail by J&W in Oakland, CA"
-    bullets={['No automated brushes, ever', 'Clay bar + iron remover pulls what washes leave behind', 'Sealant that lasts months, not days']}
+    facts={[
+      { label: 'Exterior only', value: `from ${usd(from(EXTERIOR_ONLY.prices))}` },
+      { label: 'Inside & out', value: `from ${usd(from(fd.insideOut))}` },
+      { label: 'Time', value: '1.5 to 2 hours' },
+      { label: 'Protection', value: 'About 3 months' },
+    ]}
   />
 
   <section class="section">
     <div class="container two-col">
       <div class="prose">
-        <span class="eyebrow">What you get</span>
-        <h2 class="mt-0">Exterior detailing that makes your paint feel like glass again</h2>
-        <p><strong>An exterior detail with J&W takes 1.5–3 hours and is quoted per vehicle.</strong> We hand-wash with the two-bucket method, decontaminate the paint with iron remover and clay bar, detail wheels, tires, wells and trim, and finish with wax or a synthetic paint sealant. At your home or office anywhere in Oakland and the Bay Area.</p>
-        <p>Run your hand over your hood after a car wash. If it feels gritty, that's bonded contamination. Salt from the marine layer, iron from I-880 brake dust, sap from the street trees on Piedmont Avenue. And a wash will never remove it. Clay and iron remover do. Protection then keeps it from re-bonding, which is why our most-booked package is Clay & Seal.</p>
-        <p>Paint with visible swirls or scratches needs more than cleaning: that's <a href="/paint-correction/">paint correction</a>, and we'll tell you honestly if yours needs it.</p>
+        <span class="eyebrow">Why it is different from a wash</span>
+        <h2>Clean paint should feel like glass</h2>
+        <p>Run your fingertips over the hood of a car that has only ever been through car washes, and it will feel slightly rough. That roughness is contamination bonded to the clear coat: tiny iron particles from brake dust, tar from the road, sap and pollen, and fallout from the freeway and the port. Soap does not remove it. It keeps the paint from shining, and over time it can etch.</p>
+        <p>An exterior detail takes it all off. We dissolve the iron, lift the rest with clay, and then seal the clean paint so the next few months of grime have a harder time sticking.</p>
+        <p>And we do it without brushes. The spinning brushes in a tunnel wash carry grit from every car before yours, which is why so many dark cars look cobwebbed in the sun. A careful hand wash does not add those marks.</p>
       </div>
-      <div class="img-frame"><img src="/images/work-2.jpg" alt="J&W technician finishing a black sedan's paint in an Oakland driveway" width="1376" height="768" loading="lazy" decoding="async" /></div>
+      <div class="img-frame"><img src="/images/hero-oakland-mobile-detailing.webp" srcset="/images/hero-oakland-mobile-detailing-760w.webp 760w, /images/hero-oakland-mobile-detailing-1080w.webp 1080w" sizes="(max-width: 900px) 100vw, 560px" alt="J&W technician hand washing a car in a customer driveway, with the van behind" width="1080" height="608" loading="lazy" decoding="async" /></div>
     </div>
   </section>
 
   <section class="section section--soft" id="packages">
     <div class="container">
-      <div class="center" style="margin-bottom:2.5rem">
-        <span class="eyebrow">Exterior packages</span>
-        <h2>Two packages. One of them is the right call.</h2>
+      <div class="head">
+        <span class="eyebrow">Exterior pricing</span>
+        <h2>Outside only, or the whole car</h2>
+        <p class="lead">The Exterior Detail is the outside on its own. Booking inside and out? The Full Detail and Deep Reset include the same exterior work, and the Deep Reset upgrades the sealant to about six months.</p>
       </div>
-      <div class="grid grid--2 tiers" style="max-width:900px;margin-inline:auto">
-        <div class="tier">
-          <span class="pill">Maintenance</span>
-          <h3>Classic Exterior Detail</h3>
-          <p class="tier__for">For regularly washed cars that need a proper hand wash and fresh protection.</p>
-          <ul class="checklist">
-            <li>Decontamination pre-soak</li>
-            <li>Two-bucket hand wash, microfiber & compressed-air dry</li>
-            <li>Wheels, rims, wheel wells & tires detailed</li>
-            <li>Exterior glass & mirrors</li>
-            <li>Protective wax (6–8 weeks)</li>
-            <li>Tire dressing & shine</li>
-          </ul>
-        </div>
-        <div class="tier tier--featured">
-          <span class="pill pill--dark">Most popular</span>
-          <h3>Exterior Detail, Clay & Seal</h3>
-          <p class="tier__for">For any car that hasn't been decontaminated in 6+ months. The right quarterly detail for the Bay Area.</p>
-          <ul class="checklist">
-            <li><strong>Everything in Classic, plus:</strong></li>
-            <li>Full clay bar decontamination, every panel & glass</li>
-            <li>Iron contamination removal</li>
-            <li>Trim cleaned & treated</li>
-            <li>Synthetic paint sealant (4–6 months of protection)</li>
-            <li>Door jambs wiped</li>
-          </ul>
-        </div>
-      </div>
-      <p class="center" style="margin-top:1.5rem;color:var(--muted);font-size:0.95rem">Bundle with an <a href="/interior-auto-detailing-oakland-california/">interior detail</a> for a full detail. Add-ons: headlight restoration · engine bay · trim restoration.</p>
-      <div class="center" style="margin-top:1.5rem">
-        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-        <p class="fud" style="justify-content:center"><Icon name="check" /> Quote before we book · We come to you</p>
+      <SizePicker />
+      <div class="ext-cards">
+        <article class="ext-card ext-card--main">
+          <span class="pill">Exterior only</span>
+          <h3>{EXTERIOR_ONLY.name}</h3>
+          <p class="ext-card__price"><span data-prices={csv(EXTERIOR_ONLY.prices)}>{usd(EXTERIOR_ONLY.prices[0])}</span> <small>for a <span data-size-label>{SIZES[0].label}</span></small></p>
+          <ul class="checklist">{EXTERIOR_ONLY.items.map((i) => <li>{i}</li>)}</ul>
+          <div class="ext-card__cta">
+            <a href={CTA.href} class="btn btn--primary" data-scroll-book>{CTA.label}</a>
+            <a href={BOOK.href} class="btn btn--ghost"><Icon name="calendar" /> {BOOK.label}</a>
+          </div>
+        </article>
+        <article class="ext-card">
+          <span class="pill pill--dark">Inside & out</span>
+          <h3>Full Detail</h3>
+          <p class="ext-card__price"><span data-prices={csv(fd.insideOut)}>{usd(fd.insideOut[0])}</span></p>
+          <p>The same exterior, plus a full interior clean with steam.</p>
+          <h3 class="ext-card__second">Deep Reset</h3>
+          <p class="ext-card__price"><span data-prices={csv(dr.insideOut)}>{usd(dr.insideOut[0])}</span></p>
+          <p>Adds paint decontamination and six-month sealant, plus shampoo extraction inside.</p>
+          <a href="/pricing/" class="card__link">Compare both packages</a>
+        </article>
       </div>
     </div>
   </section>
 
-  <Process steps={steps} heading="Four stages, same order, every car" eyebrow="How we do it" />
+  <Process steps={steps} heading="How we detail the outside of a car" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div>
+        <span class="eyebrow">Honest expectations</span>
+        <h2>What an exterior detail fixes, and what needs more</h2>
+        <p class="lead">Cleaning and protecting are not the same as repairing. Here is where the line is.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Fixed by this detail</h3>
+          <ul class="checklist">
+            <li>Brake dust caked on the wheels</li>
+            <li>Rough, gritty-feeling paint</li>
+            <li>Tree sap and bird droppings that have not etched yet</li>
+            <li>Road film and bug splatter</li>
+            <li>Dull, unprotected paint</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Needs more than a detail</h3>
+          <ul class="xlist">
+            <li>Swirl marks and light scratches: <a href="/paint-correction/">paint correction</a></li>
+            <li>Etched water spots and sap marks: polishing</li>
+            <li>Rock chips and deep scratches: touch-up paint</li>
+            <li>Peeling or failing clear coat: a body shop</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AddonsList only="exterior" heading="Exterior add-ons" lead="Same price on every vehicle size." />
 
   <section class="section">
     <div class="container prose max-prose" style="margin-inline:auto">
-      <span class="eyebrow">Oakland-specific</span>
-      <h2 class="mt-0">Why Bay Area paint needs decontamination, not just washing</h2>
-      <p>Bay Area cars pick up three things fast: salt-carrying marine air off the estuary and the Bay, a fine layer of iron-rich brake dust from stop-and-go traffic on I-880, I-580 and Highway 24, and sap and berry drop from Oakland's street trees. All three etch into unprotected clear coat within weeks, which is why the clay and sealant steps matter more here than in a dry inland climate, and why we recommend a Clay & Seal every 3–4 months for daily drivers parked outside in Rockridge, Temescal, Grand Lake or Alameda.</p>
-      <p>Want protection that lasts years instead of months? A <a href="/ceramic-coating/">ceramic coating</a> includes all of this decontamination plus paint correction, and means you never wax again.</p>
+      <span class="eyebrow">Bay Area paint</span>
+      <h2>What Bay Area weather does to paint</h2>
+      <p><strong>Salt air and the marine layer.</strong> Fog leaves a fine salt film on every panel overnight, and Alameda and the Richmond shoreline get it worst. Left on, salt dulls paint and speeds up corrosion on chips and wheel bolts.</p>
+      <p><strong>Brake dust from the freeways.</strong> Stop-and-go on the 880, the 580 and the Bay Bridge approach coats wheels and lower panels in iron particles that bake on in the sun. Iron remover turns purple as it dissolves them, which is how you know it is working.</p>
+      <p><strong>Sap and bird droppings.</strong> The street trees in Rockridge, Berkeley and Piedmont drop sap through spring and summer. Sap and droppings are acidic and will etch the clear coat in a few hot days. A sealed car lets them wipe off. An unsealed one keeps the mark.</p>
+      <p><strong>Water spots.</strong> Sprinklers and morning dew dry into mineral spots. On a sealed surface they rinse away. On bare paint, given enough sun, they etch.</p>
+
+      <h2>Wax, sealant or ceramic coating?</h2>
+      <p>Carnauba wax gives a warm shine that lasts a few weeks. The ceramic sealant in our exterior detail bonds harder and lasts about three months, or six with the Deep Reset, and it is what we recommend for most cars. A <a href="/ceramic-coating/">ceramic coating</a> is a different product: a hard layer bonded to corrected paint that lasts years, not months. If you keep the car a long time or hate washing it, a coating pays for itself.</p>
+
+      <h2>Keeping it clean between details</h2>
+      <ul>
+        <li>Wash every two to three weeks with a pH-neutral soap and two buckets, or let a <a href="/membership/">membership visit</a> do it.</li>
+        <li>Touchless car washes are fine. Skip anything with brushes or cloth strips.</li>
+        <li>Get bird droppings and sap off within a day or two with a quick detailer spray and a soft microfiber.</li>
+        <li>Dry the car instead of letting it air-dry in the sun.</li>
+      </ul>
     </div>
   </section>
 
-  <Reviews limit={3} filterService="Full Detail" heading="What Oakland drivers say about the finish" />
-  <Faq faqs={faqs} heading="Exterior detailing questions, answered" />
-
-  <section class="section section--soft" id="quote">
-    <div class="container two-col">
-      <div>
-        <span class="eyebrow">Get a quote</span>
-        <h2>Tell us the vehicle. We'll tell you the price.</h2>
-        <p class="lead">Year, make, model and when it was last detailed. That's all we need to quote Classic vs. Clay & Seal, usually within the hour.</p>
-        <p class="alt-book"><a href={SITE.booking} target="_blank" rel="noopener">{CTA.bookLabel} &rarr;</a></p>
-      </div>
-      <QuoteForm heading="Exterior detail quote" />
-    </div>
-  </section>
-
-  <ServicesGrid exclude={path} heading="Other services we bring to your driveway" eyebrow="More from J&W" lead="" />
-  <CtaBand title="Paint that feels like glass, without leaving the house." />
+  <Reviews limit={3} filterService="Full Detail" heading="What people say about the shine" />
+  <Faq faqs={faqs} heading="Exterior detailing questions" />
+  <QuoteSection eyebrow="Exterior quote" title="Tell us the car and where it parks." text="We confirm the price and the next openings, usually within minutes during business hours." />
+  <ServicesGrid exclude={path} heading="Other services we bring to you" eyebrow="More from J&W" lead="" />
+  <CtaBand title="Paint that feels like glass, washed in your own driveway." />
 </Base>
 
 <style>
-  .tier { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
-  .tier--featured { border: 2px solid var(--red); box-shadow: var(--shadow); }
-  .tier h3 { margin: 0.5rem 0 0; font-size: 1.6rem; }
-  .tier__for { color: var(--muted); font-size: 0.95rem; }
-  .tier .checklist { font-size: 0.95rem; }
-  .tier__price { margin-top: auto; font-family: var(--font-display); font-size: 1.9rem; font-weight: 800; color: var(--ink); }
+  .ext-cards { display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+  @media (max-width: 820px) { .ext-cards { grid-template-columns: 1fr; } }
+  .ext-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 1.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .ext-card--main { border: 2px solid var(--ink); }
+  .ext-card h3 { font-size: 1.6rem; margin: 0.4rem 0 0; }
+  .ext-card__second { margin-top: 1rem !important; }
+  .ext-card__price { font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; letter-spacing: -0.04em; color: var(--ink); margin: 0; line-height: 1.1; }
+  .ext-card__price small { font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .ext-card p { margin: 0; color: var(--muted); }
+  .ext-card .checklist { margin: 0.75rem 0 1.25rem; }
+  .ext-card__cta { margin-top: auto; display: grid; gap: 0.55rem; }
+  .honest { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 640px) { .honest { grid-template-columns: 1fr; } }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
 </style>

@@ -57,6 +57,23 @@ export const CTA = {
   bookLabel: 'or book instantly online',
 };
 
+// Secondary action shown beside the quote button now that prices are on the
+// site: straight into the Fieldd calendar. The quote form stays primary because
+// it is what Google Ads counts as a conversion (the thank-you page). To make
+// online booking the primary button everywhere, swap the two in the components
+// that render { CTA, BOOK } and add a Fieldd booking conversion in Google Ads.
+export const BOOK = {
+  label: 'Book Online',
+  href: SITE.booking,
+};
+
+// One line across the top of every page. Set text to '' to hide it.
+export const ANNOUNCEMENT = {
+  text: 'Keep it clean all year: members get every maintenance detail at a lower locked-in price.',
+  linkLabel: 'See membership',
+  href: '/membership/',
+};
+
 // ---------------------------------------------------------------------------
 // Which form engine the #quote sections render.
 //
@@ -171,12 +188,14 @@ export const NAV: NavItem[] = [
       { label: 'Ceramic Coating', href: '/ceramic-coating/' },
       { label: 'Odor Removal', href: '/odor-removal-oakland/' },
       { label: 'RV Wash & Detailing', href: '/rv-wash-and-rv-detailing-oakland-california/' },
+      { label: 'All services', href: '/services/' },
     ],
   },
-  { label: 'Ceramic Coating', href: '/ceramic-coating/' },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Membership', href: '/membership/' },
   { label: 'Reviews', href: '/reviews/' },
   {
-    label: 'Service Areas',
+    label: 'Locations',
     href: '/service-areas/',
     children: [
       { label: 'Alameda', href: '/auto-detailing-alameda-ca/' },
@@ -316,11 +335,13 @@ export const REVIEWS: Review[] = [
 export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
-  { q: 'How much does mobile car detailing cost in Oakland?', a: 'Every vehicle is quoted individually. Size, condition and the service you want all move the number, so a blanket price list would only mislead you. Tell us what you drive and we respond fast with your price, usually within minutes during business hours. You approve the price before anything is booked.' },
+  { q: 'How much does mobile car detailing cost in Oakland?', a: 'Our Full Detail, inside and out, is $275 for a car and up to $345 for a three-row SUV or van. The Deep Reset, for stains, pet hair and heavy dirt, runs $425 to $515. Exterior-only details start at $145, and members pay from $130 a visit. Every price is on our pricing page, and you confirm it before anything is booked.' },
   { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the Bay Area. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: 'An exterior detail takes about 1.5–3 hours, an interior deep clean 2–4 hours, and a full detail 3–7 hours depending on vehicle size and condition. Ceramic coating with paint correction is typically a full-day appointment.' },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond and nearby Bay Area communities. If you are just outside that list, call us. We can usually make it work.' },
-  { q: 'How do I book?', a: 'Fill in the quote form on this page. Name, phone and what you drive, about 30 seconds. We respond fast with a price, usually within minutes during business hours, and you pick a time from there. You inspect the work with us before we leave. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
+  { q: 'How do I book?', a: 'Two ways. Book a time yourself online, or send the quote form on this page with your name, number and what you drive, and we text back a price and the next openings, usually within minutes during business hours. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
+  { q: 'What is the difference between the Full Detail and the Deep Reset?', a: 'The Full Detail is the right call for most cars: full vacuum, steam on the hard surfaces, every panel wiped and dressed, a hand wash with clay and iron decontamination, and about three months of sealant. The Deep Reset adds hot-water shampoo extraction of the seats and carpet, stain treatment, leather conditioning and six-month sealant. If your car has stains, pet hair, spilled drinks or a smell, book the Deep Reset.' },
+  { q: 'Do you offer a membership or recurring detailing?', a: 'Yes. After a first Full Detail or Deep Reset, members get a Maintenance Detail monthly, every two months or quarterly at a locked-in member price, starting at $130 a visit for a car. There is a three-visit minimum, and you can cancel any time after that.' },
   { q: 'How long does a ceramic coating last?', a: 'A professional coating is measured in years, not months. How long depends on the grade of coating, how well the paint is prepared underneath it and how the car is washed afterwards. Every coating is quoted after we see the vehicle, because the price covers full prep: decontamination and paint correction, not just the coating itself, and how much correction your paint needs is the variable. Send us your vehicle and we will come back with an exact number and the expected life of the coating we quote.' },
 ];
 
@@ -332,8 +353,6 @@ export const GALLERY = [
   { src: '/images/paint-correction-polishing-oakland.jpg', alt: 'Machine polishing a hood during paint correction', label: 'Paint correction', w: 1080, h: 1080 },
   { src: '/images/paint-correction-oakland.jpg', alt: 'Swirl marks visible under inspection light before paint correction', label: 'Swirl inspection', w: 1080, h: 1080 },
   { src: '/images/ceramic-coating-oakland.jpg', alt: 'Ceramic coating poured onto an applicator pad', label: 'Ceramic coating', w: 1080, h: 1080 },
-  { src: '/images/work-1.jpg', alt: 'Black sedan freshly ceramic coated in an Oakland driveway by J&W Mobile Detailing', label: 'Ceramic coated sedan', w: 1376, h: 768 },
-  { src: '/images/work-2.jpg', alt: 'Jalil applying ceramic coating to a black sedan at a customer home', label: 'Coating application', w: 1376, h: 768 },
   { src: '/images/odor-removal-oakland.jpg', alt: 'Ozone generator running for odor removal treatment', label: 'Ozone odor removal', w: 1080, h: 1080 },
   { src: '/images/rv-wash-wax-oakland.jpg', alt: 'Washing the roof line of a motorhome', label: 'RV wash & wax', w: 1080, h: 1080 },
   { src: '/images/jalil-owner-jw-mobile-detailing-oakland.jpg', alt: 'Jalil Wren, owner of J&W Mobile Detailing, detailing a steering wheel', label: 'Our founder', w: 1080, h: 1080 },

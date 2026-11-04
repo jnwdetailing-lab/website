@@ -1,14 +1,20 @@
 ---
-// Shared skeleton for city pages. All copy is passed in per city — no city-swap templating of the text itself.
+// Shared skeleton for city pages. All copy is passed in per city; there is no
+// city-swap templating of the text itself. FAQ answers may use the price tokens
+// {FULL_RANGE} {RESET_RANGE} {EXT_FROM} {MEMBER_FROM}, filled from pricing.ts so
+// a price change reaches every city page.
 import Base from '../layouts/Base.astro';
 import PageHero from './PageHero.astro';
 import ServicesGrid from './ServicesGrid.astro';
+import PriceExplorer from './PriceExplorer.astro';
+import ComeToYou from './ComeToYou.astro';
 import Faq from './Faq.astro';
 import Reviews from './Reviews.astro';
 import CtaBand from './CtaBand.astro';
-import QuoteForm from './QuoteForm.astro';
+import QuoteSection from './QuoteSection.astro';
 import Icon from './Icons.astro';
-import { SITE, type FAQ, CTA } from '../data/site';
+import { SITE, type FAQ, CTA, BOOK } from '../data/site';
+import { PACKAGES, EXTERIOR_ONLY, MEMBERSHIP, from, usd, type PriceRow } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 export interface Props {
@@ -27,6 +33,17 @@ export interface Props {
   mapEmbed: string;
 }
 const p = Astro.props;
+
+const range = (r: PriceRow) => `${usd(from(r))} to ${usd(Math.max(...r))}`;
+const tokens: Record<string, string> = {
+  '{FULL_RANGE}': range(PACKAGES[0].insideOut),
+  '{RESET_RANGE}': range(PACKAGES[1].insideOut),
+  '{EXT_FROM}': usd(from(EXTERIOR_ONLY.prices)),
+  '{MEMBER_FROM}': usd(from(MEMBERSHIP.cadences[0].prices)),
+};
+const fill = (t: string) => Object.entries(tokens).reduce((s, [k, v]) => s.split(k).join(v), t);
+const faqs = p.faqs.map((f) => ({ q: f.q, a: fill(f.a) }));
+
 const schema = [
   serviceSchema({
     name: `Mobile Car Detailing in ${p.city}`,
@@ -34,8 +51,10 @@ const schema = [
     path: p.path,
     image: p.heroImage,
     areaServed: [p.city],
+    minPrice: from(EXTERIOR_ONLY.prices),
+    maxPrice: Math.max(...PACKAGES[1].insideOut),
   }),
-  faqSchema(p.faqs),
+  faqSchema(faqs),
   breadcrumbSchema([{ label: 'Service Areas', href: '/service-areas/' }, { label: p.city, href: p.path }]),
 ];
 ---
@@ -48,14 +67,19 @@ const schema = [
     text={p.heroText}
     image={p.heroImage}
     imageAlt={p.heroAlt}
-    note="Exterior · interior · paint correction · ceramic coating"
+    facts={[
+      { label: 'Full Detail', value: `from ${usd(from(PACKAGES[0].insideOut))}` },
+      { label: 'Exterior only', value: `from ${usd(from(EXTERIOR_ONLY.prices))}` },
+      { label: 'Members', value: `from ${usd(from(MEMBERSHIP.cadences[0].prices))}/visit` },
+      { label: 'Travel fee', value: 'None' },
+    ]}
   />
 
   <section class="section">
-    <div class="container two-col">
+    <div class="container two-col two-col--top">
       <div class="prose">
         <span class="eyebrow">Detailing in {p.city}</span>
-        <h2 class="mt-0">Same van, same checklist, same owner. In your {p.city} driveway</h2>
+        <h2>Same van, same checklist, same prices. In your {p.city} driveway.</h2>
         {p.intro.map((para) => <p set:html={para} />)}
       </div>
       <div>
@@ -69,7 +93,9 @@ const schema = [
     </div>
   </section>
 
-  <ServicesGrid heading={`Every service we offer, done in ${p.city}`} eyebrow={`Mobile detailing services in ${p.city}`} lead="Real 2026 Bay Area price ranges. Your quote depends on vehicle size and condition, and you get it before we book." />
+  <ComeToYou city={p.city} heading={`We come to you anywhere in ${p.city}`} />
+
+  <PriceExplorer compact eyebrow={`${p.city} pricing`} heading={`Detailing prices in ${p.city}`} lead={`The same prices we charge in Oakland, with no travel fee to ${p.city}. Pick your vehicle and package.`} />
 
   <section class="section section--soft">
     <div class="container prose max-prose" style="margin-inline:auto">
@@ -80,37 +106,26 @@ const schema = [
         </>
       ))}
       <div class="btn-row" style="margin-top:1.5rem">
-        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-        <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book>{CTA.label}</a>
+        <a href={BOOK.href} class="btn btn--ghost btn--lg"><Icon name="calendar" /> {BOOK.label}</a>
       </div>
     </div>
   </section>
 
-  <Reviews limit={3} heading={`What Bay Area drivers say about J&W`} />
-  <Faq faqs={p.faqs} heading={`${p.city} detailing questions`} />
-
-  <section class="section" id="quote">
-    <div class="container two-col">
-      <div>
-        <span class="eyebrow">Get a quote in {p.city}</span>
-        <h2>Tell us the vehicle and your {p.city} address, and we will send you a price.</h2>
-        <p class="lead">Quotes usually go out within the hour during business hours ({SITE.hours.label}). Or book a slot straight into the calendar.</p>
-        <a href={CTA.href} class="btn btn--primary btn--lg" data-scroll-book><Icon name="calendar" /> {CTA.label}</a>
-      </div>
-      <QuoteForm heading={`${p.city} detailing quote`} />
-    </div>
-  </section>
-
-  <CtaBand title={`Ready for a showroom finish in ${p.city}, without leaving home?`} />
+  <ServicesGrid heading={`Every service we offer in ${p.city}`} eyebrow={`Mobile detailing services in ${p.city}`} lead="Each one done at your home or office, with our own water and power." />
+  <Reviews limit={3} heading="What Bay Area drivers say about J&W" />
+  <Faq faqs={faqs} heading={`${p.city} detailing questions`} />
+  <QuoteSection eyebrow={`Get a quote in ${p.city}`} title={`Tell us the car and your ${p.city} address.`} text={`We confirm the price and the next openings, usually within minutes during business hours (${SITE.hours.label}).`} />
+  <CtaBand title={`A detailed car in ${p.city}, without leaving home.`} />
 </Base>
 
 <style>
-  .hoods { background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; }
-  .hoods h3 { display: flex; align-items: center; gap: 0.4rem; font-size: 1.3rem; }
-  .hoods h3 svg { color: var(--red); }
+  .hoods { background: var(--bg-soft); border-radius: 20px; padding: 1.5rem; margin-bottom: 1.25rem; }
+  .hoods h3 { display: flex; align-items: center; gap: 0.4rem; font-size: 1.2rem; }
+  .hoods h3 :global(svg) { color: var(--red); }
   .hoods ul { list-style: none; padding: 0; margin: 0 0 0.75rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .hoods li { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.75rem; font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .hoods li { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.75rem; font-size: 0.88rem; font-weight: 600; color: var(--ink); margin: 0; }
   .hoods p { margin: 0; font-size: 0.9rem; color: var(--muted); }
-  .map { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 3/2; }
+  .map { border-radius: 20px; overflow: hidden; aspect-ratio: 3/2; border: 1px solid var(--line); }
   .map iframe { width: 100%; height: 100%; }
 </style>

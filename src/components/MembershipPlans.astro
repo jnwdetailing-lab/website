@@ -1,0 +1,85 @@
+---
+// Level 1 membership plans with live prices by vehicle size.
+import { CTA, BOOK } from '../data/site';
+import { MEMBERSHIP, PACKAGES, SIZES, usd, type PriceRow } from '../data/pricing';
+import SizePicker from './SizePicker.astro';
+import Icon from './Icons.astro';
+export interface Props { eyebrow?: string; heading?: string; lead?: string; id?: string; picker?: boolean }
+const {
+  eyebrow = 'Maintenance membership',
+  heading = 'Get it detailed once. Keep it that way for less.',
+  lead = 'Your first visit is a Full Detail or Deep Reset at the regular price. After that, a Level 1 Maintenance Detail comes to you on a schedule you pick, at a member price that stays the same for as long as you stay on the plan.',
+  id = 'membership',
+  picker = true,
+} = Astro.props;
+const csv = (r: PriceRow) => r.join(',');
+const fullDetail = PACKAGES[0];
+const saving = (row: PriceRow) => row.map((v, i) => fullDetail.insideOut[i] - v) as PriceRow;
+---
+<section class="panel panel--dark" id={id}>
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{heading}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+
+    {picker && <SizePicker dark label="Price for your vehicle" />}
+
+    <div class="plans">
+      {MEMBERSHIP.cadences.map((c) => (
+        <article class:list={['plan', { 'plan--top': c.note }]}>
+          {c.note && <span class="plan__flag">{c.note}</span>}
+          <h3>{c.label}</h3>
+          <p class="plan__sub">One Maintenance Detail {c.every}</p>
+          <p class="plan__price"><span data-prices={csv(c.prices)}>{usd(c.prices[0])}</span><small>/visit</small></p>
+          <p class="plan__save">You save <span data-prices={csv(saving(c.prices))}>{usd(saving(c.prices)[0])}</span> a visit against a Full Detail</p>
+          <ul class="checklist">
+            <li>Member price locked while you stay on the plan</li>
+            <li>Priority on the calendar</li>
+            <li>Same tech and checklist every visit</li>
+          </ul>
+          <a href={CTA.href} class="btn btn--primary btn--block" data-scroll-book>Start my plan</a>
+        </article>
+      ))}
+    </div>
+
+    <div class="plan-rules">
+      <div>
+        <h3>Every maintenance visit includes</h3>
+        <ul class="checklist">{MEMBERSHIP.visit.map((v) => <li>{v}</li>)}</ul>
+      </div>
+      <div>
+        <h3>How the plan works</h3>
+        <ol class="plan-steps">
+          <li><strong>First visit sets the baseline.</strong> A Full Detail or Deep Reset at the regular price, so every visit after it starts from clean.</li>
+          <li><strong>Then we come on schedule.</strong> Monthly, every two months or quarterly. We book the next visit before we leave.</li>
+          <li><strong>Stay at least {MEMBERSHIP.minimumVisits} visits.</strong> Cancel any time after that. Cancel sooner and the member discount on the visits you had is charged back.</li>
+        </ol>
+        <p class="plan-note"><Icon name="info" size={16} /> Gone too long between visits, or the car came back from a road trip with the dog? We will tell you before we start if it needs a Full Detail instead.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; max-width: 1060px; margin: 0 auto; }
+  @media (max-width: 900px) { .plans { grid-template-columns: 1fr; max-width: 460px; } }
+  .plan { position: relative; background: #fff; color: var(--body); border-radius: 22px; padding: 1.6rem 1.5rem; display: flex; flex-direction: column; }
+  .plan--top { box-shadow: 0 0 0 3px var(--red); }
+  .plan__flag { position: absolute; top: -0.75rem; left: 1.4rem; background: var(--red); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.7rem; border-radius: 999px; }
+  .plan h3 { color: var(--ink) !important; font-size: 1.35rem; margin: 0; }
+  .plan__sub { color: var(--muted); font-size: 0.92rem; margin: 0.2rem 0 1rem; }
+  .plan__price { font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; letter-spacing: -0.04em; color: var(--ink); margin: 0; line-height: 1; }
+  .plan__price small { font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-left: 0.2rem; }
+  .plan__save { display: inline-block; align-self: flex-start; margin: 0.8rem 0 1.1rem; background: #e3f4ea; color: #146b39; font-size: 0.85rem; font-weight: 650; padding: 0.3rem 0.7rem; border-radius: 999px; }
+  .plan .checklist { font-size: 0.93rem; margin-bottom: 1.4rem; }
+  .plan .checklist :global(li::before) { background-color: var(--red-soft) !important; }
+  .plan .btn { margin-top: auto; }
+  .plan-rules { max-width: 1060px; margin: 2.5rem auto 0; display: grid; grid-template-columns: 1fr 1.3fr; gap: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2.25rem; }
+  @media (max-width: 860px) { .plan-rules { grid-template-columns: 1fr; } }
+  .plan-rules h3 { font-size: 1.15rem; margin-bottom: 1rem; }
+  .plan-steps { padding-left: 1.2em; display: grid; gap: 0.6rem; margin: 0 0 1rem; }
+  .plan-steps li { margin: 0; }
+  .plan-note { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.9rem; color: #9aa1ac; margin: 0; }
+  .plan-note :global(svg) { flex: none; margin-top: 3px; }
+</style>

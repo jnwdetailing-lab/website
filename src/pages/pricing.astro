@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceExplorer from '../components/PriceExplorer.astro';
+import AddonsList from '../components/AddonsList.astro';
+import MembershipPlans from '../components/MembershipPlans.astro';
+import Faq from '../components/Faq.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { SITE } from '../data/site';
+import { PACKAGES, EXTERIOR_ONLY, CERAMIC, SIZES, MEMBERSHIP, from, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema } from '../data/schema';
+
+const path = '/pricing/';
+const fd = PACKAGES[0];
+const dr = PACKAGES[1];
+const title = 'Car Detailing Prices Oakland, CA | Packages & Add-ons | J&W';
+const description = `Mobile detailing prices in Oakland and the Bay Area. Full Detail ${usd(from(fd.insideOut))}–${usd(Math.max(...fd.insideOut))}, Deep Reset from ${usd(from(dr.insideOut))}, memberships from ${usd(from(MEMBERSHIP.cadences[0].prices))} a visit. Every price, every vehicle size.`;
+
+const faqs = [
+  { q: 'Which vehicle size am I?', a: `${SIZES.map((s) => `${s.label}: ${s.examples.toLowerCase()}`).join('. ')}. Between two sizes, pick the bigger one, or text us the make and model and we will tell you.` },
+  { q: 'Why do prices go up with vehicle size?', a: 'Time. A three-row SUV has roughly twice the carpet, seat fabric and paint of a compact car, and the price follows the hours it takes to do it properly.' },
+  { q: 'Can the price change once you see the car?', a: 'Only for things the package does not cover, and never without asking. Heavy pet hair, mold, bodily fluids or a car that has gone years without a clean need the matching add-on. If we see that when we arrive, we show you before we start, and you decide.' },
+  { q: 'Full Detail or Deep Reset: which do I book?', a: `Book the Full Detail if the car is in normal everyday condition. Book the Deep Reset if there are stains on the seats or carpet, pet hair, a smell, spilled drinks or food, or you are getting it ready to sell. The Deep Reset adds hot-water shampoo extraction, stain treatment, leather conditioning and longer-lasting paint protection.` },
+  { q: 'Is there a travel fee?', a: 'Not inside our regular service area: Oakland, Alameda, Berkeley, Emeryville, Piedmont, San Leandro, Orinda, Walnut Creek and Richmond. Further out, ask us and we will tell you up front.' },
+  { q: 'How do I pay?', a: 'Card, cash, Zelle or Venmo.' },
+  { q: 'Do you have a membership price?', a: `Yes. After your first Full Detail or Deep Reset, a Maintenance Detail on a schedule costs from ${usd(from(MEMBERSHIP.cadences[0].prices))} a visit for a car. See the membership page for every price and how it works.` },
+];
+
+const schema = [
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Pricing', href: path }]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    name: 'J&W Mobile Detailing packages',
+    url: `${SITE.url}${path}`,
+    itemListElement: [
+      ...PACKAGES.map((p) => ({ '@type': 'Offer', name: `${p.name} (inside & out)`, priceCurrency: 'USD', price: from(p.insideOut), priceSpecification: { '@type': 'PriceSpecification', minPrice: from(p.insideOut), maxPrice: Math.max(...p.insideOut), priceCurrency: 'USD' } })),
+      { '@type': 'Offer', name: EXTERIOR_ONLY.name, priceCurrency: 'USD', price: from(EXTERIOR_ONLY.prices) },
+    ],
+  },
+];
+---
+
+<Base {title} {description} canonical={path} {schema}>
+  <PageHero
+    crumbs={[{ label: 'Pricing' }]}
+    eyebrow="Prices posted up front"
+    title="Detailing prices for Oakland and the Bay Area"
+    text="Two packages, one exterior-only option and a membership. Pick your vehicle size and the prices below update. What you see here is what we charge for a car in normal condition."
+    facts={[
+      { label: 'Full Detail', value: `from ${usd(from(fd.insideOut))}` },
+      { label: 'Deep Reset', value: `from ${usd(from(dr.insideOut))}` },
+      { label: 'Exterior only', value: `from ${usd(from(EXTERIOR_ONLY.prices))}` },
+      { label: 'Members', value: `from ${usd(from(MEMBERSHIP.cadences[0].prices))}/visit` },
+    ]}
+  />
+
+  <PriceExplorer showTable heading="Pick your vehicle, then your package" />
+
+  <AddonsList />
+
+  <MembershipPlans picker={false} heading="Members pay less on every visit after the first" />
+
+  <section class="section" id="ceramic-pricing">
+    <div class="container">
+      <div class="head">
+        <span class="eyebrow">Ceramic coating</span>
+        <h2>Ceramic coating prices</h2>
+        <p class="lead">Every coating includes a full wash, iron and clay decontamination, and polishing before the coating goes on. The packages differ in how much paint correction comes first.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Package</th><th>Prep before the coating</th>{SIZES.map((s) => <th>{s.label}</th>)}</tr>
+          </thead>
+          <tbody>
+            {CERAMIC.map((c) => (
+              <tr>
+                <td><strong>{c.name}</strong><br /><small>{c.bestFor}</small></td>
+                <td>{c.prep}</td>
+                {c.prices.map((v) => <td class="price">{usd(v)}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="center" style="margin-top:1.25rem"><a href="/ceramic-coating/">How ceramic coating works, and which package fits your paint →</a></p>
+    </div>
+  </section>
+
+  <Faq faqs={faqs} heading="Pricing questions" />
+  <QuoteSection title="Not sure which package? Send us the car." text="Tell us the make, model and what is bothering you about it. We will tell you which package fits and confirm the price." />
+  <CtaBand />
+</Base>

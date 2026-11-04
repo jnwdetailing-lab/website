@@ -1,0 +1,55 @@
+---
+import { ADDONS_INTERIOR, ADDONS_EXTERIOR, usd, type Addon } from '../data/pricing';
+export interface Props { heading?: string; lead?: string; soft?: boolean; only?: 'interior' | 'exterior' }
+const {
+  heading = 'Add-ons, priced up front',
+  lead = 'Add what your car actually needs. Same price on every vehicle size. Items marked "in Deep Reset" are already included at Level 3.',
+  soft = true,
+  only,
+} = Astro.props;
+const groups: { title: string; items: Addon[] }[] = [
+  ...(only !== 'exterior' ? [{ title: 'Interior', items: ADDONS_INTERIOR }] : []),
+  ...(only !== 'interior' ? [{ title: 'Exterior', items: ADDONS_EXTERIOR }] : []),
+];
+---
+<section class:list={['section', { 'section--soft': soft }]} id="add-ons">
+  <div class="container">
+    <div class="head">
+      <span class="eyebrow">Add-ons</span>
+      <h2>{heading}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+    <div class:list={['addons', { 'addons--one': groups.length === 1 }]}>
+      {groups.map((g) => (
+        <div class="addons__group">
+          <h3>{g.title} add-ons</h3>
+          <ul>
+            {g.items.map((a) => (
+              <li>
+                <div>
+                  <span class="addons__name">{a.name}</span>
+                  {a.includedIn && <span class="pill pill--green">in {a.includedIn}</span>}
+                  <p>{a.desc}</p>
+                </div>
+                <span class="addons__price">{usd(a.price)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .addons { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; max-width: 1100px; margin: 0 auto; }
+  .addons--one { grid-template-columns: 1fr; max-width: 760px; }
+  @media (max-width: 860px) { .addons { grid-template-columns: 1fr; } }
+  .addons__group { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem 1.5rem 0.6rem; }
+  .addons__group h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+  .addons__group ul { list-style: none; padding: 0; margin: 0; }
+  .addons__group li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.85rem 0; border-top: 1px solid var(--line); margin: 0; }
+  .addons__group li:first-child { border-top: 0; }
+  .addons__name { font-weight: 650; color: var(--ink); margin-right: 0.4rem; }
+  .addons__group p { margin: 0.2rem 0 0; font-size: 0.9rem; color: var(--muted); }
+  .addons__price { font-family: var(--font-display); font-weight: 800; color: var(--ink); white-space: nowrap; }
+</style>
