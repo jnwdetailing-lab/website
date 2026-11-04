@@ -56,6 +56,11 @@ const quoteHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.
     </div>
   </div>
 
+</header>
+
+<!-- Outside <header> on purpose: the header's backdrop-filter makes it the
+     containing block for position:fixed children, which squeezed the menu into
+     the 64px bar instead of covering the screen. -->
   <div class="mobile" id="mobileMenu" hidden>
     <div class="mobile__head">
       <img src="/images/logo-nav.webp" srcset="/images/logo-nav-140w.webp 140w, /images/logo-nav.webp 300w" sizes="80px" alt="" width="90" height="75" loading="lazy" />
@@ -86,7 +91,6 @@ const quoteHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.
       <p class="mobile__meta">{SITE.hours.label} · Oakland & the Bay Area</p>
     </div>
   </div>
-</header>
 
 <style>
   .announce { background: #000; color: #e5e7eb; font-size: 0.86rem; }
