@@ -12,10 +12,10 @@ import MembershipPlans from '../components/MembershipPlans.astro';
 import WorkGallery from '../components/WorkGallery.astro';
 import { srcsetFor } from '../lib/srcset';
 import { SITE, HOME_FAQS, CTA, BOOK, AREAS, GOOGLE_MAP_EMBED, BBB } from '../data/site';
-import { PACKAGES, from, usd } from '../data/pricing';
+import { DETAIL, from, usd } from '../data/pricing';
 
 const title = 'Mobile Car Detailing Oakland, CA | J&W Mobile Detailing';
-const description = `Mobile car detailing in Oakland and the Bay Area, done at your home or office. Full Detail from ${usd(from(PACKAGES[0].insideOut))}, ceramic coating, memberships. 4.9★ on Google.`;
+const description = `Mobile car detailing in Oakland and the Bay Area, done at your home or office. Full Detail from ${usd(from(DETAIL.insideOut))}, ceramic coating, memberships. 4.9★ on Google.`;
 
 const faqSchema = {
   '@context': 'https://schema.org',

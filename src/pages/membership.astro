@@ -7,33 +7,35 @@ import Reviews from '../components/Reviews.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icons.astro';
-import { MEMBERSHIP, PACKAGES, from, usd } from '../data/pricing';
+import { MEMBERSHIP, DETAIL, SIZES, planRow, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/membership/';
-const monthly = MEMBERSHIP.cadences[0];
-const quarterly = MEMBERSHIP.cadences[2];
-const fd = PACKAGES[0];
+const [monthly, bimonthly, quarterly] = MEMBERSHIP.cadences;
+const monthlyIo = planRow(DETAIL.insideOut, monthly.save);
+const monthlyInt = planRow(DETAIL.interiorOnly, monthly.save);
+const quarterlyIo = planRow(DETAIL.insideOut, quarterly.save);
 const title = 'Car Detailing Membership Oakland, CA | Monthly Detailing | J&W';
-const description = `Recurring mobile car detailing in Oakland and the Bay Area. A maintenance detail monthly, every 2 months or quarterly, from ${usd(from(monthly.prices))} a visit. We come to you.`;
+const description = `Recurring mobile car detailing in Oakland and the Bay Area. The same Full Detail monthly, bi-monthly or quarterly, ${usd(monthly.save)}, ${usd(bimonthly.save)} or ${usd(quarterly.save)} off every visit. We come to you.`;
 
 const faqs = [
-  { q: 'Why does the first visit have to be a full detail?', a: 'A maintenance visit is quick because the car is already clean underneath. If we started a plan on a car with months of grime, ground-in stains and no protection on the paint, the first "maintenance" visit would really be a full detail at a maintenance price, and every visit after it would be fighting to catch up. One Full Detail or Deep Reset at the regular price sets the baseline. Every visit after that is about keeping it there.' },
-  { q: 'Which schedule should I pick?', a: 'Monthly if the car is your daily driver, carries kids or a dog, or parks outside under trees. Every two months for a commuter that stays fairly tidy. Quarterly for a second car, a garaged car or a weekend car. You can change it later.' },
-  { q: `Is there a minimum?`, a: `Yes, ${MEMBERSHIP.minimumVisits} visits. The member price only works because we can plan the route and the time around a regular car. Cancel any time after the third visit. If you cancel before it, the member discount on the visits you had is charged back, so it comes out the same as booking them one at a time.` },
+  { q: 'What do I get on a plan visit?', a: `The full ${DETAIL.name}, every time. Inside and out, or interior only if that is the plan you picked. It is not a lighter "maintenance wash": same checklist, same time, same tech, at the plan price.` },
+  { q: 'How much do I save?', a: `${usd(monthly.save)} a visit on a monthly plan, ${usd(bimonthly.save)} on bi-monthly and ${usd(quarterly.save)} on quarterly, on any vehicle size. A monthly Full Detail on a ${SIZES[0].label.toLowerCase()} is ${usd(monthlyIo[0])} instead of ${usd(DETAIL.insideOut[0])}, and interior only is ${usd(monthlyInt[0])}.` },
+  { q: 'Which schedule should I pick?', a: 'Monthly if the car is your daily driver, carries kids or a dog, or parks outside under trees. Bi-monthly for a commuter that stays fairly tidy. Quarterly for a second car, a garaged car or a weekend car. You can change it later.' },
+  { q: 'Is there a minimum?', a: `Yes. Complete ${MEMBERSHIP.minimumVisits} visits to keep the plan price. The discount only works because we can plan the route and the time around a regular car. Cancel any time after the third visit. If you cancel before it, we bill the difference between the plan price and the one-time price on the visits you had, so it comes out the same as booking them one at a time.` },
+  { q: 'Do I need a one-time detail first?', a: 'No. The plan price starts on your first visit.' },
   { q: 'Can I move a visit?', a: 'Yes. Text us and we will find another day. We book your next visit before we leave each time, so it is on both our calendars.' },
-  { q: 'What if the car is much dirtier than usual?', a: 'Road trips, a muddy hike with the dog, a spilled smoothie. It happens. Small messes are part of the visit. If something needs an add-on, like pet hair removal or a seat shampoo, we tell you and the price before we start, and you decide.' },
+  { q: 'What if the car is much dirtier than usual?', a: 'Road trips, a muddy hike with the dog, a spilled smoothie. It happens. If something needs an add-on, like pet hair removal or a seat shampoo, we tell you the price before we start, and you decide.' },
   { q: 'Can I put more than one car on a plan?', a: 'Yes. Each car gets its own plan at its own size price, and we do them on the same visit when they are parked together.' },
-  { q: 'Is a membership worth it over booking a detail when I need one?', a: `If you would book a detail more than twice a year anyway, usually yes. A monthly member visit for a car is ${usd(monthly.prices[0])} against ${usd(fd.insideOut[0])} for a Full Detail, and the car never gets bad enough to need the bigger job.` },
 ];
 
 const schema = [
   serviceSchema({
     name: 'Car Detailing Membership',
-    description: 'Recurring mobile maintenance detailing in Oakland and the Bay Area: monthly, every two months or quarterly, at a locked-in member price.',
+    description: 'Recurring mobile Full Detail in Oakland and the Bay Area: monthly, bi-monthly or quarterly, with a fixed amount off every visit.',
     path,
-    minPrice: from(monthly.prices),
-    maxPrice: Math.max(...quarterly.prices),
+    minPrice: from(monthlyInt),
+    maxPrice: Math.max(...quarterlyIo),
   }),
   faqSchema(faqs),
   breadcrumbSchema([{ label: 'Membership', href: path }]),
@@ -43,16 +45,16 @@ const schema = [
 <Base {title} {description} canonical={path} {schema}>
   <PageHero
     crumbs={[{ label: 'Membership' }]}
-    eyebrow="Maintenance membership"
-    titleHtml="A clean car all year, <em>without ever booking a detail again</em>"
-    text="One full detail to get the car where it should be. Then we come back on a schedule, monthly, every two months or quarterly, and keep it there at a member price that does not change while you stay on the plan."
+    eyebrow="Membership"
+    titleHtml={`A clean car all year, <em>for up to ${usd(MEMBERSHIP.maxSave)} less every visit</em>`}
+    text="Pick monthly, bi-monthly or quarterly. We come back on schedule and do the full detail every time, at a plan price that takes a set amount off every visit."
     image="/images/interior-detailing-steam-cleaning-oakland.jpg"
-    imageAlt="J&W technician steam cleaning a back seat during a maintenance detail in Oakland"
+    imageAlt="J&W technician steam cleaning a back seat during a plan visit in Oakland"
     facts={[
-      { label: 'Monthly', value: `from ${usd(from(monthly.prices))}/visit` },
-      { label: 'Visit length', value: 'About 1.5 to 2 hours' },
+      { label: 'Monthly', value: `save ${usd(monthly.save)}/visit` },
+      { label: 'Bi-monthly', value: `save ${usd(bimonthly.save)}/visit` },
+      { label: 'Quarterly', value: `save ${usd(quarterly.save)}/visit` },
       { label: 'Minimum', value: `${MEMBERSHIP.minimumVisits} visits` },
-      { label: 'Where', value: 'Home, work or garage' },
     ]}
   />
 
@@ -62,13 +64,21 @@ const schema = [
         <span class="eyebrow">Who it is for</span>
         <h2>For people who like a clean car and hate scheduling one</h2>
         <p>Most of our members tell us the same thing: they love the car for a week after a detail, then life happens. Kids, a dog, a commute, a car that parks under a tree. Three months later it needs the full job again.</p>
-        <p>A membership flips that. Because we come back before the dirt builds up, each visit is shorter, the paint keeps its protection, and stains never get the chance to set. You stop thinking about it. The car just stays clean.</p>
-        <p>It is also the easiest way to keep a <a href="/ceramic-coating/">ceramic-coated</a> car performing. A coating needs a gentle, regular wash to keep beading, and a maintenance visit is exactly that.</p>
+        <p>A plan flips that. Because we come back before the dirt builds up, the paint keeps its protection, stains never get the chance to set, and you pay less for every visit. You stop thinking about it. The car just stays clean.</p>
+        <p>It is also the easiest way to keep a <a href="/ceramic-coating/">ceramic-coated</a> car performing. A coating needs a gentle, regular wash to keep beading, and a plan visit is exactly that.</p>
       </div>
       <div class="mem-card">
-        <h3>What a maintenance visit covers</h3>
-        <ul class="checklist">{MEMBERSHIP.visit.map((v) => <li>{v}</li>)}</ul>
-        <p class="mem-card__note"><Icon name="info" size={16} /> Shampoo extraction, pet hair and odor treatment are not part of a maintenance visit. Add them on any visit at the regular add-on price.</p>
+        <h3>Plan prices, {SIZES[0].label.toLowerCase()}</h3>
+        <table class="mem-table">
+          <thead><tr><th>Plan</th><th>Inside & out</th><th>Interior only</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">One time</th><td>{usd(DETAIL.insideOut[0])}</td><td>{usd(DETAIL.interiorOnly[0])}</td></tr>
+            {MEMBERSHIP.cadences.map((c) => (
+              <tr><th scope="row">{c.label}</th><td><strong>{usd(planRow(DETAIL.insideOut, c.save)[0])}</strong></td><td><strong>{usd(planRow(DETAIL.interiorOnly, c.save)[0])}</strong></td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="mem-card__note"><Icon name="info" size={16} /> Bigger vehicles are on the picker below. Add-ons like shampoo, pet hair and odor treatment can go on any visit at their regular price.</p>
       </div>
     </div>
   </section>
@@ -77,13 +87,18 @@ const schema = [
 
   <Reviews limit={3} heading="What it is like having us come back" />
   <Faq faqs={faqs} heading="Membership questions" />
-  <QuoteSection eyebrow="Start a plan" title="Start with a full detail. We set up the plan the same day." text="Tell us the car and the schedule you want. We confirm the first visit and the member price for every visit after it." />
+  <QuoteSection eyebrow="Start a plan" title="Pick a schedule. We book the first visit today." text="Tell us the car and the schedule you want. We confirm the plan price and your first visit." />
   <CtaBand />
 </Base>
 
 <style>
   .mem-card { background: var(--bg-soft); border-radius: 22px; padding: 1.75rem; }
   .mem-card h3 { margin-bottom: 1rem; }
+  .mem-table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 0.95rem; margin-bottom: 0.75rem; }
+  @media (max-width: 420px) { .mem-table { font-size: 0.88rem; } .mem-table th, .mem-table td { padding: 0.5rem 0.3rem; } }
+  .mem-table th, .mem-table td { text-align: left; padding: 0.55rem 0.4rem; border-bottom: 1px solid var(--line); }
+  .mem-table th { font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  .mem-table tbody th { font-size: inherit; letter-spacing: 0; text-transform: none; font-weight: 650; color: var(--ink); }
   .mem-card__note { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.9rem; color: var(--muted); margin: 0.5rem 0 0; }
   .mem-card__note :global(svg) { flex: none; margin-top: 3px; }
 </style>

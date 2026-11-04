@@ -1,20 +1,20 @@
 ---
-// Level 1 membership plans with live prices by vehicle size.
-import { CTA, BOOK } from '../data/site';
-import { MEMBERSHIP, PACKAGES, SIZES, usd, type PriceRow } from '../data/pricing';
+// Membership plans: the same Full Detail on a schedule, a fixed amount off
+// every visit. Live prices by vehicle size and by inside-and-out / interior only.
+import { CTA } from '../data/site';
+import { MEMBERSHIP, DETAIL, planRow, usd, type PriceRow } from '../data/pricing';
 import SizePicker from './SizePicker.astro';
 import Icon from './Icons.astro';
 export interface Props { eyebrow?: string; heading?: string; lead?: string; id?: string; picker?: boolean }
+const save = MEMBERSHIP.cadences.map((c) => usd(c.save));
 const {
-  eyebrow = 'Maintenance membership',
-  heading = 'Get it detailed once. Keep it that way for less.',
-  lead = 'Your first visit is a Full Detail or Deep Reset at the regular price. After that, a Level 1 Maintenance Detail comes to you on a schedule you pick, at a member price that stays the same for as long as you stay on the plan.',
+  eyebrow = 'Membership',
+  heading = `Same detail, on a schedule. Up to ${usd(MEMBERSHIP.maxSave)} off every visit.`,
+  lead = `Every plan visit is the full ${DETAIL.name}, inside and out or interior only. Monthly saves ${save[0]} a visit, bi-monthly ${save[1]} and quarterly ${save[2]}.`,
   id = 'membership',
   picker = true,
 } = Astro.props;
 const csv = (r: PriceRow) => r.join(',');
-const fullDetail = PACKAGES[0];
-const saving = (row: PriceRow) => row.map((v, i) => fullDetail.insideOut[i] - v) as PriceRow;
 ---
 <section class="panel panel--dark" id={id}>
   <div class="container">
@@ -26,43 +26,64 @@ const saving = (row: PriceRow) => row.map((v, i) => fullDetail.insideOut[i] - v)
 
     {picker && <SizePicker dark label="Price for your vehicle" />}
 
-    <div class="plans">
-      {MEMBERSHIP.cadences.map((c) => (
-        <article class:list={['plan', { 'plan--top': c.note }]}>
-          {c.note && <span class="plan__flag">{c.note}</span>}
-          <h3>{c.label}</h3>
-          <p class="plan__sub">One Maintenance Detail {c.every}</p>
-          <p class="plan__price"><span data-prices={csv(c.prices)}>{usd(c.prices[0])}</span><small>/visit</small></p>
-          <p class="plan__save">You save <span data-prices={csv(saving(c.prices))}>{usd(saving(c.prices)[0])}</span> a visit against a Full Detail</p>
-          <ul class="checklist">
-            <li>Member price locked while you stay on the plan</li>
-            <li>Priority on the calendar</li>
-            <li>Same tech and checklist every visit</li>
-          </ul>
-          <a href={CTA.href} class="btn btn--primary btn--block" data-scroll-book>Start my plan</a>
-        </article>
-      ))}
+    <div class="plans-wrap" data-mode="io">
+      <div class="plans-modes" role="group" aria-label="Plan options">
+        <button type="button" data-mode-btn="io" aria-pressed="true">Interior + Exterior</button>
+        <button type="button" data-mode-btn="int" aria-pressed="false">Interior only</button>
+      </div>
+
+      <div class="plans">
+        {MEMBERSHIP.cadences.map((c) => {
+          const io = planRow(DETAIL.insideOut, c.save);
+          const int = planRow(DETAIL.interiorOnly, c.save);
+          return (
+            <article class:list={['plan', { 'plan--top': c.note }]}>
+              {c.note && <span class="plan__flag">{c.note}</span>}
+              <h3>{c.label}</h3>
+              <p class="plan__sub">One {DETAIL.name} {c.every}</p>
+              <p class="plan__price"><span data-prices={csv(io)} data-prices-int={csv(int)}>{usd(io[0])}</span><small>/visit</small></p>
+              <p class="plan__was">Instead of <s data-prices={csv(DETAIL.insideOut)} data-prices-int={csv(DETAIL.interiorOnly)}>{usd(DETAIL.insideOut[0])}</s> one time</p>
+              <p class="plan__save">Save {usd(c.save)} every visit</p>
+              <ul class="checklist">
+                <li>A complete {DETAIL.name} every time</li>
+                <li>Plan price from the first visit</li>
+                <li>Next visit booked before we leave</li>
+              </ul>
+              <a href={CTA.href} class="btn btn--primary btn--block" data-scroll-book>Start my plan</a>
+            </article>
+          );
+        })}
+      </div>
     </div>
 
     <div class="plan-rules">
       <div>
-        <h3>Every maintenance visit includes</h3>
-        <ul class="checklist">{MEMBERSHIP.visit.map((v) => <li>{v}</li>)}</ul>
+        <h3>Every plan visit includes</h3>
+        <ul class="checklist">
+          <li>Full vacuum, air blowout and steam on the hard surfaces</li>
+          <li>Every surface wiped and dressed, mats and glass done</li>
+          <li>Hand wash with iron remover and clay (on inside-and-out plans)</li>
+          <li>Wheels, tires, door jambs and a fresh ceramic sealant</li>
+        </ul>
       </div>
       <div>
         <h3>How the plan works</h3>
         <ol class="plan-steps">
-          <li><strong>First visit sets the baseline.</strong> A Full Detail or Deep Reset at the regular price, so every visit after it starts from clean.</li>
-          <li><strong>Then we come on schedule.</strong> Monthly, every two months or quarterly. We book the next visit before we leave.</li>
-          <li><strong>Stay at least {MEMBERSHIP.minimumVisits} visits.</strong> Cancel any time after that. Cancel sooner and the member discount on the visits you had is charged back.</li>
+          <li><strong>Pick how often.</strong> Monthly, bi-monthly or quarterly, inside and out or interior only.</li>
+          <li><strong>Every visit is at the plan price.</strong> Starting with the first one. We book the next visit before we leave.</li>
+          <li><strong>Complete {MEMBERSHIP.minimumVisits} visits to keep the plan price.</strong> Cancel any time after that. Cancel before the {MEMBERSHIP.minimumVisits === 3 ? 'third' : `${MEMBERSHIP.minimumVisits}th`} visit and we bill the difference between the plan price and the one-time price on the visits you had.</li>
         </ol>
-        <p class="plan-note"><Icon name="info" size={16} /> Gone too long between visits, or the car came back from a road trip with the dog? We will tell you before we start if it needs a Full Detail instead.</p>
+        <p class="plan-note"><Icon name="info" size={16} /> Plans are optional. One-time details are always open at the regular price.</p>
       </div>
     </div>
   </div>
 </section>
 <style>
-  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; max-width: 1060px; margin: 0 auto; }
+  .plans-wrap { max-width: 1060px; margin: 0 auto; display: grid; justify-items: center; gap: 1.5rem; }
+  .plans-modes { display: inline-grid; grid-template-columns: 1fr 1fr; background: rgba(255,255,255,0.08); border-radius: 999px; padding: 4px; gap: 4px; }
+  .plans-modes button { font: inherit; font-size: 0.9rem; font-weight: 650; border: 0; border-radius: 999px; padding: 0.55rem 1.05rem; background: transparent; color: #b6bcc6; cursor: pointer; white-space: nowrap; }
+  .plans-modes button[aria-pressed='true'] { background: #fff; color: var(--ink); }
+  .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; width: 100%; }
   @media (max-width: 900px) { .plans { grid-template-columns: 1fr; max-width: 460px; } }
   .plan { position: relative; background: #fff; color: var(--body); border-radius: 22px; padding: 1.6rem 1.5rem; display: flex; flex-direction: column; }
   .plan--top { box-shadow: 0 0 0 3px var(--red); }
@@ -71,7 +92,8 @@ const saving = (row: PriceRow) => row.map((v, i) => fullDetail.insideOut[i] - v)
   .plan__sub { color: var(--muted); font-size: 0.92rem; margin: 0.2rem 0 1rem; }
   .plan__price { font-family: var(--font-display); font-weight: 800; font-size: 2.6rem; letter-spacing: -0.04em; color: var(--ink); margin: 0; line-height: 1; }
   .plan__price small { font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--muted); letter-spacing: 0; margin-left: 0.2rem; }
-  .plan__save { display: inline-block; align-self: flex-start; margin: 0.8rem 0 1.1rem; background: #e3f4ea; color: #146b39; font-size: 0.85rem; font-weight: 650; padding: 0.3rem 0.7rem; border-radius: 999px; }
+  .plan__was { margin: 0.55rem 0 0; font-size: 0.88rem; color: var(--muted); }
+  .plan__save { display: inline-block; align-self: flex-start; margin: 0.7rem 0 1.1rem; background: #e3f4ea; color: #146b39; font-size: 0.85rem; font-weight: 650; padding: 0.3rem 0.7rem; border-radius: 999px; }
   .plan .checklist { font-size: 0.93rem; margin-bottom: 1.4rem; }
   .plan .checklist :global(li::before) { background-color: var(--red-soft) !important; }
   .plan .btn { margin-top: auto; }

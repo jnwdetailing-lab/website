@@ -2,6 +2,11 @@
 // Single source of truth for NAP, services, areas, reviews, FAQs.
 // Every page and every JSON-LD block reads from here so nothing drifts.
 // ---------------------------------------------------------------------------
+import { DETAIL, EXTERIOR_ONLY, MEMBERSHIP, ADDONS_INTERIOR, planRow, usd } from './pricing';
+
+const [sedan, suv5, suv7] = DETAIL.insideOut;
+const addon = (name: string) => usd(ADDONS_INTERIOR.find((a) => a.name === name)!.price);
+const [monthly, bimonthly, quarterly] = MEMBERSHIP.cadences;
 
 export const SITE = {
   name: 'J&W Mobile Detailing',
@@ -69,7 +74,7 @@ export const BOOK = {
 
 // One line across the top of every page. Set text to '' to hide it.
 export const ANNOUNCEMENT = {
-  text: 'Keep it clean all year: members get every maintenance detail at a lower locked-in price.',
+  text: 'Keep it clean all year: members save up to $100 on every detail.',
   linkLabel: 'See membership',
   href: '/membership/',
 };
@@ -335,13 +340,13 @@ export const REVIEWS: Review[] = [
 export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
-  { q: 'How much does mobile car detailing cost in Oakland?', a: 'Our Full Detail, inside and out, is $275 for a car and up to $345 for a three-row SUV or van. The Deep Reset, for stains, pet hair and heavy dirt, runs $425 to $515. Exterior-only details start at $145, and members pay from $130 a visit. Every price is on our pricing page, and you confirm it before anything is booked.' },
+  { q: 'How much does mobile car detailing cost in Oakland?', a: `Our Full Detail, inside and out, is ${usd(sedan)} for a coupe or sedan, ${usd(suv5)} for a 5-seat SUV or truck and ${usd(suv7)} for a 7-seat SUV or minivan. Interior only is $50 less, from ${usd(DETAIL.interiorOnly[0])}. An exterior-only detail is ${usd(EXTERIOR_ONLY.prices[0])}. Members save up to ${usd(MEMBERSHIP.maxSave)} on every visit. Every price is on our pricing page, and you confirm it before anything is booked.` },
   { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the Bay Area. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
-  { q: 'How long does a detail take?', a: 'An exterior detail takes about 1.5–3 hours, an interior deep clean 2–4 hours, and a full detail 3–7 hours depending on vehicle size and condition. Ceramic coating with paint correction is typically a full-day appointment.' },
+  { q: 'How long does a detail take?', a: `A Full Detail inside and out takes ${DETAIL.hoursInsideOut}, interior only ${DETAIL.hoursInterior} and an exterior-only detail ${EXTERIOR_ONLY.hours.toLowerCase()}, depending on vehicle size. Add-ons like shampoo or pet hair add time. Ceramic coating with paint correction is a full-day appointment.` },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond and nearby Bay Area communities. If you are just outside that list, call us. We can usually make it work.' },
   { q: 'How do I book?', a: 'Two ways. Book a time yourself online, or send the quote form on this page with your name, number and what you drive, and we text back a price and the next openings, usually within minutes during business hours. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
-  { q: 'What is the difference between the Full Detail and the Deep Reset?', a: 'The Full Detail is the right call for most cars: full vacuum, steam on the hard surfaces, every panel wiped and dressed, a hand wash with clay and iron decontamination, and about three months of sealant. The Deep Reset adds hot-water shampoo extraction of the seats and carpet, stain treatment, leather conditioning and six-month sealant. If your car has stains, pet hair, spilled drinks or a smell, book the Deep Reset.' },
-  { q: 'Do you offer a membership or recurring detailing?', a: 'Yes. After a first Full Detail or Deep Reset, members get a Maintenance Detail monthly, every two months or quarterly at a locked-in member price, starting at $130 a visit for a car. There is a three-visit minimum, and you can cancel any time after that.' },
+  { q: 'What does the Full Detail include, and what costs extra?', a: `Inside: a full vacuum, air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. Outside: a hand wash, iron and clay decontamination, wheels, door jambs and about three months of ceramic sealant. Stains, pet hair, smells and spills are add-ons at a set price, like seat and carpet shampoo for ${addon('Shampoo seats and carpet')} or pet hair removal for ${addon('Pet hair removal')}, so a car in good shape never pays for work it does not need.` },
+  { q: 'Do you offer a membership or recurring detailing?', a: `Yes. Put the Full Detail on a plan and every visit costs less: ${usd(monthly.save)} off monthly, ${usd(bimonthly.save)} off bi-monthly and ${usd(quarterly.save)} off quarterly. A monthly Full Detail on a coupe or sedan is ${usd(planRow(DETAIL.insideOut, monthly.save)[0])} a visit. Complete ${MEMBERSHIP.minimumVisits} visits to keep the plan price, and cancel any time after that.` },
   { q: 'How long does a ceramic coating last?', a: 'A professional coating is measured in years, not months. How long depends on the grade of coating, how well the paint is prepared underneath it and how the car is washed afterwards. Every coating is quoted after we see the vehicle, because the price covers full prep: decontamination and paint correction, not just the coating itself, and how much correction your paint needs is the variable. Send us your vehicle and we will come back with an exact number and the expected life of the coating we quote.' },
 ];
 

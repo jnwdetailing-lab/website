@@ -7,32 +7,31 @@ import Faq from '../components/Faq.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
-import { PACKAGES, EXTERIOR_ONLY, CERAMIC, MEMBERSHIP, ADDONS_EXTERIOR, ADDONS_INTERIOR, from, usd } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, CERAMIC, MEMBERSHIP, ADDONS_EXTERIOR, ADDONS_INTERIOR, from, usd, range } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../data/schema';
 
 const path = '/services/';
-const fd = PACKAGES[0];
-const dr = PACKAGES[1];
 const polish = ADDONS_EXTERIOR.find((a) => a.name === 'One-step polish')!;
 const ozone = ADDONS_INTERIOR.find((a) => a.name === 'Ozone odor removal')!;
+const shampoo = ADDONS_INTERIOR.find((a) => a.name === 'Shampoo seats and carpet')!;
 const title = 'Mobile Detailing Services & Prices | Oakland, CA | J&W';
-const description = `Every J&W mobile detailing service with prices: Full Detail from ${usd(from(fd.insideOut))}, Deep Reset, exterior, paint correction, ceramic coating, odor removal and RV. Done at your home.`;
+const description = `Every J&W mobile detailing service with prices: Full Detail from ${usd(from(DETAIL.insideOut))}, interior only, exterior only, plans, paint correction, ceramic coating, odor removal and RV. Done at your home.`;
 
 const faqs = [
-  { q: 'Which service do I need?', a: 'Rough paint that still feels gritty after a wash: an exterior detail. Visible swirls or fine scratches in the sun: paint correction. Stains, a smell or pet hair inside: the Deep Reset. A car in normal condition that needs a proper clean inside and out: the Full Detail. A new car, or you want to stop waxing: ceramic coating. Not sure? Send us a couple of photos and we will tell you straight.' },
-  { q: 'What is included in a Full Detail?', a: `Inside: full vacuum and air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. Outside: foam pre-soak and two-bucket hand wash, iron remover and clay, wheels, tires and door jambs, and about three months of ceramic sealant. It takes three to four hours and costs ${usd(from(fd.insideOut))} to ${usd(Math.max(...fd.insideOut))} depending on vehicle size.` },
-  { q: 'Do you offer a membership?', a: `Yes. After a first Full Detail or Deep Reset, a Maintenance Detail comes to you monthly, every two months or quarterly from ${usd(from(MEMBERSHIP.cadences[0].prices))} a visit.` },
+  { q: 'Which service do I need?', a: 'Rough paint that still feels gritty after a wash: an exterior detail. Visible swirls or fine scratches in the sun: paint correction. A car that needs a proper clean inside and out: the Full Detail. Stains, a smell or pet hair inside: the Full Detail or interior only, with the shampoo, ozone or pet hair add-on. A new car, or you want to stop waxing: ceramic coating. Not sure? Send us a couple of photos and we will tell you straight.' },
+  { q: 'What is included in a Full Detail?', a: `Inside: full vacuum and air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. Outside: foam pre-soak and two-bucket hand wash, iron remover and clay, wheels, tires and door jambs, and about three months of ceramic sealant. It takes ${DETAIL.hoursInsideOut} and costs ${range(DETAIL.insideOut)} depending on vehicle size, or $50 less for interior only.` },
+  { q: 'Do you offer a membership?', a: `Yes. The same Full Detail comes to you monthly, bi-monthly or quarterly, with ${MEMBERSHIP.cadences.map((c) => usd(c.save)).join(', ').replace(/, ([^,]*)$/, ' or $1')} off every visit.` },
   { q: 'How do I pay?', a: 'Card, cash, Zelle or Venmo.' },
 ];
 
 const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Services', href: path }])];
 
 const rows = [
-  { name: 'Full Detail', href: '/pricing/', what: 'Complete clean inside and out, steam, clay and iron decon, 3-month sealant', time: '3–4 hrs', price: `from ${usd(from(fd.insideOut))}` },
-  { name: 'Deep Reset', href: '/pricing/', what: 'Full Detail plus shampoo extraction, stain treatment, leather care, 6-month sealant', time: '4–6 hrs', price: `from ${usd(from(dr.insideOut))}` },
-  { name: 'Interior only', href: '/interior-auto-detailing-oakland-california/', what: 'Either level, inside only', time: '2–4 hrs', price: `from ${usd(from(fd.interiorOnly!))}` },
-  { name: 'Exterior Detail', href: '/exterior-auto-detailing-oakland-california/', what: 'Hand wash, iron and clay, wheels, door jambs, 3-month sealant', time: '1.5–2 hrs', price: `from ${usd(from(EXTERIOR_ONLY.prices))}` },
-  { name: 'Maintenance membership', href: '/membership/', what: 'Level 1 maintenance visit on a schedule, after a first full detail', time: '1.5–2 hrs', price: `from ${usd(from(MEMBERSHIP.cadences[0].prices))}/visit` },
+  { name: 'Full Detail', href: '/pricing/', what: 'Complete clean inside and out, steam, clay and iron decon, 3-month sealant', time: '2.5–3.5 hrs', price: `from ${usd(from(DETAIL.insideOut))}` },
+  { name: 'Interior Only Detail', href: '/interior-auto-detailing-oakland-california/', what: 'The Full Detail interior, $50 less', time: '2–3 hrs', price: `from ${usd(from(DETAIL.interiorOnly))}` },
+  { name: 'Exterior Only Detail', href: '/exterior-auto-detailing-oakland-california/', what: 'Hand wash, iron and clay, wheels, door jambs, 3-month sealant', time: '~2 hrs', price: usd(from(EXTERIOR_ONLY.prices)) },
+  { name: 'Membership', href: '/membership/', what: 'The Full Detail monthly, bi-monthly or quarterly', time: 'Same as the detail', price: `save up to ${usd(MEMBERSHIP.maxSave)}/visit` },
+  { name: 'Shampoo extraction', href: '/interior-auto-detailing-oakland-california/', what: 'Hot-water extraction of seats and carpet, added to a detail', time: '+45–60 min', price: `${usd(shampoo.price)} add-on` },
   { name: 'Paint correction', href: '/paint-correction/', what: 'One-step polish with any detail, or a quoted two-step correction', time: '+2 hrs to a full day', price: `from ${usd(polish.price)}` },
   { name: 'Ceramic coating', href: '/ceramic-coating/', what: 'Decontamination, correction and a professional coating', time: 'Full day', price: `from ${usd(from(CERAMIC[0].prices))}` },
   { name: 'Odor removal', href: '/odor-removal-oakland/', what: 'Ozone treatment with an interior detail', time: '+30–90 min', price: `${usd(ozone.price)} add-on` },
@@ -45,7 +44,7 @@ const rows = [
     crumbs={[{ label: 'Services' }]}
     eyebrow="Services & pricing"
     titleHtml="Every mobile detailing service we offer, <em>with the price next to it</em>"
-    text="Two detail packages, an exterior-only option, a membership, and the specialist work: paint correction, ceramic coating, odor removal and RVs. All done at your home or office with our own water and power."
+    text="One Full Detail, inside and out or interior only, an exterior-only option, plans that save on every visit, and the specialist work: paint correction, ceramic coating, odor removal and RVs. All done at your home or office with our own water and power."
     image="/images/interior-detailing-steam-cleaning-oakland.jpg"
     imageAlt="J&W technician steam cleaning a car interior during a mobile detail in Oakland"
   />
@@ -55,7 +54,7 @@ const rows = [
       <div class="head">
         <span class="eyebrow">At a glance</span>
         <h2>Every service, time and starting price</h2>
-        <p class="lead">Prices are for a car. Larger vehicles cost more; every size is on the <a href="/pricing/">pricing page</a>.</p>
+        <p class="lead">Prices are for a coupe or sedan. SUVs, trucks and minivans cost more; every size is on the <a href="/pricing/">pricing page</a>.</p>
       </div>
       <div class="table-wrap">
         <table>
@@ -71,7 +70,7 @@ const rows = [
   </section>
 
   <ServicesGrid heading="Read up on each service" eyebrow="Service guides" lead="What is included, how we do it and what it can and cannot fix." />
-  <PriceExplorer compact eyebrow="Detail packages" heading="Pick your vehicle, see your price" />
+  <PriceExplorer compact eyebrow="The Full Detail" heading="Pick your vehicle, see your price" />
   <Reviews limit={3} />
   <Faq faqs={faqs} heading="Choosing a service" />
   <QuoteSection eyebrow="Not sure what you need?" title="Send us a couple of photos. We will tell you straight." text="Tell us the car and what is bothering you about it. We recommend the right service and confirm the price." />

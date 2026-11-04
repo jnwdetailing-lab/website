@@ -1,7 +1,7 @@
 ---
 // Shared skeleton for city pages. All copy is passed in per city; there is no
 // city-swap templating of the text itself. FAQ answers may use the price tokens
-// {FULL_RANGE} {RESET_RANGE} {EXT_FROM} {MEMBER_FROM}, filled from pricing.ts so
+// {FULL_RANGE} {INT_RANGE} {EXT_FROM} {MEMBER_SAVE}, filled from pricing.ts so
 // a price change reaches every city page.
 import Base from '../layouts/Base.astro';
 import PageHero from './PageHero.astro';
@@ -14,7 +14,7 @@ import CtaBand from './CtaBand.astro';
 import QuoteSection from './QuoteSection.astro';
 import Icon from './Icons.astro';
 import { SITE, type FAQ, CTA, BOOK } from '../data/site';
-import { PACKAGES, EXTERIOR_ONLY, MEMBERSHIP, from, usd, type PriceRow } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, MEMBERSHIP, from, usd, range } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 export interface Props {
@@ -34,12 +34,11 @@ export interface Props {
 }
 const p = Astro.props;
 
-const range = (r: PriceRow) => `${usd(from(r))} to ${usd(Math.max(...r))}`;
 const tokens: Record<string, string> = {
-  '{FULL_RANGE}': range(PACKAGES[0].insideOut),
-  '{RESET_RANGE}': range(PACKAGES[1].insideOut),
+  '{FULL_RANGE}': range(DETAIL.insideOut),
+  '{INT_RANGE}': range(DETAIL.interiorOnly),
   '{EXT_FROM}': usd(from(EXTERIOR_ONLY.prices)),
-  '{MEMBER_FROM}': usd(from(MEMBERSHIP.cadences[0].prices)),
+  '{MEMBER_SAVE}': usd(MEMBERSHIP.maxSave),
 };
 const fill = (t: string) => Object.entries(tokens).reduce((s, [k, v]) => s.split(k).join(v), t);
 const faqs = p.faqs.map((f) => ({ q: f.q, a: fill(f.a) }));
@@ -52,7 +51,7 @@ const schema = [
     image: p.heroImage,
     areaServed: [p.city],
     minPrice: from(EXTERIOR_ONLY.prices),
-    maxPrice: Math.max(...PACKAGES[1].insideOut),
+    maxPrice: Math.max(...DETAIL.insideOut),
   }),
   faqSchema(faqs),
   breadcrumbSchema([{ label: 'Service Areas', href: '/service-areas/' }, { label: p.city, href: p.path }]),
@@ -68,9 +67,9 @@ const schema = [
     image={p.heroImage}
     imageAlt={p.heroAlt}
     facts={[
-      { label: 'Full Detail', value: `from ${usd(from(PACKAGES[0].insideOut))}` },
-      { label: 'Exterior only', value: `from ${usd(from(EXTERIOR_ONLY.prices))}` },
-      { label: 'Members', value: `from ${usd(from(MEMBERSHIP.cadences[0].prices))}/visit` },
+      { label: 'Full Detail', value: `from ${usd(from(DETAIL.insideOut))}` },
+      { label: 'Interior only', value: `from ${usd(from(DETAIL.interiorOnly))}` },
+      { label: 'Members', value: `save up to ${usd(MEMBERSHIP.maxSave)}/visit` },
       { label: 'Travel fee', value: 'None' },
     ]}
   />
@@ -95,7 +94,7 @@ const schema = [
 
   <ComeToYou city={p.city} heading={`We come to you anywhere in ${p.city}`} />
 
-  <PriceExplorer compact eyebrow={`${p.city} pricing`} heading={`Detailing prices in ${p.city}`} lead={`The same prices we charge in Oakland, with no travel fee to ${p.city}. Pick your vehicle and package.`} />
+  <PriceExplorer compact eyebrow={`${p.city} pricing`} heading={`Detailing prices in ${p.city}`} lead={`The same prices we charge in Oakland, with no travel fee to ${p.city}. Pick your vehicle to see yours.`} />
 
   <section class="section section--soft">
     <div class="container prose max-prose" style="margin-inline:auto">

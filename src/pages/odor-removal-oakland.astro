@@ -7,22 +7,21 @@ import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
-import { PACKAGES, ADDONS_INTERIOR, from, usd } from '../data/pricing';
+import { DETAIL, ADDONS_INTERIOR, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/odor-removal-oakland/';
-const fd = PACKAGES[0];
-const dr = PACKAGES[1];
 const price = (name: string) => ADDONS_INTERIOR.find((a) => a.name === name)!.price;
 const ozone = price('Ozone odor removal');
 const bio = price('Biohazard cleanup');
 const mold = price('Mold remediation');
+const shampoo = price('Shampoo seats and carpet');
 const title = 'Car Odor Removal Oakland, CA | Smoke, Pet & Mildew | J&W Mobile';
 const description = `Mobile car odor removal in Oakland: the source cleaned out with steam and extraction, then an ozone treatment for smoke, pet, mildew and food smells. Ozone ${usd(ozone)} with any interior detail.`;
 
 const faqs = [
   { q: 'How does car odor removal work?', a: 'In two parts. First we remove the source: the residue in the carpet, seat foam, headliner and vents that is actually producing the smell. That is steam and hot-water extraction, which is why odor removal always goes with an interior detail. Then ozone oxidizes the odor molecules left in places cleaning cannot reach, like the foam under the fabric and the ventilation system. Skipping the cleaning and running ozone alone is why so many odor treatments wear off.' },
-  { q: 'How much does odor removal cost?', a: `Ozone treatment is ${usd(ozone)} added to an interior detail. For most smells we recommend the Deep Reset underneath it (interior only from ${usd(from(dr.interiorOnly!))}), because the source is usually in the fabric. Vomit, urine and other bodily fluids need the biohazard cleanup (${usd(bio)}), and mold needs mold remediation (${usd(mold)}).` },
+  { q: 'How much does odor removal cost?', a: `Ozone treatment is ${usd(ozone)} added to an interior detail. For most smells we also recommend the seat and carpet shampoo (${usd(shampoo)}), because the source is usually in the fabric. An interior only detail starts at ${usd(from(DETAIL.interiorOnly))}. Vomit, urine and other bodily fluids need the biohazard cleanup (${usd(bio)}), and mold needs mold remediation (${usd(mold)}).` },
   { q: 'Will it really get rid of cigarette smoke?', a: 'Yes, in almost every car we treat. Smoke coats every surface, including the headliner and the inside of the vents, so we clean the hard surfaces and glass, extract the fabric, and then run ozone with the ventilation cycling so the vents are treated too. Years of heavy smoking can leave a faint trace in the headliner foam that needs a second ozone session. We will tell you if we think that is likely.' },
   { q: 'How long does it take?', a: 'The interior detail takes two to four hours depending on the car. The ozone treatment adds 30 to 90 minutes depending on how strong the smell is, then the car airs out with the doors open for at least half an hour before you get back in.' },
   { q: 'Is ozone safe?', a: 'For the car, yes, at the concentration and time we use. For people and pets, nobody stays in the car while it runs, and we air it out fully afterwards. You may notice a clean, after-a-thunderstorm smell for a day. It fades.' },
@@ -74,7 +73,7 @@ const smells = [
     imageAlt="Commercial ozone generator running inside a vehicle for odor removal in Oakland, CA"
     facts={[
       { label: 'Ozone treatment', value: `${usd(ozone)} with a detail` },
-      { label: 'Interior detail', value: `from ${usd(from(fd.interiorOnly!))}` },
+      { label: 'Interior detail', value: `from ${usd(from(DETAIL.interiorOnly))}` },
       { label: 'Time', value: '3 to 5 hours total' },
       { label: 'Biohazard / mold', value: `${usd(bio)} each` },
     ]}
@@ -87,7 +86,7 @@ const smells = [
         <h2>The smell is coming from something. Remove that first.</h2>
         <p>Every lasting smell in a car has a source: smoke residue on the headliner, a spill that soaked through to the carpet padding, dog hair woven into the fabric, damp padding growing mildew. Air fresheners and odor bombs cover it for a few days, and then it is back.</p>
         <p>We work the other way round. First the cleaning that removes the source, steam on the hard surfaces and hot-water extraction in the fabric. Then ozone, which oxidizes the odor molecules in places cleaning cannot reach, like the foam under the seat covers and the ventilation system.</p>
-        <p>That is why odor removal is always paired with an interior detail. For most smells, the <a href="/interior-auto-detailing-oakland-california/">Deep Reset</a> is the right one underneath, because the problem is usually in the fabric.</p>
+        <p>That is why odor removal is always paired with an interior detail. For most smells, an <a href="/interior-auto-detailing-oakland-california/">interior detail with shampoo extraction</a> is the right one underneath, because the problem is usually in the fabric.</p>
       </div>
       <div class="smells">
         <h3>Smells we deal with most</h3>
@@ -114,8 +113,8 @@ const smells = [
             <tr><td><strong>Ozone odor removal</strong></td><td>Smoke, pet, mildew, food and general musty smells, after the cabin is cleaned</td><td class="price">{usd(ozone)}</td></tr>
             <tr><td><strong>Biohazard cleanup</strong></td><td>Vomit, urine and other bodily fluids: enzyme treatment, extraction and sanitizing</td><td class="price">{usd(bio)}</td></tr>
             <tr><td><strong>Mold remediation</strong></td><td>Visible mold or mildew, treated and the source dried</td><td class="price">{usd(mold)}</td></tr>
-            <tr><td><strong>Deep Reset, interior only</strong></td><td>The cleaning underneath for most odor jobs: extraction, stains, leather</td><td class="price">from {usd(from(dr.interiorOnly!))}</td></tr>
-            <tr><td><strong>Full Detail, interior only</strong></td><td>Enough for a light smell when the fabric is otherwise clean</td><td class="price">from {usd(from(fd.interiorOnly!))}</td></tr>
+            <tr><td><strong>Shampoo seats and carpet</strong></td><td>Hot-water extraction, the cleaning underneath most odor jobs</td><td class="price">{usd(shampoo)}</td></tr>
+            <tr><td><strong>Interior Only Detail</strong></td><td>The interior clean every treatment above is added to</td><td class="price">from {usd(from(DETAIL.interiorOnly))}</td></tr>
           </tbody>
         </table>
       </div>
@@ -129,7 +128,7 @@ const smells = [
       <h2>The smells we see most around the Bay</h2>
       <p><strong>Mildew after the first big rains.</strong> Every winter we get calls about cars that started smelling musty in December. Leaves clog sunroof drains and cowl vents in the fall, the first storms push water into the cabin, and the padding stays wet for weeks. Clear the drains in October and you can usually avoid it.</p>
       <p><strong>Dog smell after the parks.</strong> Trips to Point Isabel, Redwood Regional and the beaches mean wet dog, sand and hair in the back seat. Pet hair removal and extraction get most of it, and ozone takes care of the rest.</p>
-      <p><strong>Smoke in used and pre-sale cars.</strong> A car that smells of smoke sells for noticeably less. A Deep Reset with ozone before you list it usually pays for itself.</p>
+      <p><strong>Smoke in used and pre-sale cars.</strong> A car that smells of smoke sells for noticeably less. An interior detail with shampoo and ozone before you list it usually pays for itself.</p>
 
       <h2>After the treatment</h2>
       <ul>

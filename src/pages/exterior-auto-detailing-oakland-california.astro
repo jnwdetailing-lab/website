@@ -11,21 +11,20 @@ import AddonsList from '../components/AddonsList.astro';
 import SizePicker from '../components/SizePicker.astro';
 import Icon from '../components/Icons.astro';
 import { CTA, BOOK } from '../data/site';
-import { PACKAGES, EXTERIOR_ONLY, SIZES, from, usd, type PriceRow } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, ADDONS_EXTERIOR, MEMBERSHIP, SIZES, from, usd, type PriceRow } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/exterior-auto-detailing-oakland-california/';
-const fd = PACKAGES[0];
-const dr = PACKAGES[1];
+const sixMonth = ADDONS_EXTERIOR.find((a) => a.name === '6-month paint protection')!;
 const csv = (r: PriceRow) => r.join(',');
 const title = 'Exterior Car Detailing Oakland, CA | Hand Wash & Sealant | J&W';
-const description = `Mobile exterior car detailing in Oakland: two-bucket hand wash, iron and clay decontamination, wheels, door jambs and ceramic sealant. From ${usd(from(EXTERIOR_ONLY.prices))}, in your driveway.`;
+const description = `Mobile exterior car detailing in Oakland: two-bucket hand wash, iron and clay decontamination, wheels, door jambs and ceramic sealant. ${usd(from(EXTERIOR_ONLY.prices))} on any car, in your driveway.`;
 
 const faqs = [
   { q: 'What is the difference between a car wash and an exterior detail?', a: 'A car wash takes off loose dirt. An exterior detail also removes what is bonded to the paint: iron particles from brake dust, tar, tree sap and industrial fallout. That is what makes paint feel rough when you run your hand over it in a plastic sandwich bag. We dissolve the iron, clay off the rest, clean the wheels, wells and door jambs properly, then protect the paint with a ceramic sealant that lasts months, not days.' },
   { q: 'Does an exterior detail remove scratches and swirl marks?', a: 'No. Washing and decontamination clean the paint, but swirls and scratches are damage in the clear coat. Removing them takes machine polishing, which is our paint correction service. If we see swirls, we will point them out and you can decide whether to deal with them.' },
-  { q: 'How long does the sealant last?', a: 'About three months with the Exterior Detail and the Full Detail, and about six with the Deep Reset, on a car washed gently every few weeks. Brush car washes, strong degreasers and parking under sap-dropping trees all shorten it. For protection measured in years, look at ceramic coating.' },
-  { q: 'How often should I get an exterior detail in the Bay Area?', a: 'Every three to four months for a daily driver that parks outside. That is about how long sealant holds up against salt air, brake dust and sap here. A car on a maintenance membership gets a wash and a sealant top-up on every visit, so it rarely needs the full decontamination.' },
+  { q: 'How long does the sealant last?', a: `About three months on a car washed gently every few weeks, or about six with the ${usd(sixMonth.price)} six-month protection add-on. Brush car washes, strong degreasers and parking under sap-dropping trees all shorten it. For protection measured in years, look at ceramic coating.` },
+  { q: 'How often should I get an exterior detail in the Bay Area?', a: 'Every three to four months for a daily driver that parks outside. That is about how long sealant holds up against salt air, brake dust and sap here. A car on a membership gets the full exterior, sealant included, on every visit, for up to $100 less than a one-time detail.' },
   { q: 'Do you need my water or power?', a: 'No. The van carries its own water and a generator. We need room to walk around the car with the doors open, and ideally a spot out of direct afternoon sun so water does not dry on the paint.' },
   { q: 'Can you clean my engine bay?', a: 'Yes, as a $75 add-on. We cover sensitive electrics, degrease, rinse gently at low pressure, dry with air and dress the plastics. We do not pressure-wash engines.' },
   { q: 'My headlights are yellow. Can you fix them?', a: 'Yes, as a $95 add-on. We sand off the failed, yellowed layer, polish the lens clear and seal it with a UV-resistant coating so it does not yellow again in a few months.' },
@@ -63,9 +62,9 @@ const steps = [
     image="/images/exterior-detailing-oakland.jpg"
     imageAlt="Foam pre-soak on a white sedan during a mobile exterior detail by J&W in Oakland, CA"
     facts={[
-      { label: 'Exterior only', value: `from ${usd(from(EXTERIOR_ONLY.prices))}` },
-      { label: 'Inside & out', value: `from ${usd(from(fd.insideOut))}` },
-      { label: 'Time', value: '1.5 to 2 hours' },
+      { label: 'Exterior only', value: `${usd(from(EXTERIOR_ONLY.prices))}, any size` },
+      { label: 'Inside & out', value: `from ${usd(from(DETAIL.insideOut))}` },
+      { label: 'Time', value: EXTERIOR_ONLY.hours },
       { label: 'Protection', value: 'About 3 months' },
     ]}
   />
@@ -88,14 +87,14 @@ const steps = [
       <div class="head">
         <span class="eyebrow">Exterior pricing</span>
         <h2>Outside only, or the whole car</h2>
-        <p class="lead">The Exterior Detail is the outside on its own. Booking inside and out? The Full Detail and Deep Reset include the same exterior work, and the Deep Reset upgrades the sealant to about six months.</p>
+        <p class="lead">The Exterior Only Detail is the outside of our Full Detail on its own, at one price for every vehicle size. Want the inside done too? The Full Detail does both.</p>
       </div>
       <SizePicker />
       <div class="ext-cards">
         <article class="ext-card ext-card--main">
           <span class="pill">Exterior only</span>
           <h3>{EXTERIOR_ONLY.name}</h3>
-          <p class="ext-card__price"><span data-prices={csv(EXTERIOR_ONLY.prices)}>{usd(EXTERIOR_ONLY.prices[0])}</span> <small>for a <span data-size-label>{SIZES[0].label}</span></small></p>
+          <p class="ext-card__price"><span data-prices={csv(EXTERIOR_ONLY.prices)}>{usd(EXTERIOR_ONLY.prices[0])}</span> <small>any vehicle size</small></p>
           <ul class="checklist">{EXTERIOR_ONLY.items.map((i) => <li>{i}</li>)}</ul>
           <div class="ext-card__cta">
             <a href={CTA.href} class="btn btn--primary" data-scroll-book>{CTA.label}</a>
@@ -105,12 +104,11 @@ const steps = [
         <article class="ext-card">
           <span class="pill pill--dark">Inside & out</span>
           <h3>Full Detail</h3>
-          <p class="ext-card__price"><span data-prices={csv(fd.insideOut)}>{usd(fd.insideOut[0])}</span></p>
+          <p class="ext-card__price"><span data-prices={csv(DETAIL.insideOut)}>{usd(DETAIL.insideOut[0])}</span> <small>for a <span data-size-label>{SIZES[0].label}</span></small></p>
           <p>The same exterior, plus a full interior clean with steam.</p>
-          <h3 class="ext-card__second">Deep Reset</h3>
-          <p class="ext-card__price"><span data-prices={csv(dr.insideOut)}>{usd(dr.insideOut[0])}</span></p>
-          <p>Adds paint decontamination and six-month sealant, plus shampoo extraction inside.</p>
-          <a href="/pricing/" class="card__link">Compare both packages</a>
+          <h3 class="ext-card__second">On a plan</h3>
+          <p>Put the Full Detail on a monthly, bi-monthly or quarterly plan and save up to {usd(MEMBERSHIP.maxSave)} on every visit.</p>
+          <a href="/pricing/" class="card__link">See every price</a>
         </article>
       </div>
     </div>
@@ -161,7 +159,7 @@ const steps = [
       <p><strong>Water spots.</strong> Sprinklers and morning dew dry into mineral spots. On a sealed surface they rinse away. On bare paint, given enough sun, they etch.</p>
 
       <h2>Wax, sealant or ceramic coating?</h2>
-      <p>Carnauba wax gives a warm shine that lasts a few weeks. The ceramic sealant in our exterior detail bonds harder and lasts about three months, or six with the Deep Reset, and it is what we recommend for most cars. A <a href="/ceramic-coating/">ceramic coating</a> is a different product: a hard layer bonded to corrected paint that lasts years, not months. If you keep the car a long time or hate washing it, a coating pays for itself.</p>
+      <p>Carnauba wax gives a warm shine that lasts a few weeks. The ceramic sealant in our exterior detail bonds harder and lasts about three months, or about six with the protection add-on, and it is what we recommend for most cars. A <a href="/ceramic-coating/">ceramic coating</a> is a different product: a hard layer bonded to corrected paint that lasts years, not months. If you keep the car a long time or hate washing it, a coating pays for itself.</p>
 
       <h2>Keeping it clean between details</h2>
       <ul>

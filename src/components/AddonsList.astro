@@ -3,7 +3,7 @@ import { ADDONS_INTERIOR, ADDONS_EXTERIOR, usd, type Addon } from '../data/prici
 export interface Props { heading?: string; lead?: string; soft?: boolean; only?: 'interior' | 'exterior' }
 const {
   heading = 'Add-ons, priced up front',
-  lead = 'Add what your car actually needs. Same price on every vehicle size. Items marked "in Deep Reset" are already included at Level 3.',
+  lead = 'The Full Detail covers a car in normal condition. Pet hair, stains, smells and spills are added here, at the same price on every vehicle size, so you only pay for what your car needs.',
   soft = true,
   only,
 } = Astro.props;
@@ -28,7 +28,6 @@ const groups: { title: string; items: Addon[] }[] = [
               <li>
                 <div>
                   <span class="addons__name">{a.name}</span>
-                  {a.includedIn && <span class="pill pill--green">in {a.includedIn}</span>}
                   <p>{a.desc}</p>
                 </div>
                 <span class="addons__price">{usd(a.price)}</span>
