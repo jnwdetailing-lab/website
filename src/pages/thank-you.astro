@@ -36,8 +36,8 @@ import { SITE, ADS_LEAD_CONVERSION } from '../data/site';
     </div>
   </section>
   {/*
-    Marks this visitor as a lead, so Book Online buttons stop asking for the form
-    (see BOOK_GATE). If they came here from a Book Online click, forward them
+    Marks the moment this visitor sent the form, so Book Online buttons let them
+    through for the next few minutes (see BOOK_GATE). If they came here from a Book Online click, forward them
     straight to the booking page they were heading for.
   */}
   <script is:inline define:vars={{ booking: SITE.booking }}>

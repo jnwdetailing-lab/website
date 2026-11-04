@@ -1,17 +1,17 @@
 ---
 // Book Online gate (see BOOK_GATE in src/data/site.ts). Rendered once per page
 // from Base.astro. A click on any link to the Fieldd booking page is sent to the
-// quote form first, unless this visitor has already sent it.
+// quote form first, unless this visitor sent it in the last few minutes.
 import { SITE, BOOK_GATE } from '../data/site';
 const bookingOrigin = new URL(SITE.booking).origin;
 ---
 {BOOK_GATE.enabled && (
-  <script is:inline define:vars={{ bookingOrigin, booking: SITE.booking, rememberDays: BOOK_GATE.rememberDays }}>
+  <script is:inline define:vars={{ bookingOrigin, booking: SITE.booking, rememberMinutes: BOOK_GATE.rememberMinutes }}>
     (function () {
-      var LEAD = 'jw-lead', INTENT = 'jw-intent', DAY = 864e5;
+      var LEAD = 'jw-lead', INTENT = 'jw-intent', MIN = 6e4;
       var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
       var set = function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} };
-      var hasLead = function () { var t = Number(get(LEAD)); return t > 0 && Date.now() - t < rememberDays * DAY; };
+      var hasLead = function () { var t = Number(get(LEAD)); return t > 0 && Date.now() - t < rememberMinutes * MIN; };
 
       function showNote() {
         var quote = document.getElementById('quote');
@@ -21,7 +21,7 @@ const bookingOrigin = new URL(SITE.booking).origin;
         var note = document.createElement('div');
         note.className = 'book-note';
         note.setAttribute('role', 'status');
-        note.innerHTML = '<strong>One quick step before you book.</strong> Send this form and we take you straight to the booking calendar to pick your time. You only do this once.';
+        note.innerHTML = '<strong>One quick step before you book.</strong> Send this form and we take you straight to the booking calendar to pick your time.';
         target.parentNode.insertBefore(note, target);
       }
 
@@ -40,7 +40,7 @@ const bookingOrigin = new URL(SITE.booking).origin;
         if (!a) return;
         var href = a.getAttribute('href') || '';
         if (href.indexOf(bookingOrigin) === 0) {
-          if (hasLead()) return; // already sent the form: straight to booking
+          if (hasLead()) return; // just sent the form: straight to booking
           e.preventDefault();
           // Let other click handlers (e.g. closing the mobile menu) run first.
           setTimeout(toForm, 30);
