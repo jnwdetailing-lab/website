@@ -54,6 +54,9 @@ const csv = (r: PriceRow) => r.join(',');
           );
         })}
       </div>
+      <p class="plans-terms">
+        <strong>No contracts. Cancel anytime.</strong> Plans need a minimum of {MEMBERSHIP.minimumVisits} completed visits to keep the plan price. If you cancel before your {MEMBERSHIP.minimumVisits === 3 ? 'third' : `${MEMBERSHIP.minimumVisits}th`} visit, we charge back the difference between the plan price and the one-time price for the visits you already had. No other fees.
+      </p>
     </div>
 
     <div class="plan-rules">
@@ -97,6 +100,8 @@ const csv = (r: PriceRow) => r.join(',');
   .plan .checklist { font-size: 0.93rem; margin-bottom: 1.4rem; }
   .plan .checklist :global(li::before) { background-color: var(--red-soft) !important; }
   .plan .btn { margin-top: auto; }
+  .plans-terms { max-width: 760px; margin: 0; text-align: center; font-size: 0.9rem; line-height: 1.55; color: #b6bcc6; }
+  .plans-terms strong { color: #fff; }
   .plan-rules { max-width: 1060px; margin: 2.5rem auto 0; display: grid; grid-template-columns: 1fr 1.3fr; gap: 2rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2.25rem; }
   @media (max-width: 860px) { .plan-rules { grid-template-columns: 1fr; } }
   .plan-rules h3 { font-size: 1.15rem; margin-bottom: 1rem; }
