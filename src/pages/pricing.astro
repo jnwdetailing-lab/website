@@ -7,7 +7,7 @@ import MembershipPlans from '../components/MembershipPlans.astro';
 import Faq from '../components/Faq.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { SITE } from '../data/site';
+import { SITE, CTA } from '../data/site';
 import { DETAIL, EXTERIOR_ONLY, EXTRA_TIME, CERAMIC, SIZES, OVERSIZED, MEMBERSHIP, MONTHLY_FROM, planRow, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../data/schema';
 
@@ -68,26 +68,26 @@ const schema = [
     <div class="container">
       <div class="head">
         <span class="eyebrow">Ceramic coating</span>
-        <h2>Ceramic coating prices</h2>
-        <p class="lead">Every coating includes a full wash, iron and clay decontamination, and polishing before the coating goes on. The packages differ in how much paint correction comes first.</p>
+        <h2>Ceramic coating is quoted for your vehicle</h2>
+        <p class="lead">Every coating includes a full wash, iron and clay decontamination, and polishing before the coating goes on. The packages differ in how much paint correction comes first, so the price depends on your vehicle and the condition of the paint. Send us the make and model and a photo of the paint in direct sun, and we give you a set price before anything is booked.</p>
       </div>
       <div class="table-wrap">
-        <table>
+        <table class="cer-table">
           <thead>
-            <tr><th>Package</th><th>Prep before the coating</th>{SIZES.map((s) => <th>{s.label}</th>)}</tr>
+            <tr><th>Package</th><th>Prep before the coating</th></tr>
           </thead>
           <tbody>
             {CERAMIC.map((c) => (
               <tr>
                 <td><strong>{c.name}</strong><br /><small>{c.bestFor}</small></td>
                 <td>{c.prep}</td>
-                {c.prices.map((v) => <td class="price">{usd(v)}</td>)}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <p class="center" style="margin-top:1.25rem"><a href="/ceramic-coating/">How ceramic coating works, and which package fits your paint →</a></p>
+      <p class="center" style="margin-top:1.5rem"><a href={CTA.href} class="btn btn--primary" data-scroll-book>Get a ceramic quote</a></p>
+      <p class="center" style="margin-top:1rem"><a href="/ceramic-coating/">How ceramic coating works, and which package fits your paint →</a></p>
     </div>
   </section>
 
@@ -95,3 +95,8 @@ const schema = [
   <QuoteSection title="Not sure what your car needs? Send us the car." text="Tell us the make, model and what is bothering you about it. We will tell you which add-ons, if any, it needs and confirm the price." />
   <CtaBand />
 </Base>
+
+<style>
+  /* Two short columns: fits a phone without the global table min-width. */
+  .cer-table { min-width: 0; }
+</style>

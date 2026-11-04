@@ -6,8 +6,9 @@
 // same detail on a schedule, with the same amount off every visit on every
 // vehicle (set in Fieldd under each service's Recurring booking).
 //
-// Ceramic is not in the Fieldd catalog right now; the ceramic rows below are
-// the last listed prices (smallest, "SUV / Truck" and largest of four sizes).
+// Ceramic coating is quoted per vehicle, not listed: the price depends on the
+// size and on how much correction the paint needs, so no ceramic prices are
+// posted anywhere on the site.
 // ---------------------------------------------------------------------------
 
 export type Size = { id: string; label: string; examples: string };
@@ -126,17 +127,20 @@ export const addonPrice = (name: string) => {
   return a.price;
 };
 
-export type CeramicTier = { id: string; name: string; prices: PriceRow; prep: string; bestFor: string; featured?: boolean };
+// Quoted per vehicle: the packages differ only in the prep under the coating.
+export type CeramicTier = { id: string; name: string; prep: string; bestFor: string; featured?: boolean };
 
 export const CERAMIC: CeramicTier[] = [
-  { id: 'bronze', name: 'Bronze', prices: [750, 895, 950], prep: 'Paint enhancement polish', bestFor: 'Newer cars with paint in good shape' },
-  { id: 'silver', name: 'Silver', prices: [850, 995, 1050], prep: 'One-step paint correction', bestFor: 'Most cars: light swirls and wash marks removed first', featured: true },
-  { id: 'gold', name: 'Gold', prices: [1250, 1550, 1550], prep: 'Two-step paint correction', bestFor: 'Dark, swirled or neglected paint, or a show-level finish' },
+  { id: 'bronze', name: 'Bronze', prep: 'Paint enhancement polish', bestFor: 'Newer cars with paint in good shape' },
+  { id: 'silver', name: 'Silver', prep: 'One-step paint correction', bestFor: 'Most cars: light swirls and wash marks removed first', featured: true },
+  { id: 'gold', name: 'Gold', prep: 'Two-step paint correction', bestFor: 'Dark, swirled or neglected paint, or a show-level finish' },
 ];
 
-export const CERAMIC_ADDONS: Addon[] = [
-  { name: 'Interior ceramic coating', price: 150, desc: 'Fabric and leather protection that makes spills easier to clean.' },
-  { name: 'All windows ceramic coating', price: 150, desc: 'Every window coated so rain and grime sheet off.' },
+/** Coatings that can go on with any package, quoted together with it. */
+export const CERAMIC_ADDONS: { name: string; desc: string }[] = [
+  { name: 'Interior ceramic coating', desc: 'Fabric and leather protection that makes spills easier to clean.' },
+  { name: 'All windows ceramic coating', desc: 'Every window coated so rain and grime sheet off.' },
+  { name: 'Windshield ceramic coating', desc: 'Rain beads up and blows off the glass at speed.' },
 ];
 
 export const from = (row: PriceRow) => Math.min(...row);

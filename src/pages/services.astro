@@ -7,7 +7,7 @@ import Faq from '../components/Faq.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
-import { DETAIL, EXTERIOR_ONLY, CERAMIC, MONTHLY_FROM, addonPrice, from, usd, range } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, MONTHLY_FROM, addonPrice, from, usd, range } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../data/schema';
 
 const path = '/services/';
@@ -35,7 +35,7 @@ const rows = [
   { name: 'Shampoo extraction', href: '/interior-auto-detailing-oakland-california/', what: 'Hot-water extraction of seats or carpets, added to a detail', time: '+30 min each', price: `${usd(shampoo)} each` },
   { name: 'Clay bar', href: '/exterior-auto-detailing-oakland-california/', what: 'Bonded grit, tar and overspray lifted off the paint', time: '+30 min', price: `${usd(clay)} add-on` },
   { name: 'Paint correction', href: '/paint-correction/', what: 'One-step polish with any detail, or a quoted two-step correction', time: '+2 hrs to a full day', price: `from ${usd(polish)}` },
-  { name: 'Ceramic coating', href: '/ceramic-coating/', what: 'Decontamination, correction and a professional coating', time: 'Full day', price: `from ${usd(from(CERAMIC[0].prices))}` },
+  { name: 'Ceramic coating', href: '/ceramic-coating/', what: 'Decontamination, correction and a professional coating', time: 'Full day', price: 'Quoted' },
   { name: 'Odor removal', href: '/odor-removal-oakland/', what: 'Ozone treatment with an interior detail', time: '+30–90 min', price: `${usd(ozone)} add-on` },
   { name: 'RV wash & detail', href: '/rv-wash-and-rv-detailing-oakland-california/', what: 'By length, surface and condition', time: 'Varies', price: 'Quoted' },
 ];

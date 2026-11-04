@@ -7,16 +7,13 @@ import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
-import SizePicker from '../components/SizePicker.astro';
-import Icon from '../components/Icons.astro';
-import { CTA, BOOK } from '../data/site';
-import { CERAMIC, CERAMIC_ADDONS, SIZES, from, usd, type PriceRow } from '../data/pricing';
+import { CTA } from '../data/site';
+import { CERAMIC, CERAMIC_ADDONS } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/ceramic-coating/';
 const title = 'Ceramic Coating Oakland, CA | Applied at Your Home | J&W';
-const description = `Professional ceramic coating in Oakland, applied at your home. Decontamination and paint correction included. Bronze from ${usd(from(CERAMIC[0].prices))}, Silver from ${usd(from(CERAMIC[1].prices))}, Gold from ${usd(from(CERAMIC[2].prices))}.`;
-const csv = (r: PriceRow) => r.join(',');
+const description = 'Professional ceramic coating in Oakland, applied at your home. Decontamination and paint correction included. Bronze, Silver and Gold packages, quoted for your vehicle and paint.';
 
 // The questions people actually ask before they buy a coating, answered
 // straight. No lifespan promises: the expected life of the specific coating
@@ -37,7 +34,7 @@ const faqs = [
   { q: 'How do I know the coating is still working?', a: 'Water behaviour is the tell. A working coating beads tightly and sheets off when you rinse. When beading goes flat and the paint stays dusty after a wash, it is almost always road film sitting on top of the coating, not the coating wearing out, and a decontamination wash brings it back. When the paint stops beading even after a proper decontamination, the coating has reached the end of its life and it is time to correct and re-coat.' },
   { q: 'Can wheels, glass, trim, wraps or PPF be coated too?', a: 'Yes, with coatings made for each surface. Wheel coatings shrug off brake dust so wheels rinse clean instead of needing harsh cleaners. Glass coatings sheet rain off the windshield at speed and make bugs and ice easier to clear. Trim coatings keep black plastic dark. Wraps, paint protection film and matte paint can be coated with matte-safe products that protect without adding gloss. We quote these as add-ons to the paint.' },
   { q: 'What is the difference between a spray-on ceramic and a professional coating?', a: 'Spray ceramics and ceramic-infused waxes are toppers: a thin layer applied in an afternoon that lasts a few months, with no prep. A professional coating is a far denser product applied panel by panel over corrected, decontaminated paint, then cured, and it protects for years. Sprays are a good way to maintain a professional coating between details. They are not a substitute for one.' },
-  { q: 'What decides the price of a ceramic coating?', a: `Two things: the size of the vehicle, because more panels mean more prep and more product, and how much paint correction goes under the coating, which is what separates Bronze, Silver and Gold. For a car, Bronze is ${usd(CERAMIC[0].prices[0])}, Silver ${usd(CERAMIC[1].prices[0])} and Gold ${usd(CERAMIC[2].prices[0])}; every size is listed on this page. Glass and interior coatings are add-ons. A quote far below the going rate usually means the correction is being skipped, and correction is most of the work.` },
+  { q: 'How much does a ceramic coating cost?', a: 'We quote every coating for the vehicle in front of us, because two things decide the price: the size of the vehicle, since more panels mean more prep and more product, and how much paint correction goes under the coating, which is what separates Bronze, Silver and Gold. Send us the make and model and a photo of the paint in direct sun. We tell you which package your paint needs and give you a set price before anything is booked. Glass and interior coatings are quoted with it. A quote far below the going rate usually means the correction is being skipped, and correction is most of the work.' },
   { q: 'Do you come to me for ceramic coating? What do you need?', a: 'Yes. We apply coatings at your home or workplace across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda and Walnut Creek. We need a garage, carport or shaded driveway out of direct sun and rain, and about a day. We bring water, power and lighting.' },
 ];
 
@@ -47,9 +44,7 @@ const schema = [
     description: 'Professional mobile ceramic coating in Oakland and the Bay Area. Complete application includes decontamination, paint correction and a hydrophobic ceramic coating bonded to the paint, applied at your home or workplace.',
     path,
     image: '/images/ceramic-coating-oakland.jpg',
-    minPrice: from(CERAMIC[0].prices),
-    maxPrice: Math.max(...CERAMIC[2].prices),
-    offers: CERAMIC.map((c) => ({ name: `${c.name} Ceramic Package`, description: `Hand wash, iron and clay decontamination, ${c.prep.toLowerCase()}, professional ceramic coating, cure and inspection.`, price: String(from(c.prices)) })),
+    offers: CERAMIC.map((c) => ({ name: `${c.name} Ceramic Package`, description: `Hand wash, iron and clay decontamination, ${c.prep.toLowerCase()}, professional ceramic coating, cure and inspection. Quoted per vehicle.` })),
   }),
   faqSchema(faqs),
   breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating', href: path }]),
@@ -67,14 +62,15 @@ const steps = [
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Ceramic Coating' }]}
     eyebrow="Professional ceramic coating"
+    showBook={false}
     titleHtml="Ceramic Coating in Oakland, <em>applied in your driveway</em>"
     text="A hard, glossy layer bonded to freshly corrected paint, so the car stays cleaner, washes in half the time and keeps its color. Every package includes the decontamination and polishing that make a coating worth having."
     image="/images/ceramic-coating-oakland.jpg"
     imageAlt="Ceramic coating being poured onto an applicator pad before a mobile application in Oakland, CA"
     facts={[
-      { label: 'Bronze', value: `from ${usd(from(CERAMIC[0].prices))}` },
-      { label: 'Silver', value: `from ${usd(from(CERAMIC[1].prices))}` },
-      { label: 'Gold', value: `from ${usd(from(CERAMIC[2].prices))}` },
+      { label: 'Packages', value: 'Bronze, Silver, Gold' },
+      { label: 'Prep', value: 'Paint correction included' },
+      { label: 'Price', value: 'Quoted for your vehicle' },
       { label: 'Time', value: 'A full day' },
     ]}
   />
@@ -97,16 +93,14 @@ const steps = [
       <div class="head">
         <span class="eyebrow">Packages</span>
         <h2>Three packages. The difference is the prep.</h2>
-        <p class="lead">Same professional coating in all three. What changes is how much paint correction goes underneath, which depends on the condition of your paint.</p>
+        <p class="lead">Same professional coating in all three. What changes is how much paint correction goes underneath, which depends on the condition of your paint. Every coating is quoted for your vehicle, so you know the price before anything is booked.</p>
       </div>
-      <SizePicker />
       <div class="cer">
         {CERAMIC.map((c) => (
           <article class:list={['cer__card', { 'cer__card--top': c.featured }]}>
             {c.featured && <span class="cer__flag">Most booked</span>}
             <h3>{c.name}</h3>
             <p class="cer__prep">{c.prep}</p>
-            <p class="cer__price"><span data-prices={csv(c.prices)}>{usd(c.prices[0])}</span> <small>for a <span data-size-label>{SIZES[0].label}</span></small></p>
             <p class="cer__for">{c.bestFor}</p>
             <ul class="checklist">
               <li>Hand wash, iron remover and clay bar</li>
@@ -117,16 +111,15 @@ const steps = [
             </ul>
             <div class="cer__cta">
               <a href={CTA.href} class="btn btn--primary btn--block" data-scroll-book>{CTA.label}</a>
-              <a href={BOOK.href} class="btn btn--ghost btn--block"><Icon name="calendar" /> {BOOK.label}</a>
             </div>
           </article>
         ))}
       </div>
+      <h3 class="cer-add__head">Add to any package, quoted with your coating</h3>
       <div class="cer-add">
         {CERAMIC_ADDONS.map((a) => (
-          <div><strong>{a.name}</strong> <span class="cer-add__price">{usd(a.price)}</span><p>{a.desc}</p></div>
+          <div><strong>{a.name}</strong><p>{a.desc}</p></div>
         ))}
-        <div><strong>Windshield ceramic coating</strong> <span class="cer-add__price">$95</span><p>Rain beads and blows off the glass at speed.</p></div>
       </div>
     </div>
   </section>
@@ -192,16 +185,14 @@ const steps = [
   .cer__flag { position: absolute; top: -0.75rem; left: 1.4rem; background: var(--red); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.7rem; border-radius: 999px; }
   .cer__card h3 { font-size: 1.5rem; margin: 0; }
   .cer__prep { color: var(--red-text); font-weight: 650; font-size: 0.92rem; margin: 0.2rem 0 0.9rem; }
-  .cer__price { font-family: var(--font-display); font-weight: 800; font-size: 2.4rem; letter-spacing: -0.04em; color: var(--ink); margin: 0; line-height: 1.1; }
-  .cer__price small { font-family: var(--font-body); font-size: 0.88rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
-  .cer__for { color: var(--muted); font-size: 0.93rem; margin: 0.6rem 0 1rem; }
+  .cer__for { color: var(--ink); font-size: 0.98rem; font-weight: 550; margin: 0 0 1rem; }
   .cer__card .checklist { font-size: 0.93rem; margin-bottom: 1.3rem; }
   .cer__cta { margin-top: auto; display: grid; gap: 0.5rem; }
-  .cer-add { max-width: 1080px; margin: 1.25rem auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .cer-add__head { max-width: 1080px; margin: 2rem auto 0.9rem; font-size: 1.1rem; }
+  .cer-add { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   @media (max-width: 900px) { .cer-add { grid-template-columns: 1fr; } }
   .cer-add > div { border: 1px solid var(--line); background: #fff; border-radius: 16px; padding: 1rem 1.2rem; }
   .cer-add strong { color: var(--ink); }
-  .cer-add__price { float: right; font-family: var(--font-display); font-weight: 800; color: var(--ink); }
   .cer-add p { margin: 0.3rem 0 0; font-size: 0.9rem; color: var(--muted); }
   .honest { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
   @media (max-width: 640px) { .honest { grid-template-columns: 1fr; } }
