@@ -197,3 +197,7 @@ td.price, .num { font-family: var(--font-display); font-weight: 800; color: var(
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* Book Online gate: note shown above the quote form when someone clicked Book Online. */
+.book-note { background: #fff4e5; border: 1px solid #f5c98a; color: #4a3300; border-radius: 14px; padding: 0.85rem 1rem; margin: 0 0 1rem; font-size: 0.95rem; line-height: 1.5; scroll-margin-top: calc(var(--nav-h, 72px) + 16px); }
+.book-note strong { color: #2b1d00; }

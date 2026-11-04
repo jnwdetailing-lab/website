@@ -1,0 +1,59 @@
+---
+// Book Online gate (see BOOK_GATE in src/data/site.ts). Rendered once per page
+// from Base.astro. A click on any link to the Fieldd booking page is sent to the
+// quote form first, unless this visitor has already sent it.
+import { SITE, BOOK_GATE } from '../data/site';
+const bookingOrigin = new URL(SITE.booking).origin;
+---
+{BOOK_GATE.enabled && (
+  <script is:inline define:vars={{ bookingOrigin, booking: SITE.booking, rememberDays: BOOK_GATE.rememberDays }}>
+    (function () {
+      var LEAD = 'jw-lead', INTENT = 'jw-intent', DAY = 864e5;
+      var get = function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } };
+      var set = function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} };
+      var hasLead = function () { var t = Number(get(LEAD)); return t > 0 && Date.now() - t < rememberDays * DAY; };
+
+      function showNote() {
+        var quote = document.getElementById('quote');
+        if (!quote || quote.querySelector('.book-note')) return;
+        // Directly above the form itself, so it never lands in a grid column of its own.
+        var target = quote.querySelector('.ghl') || quote.querySelector('form') || quote.firstElementChild;
+        var note = document.createElement('div');
+        note.className = 'book-note';
+        note.setAttribute('role', 'status');
+        note.innerHTML = '<strong>One quick step before you book.</strong> Send this form and we take you straight to the booking calendar to pick your time. You only do this once.';
+        target.parentNode.insertBefore(note, target);
+      }
+
+      function toForm() {
+        set(INTENT, JSON.stringify({ v: 'book', t: Date.now() }));
+        var quote = document.getElementById('quote');
+        if (!quote) { location.href = '/?book=1#quote'; return; }
+        showNote();
+        var focusEl = document.getElementById('book') || quote;
+        (quote.querySelector('.book-note') || quote).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (focusEl.tabIndex >= 0) setTimeout(function () { focusEl.focus({ preventScroll: true }); }, 450);
+      }
+
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf(bookingOrigin) === 0) {
+          if (hasLead()) return; // already sent the form: straight to booking
+          e.preventDefault();
+          // Let other click handlers (e.g. closing the mobile menu) run first.
+          setTimeout(toForm, 30);
+        } else if (a.hasAttribute('data-scroll-book') || /#(quote|book)$/.test(href)) {
+          // A plain quote request: do not forward to booking after the form.
+          try { localStorage.removeItem(INTENT); } catch (err) {}
+        }
+      }, true);
+
+      if (/[?&]book=1\b/.test(location.search)) {
+        set(INTENT, JSON.stringify({ v: 'book', t: Date.now() }));
+        document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', showNote) : showNote();
+      }
+    })();
+  </script>
+)}

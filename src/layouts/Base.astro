@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import StickyCta from '../components/StickyCta.astro';
+import BookGate from '../components/BookGate.astro';
 import { SITE, ADS_CALL_CONVERSION, GHL_TRACKING } from '../data/site';
 import { srcsetFor, PAGE_HERO_SIZES } from '../lib/srcset';
 
@@ -242,6 +243,7 @@ const allSchema = [localBusiness, website, ...schema];
     </main>
     <Footer />
     <StickyCta />
+    <BookGate />
 
     <!--
       GoHighLevel / LeadConnector number pool + session tracking.

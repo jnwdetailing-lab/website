@@ -73,6 +73,23 @@ export const BOOK = {
   href: SITE.booking,
 };
 
+// ---------------------------------------------------------------------------
+// Book Online gate. No button goes straight to the Fieldd booking page. A
+// "Book Online" click takes the visitor to the same quote form as "Get Quote
+// Now", with a note that booking comes next. When the form is sent, GHL lands
+// them on /thank-you/, which forwards them straight to the booking page. So
+// even if they never finish booking, the lead (name, phone, car, what they
+// need) is already in GoHighLevel.
+//
+// Anyone who has sent the form is not asked again for `rememberDays`; their
+// Book Online clicks go straight to booking. Set enabled: false to send every
+// Book Online click straight to Fieldd again.
+// ---------------------------------------------------------------------------
+export const BOOK_GATE = {
+  enabled: true,
+  rememberDays: 60,
+};
+
 // One line across the top of every page. Set text to '' to hide it.
 export const ANNOUNCEMENT = {
   text: 'Keep it clean all year: members save up to $100 on every detail.',

@@ -26,13 +26,31 @@ import { SITE, ADS_LEAD_CONVERSION } from '../data/site';
   <section class="section">
     <div class="container center" style="max-width:640px">
       <span class="eyebrow">Request received</span>
-      <h1>Thanks, we will be in contact shortly.</h1>
-      <p class="lead">Usually within the hour during business hours ({SITE.hours.label}). Want to lock in a time right now?</p>
+      <h1 id="ty-h">Thanks, we will be in contact shortly.</h1>
+      <p class="lead" id="ty-lead">Usually within the hour during business hours ({SITE.hours.label}). Want to lock in a time right now?</p>
       <div class="btn-row" style="justify-content:center">
-        <a href={SITE.booking} class="btn btn--primary btn--lg" target="_blank" rel="noopener"><Icon name="calendar" /> Book a time online</a>
+        <a href={SITE.booking} class="btn btn--primary btn--lg" id="ty-book" rel="noopener"><Icon name="calendar" /> Book a time online</a>
         <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
       </div>
       <p style="margin-top:2rem"><a href="/">← Back to home</a> · <a href="/services/">Services & pricing</a></p>
     </div>
   </section>
+  {/*
+    Marks this visitor as a lead, so Book Online buttons stop asking for the form
+    (see BOOK_GATE). If they came here from a Book Online click, forward them
+    straight to the booking page they were heading for.
+  */}
+  <script is:inline define:vars={{ booking: SITE.booking }}>
+    (function () {
+      try {
+        localStorage.setItem('jw-lead', String(Date.now()));
+        var intent = JSON.parse(localStorage.getItem('jw-intent') || 'null');
+        localStorage.removeItem('jw-intent');
+        if (!intent || intent.v !== 'book' || Date.now() - intent.t > 864e5) return;
+      } catch (e) { return; }
+      document.getElementById('ty-h').textContent = 'Got it. Taking you to booking now…';
+      document.getElementById('ty-lead').textContent = 'Pick your service and a time. If the page does not open, use the button below.';
+      setTimeout(function () { location.href = booking; }, 1200);
+    })();
+  </script>
 </Base>
