@@ -1,8 +1,12 @@
 ---
-import { REVIEWS, SITE } from '../data/site';
+import { REVIEWS, SITE, TRUSTINDEX } from '../data/site';
 import Icon from './Icons.astro';
+import TrustindexWidget from './TrustindexWidget.astro';
 export interface Props { limit?: number; heading?: string; eyebrow?: string; filterService?: string; showAllLink?: boolean }
-const { limit = 6, heading = 'Oakland drivers keep saying the same thing', eyebrow = '4.9★ on Google · 220+ reviews', filterService, showAllLink = true } = Astro.props;
+const { limit = 6, heading = 'Oakland drivers keep saying the same thing', eyebrow = `${SITE.rating.value}★ on Google · ${SITE.stats.reviews} reviews`, filterService, showAllLink = true } = Astro.props;
+// With a Trustindex widget set, it shows the live rating, count and reviews,
+// so the static score and cards below are left out.
+const live = Boolean(TRUSTINDEX.reviews);
 let list = REVIEWS;
 if (filterService) {
   const match = REVIEWS.filter((r) => r.service?.toLowerCase().includes(filterService.toLowerCase()));
@@ -18,16 +22,16 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
         <span class="eyebrow">{eyebrow}</span>
         <h2>{heading}</h2>
       </div>
-      <div class="reviews__score">
+      {!live && <div class="reviews__score">
         <div class="reviews__num">{SITE.rating.value}</div>
         <div>
           <span class="stars" role="img" aria-label="5 out of 5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" />)}</span>
           <div class="reviews__count">Based on <a href={SITE.social.google} target="_blank" rel="noopener">{SITE.rating.count} Google reviews</a></div>
         </div>
-      </div>
+      </div>}
     </div>
 
-    <div class="reviews__grid">
+    {live ? <TrustindexWidget code={TRUSTINDEX.reviews} minHeight={780} minHeightMobile={930} /> : <div class="reviews__grid">
       {list.map((r) => (
         <article class="review">
           <div class="review__top">
@@ -44,7 +48,7 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
           <p>“{r.text}”</p>
         </article>
       ))}
-    </div>
+    </div>}
 
     {showAllLink && (
       <div class="reviews__foot">

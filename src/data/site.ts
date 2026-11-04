@@ -29,8 +29,9 @@ export const SITE = {
   },
   geo: { lat: 37.7895, lng: -122.2347 },
   hours: { open: '08:00', close: '20:00', label: 'Mon – Sun · 8:00 AM – 8:00 PM' },
-  rating: { value: 4.9, count: 223 },
-  stats: { reviews: '220+', customers: '1,000+', since: '2022', cities: '8+' },
+  // From the Trustindex badge (live Google data), Nov 4 2026.
+  rating: { value: 4.9, count: 254 },
+  stats: { reviews: '250+', customers: '1,000+', since: '2022', cities: '8+' },
   social: {
     instagram: 'https://www.instagram.com/jnwdetail/',
     facebook: 'https://www.facebook.com/jnwdetail/',
@@ -168,6 +169,28 @@ export type NavItem = { label: string; href: string; children?: NavItem[] };
 // URL out of the iframe code.
 export const GOOGLE_MAP_EMBED =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0317277051945!2d-122.2340449244489!3d37.789296211323816!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d6fb452df51eebd%3A0x27abe75bf3d02297!2sJ%26W%20Mobile%20Detailing%20%E2%80%93%20Ceramic%20Coating%20%26%20Paint%20Correction!5e0!3m2!1sen!2sus!4v1787906283402!5m2!1sen!2sus';
+
+// Trustindex review widgets (trustindex.io). They pull your live Google reviews,
+// so the rating, count and review text stay accurate on their own. In Trustindex,
+// open the widget, copy its embed code and paste it (or just the code after
+// "loader.js?") below. While a slot is empty, the site shows the cards in REVIEWS.
+export const TRUSTINDEX = {
+  /** Google rating badge next to the homepage H1. */
+  hero: '4926dbc85b36032206862486436',
+  /** Review wall: homepage, service pages, city pages and /reviews/. */
+  reviews: '61f890185737032922963dc69cb',
+  /** Optional different widget for /reviews/. Falls back to `reviews`. */
+  reviewsPage: '',
+  /**
+   * Trustindex can also inject its own review markup for Google (a "Product"
+   * with its own review count, which lags the live count). The site already
+   * publishes the business rating in its LocalBusiness data, so this is off to
+   * avoid two conflicting numbers. Set true to let Trustindex add it.
+   */
+  richSnippet: false,
+};
+/** Accepts a full Trustindex embed code or the bare widget ID. */
+export const trustindexId = (code: string) => (code.match(/loader\.js\?([A-Za-z0-9]+)/)?.[1] ?? code.trim()).replace(/[^A-Za-z0-9]/g, '');
 
 // BBB seal. Get these from your BBB business profile ("Get the Seal"): the link to
 // your profile, and the seal image URL BBB gives you. Both must be filled in or the
@@ -343,6 +366,7 @@ export const HOME_FAQS: FAQ[] = [
   { q: 'How much does mobile car detailing cost in Oakland?', a: `Our Full Detail, inside and out, is ${usd(sedan)} for a coupe or sedan, ${usd(suv5)} for a 5-seat SUV or truck and ${usd(suv7)} for a 7-seat SUV or minivan. Interior only is $50 less, from ${usd(DETAIL.interiorOnly[0])}. An exterior-only detail is ${usd(EXTERIOR_ONLY.prices[0])}. Members save up to ${usd(MEMBERSHIP.maxSave)} on every visit. Every price is on our pricing page, and you confirm it before anything is booked.` },
   { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the Bay Area. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: `A Full Detail inside and out takes ${DETAIL.hoursInsideOut}, interior only ${DETAIL.hoursInterior} and an exterior-only detail ${EXTERIOR_ONLY.hours.toLowerCase()}, depending on vehicle size. Add-ons like shampoo or pet hair add time. Ceramic coating with paint correction is a full-day appointment.` },
+  { q: 'What does the 100% satisfaction guarantee mean?', a: 'If something we did is not right, tell us before we leave or within 48 hours, and we come back and make it right. We also walk the car with you at the end of every detail so you can point out anything on the spot.' },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond and nearby Bay Area communities. If you are just outside that list, call us. We can usually make it work.' },
   { q: 'How do I book?', a: 'Two ways. Book a time yourself online, or send the quote form on this page with your name, number and what you drive, and we text back a price and the next openings, usually within minutes during business hours. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
   { q: 'What does the Full Detail include, and what costs extra?', a: `Inside: a full vacuum, air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. Outside: a hand wash, iron and clay decontamination, wheels, door jambs and about three months of ceramic sealant. Stains, pet hair, smells and spills are add-ons at a set price, like seat and carpet shampoo for ${addon('Shampoo seats and carpet')} or pet hair removal for ${addon('Pet hair removal')}, so a car in good shape never pays for work it does not need.` },

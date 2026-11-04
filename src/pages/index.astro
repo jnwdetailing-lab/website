@@ -10,8 +10,9 @@ import ComeToYou from '../components/ComeToYou.astro';
 import PriceExplorer from '../components/PriceExplorer.astro';
 import MembershipPlans from '../components/MembershipPlans.astro';
 import WorkGallery from '../components/WorkGallery.astro';
+import TrustindexWidget from '../components/TrustindexWidget.astro';
 import { srcsetFor } from '../lib/srcset';
-import { SITE, HOME_FAQS, CTA, BOOK, AREAS, GOOGLE_MAP_EMBED, BBB } from '../data/site';
+import { SITE, HOME_FAQS, CTA, BOOK, AREAS, GOOGLE_MAP_EMBED, BBB, TRUSTINDEX } from '../data/site';
 import { DETAIL, from, usd } from '../data/pricing';
 
 const title = 'Mobile Car Detailing Oakland, CA | J&W Mobile Detailing';
@@ -47,16 +48,25 @@ const HERO_SIZES = '100vw';
       </div>
 
       <div class="container hero__inner">
-        <span class="hero__tag"><Icon name="pin" size={15} /> Oakland & the Bay Area</span>
-        <h1>Mobile Car Detailing & Ceramic Coating in Oakland, CA</h1>
+        {/* Live Google rating from Trustindex. The static pill shows until it draws, at the same size. */}
+        <TrustindexWidget code={TRUSTINDEX.hero} eager inline minHeight={62} class="hero__ti">
+          <a href={SITE.social.google} class="hero__proof" target="_blank" rel="noopener">
+            <span class="hero__g" aria-hidden="true">G</span>
+            <strong>{SITE.rating.value}</strong>
+            <span class="stars" role="img" aria-label={`${SITE.rating.value} out of 5 stars`}>{Array.from({ length: 5 }).map(() => <Icon name="star" size={17} />)}</span>
+            <span>{SITE.rating.count} reviews</span>
+          </a>
+        </TrustindexWidget>
+        {!TRUSTINDEX.hero && (
+          <a href={SITE.social.google} class="hero__proof hero__ti" target="_blank" rel="noopener">
+            <span class="hero__g" aria-hidden="true">G</span>
+            <strong>{SITE.rating.value}</strong>
+            <span class="stars" role="img" aria-label={`${SITE.rating.value} out of 5 stars`}>{Array.from({ length: 5 }).map(() => <Icon name="star" size={17} />)}</span>
+            <span>{SITE.rating.count} reviews</span>
+          </a>
+        )}
+        <h1>Top-Rated Mobile Car Detailing & Ceramic Coating in Oakland, CA</h1>
         <p class="hero__sub">We bring the water, the power and a fully stocked van to your driveway, office or apartment. You get a car that looks and smells new, without losing a Saturday at a shop.</p>
-
-        <a href={SITE.social.google} class="hero__proof" target="_blank" rel="noopener">
-          <span class="hero__g" aria-hidden="true">G</span>
-          <strong>{SITE.rating.value}</strong>
-          <span class="stars" role="img" aria-label="5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={15} />)}</span>
-          <span>{SITE.rating.count} Google reviews</span>
-        </a>
 
         <div class="hero__actions">
           <a href="#book" class="btn btn--primary btn--lg" data-scroll-book>{CTA.label}</a>
@@ -64,10 +74,10 @@ const HERO_SIZES = '100vw';
           <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg hero__call"><Icon name="phone" /> {SITE.phoneDisplay}</a>
         </div>
 
-        <ul class="hero__facts">
-          <li><Icon name="droplet" size={16} /> Our own water & power</li>
-          <li><Icon name="dollar" size={16} /> Prices posted up front</li>
-          <li><Icon name="leaf" size={16} /> pH-neutral, biodegradable products</li>
+        <ul class="hero__trust" aria-label="Why customers trust us">
+          <li><Icon name="user" size={16} /> Trusted by 400+ customers</li>
+          <li><Icon name="star" size={16} /> 5-star experience</li>
+          <li><Icon name="shield" size={16} /> 100% satisfaction guarantee</li>
         </ul>
       </div>
     </div>
@@ -91,6 +101,8 @@ const HERO_SIZES = '100vw';
       </section>
     </div>
   </section>
+
+  <Reviews limit={6} heading="What Bay Area drivers say after we leave" />
 
   <ComeToYou />
 
@@ -121,8 +133,6 @@ const HERO_SIZES = '100vw';
       />
     </div>
   </section>
-
-  <Reviews limit={6} heading="What Bay Area drivers say after we leave" />
 
   <WorkGallery />
 
@@ -186,16 +196,18 @@ const HERO_SIZES = '100vw';
   /* Dark from the left and bottom so white type clears contrast on any frame. */
   .hero__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(13,15,18,0.86) 0%, rgba(13,15,18,0.62) 55%, rgba(13,15,18,0.35) 100%), linear-gradient(0deg, rgba(13,15,18,0.75) 0%, rgba(13,15,18,0) 55%); }
   .hero__inner { padding: clamp(3rem, 8vw, 5rem) 0 clamp(2rem, 5vw, 3.5rem); max-width: var(--container); }
-  .hero__tag { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.16); color: #fff; font-size: 0.85rem; font-weight: 600; padding: 0.35rem 0.8rem; border-radius: 999px; margin-bottom: 1.1rem; }
-  .hero h1 { color: #fff; max-width: 15ch; font-size: clamp(2.3rem, 5.6vw, 4.2rem); margin-bottom: 1rem; }
-  .hero__sub { font-size: clamp(1.05rem, 1.7vw, 1.22rem); color: #d4d8de; max-width: 52ch; margin-bottom: 1.4rem; }
-  .hero__proof { display: inline-flex; align-items: center; gap: 0.5rem; background: #fff; color: var(--ink); padding: 0.5rem 0.95rem; border-radius: 999px; font-size: 0.92rem; margin-bottom: 1.5rem; text-decoration: none !important; }
+  /* Review badge: the static pill matches the Trustindex badge's size (62px) so the swap does not move anything. */
+  .hero__inner :global(.hero__ti) { margin-bottom: 1.1rem; }
+  .hero__proof { display: inline-flex; align-items: center; gap: 0.55rem; height: 62px; background: #fff; color: #111; padding: 0 1.35rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none !important; }
   .hero__proof strong { font-size: 1rem; }
-  .hero__g { width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(#ea4335 0 25%, #fbbc05 0 50%, #34a853 0 75%, #4285f4 0); color: #fff; font-weight: 800; font-size: 0.78rem; display: grid; place-items: center; }
+  .hero__proof .stars { color: #f6bb06; display: inline-flex; }
+  .hero__g { width: 24px; height: 24px; border-radius: 50%; background: conic-gradient(#ea4335 0 25%, #fbbc05 0 50%, #34a853 0 75%, #4285f4 0); color: #fff; font-weight: 800; font-size: 0.8rem; display: grid; place-items: center; }
+  .hero h1 { color: #fff; max-width: 17ch; font-size: clamp(2.2rem, 5.2vw, 4rem); margin-bottom: 1rem; }
+  .hero__sub { font-size: clamp(1.05rem, 1.7vw, 1.22rem); color: #d4d8de; max-width: 52ch; margin-bottom: 1.4rem; }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 0.7rem; }
-  .hero__facts { list-style: none; padding: 0; margin: 1.6rem 0 0; display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; font-size: 0.9rem; color: #c3c8cf; }
-  .hero__facts li { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; }
-  .hero__facts :global(svg) { color: #ff6b75; }
+  .hero__trust { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.55rem; }
+  .hero__trust li { display: inline-flex; align-items: center; gap: 0.45rem; margin: 0; background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.16); color: #fff; font-size: 0.9rem; font-weight: 600; padding: 0.45rem 0.85rem; border-radius: 999px; }
+  .hero__trust :global(svg) { color: #ff6b75; flex: none; }
   @media (max-width: 640px) {
     .hero__card { min-height: 0; }
     .hero__actions { flex-direction: column; align-items: stretch; }

@@ -1,0 +1,80 @@
+---
+// A Trustindex review widget. Trustindex renders the widget next to its script
+// tag, inside this slot. To keep the page fast, the loader is only added:
+//   - eager: after the page has finished loading (for widgets near the top), or
+//   - otherwise: when the slot comes within ~1500px of the screen.
+// The slot keeps a reserved height (minHeight, minHeightMobile under 640px) so
+// the page does not jump while the widget draws. Anything passed as children is
+// shown until the widget has drawn, on top of it, then removed.
+import { SITE, TRUSTINDEX, trustindexId } from '../data/site';
+export interface Props { code: string; minHeight?: number; minHeightMobile?: number; eager?: boolean; inline?: boolean; class?: string }
+const { code, minHeight = 300, minHeightMobile, eager = false, inline = false, class: cls } = Astro.props;
+const id = trustindexId(code);
+const vars = `--ti-min:${minHeight}px;--ti-min-m:${minHeightMobile ?? minHeight}px`;
+---
+{id && (
+  <div class:list={['ti-slot', cls, { 'ti-slot--inline': inline }]} data-ti-id={id} data-ti-eager={eager ? '1' : undefined} data-ti-snippet={TRUSTINDEX.richSnippet ? undefined : 'off'} style={vars}>
+    {Astro.slots.has('default') ? <div class="ti-ph" data-ti-placeholder><slot /></div> : <noscript><p><a href={SITE.social.google} target="_blank" rel="noopener">Read our reviews on Google</a></p></noscript>}
+  </div>
+)}
+<style>
+  .ti-slot { position: relative; width: 100%; min-height: var(--ti-min); }
+  .ti-slot--inline { width: max-content; max-width: 100%; }
+  @media (max-width: 640px) { .ti-slot { min-height: var(--ti-min-m); } }
+  /* Once the widget is in the page, the placeholder sits on top of it until it has drawn. */
+  .ti-slot.ti-drawing .ti-ph { position: absolute; inset: 0 auto auto 0; z-index: 1; }
+</style>
+<script>
+  const load = (el: HTMLElement) => {
+    if (el.dataset.tiLoaded) return;
+    el.dataset.tiLoaded = '1';
+    // Trustindex's rich-snippet script skips itself when this flag is already set.
+    if (el.dataset.tiSnippet === 'off') (window as any).tiSnippet = true;
+    const ph = el.querySelector<HTMLElement>(':scope > [data-ti-placeholder]');
+    if (ph) {
+      // Trustindex adds several elements (styles, wrappers) before the visible
+      // widget, so wait until one of them is actually drawn at full size. If the
+      // widget never loads, the placeholder simply stays.
+      const parts = () => Array.from(el.children).filter((c) => !c.matches('script, noscript, style, link, [data-ti-placeholder]'));
+      const ro = new ResizeObserver(() => {
+        if (parts().some((c) => c.getBoundingClientRect().height >= 20)) {
+          ph.remove(); el.classList.remove('ti-drawing'); ro.disconnect(); mo.disconnect();
+        }
+      });
+      const mo = new MutationObserver(() => {
+        const p = parts();
+        if (p.length) el.classList.add('ti-drawing');
+        p.forEach((c) => ro.observe(c));
+      });
+      mo.observe(el, { childList: true });
+    }
+    const s = document.createElement('script');
+    s.src = `https://cdn.trustindex.io/loader.js?${el.dataset.tiId}`;
+    s.async = true;
+    s.defer = true;
+    el.appendChild(s);
+  };
+
+  const slots = Array.from(document.querySelectorAll<HTMLElement>('[data-ti-id]'));
+  const eager = slots.filter((s) => s.dataset.tiEager);
+  const lazy = slots.filter((s) => !s.dataset.tiEager);
+
+  if (eager.length) {
+    const go = () => {
+      const run = () => eager.forEach(load);
+      'requestIdleCallback' in window ? requestIdleCallback(run, { timeout: 1500 }) : setTimeout(run, 200);
+    };
+    document.readyState === 'complete' ? go() : window.addEventListener('load', go, { once: true });
+  }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { io.unobserve(e.target); load(e.target as HTMLElement); }
+      });
+    }, { rootMargin: '1500px 0px' });
+    lazy.forEach((s) => io.observe(s));
+  } else {
+    lazy.forEach(load);
+  }
+</script>

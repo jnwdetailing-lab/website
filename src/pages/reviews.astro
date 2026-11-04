@@ -4,14 +4,17 @@ import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import Icon from '../components/Icons.astro';
-import { SITE, REVIEWS } from '../data/site';
-import { breadcrumbSchema, reviewSchema } from '../data/schema';
+import TrustindexWidget from '../components/TrustindexWidget.astro';
+import { SITE, REVIEWS, TRUSTINDEX } from '../data/site';
+import { breadcrumbSchema } from '../data/schema';
 
 const path = '/reviews/';
 const title = 'J&W Mobile Detailing Reviews | 4.9★ on Google | Oakland, CA';
-const description =
-  'Read verbatim Google reviews of J&W Mobile Detailing, 4.9 stars from 220+ Oakland & Bay Area drivers on interior, exterior, paint correction & ceramic coating.';
-const schema = [...reviewSchema(REVIEWS.slice(0, 8)), breadcrumbSchema([{ label: 'Reviews', href: path }])];
+const description = `Google reviews of J&W Mobile Detailing: ${SITE.rating.value} stars from ${SITE.stats.reviews} Oakland & Bay Area drivers on interior, exterior, paint correction and ceramic coating.`;
+const schema = [breadcrumbSchema([{ label: 'Reviews', href: path }])];
+// A Trustindex widget, when set, shows the live rating, count and every review.
+const tiCode = TRUSTINDEX.reviewsPage || TRUSTINDEX.reviews;
+const live = Boolean(tiCode);
 const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
 ---
 
@@ -20,7 +23,7 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
     crumbs={[{ label: 'Reviews' }]}
     eyebrow="Customer reviews"
     titleHtml={`<em>${SITE.rating.value} stars</em> from ${SITE.rating.count} Oakland & Bay Area drivers`}
-    text="Every review below is a real, verbatim Google review from a J&W customer. Name attached, verifiable on our Google Business Profile. 216 of 223 are five stars. Read what they say about the work, the communication and the results, then book your own."
+    text="Reviews from J&W customers on our Google Business Profile, name attached. Read what they say about the work, the communication and the results, then book your own."
     image="/images/work-2.jpg"
     imageAlt="Jalil applying ceramic coating to a black sedan at a customer's home in Oakland"
   />
@@ -28,10 +31,10 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
   <section class="section section--soft">
     <div class="container">
       <div class="score">
-        <div class="score__num">{SITE.rating.value}</div>
+        {!live && <div class="score__num">{SITE.rating.value}</div>}
         <div>
-          <span class="stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={22} />)}</span>
-          <p><strong>{SITE.rating.count} reviews on Google</strong> · 216 five-star · also rated on <a href={SITE.social.yelp} target="_blank" rel="noopener">Yelp</a> and <a href={SITE.social.nextdoor} target="_blank" rel="noopener">Nextdoor</a></p>
+          {!live && <span class="stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={22} />)}</span>}
+          <p>{!live && <><strong>{SITE.rating.count} reviews on Google</strong> · </>}Also rated on <a href={SITE.social.yelp} target="_blank" rel="noopener">Yelp</a> and <a href={SITE.social.nextdoor} target="_blank" rel="noopener">Nextdoor</a></p>
         </div>
         <div class="score__actions">
           <a href={SITE.social.google} class="btn btn--dark" target="_blank" rel="noopener"><Icon name="google" /> Read all on Google</a>
@@ -39,7 +42,7 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
         </div>
       </div>
 
-      <div class="rgrid">
+      {live ? <TrustindexWidget code={tiCode} minHeight={780} minHeightMobile={930} /> : <div class="rgrid">
         {REVIEWS.map((r) => (
           <article class="review">
             <div class="review__top">
@@ -53,8 +56,8 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
             <p>“{r.text}”</p>
           </article>
         ))}
-      </div>
-      <p class="center" style="margin-top:2rem;color:var(--muted)">Showing a selection. All {SITE.rating.count} reviews, including the critical ones, are on our <a href={SITE.social.google} target="_blank" rel="noopener">Google Business Profile</a>.</p>
+      </div>}
+      {!live && <p class="center" style="margin-top:2rem;color:var(--muted)">Showing a selection. All {SITE.rating.count} reviews, including the critical ones, are on our <a href={SITE.social.google} target="_blank" rel="noopener">Google Business Profile</a>.</p>}
     </div>
   </section>
 
