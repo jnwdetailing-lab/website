@@ -5,7 +5,9 @@ import CtaBand from '../../components/CtaBand.astro';
 import QuoteSection from '../../components/QuoteSection.astro';
 import Icon from '../../components/Icons.astro';
 import { SITE, CTA } from '../../data/site';
-import { articleSchema, breadcrumbSchema } from '../../data/schema';
+import { articleSchema, breadcrumbSchema, faqSchema } from '../../data/schema';
+import { DETAIL, EXTERIOR_ONLY, MONTHLY_FROM, from, usd } from '../../data/pricing';
+import { fillTokens, postFaqs } from '../../data/blog';
 import meta from '../../content/blog/meta.json';
 
 export async function getStaticPaths() {
@@ -15,34 +17,37 @@ export async function getStaticPaths() {
     props: { ...m, html: files[`../../content/blog/${m.slug}.html`] },
   }));
 }
-const { slug, title: postTitle, date, html } = Astro.props as { slug: string; title: string; date: string; html: string };
-// Each table scrolls inside its own box on a phone instead of widening the page.
-const body = html.replace(/<table\b/g, '<div class="post__table"><table').replace(/<\/table>/g, '</table></div>');
+const { slug, title: postTitle, date, updated, html } = Astro.props as { slug: string; title: string; date: string; updated?: string; html: string };
+// Prices come from pricing.ts (see src/data/blog.ts). Each table then scrolls
+// inside its own box on a phone instead of widening the page.
+const body = fillTokens(html, slug).replace(/<table\b/g, '<div class="post__table"><table').replace(/<\/table>/g, '</table></div>');
+const faqs = postFaqs(body);
 const path = `/blog/${slug}/`;
 
 const seo: Record<string, { title: string; description: string; image: string }> = {
   'whats-included-in-a-full-detailing-service': {
     title: "What's Included in a Full Detail? Checklist, Time & Oakland Cost",
-    description: 'A full detail = two-bucket wash, clay, wheels, wax/sealant + interior vacuum, steam, shampoo, leather. 3–7 hours, from $250 in Oakland. The full checklist.',
+    description: `What a full detail includes inside and out, what is an add-on, how long it takes (${DETAIL.hoursInsideOut}) and what it costs in Oakland: from ${usd(from(DETAIL.insideOut))} at J&W.`,
     image: '/images/exterior-detailing-oakland.jpg',
   },
   'what-does-ceramic-coating-cost-in-oakland-ca': {
-    title: 'Ceramic Coating Cost in Oakland, CA: $500–$1,800 Explained',
-    description: 'Ceramic coating in Oakland typically costs $500–$1,800 complete, depending on vehicle size, paint condition and the service you choose. Incl. prep & correction.',
+    title: 'Ceramic Coating Cost in Oakland, CA (2026): What Drives the Price',
+    description: 'What a professional ceramic coating costs in Oakland and the Bay Area, what the price includes, why cheap quotes skip the prep, and how J&W quotes your vehicle.',
     image: '/images/blog/compressed-watermarked_img_17093029742238375971.jpg',
   },
   'what-does-auto-detailing-cost-in-oakland-ca': {
     title: 'Auto Detailing Cost in Oakland, CA (2026 Price Guide) | J&W',
-    description: 'Oakland detailing prices: exterior from $150, full detail from $250, premium from $350, interior from $200, paint correction from $350, ceramic $500–$1,800.',
+    description: `Oakland detailing prices at J&W: Full Detail ${DETAIL.insideOut.map(usd).join(' / ')} by size, interior only from ${usd(from(DETAIL.interiorOnly))}, exterior only ${usd(EXTERIOR_ONLY.prices[0])}, plans from ${usd(MONTHLY_FROM)} a visit.`,
     image: '/images/blog/car-detailing-cost-in-oakland-featured-image.jpg',
   },
 };
 const s = seo[slug];
 const schema = [
-  articleSchema({ title: postTitle, path, date, image: s.image, description: s.description }),
+  articleSchema({ title: postTitle, path, date, updated, image: s.image, description: s.description }),
+  ...(faqs.length ? [faqSchema(faqs)] : []),
   breadcrumbSchema([{ label: 'Blog', href: '/blog/' }, { label: postTitle, href: path }]),
 ];
-const fmt = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const fmt = new Date((updated ?? date) + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 ---
 
 <Base title={s.title} description={s.description} canonical={path} {schema} ogImage={s.image}>

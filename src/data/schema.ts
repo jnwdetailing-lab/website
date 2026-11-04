@@ -75,14 +75,14 @@ export const reviewSchema = (reviews: { name: string; text: string }[]) =>
     publisher: { '@type': 'Organization', name: 'Google' },
   }));
 
-export const articleSchema = (opts: { title: string; path: string; date: string; image: string; description: string }) => ({
+export const articleSchema = (opts: { title: string; path: string; date: string; updated?: string; image: string; description: string }) => ({
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: opts.title,
   description: opts.description,
   image: `${SITE.url}${opts.image}`,
   datePublished: opts.date,
-  dateModified: opts.date,
+  dateModified: opts.updated ?? opts.date,
   author: { '@type': 'Person', name: SITE.founder, url: `${SITE.url}/about-us/`, jobTitle: 'Founder & Lead Detailer' },
   publisher: { '@id': `${SITE.url}/#business` },
   mainEntityOfPage: `${SITE.url}${opts.path}`,

@@ -5,6 +5,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import QuoteSection from '../../components/QuoteSection.astro';
 import { breadcrumbSchema } from '../../data/schema';
 import meta from '../../content/blog/meta.json';
+import { DETAIL, EXTERIOR_ONLY, MONTHLY_FROM, from, usd } from '../../data/pricing';
 
 const path = '/blog/';
 const title = 'Detailing Guides & Oakland Pricing | J&W Mobile Detailing Blog';
@@ -16,9 +17,9 @@ const images: Record<string, string> = {
   'what-does-auto-detailing-cost-in-oakland-ca': '/images/blog/car-detailing-cost-in-oakland-featured-image.jpg',
 };
 const excerpts: Record<string, string> = {
-  'whats-included-in-a-full-detailing-service': 'Every step that belongs in a full detail, what gets skipped, how long it takes (3–7 hours) and what it runs in Oakland.',
-  'what-does-ceramic-coating-cost-in-oakland-ca': 'Ceramic coating in Oakland typically costs $500–$1,800 complete. What that includes, why cheap quotes skip prep, and how to keep it looking new.',
-  'what-does-auto-detailing-cost-in-oakland-ca': 'Exterior from $150, full detail from $250, premium from $350, ceramic $500–$1,800. The full Oakland price breakdown.',
+  'whats-included-in-a-full-detailing-service': `Every step in our Full Detail, what is an add-on, how long it takes (${DETAIL.hoursInsideOut}) and what it costs in Oakland.`,
+  'what-does-ceramic-coating-cost-in-oakland-ca': 'What drives the price of a ceramic coating, what a complete job includes, why cheap quotes skip the prep, and how to keep it looking new.',
+  'what-does-auto-detailing-cost-in-oakland-ca': `Full Detail from ${usd(from(DETAIL.insideOut))}, interior only from ${usd(from(DETAIL.interiorOnly))}, exterior only ${usd(EXTERIOR_ONLY.prices[0])}, plans from ${usd(MONTHLY_FROM)} a visit. The full Oakland price breakdown.`,
 };
 const fmt = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 const schema = [breadcrumbSchema([{ label: 'Blog', href: path }])];
@@ -37,7 +38,7 @@ const schema = [breadcrumbSchema([{ label: 'Blog', href: path }])];
         <a href={`/blog/${p.slug}/`} class="card post">
           <img class="card__img" src={images[p.slug]} alt="" width="800" height="600" loading="lazy" decoding="async" />
           <div class="card__body">
-            <span class="pill">Updated {fmt(p.date)}</span>
+            <span class="pill">Updated {fmt(p.updated ?? p.date)}</span>
             <h3>{p.title}</h3>
             <p>{excerpts[p.slug]}</p>
             <span class="card__link">Read the guide</span>
