@@ -81,13 +81,14 @@ export const BOOK = {
 // even if they never finish booking, the lead (name, phone, car, what they
 // need) is already in GoHighLevel.
 //
-// Anyone who has sent the form is not asked again for `rememberDays`; their
-// Book Online clicks go straight to booking. Set enabled: false to send every
+// Every visit asks for the form first. The only pass is the `rememberMinutes`
+// right after the form is sent, so the thank-you page and the booking step it
+// leads to are not sent back to the form. Set enabled: false to send every
 // Book Online click straight to Fieldd again.
 // ---------------------------------------------------------------------------
 export const BOOK_GATE = {
   enabled: true,
-  rememberDays: 60,
+  rememberMinutes: 30,
 };
 
 // One line across the top of every page. Set text to '' to hide it.
