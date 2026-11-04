@@ -2,10 +2,10 @@
 // Single source of truth for NAP, services, areas, reviews, FAQs.
 // Every page and every JSON-LD block reads from here so nothing drifts.
 // ---------------------------------------------------------------------------
-import { DETAIL, EXTERIOR_ONLY, MEMBERSHIP, ADDONS_INTERIOR, planRow, usd } from './pricing';
+import { DETAIL, EXTERIOR_ONLY, EXTRA_TIME, MEMBERSHIP, MONTHLY_FROM, addonPrice, planRow, usd } from './pricing';
 
 const [sedan, suv5, suv7] = DETAIL.insideOut;
-const addon = (name: string) => usd(ADDONS_INTERIOR.find((a) => a.name === name)!.price);
+const addon = (name: string) => usd(addonPrice(name));
 const [monthly, bimonthly, quarterly] = MEMBERSHIP.cadences;
 
 export const SITE = {
@@ -92,7 +92,7 @@ export const BOOK_GATE = {
 
 // One line across the top of every page. Set text to '' to hide it.
 export const ANNOUNCEMENT = {
-  text: 'Keep it clean all year: members save up to $100 on every detail.',
+  text: `Keep it clean all year: monthly Full Details from ${usd(MONTHLY_FROM)} a visit.`,
   linkLabel: 'See membership',
   href: '/membership/',
 };
@@ -283,7 +283,7 @@ export const SERVICES: Service[] = [
     name: 'Exterior Detailing',
     menuName: 'Exterior Detail',
     short:
-      'Two-bucket hand wash, clay bar decontamination, wheels & tires, then wax or sealant. Shine that lasts months, not days.',
+      'Pre-soak and hand wash, wheels, tires, trim and door jambs, then a high-gloss wax. Add a clay bar or a 6-month ceramic sealant.',
     image: '/images/exterior-detailing-oakland-800.webp',
     alt: 'Foam pre-soak on a white sedan during a mobile exterior detail in Oakland',
     icon: 'wash',
@@ -380,14 +380,14 @@ export const REVIEWS: Review[] = [
 export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
-  { q: 'How much does mobile car detailing cost in Oakland?', a: `Our Full Detail, inside and out, is ${usd(sedan)} for a coupe or sedan, ${usd(suv5)} for a 5-seat SUV or truck and ${usd(suv7)} for a 7-seat SUV or minivan. Interior only is $50 less, from ${usd(DETAIL.interiorOnly[0])}. An exterior-only detail is ${usd(EXTERIOR_ONLY.prices[0])}. Members save up to ${usd(MEMBERSHIP.maxSave)} on every visit. Every price is on our pricing page, and you confirm it before anything is booked.` },
+  { q: 'How much does mobile car detailing cost in Oakland?', a: `Our Full Detail, inside and out, is ${usd(sedan)} for a coupe or sedan, ${usd(suv5)} for a 5-seat SUV or truck and ${usd(suv7)} for a 7-seat SUV or minivan. Interior only is $50 less, from ${usd(DETAIL.interiorOnly[0])}. An exterior-only detail is ${usd(EXTERIOR_ONLY.prices[0])} on any vehicle. On a monthly plan, a Full Detail starts at ${usd(MONTHLY_FROM)} a visit. Every price is on our pricing page, and you confirm it before anything is booked.` },
   { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the Bay Area. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: `A Full Detail inside and out takes ${DETAIL.hoursInsideOut}, interior only ${DETAIL.hoursInterior} and an exterior-only detail ${EXTERIOR_ONLY.hours.toLowerCase()}, depending on vehicle size. Add-ons like shampoo or pet hair add time. Ceramic coating with paint correction is a full-day appointment.` },
   { q: 'What does the 100% satisfaction guarantee mean?', a: 'If something we did is not right, tell us before we leave or within 48 hours, and we come back and make it right. We also walk the car with you at the end of every detail so you can point out anything on the spot.' },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond and nearby Bay Area communities. If you are just outside that list, call us. We can usually make it work.' },
   { q: 'How do I book?', a: 'Two ways. Book a time yourself online, or send the quote form on this page with your name, number and what you drive, and we text back a price and the next openings, usually within minutes during business hours. Prefer to talk? Call or text (510) 756-4995. Same-week appointments are often available.' },
-  { q: 'What does the Full Detail include, and what costs extra?', a: `Inside: a full vacuum, air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. Outside: a hand wash, iron and clay decontamination, wheels, door jambs and about three months of ceramic sealant. Stains, pet hair, smells and spills are add-ons at a set price, like seat and carpet shampoo for ${addon('Shampoo seats and carpet')} or pet hair removal for ${addon('Pet hair removal')}, so a car in good shape never pays for work it does not need.` },
-  { q: 'Do you offer a membership or recurring detailing?', a: `Yes. Put the Full Detail on a plan and every visit costs less: ${usd(monthly.save)} off monthly, ${usd(bimonthly.save)} off bi-monthly and ${usd(quarterly.save)} off quarterly. A monthly Full Detail on a coupe or sedan is ${usd(planRow(DETAIL.insideOut, monthly.save)[0])} a visit. Complete ${MEMBERSHIP.minimumVisits} visits to keep the plan price, and cancel any time after that.` },
+  { q: 'What does the Full Detail include, and what costs extra?', a: `Inside: a double vacuum, air purge, steam clean of the seats, carpets and plastics, spot stain treatment, leather conditioning, windows and trunk. Outside: a pre-soak, hand wash, spray wax, wheels, tires, door jambs and exterior windows. Deeper work is a set-price add-on, like seat or carpet shampoo for ${addon('Shampoo seats (stain removal)')} each, pet hair removal for ${addon('Pet hair removal')} or a clay bar for ${addon('Clay bar treatment')}, so a car in good shape never pays for work it does not need. Heavy dirt or buildup is ${usd(EXTRA_TIME.price)} per extra ${EXTRA_TIME.per}, agreed before we start.` },
+  { q: 'Do you offer a membership or recurring detailing?', a: `Yes. Put the Full Detail on a monthly, bi-monthly or quarterly plan and every visit costs less. Monthly is ${usd(planRow(DETAIL.insideOut, monthly.save)[0])} a visit for a coupe or sedan, ${usd(planRow(DETAIL.insideOut, monthly.save)[1])} for a 5-seat SUV or truck and ${usd(planRow(DETAIL.insideOut, monthly.save)[2])} for a 7-seat SUV or minivan. Bi-monthly starts at ${usd(planRow(DETAIL.insideOut, bimonthly.save)[0])} and quarterly at ${usd(planRow(DETAIL.insideOut, quarterly.save)[0])}. Complete ${MEMBERSHIP.minimumVisits} visits to keep the plan price, and cancel any time after that.` },
   { q: 'How long does a ceramic coating last?', a: 'A professional coating is measured in years, not months. How long depends on the grade of coating, how well the paint is prepared underneath it and how the car is washed afterwards. Every coating is quoted after we see the vehicle, because the price covers full prep: decontamination and paint correction, not just the coating itself, and how much correction your paint needs is the variable. Send us your vehicle and we will come back with an exact number and the expected life of the coating we quote.' },
 ];
 

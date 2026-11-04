@@ -8,15 +8,16 @@ import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import ServiceVideo from '../components/ServiceVideo.astro';
-import { SIZES, CERAMIC, ADDONS_EXTERIOR, from, usd } from '../data/pricing';
+import { SIZES, CERAMIC, addonPrice, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/paint-correction/';
-const polish = ADDONS_EXTERIOR.find((a) => a.name === 'One-step polish')!;
+// The "Polish" add-on in Fieldd: a one-step polish on a Full Detail or exterior detail.
+const polish = { price: addonPrice('Polish') };
 const silver = CERAMIC.find((c) => c.id === 'silver')!;
 const gold = CERAMIC.find((c) => c.id === 'gold')!;
 const title = 'Paint Correction Oakland, CA | Swirl & Scratch Removal | J&W';
-const description = `Mobile paint correction in Oakland: machine polishing removes swirl marks, light scratches, oxidation and water-spot etching. One-step polish ${usd(polish.price)} with any detail. At your home.`;
+const description = `Mobile paint correction in Oakland: machine polishing removes swirl marks, light scratches, oxidation and water-spot etching. One-step polish ${usd(polish.price)} with a Full Detail or exterior detail. At your home.`;
 
 const faqs = [
   { q: 'What is paint correction?', a: 'Machine polishing that levels the clear coat by a few microns to remove the defects in it: swirl marks, wash marring, light scratches, oxidation, buffer holograms and etched water spots. It is a real repair of the surface, not a glaze or wax that fills defects and washes out a few weeks later.' },
@@ -24,7 +25,7 @@ const faqs = [
   { q: 'Will it remove every scratch?', a: 'It removes scratches that sit in the clear coat. Run a fingernail across the scratch: if the nail catches, it has gone through the clear and into the color or primer, and polishing cannot remove it without making the clear coat dangerously thin. Those need touch-up paint or a body shop, and we will tell you before we start.' },
   { q: 'Is paint correction safe for my clear coat?', a: 'Yes, done properly. We start with the least aggressive pad and polish that works on a test spot, and only step up if the test spot needs it. A one-step polish removes very little clear coat, which is why it can be done a few times over a car\'s life. That is also why corrected paint should be protected afterwards, so it does not need correcting again.' },
   { q: 'How long does paint correction take?', a: 'A one-step polish adds about one to two hours to a detail on a car. A two-step correction is a full day, and on a large SUV or very neglected paint it can run into a second day. We give you the time with the quote.' },
-  { q: 'How much does paint correction cost?', a: `A one-step polish is ${usd(polish.price)} on top of any detail. With a ceramic coating, correction is built into the package: one-step with Silver (from ${usd(from(silver.prices))}) and two-step with Gold (from ${usd(from(gold.prices))}). A standalone two-step correction without a coating is quoted after we see the paint, because how much work it needs varies so much.` },
+  { q: 'How much does paint correction cost?', a: `A one-step polish is ${usd(polish.price)} on top of a Full Detail or exterior detail. With a ceramic coating, correction is built into the package: one-step with Silver (from ${usd(from(silver.prices))}) and two-step with Gold (from ${usd(from(gold.prices))}). A standalone two-step correction without a coating is quoted after we see the paint, because how much work it needs varies so much.` },
   { q: 'Can you do it outside?', a: 'Yes, with conditions. Polish does not work properly on hot panels in direct sun, and dust is the enemy. A garage, a carport or a shaded driveway is ideal. We will ask about your parking when you book and plan around it.' },
 ];
 
@@ -36,7 +37,7 @@ const schema = [
     image: '/images/paint-correction-polishing-oakland.jpg',
     minPrice: polish.price,
     offers: [
-      { name: 'One-step polish', description: 'Single-stage machine polish that removes light swirls and wash marks, added to any detail.', price: String(polish.price) },
+      { name: 'One-step polish', description: 'Single-stage machine polish that removes light swirls and wash marks, added to a Full Detail or exterior detail.', price: String(polish.price) },
       { name: 'Two-step paint correction', description: 'Compound and polish for heavier defects, oxidation and dark paint. Quoted after inspection.' },
     ],
   }),
@@ -62,7 +63,7 @@ const steps = [
     image="/images/paint-correction-polishing-oakland.jpg"
     imageAlt="Dual-action polisher removing swirl marks from a hood during mobile paint correction in Oakland, CA"
     facts={[
-      { label: 'One-step polish', value: `${usd(polish.price)} with any detail` },
+      { label: 'One-step polish', value: `${usd(polish.price)} with a Full Detail or exterior detail` },
       { label: 'With ceramic', value: `from ${usd(from(silver.prices))}` },
       { label: 'Time', value: '2 hours to a full day' },
       { label: 'Two-step', value: 'Quoted after inspection' },
@@ -97,7 +98,7 @@ const steps = [
         <table>
           <thead><tr><th>Option</th><th>Best for</th><th>Removes</th><th>Price</th></tr></thead>
           <tbody>
-            <tr><td><strong>One-step polish</strong><br /><small>Added to any detail</small></td><td>Daily drivers, newer cars, light wash marks</td><td>Light swirls and wash marring. Restores most of the gloss.</td><td class="price">{usd(polish.price)}</td></tr>
+            <tr><td><strong>One-step polish</strong><br /><small>Added to a Full Detail or exterior detail</small></td><td>Daily drivers, newer cars, light wash marks</td><td>Light swirls and wash marring. Restores most of the gloss.</td><td class="price">{usd(polish.price)}</td></tr>
             <tr><td><strong>Two-step correction</strong><br /><small>Compound, then polish</small></td><td>Dark colors, neglected paint, pre-sale or show cars</td><td>Deeper swirls, holograms, heavy oxidation and water-spot etching</td><td class="price">Quoted</td></tr>
             <tr><td><strong>Silver ceramic</strong><br /><small>One-step + coating</small></td><td>Most cars getting a coating</td><td>Light defects removed, then sealed in for years</td><td class="price">from {usd(from(silver.prices))}</td></tr>
             <tr><td><strong>Gold ceramic</strong><br /><small>Two-step + coating</small></td><td>Dark or heavily swirled paint getting a coating</td><td>The most defects removed before the coating locks it in</td><td class="price">from {usd(from(gold.prices))}</td></tr>

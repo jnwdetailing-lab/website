@@ -10,23 +10,23 @@ import BeforeAfter from '../components/BeforeAfter.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import PriceExplorer from '../components/PriceExplorer.astro';
 import AddonsList from '../components/AddonsList.astro';
-import { DETAIL, ADDONS_INTERIOR, MEMBERSHIP, from, usd } from '../data/pricing';
+import { DETAIL, EXTRA_TIME, MONTHLY_FROM, addonPrice, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/interior-auto-detailing-oakland-california/';
-const price = (name: string) => usd(ADDONS_INTERIOR.find((a) => a.name === name)!.price);
+const price = (name: string) => usd(addonPrice(name));
 const title = 'Interior Car Detailing Oakland, CA | Mobile Interior Detail | J&W';
 const description = `Mobile interior car detailing in Oakland: vacuum, steam, hot-water shampoo extraction, stain and odor treatment, leather care. Interior only from ${usd(from(DETAIL.interiorOnly))}. At your home or office.`;
 
 const faqs = [
-  { q: 'What does the interior detail include, and when do I need shampoo?', a: `The Interior Only Detail (from ${usd(from(DETAIL.interiorOnly))}) is the full interior of our Full Detail: vacuum, air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. Add the outside for $50 more. If there are stains on the fabric, spilled drinks, pet hair or a smell, add shampoo extraction (${price('Shampoo seats and carpet')} for seats and carpet, ${price('Shampoo seats only')} for one or the other), pet hair removal (${price('Pet hair removal')}) or ozone (${price('Ozone odor removal')}). Not sure? Text us a photo of the worst seat.` },
-  { q: 'How long does an interior detail take?', a: `About ${DETAIL.hoursInterior}, from a sedan to a 7-seat SUV. Shampoo extraction adds 45 minutes to an hour, because it has to be done slowly to pull the dirt out rather than push water in. Most cabins are dry enough to drive the same day. Fabric can feel slightly damp for a few hours after extraction.` },
+  { q: 'What does the interior detail include, and when do I need shampoo?', a: `The Interior Only Detail (from ${usd(from(DETAIL.interiorOnly))}) is the full interior of our Full Detail: double vacuum, air purge, steam clean of the seats, carpets, mats and plastics, spot stain treatment, leather cleaned and conditioned, windows and trunk. Add the outside for $50 more. Stains that soak into the fabric, pet hair or a smell need an add-on: shampoo for the seats or the carpets (${price('Shampoo seats (stain removal)')} each), pet hair removal (${price('Pet hair removal')}) or ozone (${price('Ozone odor treatment')}). Not sure? Text us a photo of the worst seat.` },
+  { q: 'How long does an interior detail take?', a: `About ${DETAIL.hoursInterior}, from a sedan to a 7-seat SUV. Shampoo extraction adds about 30 minutes for the seats or the carpets, because it has to be done slowly to pull the dirt out rather than push water in. Most cabins are dry enough to drive the same day. Fabric can feel slightly damp for a few hours after extraction.` },
   { q: 'Can you get stains out of cloth seats and carpet?', a: 'Most of them. Coffee, soda, juice, food, mud, makeup, sweat marks and most pet accidents come out with pre-treatment, agitation and hot-water extraction. Old dye transfer from jeans, bleach spots, burns and stains that have been heat-set for years usually lighten but may not disappear. We tell you which is which before we start.' },
   { q: 'Is steam safe for leather and screens?', a: 'Yes, used the way we use it. Our steamer puts out low-moisture, high-temperature steam that we keep moving and never point at screens, switches or airbag covers. Leather gets a pH-balanced cleaner and a conditioner afterwards rather than steam soaking into it.' },
-  { q: 'Can you remove pet hair?', a: 'Yes. Light pet hair comes out with the normal vacuum. Hair woven into carpet and cloth takes rubber blades, pet-hair stones and compressed air, and more time, so it is a $45 add-on. Mention it when you book and we plan the time.' },
+  { q: 'Can you remove pet hair?', a: `Yes. Light pet hair comes out with the normal vacuum. Hair woven into carpet and cloth takes rubber blades, pet-hair stones and compressed air, and more time, so it is a ${price('Pet hair removal')} add-on, or ${price('Extreme pet hair removal')} for heavy shedding. If there is pet hair in the car, add it when you book so we plan the time.` },
   { q: 'Do I need to be home, or provide water and power?', a: 'No to both. The van carries its own water and power. We need the keys, access to the car and enough room to open every door. Many customers leave us at the car and go to work.' },
-  { q: 'Will my car smell like chemicals afterwards?', a: 'No. We use low-odor, biodegradable cleaners, and we do not hang perfume in the car. It should smell like nothing, which is how clean smells. For smoke, pet or mildew smells that live in the headliner and vents, add ozone odor removal.' },
-  { q: 'Do you clean child car seats?', a: 'Yes, as a $35 add-on: the shell, straps where safe to clean and the fabric. We do not remove or reinstall car seats unless you ask us to, and if you do, please check the installation before you drive with a child in it.' },
+  { q: 'Will my car smell like chemicals afterwards?', a: 'No. We use low-odor, biodegradable cleaners, and we do not hang perfume in the car. It should smell like nothing, which is how clean smells. For smoke, pet or food smells that live in the headliner and vents, add ozone odor treatment. We do not treat mold or mildew.' },
+  { q: 'Do you clean child car seats?', a: `Yes, as a ${price('Kids car seat cleaning')} add-on: the shell, straps where safe to clean and the fabric. We do not remove or reinstall car seats unless you ask us to, and if you do, please check the installation before you drive with a child in it.` },
 ];
 
 const schema = [
@@ -47,19 +47,22 @@ const schema = [
 
 // Included work, then the add-ons that cover heavier jobs, with their price.
 const compare: [string, string | null][] = [
-  ['Full vacuum: seats, carpet, trunk, under the seats', null],
-  ['Compressed-air blowout of vents, seams and seat rails', null],
-  ['Steam on plastics, cup holders and high-touch surfaces', null],
-  ['Every hard surface wiped and dressed', null],
-  ['Floor mats cleaned', null],
-  ['Inside glass and mirrors', null],
-  ['Hot-water shampoo extraction, seats and carpet', price('Shampoo seats and carpet')],
-  ['Shampoo seats only, or carpet only', price('Shampoo seats only')],
-  ['Embedded pet hair removal', price('Pet hair removal')],
-  ['Leather cleaned and conditioned', price('Leather treatment')],
-  ['Headliner shampoo', price('Headliner shampoo')],
-  ['Ozone odor removal', price('Ozone odor removal')],
-  ['Child car seat cleaning', price('Child car seat cleaning')],
+  ['Double vacuum: seats, carpets, mats and trunk', null],
+  ['Air purge of vents, seams, cupholders and crevices', null],
+  ['Steam clean of seats, carpets, mats, door panels and console', null],
+  ['Spot stain treatment', null],
+  ['Leather cleaned and conditioned', null],
+  ['Plastics cleaned and protected, matte finish', null],
+  ['Windows, mirrors, visors and trunk', null],
+  ['Headliner spot clean, as needed', null],
+  ['Shampoo extraction, cloth seats', price('Shampoo seats (stain removal)')],
+  ['Shampoo extraction, carpets and mats', price('Shampoo carpets (stain removal)')],
+  [`Pet hair removal (heavy shedding ${price('Extreme pet hair removal')})`, price('Pet hair removal')],
+  ['Headliner deep cleaning', price('Headliner deep cleaning')],
+  ['Ozone odor treatment', price('Ozone odor treatment')],
+  ['Kids car seat cleaning', price('Kids car seat cleaning')],
+  ['Bio cleaning (vomit, urine)', price('Bio cleaning (vomit, urine, etc.)')],
+  [`Heavy dirt or buildup, per extra ${EXTRA_TIME.per}`, usd(EXTRA_TIME.price)],
 ];
 
 const steps = [
@@ -144,7 +147,7 @@ const steps = [
             <li>Makeup, sunscreen and sweat marks</li>
             <li>Most pet accidents, with ozone for the smell</li>
             <li>Pet hair, with the pet hair add-on</li>
-            <li>Mildew smell, once the source is dry</li>
+            <li>Smoke and food smells, with ozone</li>
           </ul>
         </div>
         <div>
@@ -155,6 +158,7 @@ const steps = [
             <li>Cigarette burns and tears</li>
             <li>Cracked or worn-through leather</li>
             <li>Stains that have been baked in by years of sun</li>
+            <li>Mold or mildew: we do not treat it, and we check before we start</li>
           </ul>
         </div>
       </div>
@@ -169,10 +173,10 @@ const steps = [
     <div class="container prose max-prose" style="margin-inline:auto">
       <span class="eyebrow">Bay Area interiors</span>
       <h2>What we see most in Bay Area cabins</h2>
-      <p><strong>Mildew after the rains.</strong> A tired door seal or a sunroof drain that clogs with leaves lets water into the carpet padding, and the car starts to smell musty a week later. We extract and dry what we can reach, add ozone for the smell, and tell you where the water is getting in. If the source is not fixed, the smell comes back.</p>
+      <p><strong>Wet carpet after the rains.</strong> A tired door seal or a sunroof drain that clogs with leaves lets water into the carpet padding, and the car starts to smell musty a week later. Get the leak fixed and the carpet dried out first. If it has turned into mold or mildew, that is a job for a mold specialist: we do not clean or treat mold, and if we find it when we arrive we cannot go ahead with the detail.</p>
       <p><strong>Beach and trail dirt.</strong> Fine sand from Crown Beach and Point Isabel, and red dirt from the regional parks, works deep into carpet and hides under the seats. It needs air and a slow, double vacuum, not one pass.</p>
       <p><strong>Sun on the dash.</strong> Inland, in Walnut Creek and Orinda, summer sun through the windshield dries out dashboards and leather. We clean and protect plastics with a UV-blocking dressing and condition leather so it does not crack.</p>
-      <p><strong>Commuter cabins.</strong> Coffee on the 880, lunch in the car, a gym bag in the back. A Full Detail every few months, or a <a href="/membership/">membership</a> that takes up to {usd(MEMBERSHIP.maxSave)} off every visit, keeps it from building up.</p>
+      <p><strong>Commuter cabins.</strong> Coffee on the 880, lunch in the car, a gym bag in the back. A Full Detail every few months, or a <a href="/membership/">monthly plan</a> from {usd(MONTHLY_FROM)} a visit, keeps it from building up.</p>
 
       <h2>What we bring</h2>
       <p>A commercial hot-water extractor, a dry-vapor steamer, a compressor for the air blowout, dedicated brushes for vents, leather and fabric, and pH-balanced, biodegradable cleaners for every surface. The van carries its own water and power, so we work the same way in a driveway, an office lot or a condo garage.</p>

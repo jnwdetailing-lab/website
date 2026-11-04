@@ -7,34 +7,36 @@ import Faq from '../components/Faq.astro';
 import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
-import { DETAIL, EXTERIOR_ONLY, CERAMIC, MEMBERSHIP, ADDONS_EXTERIOR, ADDONS_INTERIOR, from, usd, range } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, CERAMIC, MONTHLY_FROM, addonPrice, from, usd, range } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../data/schema';
 
 const path = '/services/';
-const polish = ADDONS_EXTERIOR.find((a) => a.name === 'One-step polish')!;
-const ozone = ADDONS_INTERIOR.find((a) => a.name === 'Ozone odor removal')!;
-const shampoo = ADDONS_INTERIOR.find((a) => a.name === 'Shampoo seats and carpet')!;
+const polish = addonPrice('Polish');
+const ozone = addonPrice('Ozone odor treatment');
+const shampoo = addonPrice('Shampoo seats (stain removal)');
+const clay = addonPrice('Clay bar treatment');
 const title = 'Mobile Detailing Services & Prices | Oakland, CA | J&W';
 const description = `Every J&W mobile detailing service with prices: Full Detail from ${usd(from(DETAIL.insideOut))}, interior only, exterior only, plans, paint correction, ceramic coating, odor removal and RV. Done at your home.`;
 
 const faqs = [
-  { q: 'Which service do I need?', a: 'Rough paint that still feels gritty after a wash: an exterior detail. Visible swirls or fine scratches in the sun: paint correction. A car that needs a proper clean inside and out: the Full Detail. Stains, a smell or pet hair inside: the Full Detail or interior only, with the shampoo, ozone or pet hair add-on. A new car, or you want to stop waxing: ceramic coating. Not sure? Send us a couple of photos and we will tell you straight.' },
-  { q: 'What is included in a Full Detail?', a: `Inside: full vacuum and air blowout, steam on the hard surfaces, every panel wiped and dressed, mats and glass. Outside: foam pre-soak and two-bucket hand wash, iron remover and clay, wheels, tires and door jambs, and about three months of ceramic sealant. It takes ${DETAIL.hoursInsideOut} and costs ${range(DETAIL.insideOut)} depending on vehicle size, or $50 less for interior only.` },
-  { q: 'Do you offer a membership?', a: `Yes. The same Full Detail comes to you monthly, bi-monthly or quarterly, with ${MEMBERSHIP.cadences.map((c) => usd(c.save)).join(', ').replace(/, ([^,]*)$/, ' or $1')} off every visit.` },
+  { q: 'Which service do I need?', a: 'Rough paint that still feels gritty after a wash: an exterior detail with the clay bar add-on. Visible swirls or fine scratches in the sun: paint correction. A car that needs a proper clean inside and out: the Full Detail. Stains, a smell or pet hair inside: the Full Detail or interior only, with the shampoo, ozone or pet hair add-on. A new car, or you want to stop waxing: ceramic coating. Not sure? Send us a couple of photos and we will tell you straight.' },
+  { q: 'What is included in a Full Detail?', a: `Inside: double vacuum and air purge, steam clean of the seats, carpets and plastics, spot stain treatment, leather conditioning, windows and trunk. Outside: pre-soak, hand wash, spray wax, wheel wells, rims, tires, trim, door jambs and exterior windows. It takes ${DETAIL.hoursInsideOut} and costs ${range(DETAIL.insideOut)} depending on vehicle size, or $50 less for interior only.` },
+  { q: 'Do you offer a membership?', a: `Yes. The same Full Detail comes to you monthly, bi-monthly or quarterly at a lower price every visit. Monthly starts at ${usd(MONTHLY_FROM)} a visit for a coupe or sedan.` },
   { q: 'How do I pay?', a: 'Card, cash, Zelle or Venmo.' },
 ];
 
 const schema = [faqSchema(faqs), breadcrumbSchema([{ label: 'Services', href: path }])];
 
 const rows = [
-  { name: 'Full Detail', href: '/pricing/', what: 'Complete clean inside and out, steam, clay and iron decon, 3-month sealant', time: '2.5–3.5 hrs', price: `from ${usd(from(DETAIL.insideOut))}` },
+  { name: 'Full Detail', href: '/pricing/', what: 'Complete clean inside and out: steam, stain spot treatment, leather care, hand wash and spray wax', time: '2.5–3.5 hrs', price: `from ${usd(from(DETAIL.insideOut))}` },
   { name: 'Interior Only Detail', href: '/interior-auto-detailing-oakland-california/', what: 'The Full Detail interior, $50 less', time: '2–3 hrs', price: `from ${usd(from(DETAIL.interiorOnly))}` },
-  { name: 'Exterior Only Detail', href: '/exterior-auto-detailing-oakland-california/', what: 'Hand wash, iron and clay, wheels, door jambs, 3-month sealant', time: '~2 hrs', price: usd(from(EXTERIOR_ONLY.prices)) },
-  { name: 'Membership', href: '/membership/', what: 'The Full Detail monthly, bi-monthly or quarterly', time: 'Same as the detail', price: `save up to ${usd(MEMBERSHIP.maxSave)}/visit` },
-  { name: 'Shampoo extraction', href: '/interior-auto-detailing-oakland-california/', what: 'Hot-water extraction of seats and carpet, added to a detail', time: '+45–60 min', price: `${usd(shampoo.price)} add-on` },
-  { name: 'Paint correction', href: '/paint-correction/', what: 'One-step polish with any detail, or a quoted two-step correction', time: '+2 hrs to a full day', price: `from ${usd(polish.price)}` },
+  { name: 'Exterior Only Detail', href: '/exterior-auto-detailing-oakland-california/', what: 'Hand wash, spray wax, wheels, tires, trim and door jambs. Same price on any vehicle', time: '1–2 hrs', price: usd(from(EXTERIOR_ONLY.prices)) },
+  { name: 'Membership', href: '/membership/', what: 'The Full Detail monthly, bi-monthly or quarterly', time: 'Same as the detail', price: `monthly from ${usd(MONTHLY_FROM)}` },
+  { name: 'Shampoo extraction', href: '/interior-auto-detailing-oakland-california/', what: 'Hot-water extraction of seats or carpets, added to a detail', time: '+30 min each', price: `${usd(shampoo)} each` },
+  { name: 'Clay bar', href: '/exterior-auto-detailing-oakland-california/', what: 'Bonded grit, tar and overspray lifted off the paint', time: '+30 min', price: `${usd(clay)} add-on` },
+  { name: 'Paint correction', href: '/paint-correction/', what: 'One-step polish with any detail, or a quoted two-step correction', time: '+2 hrs to a full day', price: `from ${usd(polish)}` },
   { name: 'Ceramic coating', href: '/ceramic-coating/', what: 'Decontamination, correction and a professional coating', time: 'Full day', price: `from ${usd(from(CERAMIC[0].prices))}` },
-  { name: 'Odor removal', href: '/odor-removal-oakland/', what: 'Ozone treatment with an interior detail', time: '+30–90 min', price: `${usd(ozone.price)} add-on` },
+  { name: 'Odor removal', href: '/odor-removal-oakland/', what: 'Ozone treatment with an interior detail', time: '+30–90 min', price: `${usd(ozone)} add-on` },
   { name: 'RV wash & detail', href: '/rv-wash-and-rv-detailing-oakland-california/', what: 'By length, surface and condition', time: 'Varies', price: 'Quoted' },
 ];
 ---

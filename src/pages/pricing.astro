@@ -8,21 +8,21 @@ import Faq from '../components/Faq.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { SITE } from '../data/site';
-import { DETAIL, EXTERIOR_ONLY, CERAMIC, SIZES, OVERSIZED, MEMBERSHIP, planRow, from, usd } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, EXTRA_TIME, CERAMIC, SIZES, OVERSIZED, MEMBERSHIP, MONTHLY_FROM, planRow, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema } from '../data/schema';
 
 const path = '/pricing/';
 const title = 'Car Detailing Prices Oakland, CA | Full Detail & Plans | J&W';
-const description = `Mobile detailing prices in Oakland and the Bay Area. Full Detail ${usd(from(DETAIL.insideOut))}–${usd(Math.max(...DETAIL.insideOut))}, interior only from ${usd(from(DETAIL.interiorOnly))}, exterior only ${usd(from(EXTERIOR_ONLY.prices))}. Plans save up to ${usd(MEMBERSHIP.maxSave)} a visit.`;
+const description = `Mobile detailing prices in Oakland and the Bay Area. Full Detail ${usd(from(DETAIL.insideOut))}–${usd(Math.max(...DETAIL.insideOut))}, interior only from ${usd(from(DETAIL.interiorOnly))}, exterior only ${usd(from(EXTERIOR_ONLY.prices))}. Monthly plans from ${usd(MONTHLY_FROM)} a visit.`;
 
 const faqs = [
   { q: 'Which vehicle size am I?', a: `${SIZES.map((s) => `${s.label}: ${s.examples.toLowerCase()}`).join('. ')}. ${OVERSIZED.label} (${OVERSIZED.examples.toLowerCase()}) is quoted. Between two sizes, pick the bigger one, or text us the make and model and we will tell you.` },
   { q: 'Why do prices go up with vehicle size?', a: 'Time. A 7-seat SUV has roughly twice the carpet, seat fabric and paint of a sedan, and the price follows the hours it takes to do it properly.' },
-  { q: 'Can the price change once you see the car?', a: 'Only for things the Full Detail does not cover, and never without asking. Pet hair, stains that need shampoo, smells, mold or bodily fluids need the matching add-on. If we see that when we arrive, we show you before we start, and you decide.' },
-  { q: 'Interior + Exterior or interior only?', a: `Interior + Exterior is the full job. Interior only is the same interior work for $50 less, for when the outside is fine or you wash it yourself. Just need the outside? The ${EXTERIOR_ONLY.name} is ${usd(from(EXTERIOR_ONLY.prices))} on any size.` },
+  { q: 'Can the price change once you see the car?', a: `Only for things the Full Detail does not cover, and never without asking. Pet hair, stains that need shampoo, smells or bodily fluids need the matching add-on, and heavy dirt or buildup is ${usd(EXTRA_TIME.price)} per extra ${EXTRA_TIME.per}. If we see that when we arrive, we show you before we start, and you decide. We do not treat mold.` },
+  { q: 'Interior + Exterior or interior only?', a: `Interior + Exterior is the full job. Interior only is the same interior work for $50 less, for when the outside is fine or you wash it yourself. Just need the outside? The ${EXTERIOR_ONLY.name} is ${usd(from(EXTERIOR_ONLY.prices))} on any size. It is our minimum service call, so promo codes and plan pricing do not apply to it.` },
   { q: 'Is there a travel fee?', a: 'Not inside our regular service area: Oakland, Alameda, Berkeley, Emeryville, Piedmont, San Leandro, Orinda, Walnut Creek and Richmond. Further out, ask us and we will tell you up front.' },
   { q: 'How do I pay?', a: 'Card, cash, Zelle or Venmo.' },
-  { q: 'Do you have a membership price?', a: `Yes. A plan takes ${MEMBERSHIP.cadences.map((c) => `${usd(c.save)} off ${c.label.toLowerCase()}`).join(', ').replace(/, ([^,]*)$/, ' and $1')}, on every visit, starting with the first. A monthly Full Detail on a coupe or sedan is ${usd(planRow(DETAIL.insideOut, MEMBERSHIP.cadences[0].save)[0])}. Complete ${MEMBERSHIP.minimumVisits} visits to keep the plan price.` },
+  { q: 'Do you have a membership price?', a: `Yes. Put the Full Detail on a monthly, bi-monthly or quarterly plan and every visit costs less, starting with the first. A monthly Full Detail is ${planRow(DETAIL.insideOut, MEMBERSHIP.cadences[0].save).map(usd).join(' / ')} (coupe or sedan / 5-seat SUV or truck / 7-seat SUV or minivan). Every plan price is in the table above. Complete ${MEMBERSHIP.minimumVisits} visits to keep the plan price.` },
 ];
 
 const schema = [
@@ -49,12 +49,12 @@ const schema = [
     crumbs={[{ label: 'Pricing' }]}
     eyebrow="Prices posted up front"
     title="Detailing prices for Oakland and the Bay Area"
-    text="One Full Detail, inside and out or interior only, an exterior-only option and plans that take money off every visit. Pick your vehicle size and the prices below update. What you see here is what we charge for a car in normal condition."
+    text="One Full Detail, inside and out or interior only, an exterior-only option and plans that take money off every visit. Pick your vehicle size and the prices below update. What you see here is what we charge for a vehicle in normal condition."
     facts={[
       { label: 'Full Detail', value: `from ${usd(from(DETAIL.insideOut))}` },
       { label: 'Interior only', value: `from ${usd(from(DETAIL.interiorOnly))}` },
       { label: 'Exterior only', value: usd(from(EXTERIOR_ONLY.prices)) },
-      { label: 'Members', value: `save up to ${usd(MEMBERSHIP.maxSave)}/visit` },
+      { label: 'Monthly plan', value: `from ${usd(MONTHLY_FROM)}/visit` },
     ]}
   />
 

@@ -1,7 +1,7 @@
 ---
 // Shared skeleton for city pages. All copy is passed in per city; there is no
 // city-swap templating of the text itself. FAQ answers may use the price tokens
-// {FULL_RANGE} {INT_RANGE} {EXT_FROM} {MEMBER_SAVE}, filled from pricing.ts so
+// {FULL_RANGE} {INT_RANGE} {EXT_FROM} {MEMBER_FROM}, filled from pricing.ts so
 // a price change reaches every city page.
 import Base from '../layouts/Base.astro';
 import PageHero from './PageHero.astro';
@@ -14,7 +14,7 @@ import CtaBand from './CtaBand.astro';
 import QuoteSection from './QuoteSection.astro';
 import Icon from './Icons.astro';
 import { SITE, type FAQ, CTA, BOOK } from '../data/site';
-import { DETAIL, EXTERIOR_ONLY, MEMBERSHIP, from, usd, range } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, MONTHLY_FROM, from, usd, range } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 export interface Props {
@@ -38,7 +38,7 @@ const tokens: Record<string, string> = {
   '{FULL_RANGE}': range(DETAIL.insideOut),
   '{INT_RANGE}': range(DETAIL.interiorOnly),
   '{EXT_FROM}': usd(from(EXTERIOR_ONLY.prices)),
-  '{MEMBER_SAVE}': usd(MEMBERSHIP.maxSave),
+  '{MEMBER_FROM}': usd(MONTHLY_FROM),
 };
 const fill = (t: string) => Object.entries(tokens).reduce((s, [k, v]) => s.split(k).join(v), t);
 const faqs = p.faqs.map((f) => ({ q: f.q, a: fill(f.a) }));
@@ -69,7 +69,7 @@ const schema = [
     facts={[
       { label: 'Full Detail', value: `from ${usd(from(DETAIL.insideOut))}` },
       { label: 'Interior only', value: `from ${usd(from(DETAIL.interiorOnly))}` },
-      { label: 'Members', value: `save up to ${usd(MEMBERSHIP.maxSave)}/visit` },
+      { label: 'Monthly plan', value: `from ${usd(MONTHLY_FROM)}/visit` },
       { label: 'Travel fee', value: 'None' },
     ]}
   />

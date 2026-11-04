@@ -7,20 +7,21 @@ import Reviews from '../components/Reviews.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icons.astro';
-import { MEMBERSHIP, DETAIL, SIZES, planRow, from, usd } from '../data/pricing';
+import { MEMBERSHIP, DETAIL, SIZES, MONTHLY_FROM, planRow, from, range, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/membership/';
 const [monthly, bimonthly, quarterly] = MEMBERSHIP.cadences;
 const monthlyIo = planRow(DETAIL.insideOut, monthly.save);
 const monthlyInt = planRow(DETAIL.interiorOnly, monthly.save);
+const bimonthlyIo = planRow(DETAIL.insideOut, bimonthly.save);
 const quarterlyIo = planRow(DETAIL.insideOut, quarterly.save);
 const title = 'Car Detailing Membership Oakland, CA | Monthly Detailing | J&W';
-const description = `Recurring mobile car detailing in Oakland and the Bay Area. The same Full Detail monthly, bi-monthly or quarterly, ${usd(monthly.save)}, ${usd(bimonthly.save)} or ${usd(quarterly.save)} off every visit. We come to you.`;
+const description = `Recurring mobile car detailing in Oakland and the Bay Area. The same Full Detail monthly from ${usd(MONTHLY_FROM)} a visit, bi-monthly or quarterly. We come to you.`;
 
 const faqs = [
   { q: 'What do I get on a plan visit?', a: `The full ${DETAIL.name}, every time. Inside and out, or interior only if that is the plan you picked. It is not a lighter "maintenance wash": same checklist, same time, same tech, at the plan price.` },
-  { q: 'How much do I save?', a: `${usd(monthly.save)} a visit on a monthly plan, ${usd(bimonthly.save)} on bi-monthly and ${usd(quarterly.save)} on quarterly, on any vehicle size. A monthly Full Detail on a ${SIZES[0].label.toLowerCase()} is ${usd(monthlyIo[0])} instead of ${usd(DETAIL.insideOut[0])}, and interior only is ${usd(monthlyInt[0])}.` },
+  { q: 'How much do I save?', a: `It depends on the plan and the vehicle. Monthly saves ${range(monthly.save)} a visit, bi-monthly ${range(bimonthly.save)} and quarterly ${usd(quarterly.save[0])}, and bigger vehicles save the most. A monthly Full Detail on a ${SIZES[0].label.toLowerCase()} is ${usd(monthlyIo[0])} instead of ${usd(DETAIL.insideOut[0])}, and interior only is ${usd(monthlyInt[0])}.` },
   { q: 'Which schedule should I pick?', a: 'Monthly if the car is your daily driver, carries kids or a dog, or parks outside under trees. Bi-monthly for a commuter that stays fairly tidy. Quarterly for a second car, a garaged car or a weekend car. You can change it later.' },
   { q: 'Is there a minimum?', a: `Yes. Complete ${MEMBERSHIP.minimumVisits} visits to keep the plan price. The discount only works because we can plan the route and the time around a regular car. Cancel any time after the third visit. If you cancel before it, we bill the difference between the plan price and the one-time price on the visits you had, so it comes out the same as booking them one at a time.` },
   { q: 'Do I need a one-time detail first?', a: 'No. The plan price starts on your first visit.' },
@@ -46,14 +47,14 @@ const schema = [
   <PageHero
     crumbs={[{ label: 'Membership' }]}
     eyebrow="Membership"
-    titleHtml={`A clean car all year, <em>for up to ${usd(MEMBERSHIP.maxSave)} less every visit</em>`}
+    titleHtml={`A clean car all year, <em>monthly from ${usd(MONTHLY_FROM)} a visit</em>`}
     text="Pick monthly, bi-monthly or quarterly. We come back on schedule and do the full detail every time, at a plan price that takes a set amount off every visit."
     image="/images/interior-detailing-steam-cleaning-oakland.jpg"
     imageAlt="J&W technician steam cleaning a back seat during a plan visit in Oakland"
     facts={[
-      { label: 'Monthly', value: `save ${usd(monthly.save)}/visit` },
-      { label: 'Bi-monthly', value: `save ${usd(bimonthly.save)}/visit` },
-      { label: 'Quarterly', value: `save ${usd(quarterly.save)}/visit` },
+      { label: 'Monthly', value: `from ${usd(from(monthlyIo))}/visit` },
+      { label: 'Bi-monthly', value: `from ${usd(from(bimonthlyIo))}/visit` },
+      { label: 'Quarterly', value: `from ${usd(from(quarterlyIo))}/visit` },
       { label: 'Minimum', value: `${MEMBERSHIP.minimumVisits} visits` },
     ]}
   />
@@ -68,17 +69,16 @@ const schema = [
         <p>It is also the easiest way to keep a <a href="/ceramic-coating/">ceramic-coated</a> car performing. A coating needs a gentle, regular wash to keep beading, and a plan visit is exactly that.</p>
       </div>
       <div class="mem-card">
-        <h3>Plan prices, {SIZES[0].label.toLowerCase()}</h3>
+        <h3>Full Detail plan prices, per visit</h3>
         <table class="mem-table">
-          <thead><tr><th>Plan</th><th>Inside & out</th><th>Interior only</th></tr></thead>
+          <thead><tr><th>Vehicle</th><th>One time</th><th>Monthly</th><th>Every 2 mo</th><th>Every 3 mo</th></tr></thead>
           <tbody>
-            <tr><th scope="row">One time</th><td>{usd(DETAIL.insideOut[0])}</td><td>{usd(DETAIL.interiorOnly[0])}</td></tr>
-            {MEMBERSHIP.cadences.map((c) => (
-              <tr><th scope="row">{c.label}</th><td><strong>{usd(planRow(DETAIL.insideOut, c.save)[0])}</strong></td><td><strong>{usd(planRow(DETAIL.interiorOnly, c.save)[0])}</strong></td></tr>
+            {SIZES.map((sz, i) => (
+              <tr><th scope="row">{sz.label}</th><td>{usd(DETAIL.insideOut[i])}</td><td><strong>{usd(monthlyIo[i])}</strong></td><td>{usd(bimonthlyIo[i])}</td><td>{usd(quarterlyIo[i])}</td></tr>
             ))}
           </tbody>
         </table>
-        <p class="mem-card__note"><Icon name="info" size={16} /> Bigger vehicles are on the picker below. Add-ons like shampoo, pet hair and odor treatment can go on any visit at their regular price.</p>
+        <p class="mem-card__note"><Icon name="info" size={16} /> Interior-only plans are $50 less than these. Add-ons like shampoo, pet hair and odor treatment can go on any visit at their regular price.</p>
       </div>
     </div>
   </section>
@@ -95,10 +95,10 @@ const schema = [
   .mem-card { background: var(--bg-soft); border-radius: 22px; padding: 1.75rem; }
   .mem-card h3 { margin-bottom: 1rem; }
   .mem-table { width: 100%; min-width: 0; border-collapse: collapse; font-size: 0.95rem; margin-bottom: 0.75rem; }
-  @media (max-width: 420px) { .mem-table { font-size: 0.88rem; } .mem-table th, .mem-table td { padding: 0.5rem 0.3rem; } }
   .mem-table th, .mem-table td { text-align: left; padding: 0.55rem 0.4rem; border-bottom: 1px solid var(--line); }
   .mem-table th { font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
   .mem-table tbody th { font-size: inherit; letter-spacing: 0; text-transform: none; font-weight: 650; color: var(--ink); }
+  @media (max-width: 420px) { .mem-table { font-size: 0.82rem; } .mem-table th, .mem-table td { padding: 0.45rem 0.25rem; } }
   .mem-card__note { display: flex; gap: 0.5rem; align-items: flex-start; font-size: 0.9rem; color: var(--muted); margin: 0.5rem 0 0; }
   .mem-card__note :global(svg) { flex: none; margin-top: 3px; }
 </style>

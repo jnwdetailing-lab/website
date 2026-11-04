@@ -1,13 +1,13 @@
 // ---------------------------------------------------------------------------
 // Packages, prices and plans. Every price on the site is read from this file.
 //
-// Structure (Nov 2026): one Full Detail, booked inside and out or interior
-// only ($50 less), an exterior-only detail, flat-price add-ons, and plans that
-// take a fixed amount off every visit. The detail prices match the "NEW" Coupe /
-// Sedan, 5-Seat SUV / Truck and 7-Seat SUV / Minivan services in Fieldd.
+// Matches the Fieldd catalog (Nov 4 2026): one Full Detail, booked inside and
+// out or interior only, an exterior-only detail, and $50 add-ons. Plans are the
+// same detail on a schedule, with a set amount off every visit that grows with
+// the vehicle size (set in Fieldd under each service's Recurring booking).
 //
-// Ceramic is still priced at four sizes in Fieldd. Until it moves to three, the
-// rows below use the smallest, the "SUV / Truck" and the largest of those four.
+// Ceramic is not in the Fieldd catalog right now; the ceramic rows below are
+// the last listed prices (smallest, "SUV / Truck" and largest of four sizes).
 // ---------------------------------------------------------------------------
 
 export type Size = { id: string; label: string; examples: string };
@@ -31,84 +31,101 @@ export const DETAIL = {
   id: 'full-detail',
   name: 'Full Detail',
   tagline: 'One detail, done properly. Cleaned, sanitized and protected, inside and out.',
-  insideOut: [249, 299, 349] as PriceRow,
+  insideOut: [299, 349, 399] as PriceRow,
   /** Interior only is the same interior work, $50 less. */
-  interiorOnly: [199, 249, 299] as PriceRow,
+  interiorOnly: [249, 299, 349] as PriceRow,
   hoursInsideOut: '2.5 to 3.5 hours',
   hoursInterior: '2 to 3 hours',
   interior: [
-    'Full vacuum: seats, carpet, trunk and under the seats',
-    'Compressed-air blowout of vents, seams and seat rails',
-    'Steam cleaning of plastics, cup holders and high-touch areas',
-    'Every hard surface wiped down and dressed, satin not greasy',
-    'Floor mats cleaned and restored',
-    'Inside glass and mirrors, streak-free',
+    'Double vacuum: seats, carpets, mats and trunk',
+    'Air purge of vents, seams, cupholders and crevices',
+    'Steam clean of seats, carpets, mats, door panels, console and plastics',
+    'Spot stain treatment',
+    'Leather cleaned and conditioned, matte finish',
+    'Plastics cleaned and protected, matte finish',
+    'Windows, mirrors and visors',
+    'Trunk detailed, headliner spot-cleaned as needed',
   ],
   exterior: [
-    'Foam pre-soak and two-bucket hand wash',
-    'Iron remover and clay bar on the paint',
-    'Wheels, tires and wheel wells cleaned, tires dressed',
-    'Door jambs wiped down',
-    'Outside glass and mirrors',
-    'Ceramic sealant, about 3 months of protection',
+    'Pre-soak for bugs, bird droppings and road grime',
+    'Professional hand wash',
+    'High-gloss spray wax',
+    'Wheel wells pressure-washed',
+    'Rim faces and tires detailed',
+    'Exterior trim and tires dressed',
+    'Door jambs and exterior windows',
   ],
 };
 
 export const EXTERIOR_ONLY = {
   id: 'exterior-detail',
   name: 'Exterior Only Detail',
-  tagline: 'The outside of the Full Detail on its own.',
-  hours: 'About 2 hours',
-  prices: [150, 150, 150] as PriceRow,
+  tagline: 'A thorough hand wash and exterior detail. No interior.',
+  hours: 'About 1 to 2 hours',
+  prices: [175, 175, 175] as PriceRow,
+  /** It is the minimum service call: promo codes and plan discounts do not apply. */
+  note: 'Our minimum service call, so promo codes and plan discounts do not apply.',
   items: [
-    'Foam pre-soak and two-bucket hand wash',
-    'Iron remover and clay bar',
-    'Wheels, tires and door jambs',
-    'Glass and mirrors',
-    'Ceramic sealant, about 3 months',
+    'Pre-soak and professional hand wash',
+    'High-gloss spray wax',
+    'Wheel wells, rim faces and tires',
+    'Trim and tires dressed',
+    'Door jambs and exterior windows',
   ],
 };
 
-export type Cadence = { id: string; label: string; every: string; save: number; note?: string };
+/** Heavy dirt, sand or buildup beyond a normal clean, agreed before we start. */
+export const EXTRA_TIME = { price: 50, per: '30 minutes' };
 
-// A plan is the same Full Detail on a schedule, with a fixed amount off every
-// visit. The plan price holds once three visits are completed.
+export type Cadence = { id: string; label: string; every: string; save: PriceRow; note?: string };
+
+// A plan is the same Full Detail on a schedule. The amount off each visit
+// grows with the vehicle (bigger cars on a schedule stay easier to keep up),
+// and applies to inside-and-out and interior-only plans alike. The plan price
+// holds once three visits are completed.
 export const MEMBERSHIP = {
   name: 'Membership',
   minimumVisits: 3,
-  maxSave: 100,
   cadences: [
-    { id: 'monthly', label: 'Monthly', every: 'every month', save: 100, note: 'Biggest savings' },
-    { id: 'bimonthly', label: 'Bi-monthly', every: 'every two months', save: 70 },
-    { id: 'quarterly', label: 'Quarterly', every: 'every three months', save: 50 },
+    { id: 'monthly', label: 'Monthly', every: 'every month', save: [120, 150, 190], note: 'Lowest price' },
+    { id: 'bimonthly', label: 'Bi-monthly', every: 'every two months', save: [80, 100, 120] },
+    { id: 'quarterly', label: 'Quarterly', every: 'every three months', save: [50, 50, 50] },
   ] as Cadence[],
 };
 
 /** Plan price per size for a one-time price row. */
-export const planRow = (row: PriceRow, save: number) => row.map((v) => v - save) as PriceRow;
+export const planRow = (row: PriceRow, save: PriceRow) => row.map((v, i) => v - save[i]) as PriceRow;
+/** Lowest monthly Full Detail price, for "monthly from $X" lines. */
+export const MONTHLY_FROM = Math.min(...planRow(DETAIL.insideOut, MEMBERSHIP.cadences[0].save));
 
 export type Addon = { name: string; price: number; desc: string };
 
 export const ADDONS_INTERIOR: Addon[] = [
-  { name: 'Pet hair removal', price: 45, desc: 'Rubber blades, pet-hair stones and air to pull embedded hair out of carpet and cloth.' },
-  { name: 'Shampoo seats and carpet', price: 135, desc: 'Hot-water extraction for the whole cabin: stains, spills and ground-in dirt.' },
-  { name: 'Shampoo seats only', price: 80, desc: 'Extraction on cloth seats when the carpet is fine.' },
-  { name: 'Shampoo carpet only', price: 80, desc: 'Extraction on carpet and mats when the seats are fine.' },
-  { name: 'Leather treatment', price: 45, desc: 'Clean and condition leather so it stays soft and does not crack.' },
-  { name: 'Child car seat cleaning', price: 35, desc: 'Seat shell and fabric cleaned, crumbs and spills removed.' },
-  { name: 'Headliner shampoo', price: 70, desc: 'Careful low-moisture cleaning of a stained headliner.' },
-  { name: 'Ozone odor removal', price: 80, desc: 'Ozone treatment for smoke, pet and mildew smells after the cabin is cleaned.' },
-  { name: 'Biohazard cleanup', price: 250, desc: 'Vomit, urine and other bodily fluids, extracted and sanitized.' },
-  { name: 'Mold remediation', price: 250, desc: 'Mold and mildew treated, and the source dried out.' },
+  { name: 'Pet hair removal', price: 50, desc: 'Needed if there is pet hair. Rubber blades, pet-hair stones and air pull it out of carpet and cloth.' },
+  { name: 'Extreme pet hair removal', price: 100, desc: 'For heavy shedding woven deep into carpet and seats.' },
+  { name: 'Shampoo seats (stain removal)', price: 50, desc: 'Hot-water extraction on cloth seats for spills, sweat and food stains.' },
+  { name: 'Shampoo carpets (stain removal)', price: 50, desc: 'Hot-water extraction on carpet and floor mats for coffee, mud and salt lines.' },
+  { name: 'Kids car seat cleaning', price: 50, desc: 'Seat shell and fabric cleaned and sanitized.' },
+  { name: 'Headliner deep cleaning', price: 50, desc: 'Careful low-moisture cleaning of a stained headliner, beyond the spot clean.' },
+  { name: 'Ozone odor treatment', price: 75, desc: 'Ozone for smoke, pet and food smells, after the cabin is cleaned.' },
+  { name: 'Bio cleaning (vomit, urine, etc.)', price: 150, desc: 'Bodily fluids extracted, enzyme-treated and sanitized.' },
 ];
 
 export const ADDONS_EXTERIOR: Addon[] = [
-  { name: 'Engine bay detail', price: 75, desc: 'Safe degrease, rinse and dressing under the hood.' },
-  { name: 'Headlight restoration', price: 95, desc: 'Yellowed lenses sanded, polished and sealed.' },
-  { name: '6-month paint protection', price: 50, desc: 'Upgrades the sealant from about three months to about six.' },
+  { name: 'Clay bar treatment', price: 50, desc: 'Lifts bonded grit, tar and overspray so the paint feels smooth again.' },
+  { name: 'Engine bay detail', price: 50, desc: 'Safe degrease, rinse and dressing under the hood.' },
+  { name: 'Headlight restoration (pair)', price: 100, desc: 'Yellowed lenses sanded, polished and sealed.' },
+  { name: 'Ceramic sealant upgrade (6 months)', price: 100, desc: 'Swaps the spray wax for a ceramic sealant that lasts about six months.' },
+  { name: 'Polish', price: 149, desc: 'Machine polish that takes out light swirls and brings back gloss.' },
   { name: 'Windshield ceramic coating', price: 95, desc: 'Rain beads up and blows off the glass at speed.' },
-  { name: 'One-step polish', price: 165, desc: 'Machine polish that takes out light swirls and brings back gloss.' },
 ];
+
+/** Price of a listed add-on by its exact name (build fails loudly on a typo). */
+export const addonPrice = (name: string) => {
+  const a = [...ADDONS_INTERIOR, ...ADDONS_EXTERIOR].find((x) => x.name === name);
+  if (!a) throw new Error(`Unknown add-on: ${name}`);
+  return a.price;
+};
 
 export type CeramicTier = { id: string; name: string; prices: PriceRow; prep: string; bestFor: string; featured?: boolean };
 

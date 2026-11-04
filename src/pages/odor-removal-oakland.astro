@@ -7,39 +7,36 @@ import Reviews from '../components/Reviews.astro';
 import CtaBand from '../components/CtaBand.astro';
 import QuoteSection from '../components/QuoteSection.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
-import { DETAIL, ADDONS_INTERIOR, from, usd } from '../data/pricing';
+import { DETAIL, addonPrice, from, usd } from '../data/pricing';
 import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
 
 const path = '/odor-removal-oakland/';
-const price = (name: string) => ADDONS_INTERIOR.find((a) => a.name === name)!.price;
-const ozone = price('Ozone odor removal');
-const bio = price('Biohazard cleanup');
-const mold = price('Mold remediation');
-const shampoo = price('Shampoo seats and carpet');
-const title = 'Car Odor Removal Oakland, CA | Smoke, Pet & Mildew | J&W Mobile';
-const description = `Mobile car odor removal in Oakland: the source cleaned out with steam and extraction, then an ozone treatment for smoke, pet, mildew and food smells. Ozone ${usd(ozone)} with any interior detail.`;
+const ozone = addonPrice('Ozone odor treatment');
+const bio = addonPrice('Bio cleaning (vomit, urine, etc.)');
+const shampoo = addonPrice('Shampoo seats (stain removal)');
+const title = 'Car Odor Removal Oakland, CA | Smoke, Pet & Food Odors | J&W Mobile';
+const description = `Mobile car odor removal in Oakland: the source cleaned out with steam and extraction, then an ozone treatment for smoke, pet and food smells. Ozone ${usd(ozone)} with any interior detail.`;
 
 const faqs = [
   { q: 'How does car odor removal work?', a: 'In two parts. First we remove the source: the residue in the carpet, seat foam, headliner and vents that is actually producing the smell. That is steam and hot-water extraction, which is why odor removal always goes with an interior detail. Then ozone oxidizes the odor molecules left in places cleaning cannot reach, like the foam under the fabric and the ventilation system. Skipping the cleaning and running ozone alone is why so many odor treatments wear off.' },
-  { q: 'How much does odor removal cost?', a: `Ozone treatment is ${usd(ozone)} added to an interior detail. For most smells we also recommend the seat and carpet shampoo (${usd(shampoo)}), because the source is usually in the fabric. An interior only detail starts at ${usd(from(DETAIL.interiorOnly))}. Vomit, urine and other bodily fluids need the biohazard cleanup (${usd(bio)}), and mold needs mold remediation (${usd(mold)}).` },
+  { q: 'How much does odor removal cost?', a: `Ozone treatment is ${usd(ozone)} added to an interior detail. For most smells we also recommend shampoo for the seats or the carpets (${usd(shampoo)} each), because the source is usually in the fabric. An interior only detail starts at ${usd(from(DETAIL.interiorOnly))}. Vomit, urine and other bodily fluids need bio cleaning (${usd(bio)}). We do not treat mold or mildew.` },
   { q: 'Will it really get rid of cigarette smoke?', a: 'Yes, in almost every car we treat. Smoke coats every surface, including the headliner and the inside of the vents, so we clean the hard surfaces and glass, extract the fabric, and then run ozone with the ventilation cycling so the vents are treated too. Years of heavy smoking can leave a faint trace in the headliner foam that needs a second ozone session. We will tell you if we think that is likely.' },
   { q: 'How long does it take?', a: 'The interior detail takes two to four hours depending on the car. The ozone treatment adds 30 to 90 minutes depending on how strong the smell is, then the car airs out with the doors open for at least half an hour before you get back in.' },
   { q: 'Is ozone safe?', a: 'For the car, yes, at the concentration and time we use. For people and pets, nobody stays in the car while it runs, and we air it out fully afterwards. You may notice a clean, after-a-thunderstorm smell for a day. It fades.' },
-  { q: 'The car smells musty after it rained. What is that?', a: 'Almost always water getting in somewhere: a door seal, a sunroof drain clogged with leaves, a windshield seal or a heater core. The water soaks the carpet padding and mildew grows in it. We extract and dry what we can reach and treat the smell, and we show you where the water seems to be coming from. If the leak is not fixed, the smell comes back.' },
+  { q: 'The car smells musty after it rained. Can you fix that?', a: 'Usually that is water getting in somewhere: a door seal, a sunroof drain clogged with leaves, a windshield seal or a heater core. The water soaks the carpet padding, and if it stays wet, mold or mildew grows in it. We do not clean or treat mold or mildew, so get the leak fixed and the padding dried first, and see a mold specialist if it has started to grow. If we find mold when we arrive, we cannot go ahead with the detail.' },
   { q: 'Why not just use an odor bomb or an air freshener?', a: 'They cover the smell for a few days. The source is still in the fabric and foam, and once the perfume fades the smell is back, sometimes mixed with the perfume. Cleaning out the source is what makes it last.' },
 ];
 
 const schema = [
   serviceSchema({
     name: 'Car Odor Removal (Ozone Treatment)',
-    description: 'Mobile car odor removal in Oakland and the Bay Area: smoke, pet, mildew and food odors removed at the source with steam and hot-water extraction, then treated with ozone.',
+    description: 'Mobile car odor removal in Oakland and the Bay Area: smoke, pet and food odors removed at the source with steam and hot-water extraction, then treated with ozone.',
     path,
     image: '/images/odor-removal-oakland.jpg',
     minPrice: ozone,
     offers: [
-      { name: 'Ozone odor removal', description: 'Ozone treatment added to an interior detail.', price: String(ozone) },
-      { name: 'Biohazard cleanup', description: 'Vomit, urine and other bodily fluids extracted and sanitized.', price: String(bio) },
-      { name: 'Mold remediation', description: 'Mold and mildew treated and the source dried.', price: String(mold) },
+      { name: 'Ozone odor treatment', description: 'Ozone treatment added to an interior detail.', price: String(ozone) },
+      { name: 'Bio cleaning', description: 'Vomit, urine and other bodily fluids extracted and sanitized.', price: String(bio) },
     ],
   }),
   faqSchema(faqs),
@@ -56,9 +53,9 @@ const steps = [
 const smells = [
   { t: 'Cigarette and cannabis smoke', d: 'Lives in the headliner, the seat foam and the vents. Needs the full clean plus ozone.' },
   { t: 'Dog and pet smell', d: 'Mostly in the fabric and the hair woven into it. Pet hair removal and extraction do most of the work.' },
-  { t: 'Mildew and musty smell', d: 'Comes from wet carpet padding. The leak has to be found and the padding dried.' },
+  { t: 'Musty smell after rain', d: 'Comes from wet carpet padding. Fix the leak and dry it first. We do not treat mold or mildew.' },
   { t: 'Spilled milk and food', d: 'Soaks through to the padding and sours. Extraction reaches it; a surface wipe will not.' },
-  { t: 'Vomit and urine', d: 'Needs enzyme treatment and extraction, which is the biohazard cleanup.' },
+  { t: 'Vomit and urine', d: 'Needs enzyme treatment and extraction, which is the bio cleaning add-on.' },
   { t: 'Gasoline and sweat', d: 'Usually in the trunk carpet or the seats. Cleaned out, then ozone for what is left.' },
 ];
 ---
@@ -68,14 +65,14 @@ const smells = [
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Odor Removal' }]}
     eyebrow="Mobile odor removal"
     titleHtml="Car Odor Removal in Oakland, <em>gone at the source, not covered up</em>"
-    text="Smoke, dog, mildew, old spills. We clean out what is causing the smell, then treat what is left with ozone, so it does not come back when the air freshener wears off. At your home, with our own water and power."
+    text="Smoke, dog, old spills. We clean out what is causing the smell, then treat what is left with ozone, so it does not come back when the air freshener wears off. At your home, with our own water and power."
     image="/images/odor-removal-oakland.jpg"
     imageAlt="Commercial ozone generator running inside a vehicle for odor removal in Oakland, CA"
     facts={[
       { label: 'Ozone treatment', value: `${usd(ozone)} with a detail` },
       { label: 'Interior detail', value: `from ${usd(from(DETAIL.interiorOnly))}` },
       { label: 'Time', value: '3 to 5 hours total' },
-      { label: 'Biohazard / mold', value: `${usd(bio)} each` },
+      { label: 'Bio cleaning', value: usd(bio) },
     ]}
   />
 
@@ -84,7 +81,7 @@ const smells = [
       <div class="prose">
         <span class="eyebrow">Why smells come back</span>
         <h2>The smell is coming from something. Remove that first.</h2>
-        <p>Every lasting smell in a car has a source: smoke residue on the headliner, a spill that soaked through to the carpet padding, dog hair woven into the fabric, damp padding growing mildew. Air fresheners and odor bombs cover it for a few days, and then it is back.</p>
+        <p>Every lasting smell in a car has a source: smoke residue on the headliner, a spill that soaked through to the carpet padding, dog hair woven into the fabric, food that slid under a seat. Air fresheners and odor bombs cover it for a few days, and then it is back.</p>
         <p>We work the other way round. First the cleaning that removes the source, steam on the hard surfaces and hot-water extraction in the fabric. Then ozone, which oxidizes the odor molecules in places cleaning cannot reach, like the foam under the seat covers and the ventilation system.</p>
         <p>That is why odor removal is always paired with an interior detail. For most smells, an <a href="/interior-auto-detailing-oakland-california/">interior detail with shampoo extraction</a> is the right one underneath, because the problem is usually in the fabric.</p>
       </div>
@@ -110,10 +107,9 @@ const smells = [
         <table>
           <thead><tr><th>Treatment</th><th>For</th><th>Price</th></tr></thead>
           <tbody>
-            <tr><td><strong>Ozone odor removal</strong></td><td>Smoke, pet, mildew, food and general musty smells, after the cabin is cleaned</td><td class="price">{usd(ozone)}</td></tr>
-            <tr><td><strong>Biohazard cleanup</strong></td><td>Vomit, urine and other bodily fluids: enzyme treatment, extraction and sanitizing</td><td class="price">{usd(bio)}</td></tr>
-            <tr><td><strong>Mold remediation</strong></td><td>Visible mold or mildew, treated and the source dried</td><td class="price">{usd(mold)}</td></tr>
-            <tr><td><strong>Shampoo seats and carpet</strong></td><td>Hot-water extraction, the cleaning underneath most odor jobs</td><td class="price">{usd(shampoo)}</td></tr>
+            <tr><td><strong>Ozone odor treatment</strong></td><td>Smoke, pet and food smells, after the cabin is cleaned</td><td class="price">{usd(ozone)}</td></tr>
+            <tr><td><strong>Bio cleaning</strong></td><td>Vomit, urine and other bodily fluids: enzyme treatment, extraction and sanitizing</td><td class="price">{usd(bio)}</td></tr>
+            <tr><td><strong>Shampoo seats or carpets</strong></td><td>Hot-water extraction, the cleaning underneath most odor jobs</td><td class="price">{usd(shampoo)} each</td></tr>
             <tr><td><strong>Interior Only Detail</strong></td><td>The interior clean every treatment above is added to</td><td class="price">from {usd(from(DETAIL.interiorOnly))}</td></tr>
           </tbody>
         </table>
@@ -126,7 +122,7 @@ const smells = [
     <div class="container prose max-prose" style="margin-inline:auto">
       <span class="eyebrow">Bay Area odor problems</span>
       <h2>The smells we see most around the Bay</h2>
-      <p><strong>Mildew after the first big rains.</strong> Every winter we get calls about cars that started smelling musty in December. Leaves clog sunroof drains and cowl vents in the fall, the first storms push water into the cabin, and the padding stays wet for weeks. Clear the drains in October and you can usually avoid it.</p>
+      <p><strong>Musty cars after the first big rains.</strong> Every winter we get calls about cars that started smelling musty in December. Leaves clog sunroof drains and cowl vents in the fall, the first storms push water into the cabin, and the padding stays wet for weeks. Clear the drains in October and you can usually avoid it. If it has already turned to mold, that is a job for a mold specialist, not a detailer.</p>
       <p><strong>Dog smell after the parks.</strong> Trips to Point Isabel, Redwood Regional and the beaches mean wet dog, sand and hair in the back seat. Pet hair removal and extraction get most of it, and ozone takes care of the rest.</p>
       <p><strong>Smoke in used and pre-sale cars.</strong> A car that smells of smoke sells for noticeably less. An interior detail with shampoo and ozone before you list it usually pays for itself.</p>
 
@@ -141,7 +137,7 @@ const smells = [
 
   <Reviews limit={3} heading="What people say after we leave" />
   <Faq faqs={faqs} heading="Odor removal questions" />
-  <QuoteSection eyebrow="Odor removal quote" title="Tell us what the car smells like." text="Smoke, dog, mildew or something else, and how long it has been there. We tell you which treatment it needs and confirm the price." />
+  <QuoteSection eyebrow="Odor removal quote" title="Tell us what the car smells like." text="Smoke, dog, food or something else, and how long it has been there. We tell you which treatment it needs and confirm the price." />
   <ServicesGrid exclude={path} heading="Other services we bring to you" eyebrow="More from J&W" lead="" />
   <CtaBand title="A car that smells like nothing again." />
 </Base>

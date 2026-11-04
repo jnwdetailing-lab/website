@@ -2,15 +2,15 @@
 // Membership plans: the same Full Detail on a schedule, a fixed amount off
 // every visit. Live prices by vehicle size and by inside-and-out / interior only.
 import { CTA } from '../data/site';
-import { MEMBERSHIP, DETAIL, planRow, usd, type PriceRow } from '../data/pricing';
+import { MEMBERSHIP, DETAIL, MONTHLY_FROM, planRow, usd, type PriceRow } from '../data/pricing';
 import SizePicker from './SizePicker.astro';
 import Icon from './Icons.astro';
 export interface Props { eyebrow?: string; heading?: string; lead?: string; id?: string; picker?: boolean }
-const save = MEMBERSHIP.cadences.map((c) => usd(c.save));
+const [m, b, q] = MEMBERSHIP.cadences.map((c) => usd(Math.min(...planRow(DETAIL.insideOut, c.save))));
 const {
   eyebrow = 'Membership',
-  heading = `Same detail, on a schedule. Up to ${usd(MEMBERSHIP.maxSave)} off every visit.`,
-  lead = `Every plan visit is the full ${DETAIL.name}, inside and out or interior only. Monthly saves ${save[0]} a visit, bi-monthly ${save[1]} and quarterly ${save[2]}.`,
+  heading = `Same detail, on a schedule. Monthly from ${usd(MONTHLY_FROM)} a visit.`,
+  lead = `Every plan visit is the full ${DETAIL.name}, inside and out or interior only. Inside and out on a coupe or sedan: ${m} monthly, ${b} bi-monthly, ${q} quarterly. Bigger vehicles save more.`,
   id = 'membership',
   picker = true,
 } = Astro.props;
@@ -43,7 +43,7 @@ const csv = (r: PriceRow) => r.join(',');
               <p class="plan__sub">One {DETAIL.name} {c.every}</p>
               <p class="plan__price"><span data-prices={csv(io)} data-prices-int={csv(int)}>{usd(io[0])}</span><small>/visit</small></p>
               <p class="plan__was">Instead of <s data-prices={csv(DETAIL.insideOut)} data-prices-int={csv(DETAIL.interiorOnly)}>{usd(DETAIL.insideOut[0])}</s> one time</p>
-              <p class="plan__save">Save {usd(c.save)} every visit</p>
+              <p class="plan__save">Save <span data-prices={c.save.join(',')}>{usd(c.save[0])}</span> every visit</p>
               <ul class="checklist">
                 <li>A complete {DETAIL.name} every time</li>
                 <li>Plan price from the first visit</li>
@@ -60,10 +60,10 @@ const csv = (r: PriceRow) => r.join(',');
       <div>
         <h3>Every plan visit includes</h3>
         <ul class="checklist">
-          <li>Full vacuum, air blowout and steam on the hard surfaces</li>
-          <li>Every surface wiped and dressed, mats and glass done</li>
-          <li>Hand wash with iron remover and clay (on inside-and-out plans)</li>
-          <li>Wheels, tires, door jambs and a fresh ceramic sealant</li>
+          <li>Double vacuum, air purge and steam clean of the cabin</li>
+          <li>Spot stain treatment, leather and plastics cleaned and protected</li>
+          <li>Windows, mirrors, visors and trunk</li>
+          <li>On inside-and-out plans: hand wash, spray wax, wheels, tires and door jambs</li>
         </ul>
       </div>
       <div>

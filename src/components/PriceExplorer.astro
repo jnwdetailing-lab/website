@@ -3,7 +3,7 @@
 // and the exterior-only option. Used on the home page, the pricing page and
 // the service pages. All numbers come from src/data/pricing.ts.
 import { SITE, CTA, BOOK } from '../data/site';
-import { DETAIL, EXTERIOR_ONLY, MEMBERSHIP, OVERSIZED, SIZES, planRow, usd, type PriceRow } from '../data/pricing';
+import { DETAIL, EXTERIOR_ONLY, EXTRA_TIME, MEMBERSHIP, MONTHLY_FROM, OVERSIZED, SIZES, planRow, range, usd, type PriceRow } from '../data/pricing';
 import SizePicker from './SizePicker.astro';
 import Icon from './Icons.astro';
 export interface Props {
@@ -21,7 +21,7 @@ export interface Props {
 const {
   eyebrow = 'Pricing',
   heading = 'One detail. Pick your vehicle, see your price.',
-  lead = `Book it inside and out, or interior only for $50 less. Put it on a plan and every visit costs up to ${usd(MEMBERSHIP.maxSave)} less. Add-ons cover pet hair, stains and smells.`,
+  lead = `Book it inside and out, or interior only for $50 less. On a monthly plan, a Full Detail starts at ${usd(MONTHLY_FROM)} a visit. Add-ons cover pet hair, stains and smells.`,
   showTable = false,
   compact = false,
   id = 'packages',
@@ -66,7 +66,7 @@ const start = (io: PriceRow, int: PriceRow) => usd(defaultMode === 'int' ? int[0
                 <li>
                   <span class="pkg__plan-name">{c.label}</span>
                   <span class="pkg__plan-price"><span data-prices={csv(io)} data-prices-int={csv(int)}>{start(io, int)}</span><small>/visit</small></span>
-                  <span class="pkg__save">Save {usd(c.save)}</span>
+                  <span class="pkg__save">Save <span data-prices={csv(c.save)}>{usd(c.save[0])}</span></span>
                 </li>
               );
             })}
@@ -98,7 +98,7 @@ const start = (io: PriceRow, int: PriceRow) => usd(defaultMode === 'int' ? int[0
       <div class="pkg-extra__item">
         <div>
           <h3>Just the outside? {EXTERIOR_ONLY.name}</h3>
-          <p>{EXTERIOR_ONLY.items.join(' · ')}. {EXTERIOR_ONLY.hours}.</p>
+          <p>{EXTERIOR_ONLY.items.join(' · ')}. Same price on any vehicle. {EXTERIOR_ONLY.hours}.</p>
         </div>
         <p class="pkg-extra__price"><span data-prices={csv(EXTERIOR_ONLY.prices)}>{usd(EXTERIOR_ONLY.prices[0])}</span></p>
       </div>
@@ -127,7 +127,7 @@ const start = (io: PriceRow, int: PriceRow) => usd(defaultMode === 'int' ? int[0
                 <>
                   <tr class="ptable__lead"><td><strong>{g.name}</strong><br /><small>{g.sub}, one time</small></td>{g.row.map((v) => <td class="price">{usd(v)}</td>)}</tr>
                   {MEMBERSHIP.cadences.map((c) => (
-                    <tr><td>{c.label} plan<br /><small>Save {usd(c.save)} a visit</small></td>{planRow(g.row, c.save).map((v) => <td class="price">{usd(v)}</td>)}</tr>
+                    <tr><td>{c.label} plan<br /><small>Save {range(c.save)} a visit</small></td>{planRow(g.row, c.save).map((v) => <td class="price">{usd(v)}</td>)}</tr>
                   ))}
                 </>
               ))}
@@ -135,7 +135,7 @@ const start = (io: PriceRow, int: PriceRow) => usd(defaultMode === 'int' ? int[0
             </tbody>
           </table>
         </div>
-        <p class="ptable__note">Prices are for a car in normal condition. Pet hair, stains, smells and biohazards are priced as add-ons below, and we confirm the total before we start. {OVERSIZED.label} vehicles are quoted. Questions? Call or text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>.</p>
+        <p class="ptable__note">Prices are for a vehicle in normal, everyday condition. Pet hair, stains, smells and biohazards are priced as add-ons below. Heavy dirt or buildup is {usd(EXTRA_TIME.price)} per extra {EXTRA_TIME.per}, and we confirm any change before we start. {OVERSIZED.label} vehicles are quoted. Questions? Call or text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>.</p>
       </details>
     )}
   </div>
