@@ -3,8 +3,8 @@
 //
 // Matches the Fieldd catalog (Nov 4 2026): one Full Detail, booked inside and
 // out or interior only, an exterior-only detail, and $50 add-ons. Plans are the
-// same detail on a schedule, with a set amount off every visit that grows with
-// the vehicle size (set in Fieldd under each service's Recurring booking).
+// same detail on a schedule, with the same amount off every visit on every
+// vehicle (set in Fieldd under each service's Recurring booking).
 //
 // Ceramic is not in the Fieldd catalog right now; the ceramic rows below are
 // the last listed prices (smallest, "SUV / Truck" and largest of four sizes).
@@ -79,16 +79,15 @@ export const EXTRA_TIME = { price: 50, per: '30 minutes' };
 
 export type Cadence = { id: string; label: string; every: string; save: PriceRow; note?: string };
 
-// A plan is the same Full Detail on a schedule. The amount off each visit
-// grows with the vehicle (bigger cars on a schedule stay easier to keep up),
-// and applies to inside-and-out and interior-only plans alike. The plan price
-// holds once three visits are completed.
+// A plan is the same Full Detail on a schedule, with the same amount off every
+// visit whatever the vehicle, on inside-and-out and interior-only plans alike.
+// The plan price holds once three visits are completed.
 export const MEMBERSHIP = {
   name: 'Membership',
   minimumVisits: 3,
   cadences: [
-    { id: 'monthly', label: 'Monthly', every: 'every month', save: [120, 150, 190], note: 'Lowest price' },
-    { id: 'bimonthly', label: 'Bi-monthly', every: 'every two months', save: [80, 100, 120] },
+    { id: 'monthly', label: 'Monthly', every: 'every month', save: [150, 150, 150], note: 'Lowest price' },
+    { id: 'bimonthly', label: 'Bi-monthly', every: 'every two months', save: [100, 100, 100] },
     { id: 'quarterly', label: 'Quarterly', every: 'every three months', save: [50, 50, 50] },
   ] as Cadence[],
 };

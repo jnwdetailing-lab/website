@@ -10,7 +10,7 @@ const [m, b, q] = MEMBERSHIP.cadences.map((c) => usd(Math.min(...planRow(DETAIL.
 const {
   eyebrow = 'Membership',
   heading = `Same detail, on a schedule. Monthly from ${usd(MONTHLY_FROM)} a visit.`,
-  lead = `Every plan visit is the full ${DETAIL.name}, inside and out or interior only. Inside and out on a coupe or sedan: ${m} monthly, ${b} bi-monthly, ${q} quarterly. Bigger vehicles save more.`,
+  lead = `Every plan visit is the full ${DETAIL.name}, inside and out or interior only. Every vehicle saves the same: ${usd(MEMBERSHIP.cadences[0].save[0])} a visit monthly, ${usd(MEMBERSHIP.cadences[1].save[0])} bi-monthly and ${usd(MEMBERSHIP.cadences[2].save[0])} quarterly. Inside and out on a coupe or sedan: ${m}, ${b} or ${q}.`,
   id = 'membership',
   picker = true,
 } = Astro.props;
