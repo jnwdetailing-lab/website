@@ -44,6 +44,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* Nothing may push the page sideways on a phone. clip (unlike hidden) keeps the sticky header working. */
+body { overflow-x: hidden; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }
 body {
   margin: 0; font-family: var(--font-body); font-size: 17px; line-height: 1.65; color: var(--body);
   background: var(--bg); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
@@ -133,11 +136,12 @@ strong { color: var(--ink); font-weight: 650; }
 
 /* Grids & cards */
 .grid { display: grid; gap: clamp(1rem, 2vw, 1.5rem); }
-.grid--2 { grid-template-columns: repeat(2, 1fr); }
-.grid--3 { grid-template-columns: repeat(3, 1fr); }
-.grid--4 { grid-template-columns: repeat(4, 1fr); }
-@media (max-width: 1000px) { .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 640px) { .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; } }
+/* minmax(0, 1fr): a column can shrink below its widest word, so it never outgrows the screen. */
+.grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .grid--3, .grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .grid--2, .grid--3, .grid--4 { grid-template-columns: minmax(0, 1fr); } }
 .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; }
 a.card { color: inherit; text-decoration: none !important; }
 a.card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
@@ -182,9 +186,9 @@ td.price, .num { font-family: var(--font-display); font-weight: 800; color: var(
 .prose img { border-radius: var(--radius); margin: 1.5rem 0; }
 
 /* Layout helpers */
-.two-col { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+.two-col { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
 .two-col--top { align-items: start; }
-@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .two-col { grid-template-columns: minmax(0, 1fr); } }
 .img-frame { border-radius: var(--radius); overflow: hidden; }
 .img-frame img { width: 100%; height: 100%; object-fit: cover; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }

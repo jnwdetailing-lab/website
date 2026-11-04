@@ -31,7 +31,7 @@ export const SITE = {
   hours: { open: '08:00', close: '20:00', label: 'Mon – Sun · 8:00 AM – 8:00 PM' },
   // From the Trustindex badge (live Google data), Nov 4 2026.
   rating: { value: 4.9, count: 254 },
-  stats: { reviews: '250+', customers: '1,000+', since: '2022', cities: '8+' },
+  stats: { reviews: '250+', customers: '1,000+', since: '2022', cities: '25+' },
   social: {
     instagram: 'https://www.instagram.com/jnwdetail/',
     facebook: 'https://www.facebook.com/jnwdetail/',
@@ -381,7 +381,7 @@ export type FAQ = { q: string; a: string };
 
 export const HOME_FAQS: FAQ[] = [
   { q: 'How much does mobile car detailing cost in Oakland?', a: `Our Full Detail, inside and out, is ${usd(sedan)} for a coupe or sedan, ${usd(suv5)} for a 5-seat SUV or truck and ${usd(suv7)} for a 7-seat SUV or minivan. Interior only is $50 less, from ${usd(DETAIL.interiorOnly[0])}. An exterior-only detail is ${usd(EXTERIOR_ONLY.prices[0])} on any vehicle. On a monthly plan, a Full Detail starts at ${usd(MONTHLY_FROM)} a visit. Every price is on our pricing page, and you confirm it before anything is booked.` },
-  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the Bay Area. Our van is fully self-contained with its own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
+  { q: 'Do you really come to me? What do I need to provide?', a: 'Yes, we are 100% mobile across Oakland and the Bay Area. We are fully self-contained and bring our own water and power. All you need is a parking spot with enough room to open the doors and work around the vehicle: a driveway, a flat legal curb spot, or a roomy garage stall.' },
   { q: 'How long does a detail take?', a: `A Full Detail inside and out takes ${DETAIL.hoursInsideOut}, interior only ${DETAIL.hoursInterior} and an exterior-only detail ${EXTERIOR_ONLY.hours.toLowerCase()}, depending on vehicle size. Add-ons like shampoo or pet hair add time. Ceramic coating with paint correction is a full-day appointment.` },
   { q: 'What does the 100% satisfaction guarantee mean?', a: 'If something we did is not right, tell us before we leave or within 48 hours, and we come back and make it right. We also walk the car with you at the end of every detail so you can point out anything on the spot.' },
   { q: 'What areas do you serve?', a: 'We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond and nearby Bay Area communities. If you are just outside that list, call us. We can usually make it work.' },

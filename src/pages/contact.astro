@@ -92,6 +92,8 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
   .way { display: flex; gap: 1rem; align-items: center; padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: var(--ink); text-decoration: none !important; transition: border-color 0.15s, transform 0.15s; }
   .way:hover { border-color: var(--red); transform: translateY(-1px); }
   .way svg { color: var(--red); flex: none; }
+  .way > :not(svg) { min-width: 0; }
+  .way strong { overflow-wrap: anywhere; }
   .way strong { display: block; font-family: var(--font-display); font-size: 1.25rem; text-transform: uppercase; }
   .way span { font-size: 0.9rem; color: var(--muted); }
   .way--primary { background: var(--ink); color: #fff; border-color: var(--ink); }

@@ -34,7 +34,7 @@ const schema = [person, breadcrumbSchema([{ label: 'About Us', href: path }])];
     crumbs={[{ label: 'About Us' }]}
     eyebrow="About J&W"
     titleHtml="Mobile detailing & ceramic coating, <em>founded in Oakland in 2022</em>. Same standard on every job"
-    text="J&W Mobile Detailing is Jalil Wren and a small team, one well-equipped van, eco-friendly products, and a standard that has not moved since day one: every vehicle leaves looking the way we'd want our own to."
+    text="J&W Mobile Detailing brings professional detailing to driveways and offices in 25+ Bay Area cities. We arrive fully equipped, use eco-friendly products, and hold a standard that has not moved since day one: every vehicle leaves looking the way we'd want our own to."
     image="/images/jalil-owner-jw-mobile-detailing-oakland.jpg"
     imageAlt="Jalil Wren, founder of J&W Mobile Detailing, detailing a steering wheel in Oakland, CA"
   />
@@ -52,9 +52,9 @@ const schema = [person, breadcrumbSchema([{ label: 'About Us', href: path }])];
         <div><strong>2022</strong><span>Founded in Oakland</span></div>
         <div><strong>{SITE.rating.value}★</strong><span>{SITE.rating.count} Google reviews</span></div>
         <div><strong>1,000+</strong><span>Vehicles detailed</span></div>
-        <div><strong>8</strong><span>Bay Area cities served</span></div>
+        <div><strong>{SITE.stats.cities}</strong><span>Bay Area cities served</span></div>
         <div><strong>100%</strong><span>Mobile, own water & power</span></div>
-        <div><strong>1</strong><span>Standard, every job. No rotating crews.</span></div>
+        <div><strong>1</strong><span>Standard on every job</span></div>
       </div>
     </div>
   </section>
@@ -66,7 +66,7 @@ const schema = [person, breadcrumbSchema([{ label: 'About Us', href: path }])];
         <h2>Four things we won't compromise on</h2>
       </div>
       <div class="grid grid--4">
-        <div class="val"><Icon name="user" size={30} /><h3>Owner accountability</h3><p>When you book J&W, your car is handled by a small trained team that works to one standard, not a rotating crew that treats it like a number. You'll have Jalil's number.</p></div>
+        <div class="val"><Icon name="user" size={30} /><h3>Owner accountability</h3><p>When you book J&W, your car is handled by trained J&W technicians who work to one standard and treat it like their own, not like a number. The owner stands behind every job, and you can always reach us directly.</p></div>
         <div class="val"><Icon name="dollar" size={30} /><h3>Transparent pricing</h3><p>A quote for your vehicle before we book, based on what it actually needs. No hidden costs, and no surprise upsells at the walk-around.</p></div>
         <div class="val"><Icon name="leaf" size={30} /><h3>Eco-friendly products</h3><p>One of the only detailing services in the Bay Area using eco-friendly, biodegradable, pH-neutral products. Better for your vehicle, better for your family, better for the environment.</p></div>
         <div class="val"><Icon name="sparkle" size={30} /><h3>Systematic, every time</h3><p>An extremely detailed, systematic approach: the same checklist on every vehicle, every imperfection addressed, and a walk-around with you under light before we leave.</p></div>
@@ -80,7 +80,7 @@ const schema = [person, breadcrumbSchema([{ label: 'About Us', href: path }])];
       <div class="prose">
         <span class="eyebrow">How we work</span>
         <h2 class="mt-0">A shop on wheels, parked in your driveway</h2>
-        <p>The van carries everything: water tank, generator, pressure washer, foam cannon, dry-vapor steamer, commercial hot-water extractor, compressor, dual-action polishers, LED inspection lighting, ozone generator, and pH-balanced chemistry for paint, fabric, leather, plastics and screens. You don't provide a hose, an outlet, or a ride to a shop.</p>
+        <p>We bring everything: water tank, generator, pressure washer, foam cannon, dry-vapor steamer, commercial hot-water extractor, compressor, dual-action polishers, LED inspection lighting, ozone generator, and pH-balanced chemistry for paint, fabric, leather, plastics and screens. You don't provide a hose, an outlet, or a ride to a shop.</p>
         <p>We serve Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda and Walnut Creek, seven days a week, {SITE.hours.label.replace('Mon – Sun · ', '')}. Licensed and insured. Cash, card, Zelle or Venmo. After you've inspected the work.</p>
         <div class="btn-row">
           <a href="/services/" class="btn btn--dark">Services & pricing</a>
@@ -97,7 +97,7 @@ const schema = [person, breadcrumbSchema([{ label: 'About Us', href: path }])];
 </Base>
 
 <style>
-  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   .stats div { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 1.5rem 1.25rem; }
   .stats strong { display: block; font-family: var(--font-display); font-size: 2.6rem; line-height: 1; color: #fff; margin-bottom: 0.35rem; }
   .stats span { font-size: 0.9rem; color: #b9bec8; }

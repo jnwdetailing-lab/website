@@ -11,7 +11,7 @@ const body = `# J&W Mobile Detailing — llms.txt
 # Mobile auto detailing & ceramic coating, Oakland CA + Bay Area. Founded ${SITE.founded} by Jalil Wren.
 # Phone: ${SITE.phoneDisplay} · Email: ${SITE.email} · Book: ${SITE.booking}
 # Rating: ${SITE.rating.value}/5 on Google (${SITE.stats.reviews} reviews). Hours: Mon–Sun 8:00 AM–8:00 PM. 100% mobile — brings own water & power.
-# Service area: Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond (plus San Pablo, El Cerrito, Pinole, Hercules, El Sobrante, Albany).
+# Service area: ${SITE.stats.cities} Bay Area cities, including Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda, Walnut Creek, Richmond (plus San Pablo, El Cerrito, Pinole, Hercules, El Sobrante, Albany).
 
 ## Services (USD; prices by vehicle size: ${SIZES.map((s) => s.label).join(' / ')})
 - /pricing/ : Every price, add-on and plan

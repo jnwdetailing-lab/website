@@ -16,6 +16,8 @@ export async function getStaticPaths() {
   }));
 }
 const { slug, title: postTitle, date, html } = Astro.props as { slug: string; title: string; date: string; html: string };
+// Each table scrolls inside its own box on a phone instead of widening the page.
+const body = html.replace(/<table\b/g, '<div class="post__table"><table').replace(/<\/table>/g, '</table></div>');
 const path = `/blog/${slug}/`;
 
 const seo: Record<string, { title: string; description: string; image: string }> = {
@@ -54,7 +56,7 @@ const fmt = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'l
     </header>
     <div class="container post__body">
       <img class="post__hero" src={s.image} alt={postTitle} width="1376" height="768" fetchpriority="high" decoding="async" />
-      <div set:html={html} />
+      <div set:html={body} />
       <aside class="author">
         <img src="/images/jalil-owner-jw-mobile-detailing-oakland.jpg" alt="Jalil Wren, founder of J&W Mobile Detailing" width="96" height="96" loading="lazy" />
         <div>
@@ -82,5 +84,7 @@ const fmt = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { month: 'l
   .author p { margin: 0.35rem 0 0.8rem; font-size: 0.95rem; color: var(--muted); }
   /* The imported post HTML carries its own scoped CSS; make sure images never overflow */
   .post__body img { max-width: 100%; height: auto; }
+  /* !important + extra class: the imported posts reset every element inside them with all: revert !important. */
+  .post__body .post__table { display: block !important; max-width: 100% !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
   @media (max-width: 560px) { .author { flex-direction: column; } }
 </style>
