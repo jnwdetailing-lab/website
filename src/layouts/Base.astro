@@ -216,10 +216,12 @@ const allSchema = [localBusiness, website, ...schema];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogUrl} />
 
-    <!-- Icons -->
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/images/icon.webp" sizes="any" />
-    <link rel="apple-touch-icon" href="/images/icon.webp" />
+    <!-- Icons: all made from the real J&W logo (images/logo.webp). Google's
+         search results want a square icon at a multiple of 48px. -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <!-- Fonts are self-hosted, see the @font-face rules at the top of global.css. -->
