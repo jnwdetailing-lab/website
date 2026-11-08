@@ -31,8 +31,23 @@ export interface Props {
   localSections: { heading: string; body: string[] }[]; // HTML paragraphs
   faqs: FAQ[];
   mapEmbed: string;
+  /**
+   * Set only for a city that has its OWN verified Google Business Profile
+   * (its own address and phone). The page then shows that profile's name,
+   * address and phone (NAP) and ships a LocalBusiness block for it, so the page
+   * and the profile match. City pages without their own profile leave this unset.
+   */
+  location?: {
+    name: string;
+    phoneE164: string;
+    phoneDisplay: string;
+    address: { street: string; city: string; region: string; zip: string };
+  };
 }
 const p = Astro.props;
+const loc = p.location;
+const callE164 = loc ? loc.phoneE164 : SITE.phoneE164;
+const callDisplay = loc ? loc.phoneDisplay : SITE.phoneDisplay;
 
 const tokens: Record<string, string> = {
   '{FULL_RANGE}': range(DETAIL.insideOut),
@@ -55,6 +70,31 @@ const schema = [
   }),
   faqSchema(faqs),
   breadcrumbSchema([{ label: 'Service Areas', href: '/service-areas/' }, { label: p.city, href: p.path }]),
+  ...(loc
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': ['AutoDetailing', 'LocalBusiness'],
+          '@id': `${SITE.url}${p.path}#business`,
+          name: loc.name,
+          url: `${SITE.url}${p.path}`,
+          telephone: loc.phoneE164,
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: loc.address.street,
+            addressLocality: loc.address.city,
+            addressRegion: loc.address.region,
+            postalCode: loc.address.zip,
+            addressCountry: 'US',
+          },
+          logo: `${SITE.url}/images/logo.webp`,
+          image: `${SITE.url}${p.heroImage}`,
+          priceRange: '$$',
+          areaServed: { '@type': 'City', name: p.city },
+          parentOrganization: { '@id': `${SITE.url}/#business` },
+        },
+      ]
+    : []),
 ];
 ---
 
@@ -85,7 +125,14 @@ const schema = [
         <div class="hoods">
           <h3><Icon name="pin" size={20} /> {p.city} neighborhoods we cover</h3>
           <ul>{p.neighborhoods.map((n) => <li>{n}</li>)}</ul>
-          <p>…and everywhere in between. Not sure? <a href={`tel:${SITE.phoneE164}`}>Call {SITE.phoneDisplay}</a>.</p>
+          <p>…and everywhere in between. Not sure? <a href={`tel:${callE164}`}>Call {callDisplay}</a>.</p>
+          {loc && (
+            <p class="nap">
+              <strong>{loc.name}</strong><br />
+              {loc.address.street}, {loc.address.city}, {loc.address.region} {loc.address.zip}<br />
+              <a href={`tel:${loc.phoneE164}`}>{loc.phoneDisplay}</a>
+            </p>
+          )}
         </div>
         <div class="map"><iframe title={`Map of ${p.city}, CA service area`} src={p.mapEmbed} width="600" height="400" style="border:0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
       </div>
