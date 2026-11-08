@@ -31,7 +31,30 @@ const initials = (n: string) => n.split(' ').map((p) => p[0]).join('').slice(0, 
       </div>}
     </div>
 
-    {live ? <TrustindexWidget code={TRUSTINDEX.reviews} minHeight={780} minHeightMobile={930} /> : <div class="reviews__grid">
+    {live ? (
+      // The real review cards are the placeholder: they show while the live
+      // widget loads, and stay if Trustindex's CDN cannot be reached.
+      <TrustindexWidget code={TRUSTINDEX.reviews} minHeight={780} minHeightMobile={930}>
+        <div class="reviews__grid">
+          {list.map((r) => (
+            <article class="review">
+              <div class="review__top">
+                <div class="review__avatar" aria-hidden="true">{initials(r.name)}</div>
+                <div>
+                  <div class="review__name">{r.name}</div>
+                  <div class="review__meta">
+                    <span class="stars" role="img" aria-label="5 stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={14} />)}</span>
+                    <span>Google{r.date ? ` · ${r.date}` : ''}</span>
+                  </div>
+                </div>
+                {r.service && <span class="pill">{r.service}</span>}
+              </div>
+              <p>“{r.text}”</p>
+            </article>
+          ))}
+        </div>
+      </TrustindexWidget>
+    ) : <div class="reviews__grid">
       {list.map((r) => (
         <article class="review">
           <div class="review__top">

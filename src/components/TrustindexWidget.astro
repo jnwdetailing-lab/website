@@ -25,34 +25,86 @@ const vars = `--ti-min:${minHeight}px;--ti-min-m:${minHeightMobile ?? minHeight}
   .ti-slot.ti-drawing .ti-ph { position: absolute; inset: 0 auto auto 0; z-index: 1; }
 </style>
 <script>
+  // Trustindex serves its loader and widget from Amazon CloudFront. On some
+  // networks (seen on an IPv6 connection in Nov 2026) those requests drop, and
+  // Trustindex then draws a "Widget not found!" box in the slot. So a failed load
+  // (script error, that box, or nothing drawn within 12s) is cleaned up, retried
+  // once, and if it fails again the placeholder (static badge or review cards)
+  // simply stays. A visitor never sees the error box.
+  const MAX_TRIES = 2;
+  const TIMEOUT_MS = 12000;
+
   const load = (el: HTMLElement) => {
     if (el.dataset.tiLoaded) return;
     el.dataset.tiLoaded = '1';
     // Trustindex's rich-snippet script skips itself when this flag is already set.
     if (el.dataset.tiSnippet === 'off') (window as any).tiSnippet = true;
     const ph = el.querySelector<HTMLElement>(':scope > [data-ti-placeholder]');
-    if (ph) {
-      // Trustindex adds several elements (styles, wrappers) before the visible
-      // widget, so wait until one of them is actually drawn at full size. If the
-      // widget never loads, the placeholder simply stays.
-      const parts = () => Array.from(el.children).filter((c) => !c.matches('script, noscript, style, link, [data-ti-placeholder]'));
-      const ro = new ResizeObserver(() => {
-        if (parts().some((c) => c.getBoundingClientRect().height >= 20)) {
-          ph.remove(); el.classList.remove('ti-drawing'); ro.disconnect(); mo.disconnect();
-        }
-      });
-      const mo = new MutationObserver(() => {
-        const p = parts();
-        if (p.length) el.classList.add('ti-drawing');
-        p.forEach((c) => ro.observe(c));
-      });
-      mo.observe(el, { childList: true });
+
+    // Everything Trustindex adds to the slot (scripts, styles, wrappers, the widget).
+    const added = () => Array.from(el.children).filter((c) => !c.matches('noscript, [data-ti-placeholder]'));
+    // The visible parts only.
+    const parts = () => added().filter((c) => !c.matches('script, style, link'));
+    const errored = () => /widget not found/i.test(parts().map((c) => c.textContent || '').join(' '));
+
+    let tries = 0;
+    let done = false;
+    let timer = 0;
+
+    const finish = () => {
+      done = true;
+      clearTimeout(timer);
+      ro.disconnect();
+      mo.disconnect();
+      el.classList.remove('ti-drawing');
+    };
+    const fail = () => {
+      if (done) return;
+      clearTimeout(timer);
+      added().forEach((c) => c.remove());
+      el.classList.remove('ti-drawing');
+      if (tries < MAX_TRIES) {
+        setTimeout(inject, 1500);
+      } else {
+        finish();
+        el.classList.add('ti-failed');
+        // Let the placeholder set the height instead of the reserved widget height.
+        if (ph) { el.style.setProperty('--ti-min', '0px'); el.style.setProperty('--ti-min-m', '0px'); }
+      }
+    };
+    const check = () => {
+      if (done) return;
+      if (errored()) return fail();
+      if (parts().some((c) => c.getBoundingClientRect().height >= 20)) {
+        finish();
+        ph?.remove();
+      }
+    };
+
+    // Trustindex adds several elements (styles, wrappers) before the visible
+    // widget, so wait until one of them is actually drawn at full size.
+    const ro = new ResizeObserver(check);
+    const mo = new MutationObserver(() => {
+      if (done) return;
+      const p = parts();
+      if (p.length && ph) el.classList.add('ti-drawing');
+      p.forEach((c) => ro.observe(c));
+      check();
+    });
+    mo.observe(el, { childList: true, subtree: true, characterData: true });
+
+    function inject() {
+      if (done) return;
+      tries += 1;
+      const s = document.createElement('script');
+      s.src = `https://cdn.trustindex.io/loader.js?${el.dataset.tiId}`;
+      s.async = true;
+      s.defer = true;
+      s.onerror = fail;
+      el.appendChild(s);
+      timer = window.setTimeout(fail, TIMEOUT_MS);
     }
-    const s = document.createElement('script');
-    s.src = `https://cdn.trustindex.io/loader.js?${el.dataset.tiId}`;
-    s.async = true;
-    s.defer = true;
-    el.appendChild(s);
+    inject();
   };
 
   const slots = Array.from(document.querySelectorAll<HTMLElement>('[data-ti-id]'));
