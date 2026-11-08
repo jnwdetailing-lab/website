@@ -29,6 +29,12 @@ export interface Props {
    * like the thank-you page a form submission lands on.
    */
   eagerTags?: boolean;
+  /**
+   * Ads-only landing page (src/pages/lp/): no menu, no site footer, no booking
+   * gate, just the logo and a call button, so a paid click has two choices
+   * (call or ask for a quote). The page supplies its own mobile action bar.
+   */
+  landing?: boolean;
 }
 
 const {
@@ -43,6 +49,7 @@ const {
   preloadImageSrcset = srcsetFor(preloadImage),
   preloadImageSizes = PAGE_HERO_SIZES,
   eagerTags = false,
+  landing = false,
 } = Astro.props;
 
 const canonicalUrl = new URL(canonical, SITE.url).href;
@@ -241,13 +248,31 @@ const allSchema = [localBusiness, website, ...schema];
   </head>
   <body class={bodyClass}>
     <a class="skip" href="#main">Skip to content</a>
-    <Nav />
+    {landing ? (
+      <header class="lp-top">
+        <div class="container lp-top__inner">
+          <img src="/images/logo-nav.webp" srcset="/images/logo-nav-140w.webp 140w, /images/logo-nav.webp 300w" sizes="56px" alt="J&W Mobile Detailing" width="120" height="100" class="lp-top__logo" />
+          <a href={`tel:${SITE.phoneE164}`} class="lp-top__call">Call <span>{SITE.phoneDisplay}</span></a>
+        </div>
+      </header>
+    ) : <Nav />}
     <main id="main">
       <slot />
     </main>
-    <Footer />
-    <StickyCta />
-    <BookGate />
+    {landing ? (
+      <footer class="lp-foot">
+        <div class="container">
+          <p>&copy; {new Date().getFullYear()} J&amp;W Mobile Detailing LLC. Mobile detailing and ceramic coating across the Bay Area.</p>
+          <p><a href="/privacy-policy/">Privacy policy</a> · <a href="/terms-conditions/">Terms</a></p>
+        </div>
+      </footer>
+    ) : (
+      <>
+        <Footer />
+        <StickyCta />
+        <BookGate />
+      </>
+    )}
 
     <!--
       GoHighLevel / LeadConnector number pool + session tracking.
@@ -268,6 +293,16 @@ const allSchema = [localBusiness, website, ...schema];
     <style>
       .skip { position: absolute; left: -999px; top: 8px; background: var(--red); color: #fff; padding: 0.6rem 1rem; border-radius: 6px; z-index: 1000; }
       .skip:focus { left: 8px; }
+      /* Ads-only landing pages (landing prop) */
+      .lp-top { background: var(--ink); position: sticky; top: 0; z-index: 80; }
+      .lp-top__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.55rem; }
+      .lp-top__logo { height: 46px; width: auto; }
+      .lp-top__call { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--red); color: #fff; font-weight: 700; padding: 0.6rem 1.1rem; border-radius: 999px; white-space: nowrap; }
+      .lp-top__call:hover { background: var(--red-dark); color: #fff; }
+      @media (max-width: 420px) { .lp-top__call span { display: none; } }
+      .lp-foot { background: var(--ink); color: #b9bec7; font-size: 0.85rem; padding: 1.6rem 0 calc(1.6rem + 70px); text-align: center; }
+      .lp-foot p { margin: 0.25rem 0; }
+      .lp-foot a { color: #fff; }
     </style>
   </body>
 </html>

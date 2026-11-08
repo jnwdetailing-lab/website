@@ -1,0 +1,236 @@
+---
+// Ads-only ceramic coating landing page, for the Google Ads ceramic campaign.
+// Layout follows Brandon's rule for paid clicks: two choices only, call or ask
+// for a quote (no Book Online), "Bay Area" instead of one city, no menu, and
+// noindex so it never competes with /ceramic-coating/ in search.
+// Structure modeled on a strong ceramic ads page (hero with call + quote and
+// the review count, the quote form high up, benefits, packages, reviews); the
+// copy is J&W's own and every claim matches /ceramic-coating/.
+// Ceramic is quoted per vehicle, so no prices here (see src/data/pricing.ts).
+import Base from '../../layouts/Base.astro';
+import QuoteForm from '../../components/QuoteForm.astro';
+import Reviews from '../../components/Reviews.astro';
+import Faq from '../../components/Faq.astro';
+import Icon from '../../components/Icons.astro';
+import { SITE } from '../../data/site';
+import { CERAMIC, CERAMIC_ADDONS } from '../../data/pricing';
+
+const title = 'Ceramic Coating in the Bay Area | Free Quote | J&W Mobile Detailing';
+const description = 'Professional ceramic coating applied at your home across the East Bay. Paint correction included in every package. Get your price in under a minute.';
+
+const benefits = [
+  { icon: 'droplet', title: 'Washes in minutes', text: 'Dirt, brake dust and road film cannot grip a coated car, so water beads and runs off and a rinse does most of the work.' },
+  { icon: 'sparkle', title: 'Gloss locked in', text: 'The coating goes on over freshly polished paint, so the depth and color you see on day one are the ones you keep.' },
+  { icon: 'shield', title: 'Protection measured in years', text: 'Sun, tree sap, bird droppings and bug splatter hit the coating instead of your clear coat, for years, not months.' },
+];
+
+const faqs = [
+  { q: 'How much does it cost?', a: 'Every coating is quoted for your vehicle, because two things set the price: the size of the vehicle and how much paint correction goes under the coating, which is what separates Bronze, Silver and Gold. Send us the make and model and we give you a set price before anything is booked.' },
+  { q: 'Do you really do it at my home?', a: 'Yes. We apply coatings at your home or workplace across the East Bay, from Oakland, Alameda and Berkeley to Orinda, Lafayette and Walnut Creek. We need a garage, carport or shaded driveway out of direct sun and rain, and we bring water, power and lighting.' },
+  { q: 'How long does it take?', a: 'A full day for a coating with one-step correction. Two-step correction can run longer or split over two visits. You can drive the car the same evening, and you get written cure and care instructions for the exact coating we used.' },
+  { q: 'Does it stop rock chips and scratches?', a: 'No, and anyone who says it does is overselling it. A coating resists the fine marks washing leaves and shrugs off sap, droppings and brake dust, but it cannot absorb a rock at freeway speed. That is paint protection film.' },
+];
+---
+
+<Base {title} {description} noindex landing ogImage="/images/ceramic-coating-oakland.jpg" preloadImage="/images/ceramic-coating-oakland.jpg">
+  <section class="lp-hero">
+    <div class="container lp-hero__grid">
+      <div class="lp-hero__copy">
+        <span class="lp-kicker">Mobile ceramic coating · East Bay</span>
+        <h1>Ceramic Coating in the Bay Area, <em>applied at your home</em></h1>
+        <p class="lp-hero__lead">A hard, glossy layer bonded to freshly corrected paint, done in your driveway or garage. Tell us your car and we send back a set price, usually within the hour during business hours.</p>
+        <div class="lp-hero__ctas">
+          <a href="#quote" class="btn btn--primary btn--lg"><Icon name="arrow" /> Get My Quote</a>
+          <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+        </div>
+        <a class="lp-rating" href={SITE.social.google} target="_blank" rel="noopener">
+          <span class="stars" aria-hidden="true">{Array.from({ length: 5 }).map(() => <Icon name="star" size={16} />)}</span>
+          <strong>{SITE.rating.value}</strong> · {SITE.stats.reviews} Google reviews
+        </a>
+      </div>
+      <div class="lp-hero__img">
+        <img src="/images/ceramic-coating-oakland.jpg" alt="Ceramic coating being poured onto an applicator pad before a mobile application" width="1080" height="1080" fetchpriority="high" decoding="async" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quote">
+    <div class="container lp-two">
+      <div class="lp-why">
+        <span class="eyebrow">Why J&amp;W</span>
+        <h2>Rated {SITE.rating.value} stars by {SITE.stats.reviews} Bay Area drivers</h2>
+        <p>J&amp;W Mobile Detailing is an Oakland-based mobile detailer, founded in {SITE.founded}, that comes to you across the East Bay. Most of a coating job happens before the coating goes on, and that part is included in every package.</p>
+        <ul class="checklist">
+          <li>Paint correction included in every package</li>
+          <li>Applied at your home or office: we bring water, power and lighting</li>
+          <li>Set price confirmed before anything is booked</li>
+          <li>Written cure and care instructions for your coating</li>
+        </ul>
+        <div class="lp-why__img">
+          <img src="/images/work-2.jpg" alt="Jalil applying ceramic coating to a black sedan at a customer's home" width="1080" height="1080" loading="lazy" decoding="async" />
+        </div>
+      </div>
+      <div class="lp-form">
+        <QuoteForm heading="Get your free ceramic quote" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="lp-head">
+        <span class="eyebrow">Why ceramic</span>
+        <h2>What a coating does for your car</h2>
+      </div>
+      <div class="lp-benefits">
+        {benefits.map((b) => (
+          <article>
+            <span class="lp-benefits__icon"><Icon name={b.icon} size={22} /></span>
+            <h3>{b.title}</h3>
+            <p>{b.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="lp-head">
+        <span class="eyebrow">Packages</span>
+        <h2>Three packages. The difference is the prep.</h2>
+        <p class="lead">Same professional coating in all three. What changes is how much paint correction goes underneath, and that depends on your paint. Every package is quoted for your vehicle.</p>
+      </div>
+      <div class="lp-pk">
+        {CERAMIC.map((c) => (
+          <article class:list={['lp-pk__card', { 'lp-pk__card--top': c.featured }]}>
+            {c.featured && <span class="lp-pk__flag">Most booked</span>}
+            <h3>{c.name}</h3>
+            <p class="lp-pk__prep">{c.prep}</p>
+            <p class="lp-pk__for">{c.bestFor}</p>
+            <ul class="checklist">
+              <li>Hand wash, iron remover and clay bar</li>
+              <li>{c.prep}</li>
+              <li>Professional ceramic coating on all paint</li>
+              <li>Cure check and care instructions</li>
+            </ul>
+            <a href="#quote" class="btn btn--primary btn--block">Get My Quote</a>
+          </article>
+        ))}
+      </div>
+      <p class="lp-add">Add-ons quoted with any package: {CERAMIC_ADDONS.map((a) => a.name.toLowerCase()).join(', ')}.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container lp-honest">
+      <div>
+        <h3>A coating will</h3>
+        <ul class="checklist">
+          <li>Keep the paint glossy and the color from fading</li>
+          <li>Stop sap, droppings and bugs etching in as fast</li>
+          <li>Make the car much faster to wash</li>
+          <li>Keep brake dust from baking onto coated wheels</li>
+        </ul>
+      </div>
+      <div>
+        <h3>A coating will not</h3>
+        <ul class="xlist">
+          <li>Stop rock chips or key scratches</li>
+          <li>Survive brush car washes for long</li>
+          <li>Fix failing or peeling clear coat</li>
+          <li>Mean you never wash the car again</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <Reviews limit={6} filterService="Ceramic" heading="What Bay Area drivers say" showAllLink={false} />
+
+  <Faq faqs={faqs} heading="Before you book" eyebrow="Quick answers" />
+
+  <section class="lp-final">
+    <div class="container">
+      <h2>Get your ceramic price today</h2>
+      <p>Tell us the car. We tell you which package your paint needs and what it costs.</p>
+      <div class="lp-hero__ctas lp-final__ctas">
+        <a href="#quote" class="btn btn--primary btn--lg"><Icon name="arrow" /> Get My Quote</a>
+        <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> Call {SITE.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="lp-bar" id="lpBar" role="region" aria-label="Quick actions">
+    <a href={`tel:${SITE.phoneE164}`} class="lp-bar__call"><Icon name="phone" size={18} /> Call</a>
+    <a href="#quote" class="lp-bar__go">Get My Quote</a>
+  </div>
+</Base>
+
+<style>
+  .lp-hero { background: var(--ink); color: #fff; padding: clamp(2rem, 5vw, 4rem) 0; }
+  .lp-hero__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+  @media (max-width: 860px) { .lp-hero__grid { grid-template-columns: 1fr; } .lp-hero__img { order: -1; } }
+  .lp-kicker { display: inline-block; color: #ff5a64; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.7rem; }
+  .lp-hero h1 { color: #fff; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08; margin: 0 0 1rem; }
+  .lp-hero h1 em { font-style: normal; color: #ff5a64; }
+  .lp-hero__lead { color: #d6d9df; font-size: 1.1rem; max-width: 34rem; }
+  .lp-hero__ctas { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 1.4rem 0 1.1rem; }
+  .lp-rating { display: inline-flex; align-items: center; gap: 0.45rem; color: #fff; font-size: 0.95rem; }
+  .lp-rating .stars { color: #fbbc04; display: inline-flex; }
+  .lp-hero__img img { width: 100%; height: auto; border-radius: var(--radius-lg); aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (max-width: 860px) { .lp-hero__img img { aspect-ratio: 16 / 9; } }
+
+  .lp-two { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+  @media (max-width: 860px) { .lp-two { grid-template-columns: 1fr; } .lp-form { order: -1; } }
+  .lp-why h2 { margin-top: 0.3rem; }
+  .lp-why .checklist { margin: 1.2rem 0 1.5rem; }
+  .lp-why__img img { width: 100%; height: auto; border-radius: var(--radius); aspect-ratio: 4 / 3; object-fit: cover; }
+
+  .lp-head { max-width: 46rem; margin: 0 auto 2rem; text-align: center; }
+  .lp-benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+  @media (max-width: 860px) { .lp-benefits { grid-template-columns: 1fr; } }
+  .lp-benefits article { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; }
+  .lp-benefits__icon { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(225,29,42,0.1); color: var(--red-text); margin-bottom: 0.8rem; }
+  .lp-benefits h3 { font-size: 1.15rem; margin: 0 0 0.4rem; }
+  .lp-benefits p { margin: 0; color: var(--muted); }
+
+  .lp-pk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; max-width: 1080px; margin: 0 auto; }
+  @media (max-width: 900px) { .lp-pk { grid-template-columns: 1fr; max-width: 480px; } }
+  .lp-pk__card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 1.6rem; display: flex; flex-direction: column; }
+  .lp-pk__card--top { border: 2px solid var(--ink); box-shadow: var(--shadow); }
+  .lp-pk__flag { position: absolute; top: -0.75rem; left: 1.4rem; background: var(--red); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.28rem 0.7rem; border-radius: 999px; }
+  .lp-pk__card h3 { font-size: 1.5rem; margin: 0; }
+  .lp-pk__prep { color: var(--red-text); font-weight: 650; font-size: 0.92rem; margin: 0.2rem 0 0.9rem; }
+  .lp-pk__for { color: var(--ink); font-weight: 550; margin: 0 0 1rem; }
+  .lp-pk__card .checklist { font-size: 0.93rem; margin-bottom: 1.3rem; }
+  .lp-pk__card .btn { margin-top: auto; }
+  .lp-add { max-width: 1080px; margin: 1.4rem auto 0; text-align: center; color: var(--muted); font-size: 0.95rem; }
+
+  .lp-honest { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; max-width: 900px; }
+  @media (max-width: 640px) { .lp-honest { grid-template-columns: 1fr; } }
+  .lp-honest > div { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .lp-honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+
+  .lp-final { background: var(--ink); color: #fff; text-align: center; padding: clamp(2.5rem, 6vw, 4rem) 0; }
+  .lp-final h2 { color: #fff; margin: 0 0 0.5rem; }
+  .lp-final p { color: #d6d9df; margin: 0; }
+  .lp-final__ctas { justify-content: center; }
+
+  .lp-bar { display: none; }
+  @media (max-width: 820px) {
+    .lp-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: grid; grid-template-columns: 1fr 2fr; gap: 0.5rem; padding: 0.55rem 0.7rem calc(0.55rem + env(safe-area-inset-bottom)); background: rgba(13,15,18,0.97); border-top: 1px solid rgba(255,255,255,0.08); transition: transform 0.25s ease; }
+    .lp-bar.is-hidden { transform: translateY(110%); }
+    .lp-bar a { display: flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 50px; border-radius: 999px; font-weight: 700; color: #fff; text-decoration: none; }
+    .lp-bar__call { border: 1.5px solid rgba(255,255,255,0.4); }
+    .lp-bar__go { background: var(--red); font-size: 1.05rem; }
+  }
+</style>
+
+<script>
+  // Hide the mobile action bar while the quote form is on screen.
+  const bar = document.getElementById('lpBar');
+  const form = document.querySelector('.lp-form');
+  if (bar && form && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => bar.classList.toggle('is-hidden', e.isIntersecting), { threshold: 0.25 }).observe(form);
+  }
+</script>

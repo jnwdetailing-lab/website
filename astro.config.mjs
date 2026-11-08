@@ -16,7 +16,8 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       lastmod: new Date(),
-      filter: (page) => !/\/(thank-you|404|paint-correction-2|location|cart-detailing|homepage-1)\/?$/.test(page),
+      // /lp/ pages are ads-only and noindexed, so they stay out of the sitemap.
+      filter: (page) => !/\/(thank-you|404|paint-correction-2|location|cart-detailing|homepage-1)\/?$/.test(page) && !page.includes('/lp/'),
       serialize(item) {
         // Priority: home > money pages > areas > blog > legal
         const u = item.url;
