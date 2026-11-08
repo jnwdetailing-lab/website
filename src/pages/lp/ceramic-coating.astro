@@ -169,7 +169,8 @@ const faqs = [
 <style>
   .lp-hero { background: var(--ink); color: #fff; padding: clamp(2rem, 5vw, 4rem) 0; }
   .lp-hero__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
-  @media (max-width: 860px) { .lp-hero__grid { grid-template-columns: 1fr; } .lp-hero__img { order: -1; } }
+  /* On phones the headline and buttons come first; the photo follows. */
+  @media (max-width: 860px) { .lp-hero__grid { grid-template-columns: 1fr; } }
   .lp-kicker { display: inline-block; color: #ff5a64; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 0.7rem; }
   .lp-hero h1 { color: #fff; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.08; margin: 0 0 1rem; }
   .lp-hero h1 em { font-style: normal; color: #ff5a64; }
@@ -231,6 +232,6 @@ const faqs = [
   const bar = document.getElementById('lpBar');
   const form = document.querySelector('.lp-form');
   if (bar && form && 'IntersectionObserver' in window) {
-    new IntersectionObserver(([e]) => bar.classList.toggle('is-hidden', e.isIntersecting), { threshold: 0.25 }).observe(form);
+    new IntersectionObserver(([e]) => bar.classList.toggle('is-hidden', e.isIntersecting), { threshold: 0.05 }).observe(form);
   }
 </script>
