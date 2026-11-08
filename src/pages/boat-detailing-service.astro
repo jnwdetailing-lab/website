@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/boat-detailing-service/';
+const title = 'Boat Detailing Service Oakland, CA | Gelcoat Oxidation | J&W';
+const description = 'Mobile boat detailing in Oakland: chalky gelcoat compounded and polished back to a gloss, then waxed, with the seats and cabin deep cleaned. Quoted per boat.';
+
+const faqs = [
+  { q: 'How much does a boat detail cost?', a: 'Every boat is quoted on its own. Length, how much oxidation is on the gelcoat, whether it needs compounding or only a polish, and whether you want the interior done all change the job. Send us the type, the length, photos of each side in daylight and where it is kept. We come back with a price before anything is booked.' },
+  { q: 'Does my boat need oxidation removal or just a wax?', a: 'Rub a clean cloth on the hull. If a white or colored film comes off, the gelcoat is oxidized, and wax alone will not fix it; wax over chalk just seals the chalk in. If the cloth comes away clean and the finish still has some gloss after a wash, a wax may be all it needs.' },
+  { q: 'How long does a full detail take?', a: 'It depends on the length and the oxidation. A boat with healthy gelcoat is a long day. Heavy oxidation on a bigger boat can take more than one visit, and we tell you that when we quote, not halfway through the job.' },
+  { q: 'Will old gelcoat come back like new?', a: 'Often it comes back further than owners expect, because gelcoat is thicker than car paint and there is room to polish. But very old or neglected gelcoat sometimes only partly returns, and faded colored stripes do not always regain their full color. We assess it in person and tell you honestly what to expect before we start.' },
+  { q: 'Do you detail the cabin and seats?', a: 'Yes. Vacuum, steam, shampoo extraction of carpet and fabric, marine vinyl cleaned and protected, cabin surfaces and windows. It is the same interior process we use on cars and RVs, scaled to the boat. We do not treat mold or mildew, so if there is any, it needs a specialist first.' },
+  { q: 'How often should a boat be detailed?', a: 'Once or twice a year for most boats kept in the Bay, with regular cleanings in between. A boat that lives in a slip in the Estuary, or outside on a trailer in full sun, may need the gelcoat polished and waxed more often to stay ahead of oxidation.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Boat Detailing Service',
+    description: 'Mobile boat detailing in Oakland and the Bay Area: gelcoat oxidation removed by compounding and machine polishing, wax protection, and interior detailing of seats, carpet and cabin.',
+    path,
+    image: '/images/paint-correction-polishing-poster.jpg',
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Boat Detailing', href: path }]),
+];
+
+const steps = [
+  { title: 'Assess the gelcoat', text: 'A rag test on every side and a look in good light. Healthy finish, light chalk or heavy oxidation decides whether it needs compound, polish or both.' },
+  { title: 'Wash and decontaminate', text: 'A full hand wash with marine-safe products, scum line and salt film off, so nothing gritty is left under the polisher.' },
+  { title: 'Compound where it needs it', text: 'Chalky gelcoat is cut with a compound to remove the oxidized layer. Panels that are still healthy skip this step.' },
+  { title: 'Machine polish', text: 'A finer polish brings the gloss and the color back, worked section by section and checked as we go.' },
+  { title: 'Protect', text: 'A wax over the polished gelcoat, so the sun and salt start on the wax instead of the finish.' },
+  { title: 'Interior and walk-around', text: 'Seats, carpet and cabin cleaned if you booked them. Then we walk the boat with you before we pack up.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/paint-correction-polishing-poster.jpg" preloadImage="/images/paint-correction-polishing-poster.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Boat Detailing' }]}
+    eyebrow="Mobile boat detailing"
+    titleHtml="Boat Detailing Service in Oakland, <em>chalky gelcoat polished back to a gloss</em>"
+    text="The full detail for a boat that a wash no longer brings back: oxidation compounded off, the gelcoat machine polished and waxed, and the seats and cabin deep cleaned. Done on the trailer or where the boat is kept."
+    image="/images/paint-correction-polishing-poster.jpg"
+    imageAlt="J&W technician machine polishing the gelcoat on the side of a red and white bowrider"
+    facts={[
+      { label: 'Pricing', value: 'Quoted by length & condition' },
+      { label: 'Gelcoat', value: 'Compound, polish, wax' },
+      { label: 'Interior', value: 'Seats, carpet, cabin' },
+      { label: 'Where', value: 'Trailer, lot or marina' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">What it is</span>
+        <h2>For a boat a wash no longer brings back</h2>
+        <p>A regular cleaning gets salt and grime off a healthy finish. A full detail is for the boat that comes out of the wash still looking flat: gelcoat gone chalky, colored stripes washed out, wax that does not hold any shine, and a cabin that smells stale after months closed up at the dock.</p>
+        <p>The difference is the gelcoat work. Oxidation is the top layer of the gelcoat breaking down in the sun, and it does not wash off. It has to be cut off with a compound and polished back, the same machine work we do in paint correction on cars, adapted to a thicker, more porous finish. The photo is one of our technicians doing exactly that on a bowrider.</p>
+        <p>Boat work is part of what we do at <a href="/">J&W, a mobile detailer based in Oakland</a>, and like everything else we do it comes to you, with our own water and power.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>A full boat detail includes</h3>
+          <ul class="checklist">
+            <li>Hand wash and decontamination, scum line and salt film off</li>
+            <li>Oxidation removed by compounding, where it is needed</li>
+            <li>Machine polish of the gelcoat for gloss and color</li>
+            <li>Wax to protect the polished finish</li>
+            <li>Vinyl seats and cushions deep cleaned and protected</li>
+            <li>Cabin carpet and fabric extracted, surfaces and windows cleaned</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Needs a specialist</h3>
+          <ul class="xlist">
+            <li>Spider cracks, blisters or chips in the gelcoat</li>
+            <li>Fiberglass or structural repair</li>
+            <li>Bottom paint and growth below the waterline</li>
+            <li>Mold or mildew: we do not treat it</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we detail a boat" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Oxidation</span>
+      <h2>How to tell your gelcoat is oxidized</h2>
+      <ul>
+        <li>The finish looks flat even right after a wash.</li>
+        <li>A white, chalky film rubs off on your hand or a cloth.</li>
+        <li>Colored stripes and hull sides look washed out compared with where they were covered.</li>
+        <li>Wax goes on but the shine is gone within days.</li>
+      </ul>
+      <p>This is the step people skip, and then they wonder why the wax did not help. Wax sits on top of a healthy finish. Over chalky gelcoat it only seals the chalk in. Compounding removes the damaged layer so there is a healthy finish left to protect, and polishing brings the gloss back. After that the finish needs protection, or the sun starts the cycle over.</p>
+      <p>How far it comes back depends on how deep the damage goes. Gelcoat is thicker than car paint, so there is usually room to work, but very old gelcoat sometimes only partly returns. We tell you straight once we have seen the boat, and if heavy oxidation needs more than one visit, you hear that in the quote.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Bay Area boats</span>
+      <h2>Why gelcoat breaks down fast around here</h2>
+      <p><strong>Sun and fog together.</strong> On clear days the sun works on the gelcoat; the rest of the time the marine layer keeps it damp and salty. Boats in slips at Jack London Square, Embarcadero Cove, the Alameda marinas and the Berkeley Marina get both, all year.</p>
+      <p><strong>Brackish water at the waterline.</strong> The Estuary's mix of salt and fresh water leaves a stain line that sets into dull, porous gelcoat faster than into a polished one. A polished, waxed hull lets the regular cleanings take it off.</p>
+      <p><strong>Trailered boats stored inland.</strong> A boat that lives on a trailer in a storage lot away from the water trades the salt for stronger summer sun. The side that faces south at your spot usually oxidizes first.</p>
+
+      <h2>When a full detail makes sense</h2>
+      <p>At the start of a season after a year or two of only rinsing. Before you list the boat for sale, because chalky gelcoat and a stale cabin are the first things a buyer notices. Right after you buy a used boat, to start from a known finish. And whenever a wash no longer brings the shine back. Most boats need it once or twice a year, with regular cleanings in between to keep it there.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What our customers say" />
+  <Faq faqs={faqs} heading="Boat detailing questions" />
+  <QuoteSection eyebrow="Boat detail quote" title="Send us photos of each side in daylight." text="Tell us the boat, the length and where it is kept. Photos of the hull and the seats show us the oxidation and the interior, and we come back with a price before anything is booked." />
+  <CtaBand title="Gloss back on the gelcoat, wherever the boat sits." />
+</Base>
+
+<style>
+  .honest { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

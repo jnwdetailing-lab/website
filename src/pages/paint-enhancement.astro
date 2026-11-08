@@ -1,0 +1,142 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { addonPrice, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/paint-enhancement/';
+// Paint enhancement is the "Polish" add-on in Fieldd: a one-step machine polish.
+const polish = addonPrice('Polish');
+const clay = addonPrice('Clay bar treatment');
+const sealant = addonPrice('Ceramic sealant upgrade (6 months)');
+const title = 'Paint Enhancement Oakland, CA | One-Step Polish | J&W';
+const description = `Paint enhancement in Oakland: a one-step machine polish that takes out light swirls and wash haze and brings the gloss back. ${usd(polish)}, added to your mobile detail.`;
+
+const faqs = [
+  { q: 'What is the difference between paint enhancement and paint correction?', a: 'Paint enhancement is one pass with a fine polish. It takes out light swirls and wash haze and brings back most of the gloss on paint that is healthy underneath. Two-step correction starts with a cutting compound for deeper swirls, oxidation and etching, then refines with a polish. Enhancement removes less clear coat and takes less time, which is why it is the right call for most newer and well-kept cars.' },
+  { q: 'How long does it take?', a: 'About one to two hours added to the detail, depending on the size of the car. It is done on the same visit, after the wash.' },
+  { q: 'Does paint enhancement protect the paint?', a: `No. Polishing removes the old wax with the haze and leaves the clear coat bare and glossy. To keep it that way, add the ceramic sealant upgrade (${usd(sealant)}), which replaces the spray wax and lasts about six months, or plan a ceramic coating, which we quote per vehicle.` },
+  { q: 'Does it work the same on every color?', a: 'It works on every color, but dark paint shows the difference most. Black, navy and dark gray show swirls far more than white or silver, so the change looks bigger on dark cars. A white car with light swirls you only see when you go looking may be fine with a good hand wash and a sealant.' },
+  { q: 'How long will the results last?', a: 'That depends mostly on how the car is washed afterwards. Swirls come from brush washes and dirty towels, so a car that goes back through a brush tunnel every week shows new marring within months. A hand wash with clean mitts and soft drying towels, plus a sealant or coating, keeps the gloss far longer.' },
+  { q: 'Can you polish a car parked in the sun?', a: 'Polish works best on a cool panel, and shade makes it easier to judge the finish as we go. A garage, a carport or a shaded driveway is ideal. If the car can only be in full sun, tell us when you book and we will plan the time of day around it.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Paint Enhancement',
+    description: 'Mobile paint enhancement in Oakland and the Bay Area: a one-step machine polish that removes light swirls and wash marring and restores gloss, added to a Full Detail or Exterior Only Detail.',
+    path,
+    image: '/images/paint-correction-oakland.jpg',
+    minPrice: polish,
+    offers: [{ name: 'Paint enhancement (one-step polish)', description: 'Single-stage machine polish added to a Full Detail or Exterior Only Detail.', price: String(polish) }],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Paint Enhancement', href: path }]),
+];
+
+const steps = [
+  { title: 'Hand wash', text: 'Grit left on the paint gets dragged by the pad and adds the scratches you are paying to remove. So it starts with a careful hand wash. No brushes.' },
+  { title: 'Clay, if it needs it', text: `If the paint still feels rough after the wash, the clay bar add-on (${usd(clay)}) lifts the bonded grit and sap specks first.` },
+  { title: 'One-step polish', text: 'A machine polisher, one section at a time across every painted panel, with a polish fine enough to level the haze without taking more clear coat than the job needs.' },
+  { title: 'Look at it together', text: 'We check the paint with you in the sun or under a flashlight. Anything still showing, we tell you straight whether more correction would take it out.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/paint-correction-oakland.jpg" preloadImage="/images/paint-correction-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Paint Enhancement' }]}
+    eyebrow="Mobile paint enhancement"
+    titleHtml="Paint Enhancement in Oakland, <em>the gloss back on paint that is still healthy</em>"
+    text="A one-step machine polish for paint that looks tired but is not damaged: light swirls and wash haze out, most of the gloss back. Added to your detail and done in your driveway."
+    image="/images/paint-correction-oakland.jpg"
+    imageAlt="Fine swirl marks circling the reflection of a light in dark car paint, the haze a one-step polish takes out"
+    facts={[
+      { label: 'Price', value: `${usd(polish)} add-on` },
+      { label: 'Added to', value: 'Full Detail or exterior detail' },
+      { label: 'Time', value: 'About 1 to 2 hours' },
+      { label: 'Before ceramic', value: 'Bronze package prep' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">What it is</span>
+        <h2>For paint that is dull, not damaged</h2>
+        <p>Most cars that look faded are not faded. The clear coat is covered in fine scratches from brush washes and dirty towels, and those scratches scatter light. Park the car in the sun and you see them as circles around the reflection. A one-step polish levels that top layer so light bounces straight back again.</p>
+        <p>Picture a two-year-old sedan that has only ever been through the drive-through wash. From ten feet away it looks fine. Up close in the sun, the hood looks like someone wiped it with a sponge in circles. That is the car paint enhancement is made for.</p>
+        <p>It is the {usd(polish)} polish add-on to a Full Detail or Exterior Only Detail, so the wash and the polish happen on one visit as part of <a href="/">our Oakland mobile detailing</a>.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Enhancement takes out</h3>
+          <ul class="checklist">
+            <li>Light swirls from automatic washes and dirty towels</li>
+            <li>Wash marring, the fine haze from years of normal washing</li>
+            <li>Flat, dull-looking paint on a car otherwise in good shape</li>
+            <li>Dealer-lot swirls on newer cars</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Needs more than one step</h3>
+          <ul class="xlist">
+            <li>Scratches your fingernail catches in</li>
+            <li>Heavier swirls and buffer holograms</li>
+            <li>Chalky oxidation on older paint</li>
+            <li>Sap and bird-dropping etching sunk into the paint</li>
+            <li>Peeling clear coat, which is body shop work</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Before you book</span>
+      <h2>Check your own paint in five minutes</h2>
+      <p>Start with a clean car, because dirt hides swirls and makes healthy paint look dull. Then find the right light: direct sun works best, and at night a phone flashlight held close to the paint works almost as well. Shade and cloudy days hide most of what you are looking for.</p>
+      <ul>
+        <li><strong>The hood, roof and trunk.</strong> Flat panels take the most sun, sap and bird droppings, so they show wear first.</li>
+        <li><strong>Around the door handles.</strong> Rings and fingernails leave small arcs here.</li>
+        <li><strong>The lower doors and rockers.</strong> Brake dust and road film build up here on cars that use the 880 or the 580 every day.</li>
+        <li><strong>Any dark panel.</strong> Black and navy show swirls far more than white or silver.</li>
+      </ul>
+      <p>Look at the reflection of the light, not the paint around it. Fine circles or a cobweb pattern means light swirling, which is what enhancement is for. Spots on the roof or hood that stayed dull after the wash are usually old sap or bird-dropping etching, common on cars parked under street trees in Rockridge and Piedmont. <a href="https://mwg.aaa.com/via/car/how-to-remove-sap" target="_blank" rel="noopener">AAA notes that tree sap can etch into the clear coat</a> if it sits, and a one-step polish may only soften those marks.</p>
+      <p>Take a few photos while you are out there: one wide shot of each side, and close-ups of anything that worried you with the light reflecting off the panel. They let us tell you up front whether you are looking at enhancement or more, so the price you hear is the price you pay.</p>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How a paint enhancement visit goes" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Honest advice</span>
+      <h2>When enhancement is not the right buy</h2>
+      <p><strong>The damage goes deeper.</strong> If your paint failed the checks above, one step will not get there. A two-step correction cuts first and refines second, and we quote it after we see the car. Every polish removes a thin layer of clear coat and a car only has so much of it, so we never cut deeper than the paint needs.</p>
+      <p><strong>You want it to last.</strong> Fresh polish leaves the clear coat bare. On a car parked on an Oakland street it takes sun, sap, bird droppings and salty fog from day one. Add the ceramic sealant upgrade ({usd(sealant)}) on the same visit, or plan a coating.</p>
+      <p><strong>It is going straight back through a brush wash.</strong> The brushes put the swirls back within months. Polishing does not fix the habit. A hand wash or a touchless wash keeps the result.</p>
+      <p>And sometimes the honest answer is to skip it: bodywork or a repaint is coming on that panel, the car is white or silver and the swirls only show when you hunt for them, you are turning in a lease that passes a normal walk-around, or the dull look turns out to be brake dust and road film that a proper wash removes. Wash it first and see.</p>
+
+      <h2>Enhancement before a ceramic coating</h2>
+      <p>A coating is clear. It does not hide what is under it, and the extra gloss can make leftover marks easier to see. Polishing later is not an option either, because polishing a coated car takes the coating off with the swirls. So the paint gets fixed before the coating goes on.</p>
+      <p>For newer or well-kept paint with light marks you cannot catch with a fingernail, an enhancement polish is enough, and it is the prep in our Bronze ceramic package. Heavier swirls, oxidation or etching call for more correction first, which is what the Silver and Gold packages are for. If a coating is on your list, tell us when you reach out so we plan the prep around it. Coatings are quoted per vehicle after we see the paint.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Ceramic Coating" heading="What people say about the shine" />
+  <Faq faqs={faqs} heading="Paint enhancement questions" />
+  <QuoteSection eyebrow="Paint enhancement quote" title="Send us two photos of the paint in direct sun." text="Tell us the car and the color. Photos in sunlight show us whether a one-step enhancement is enough, and we confirm the price before anything is booked." />
+  <CtaBand title="Gloss back on paint you thought was faded." />
+</Base>
+
+<style>
+  .honest { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

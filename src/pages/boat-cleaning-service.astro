@@ -1,0 +1,128 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/boat-cleaning-service/';
+const title = 'Boat Cleaning Service Oakland, CA | Mobile Boat Wash | J&W';
+const description = 'Mobile boat cleaning in Oakland: salt film, scum lines and grime washed off the hull, deck and seats with marine-safe products. On the trailer or at the marina.';
+
+const faqs = [
+  { q: 'How is boat cleaning priced?', a: 'Every boat is quoted on its own, by length, condition and where it is kept. A 20-foot runabout on a trailer that was rinsed after every trip and a cruiser that sat in a slip all winter are very different jobs. Send us the type, the length, a few photos and where it is, and we come back with a price before anything is booked.' },
+  { q: 'Can you clean my boat in its slip?', a: 'It depends on the marina. Many marinas have rules for outside vendors, and some limit what can be washed in the water. Tell us the marina and we will check what is allowed. In a slip we clean what we can reach safely from the dock and the deck. We do not clean below the waterline; growth on the bottom is a job for a haul-out or a hull diver.' },
+  { q: 'How often should a boat in the Estuary be cleaned?', a: 'Rinse it with fresh water after every trip, and plan a real clean every few weeks during the season. Brackish water and salt air build up faster here than on a lake, and a clean every few weeks keeps the scum line and salt film from setting in.' },
+  { q: 'Can you get the brown waterline stain off?', a: 'A fresh scum line usually comes off with a careful wash. A stain that has set for months can take repeat passes, and some old staining fades over more than one visit rather than all at once. On a trailered boat we can reach the whole line; in the water, only what sits above it.' },
+  { q: 'Do you remove mildew from cushions and canvas?', a: 'No. We do not treat mold or mildew on boats or vehicles. If you see black or gray spots, or the cabin smells musty, have it dealt with by a specialist first, then we can clean the rest.' },
+  { q: 'What should I take off the boat before you come?', a: 'Loose gear, fishing tackle, coolers, personal items and anything blocking the deck, seats or cabin floor. It lets us reach every surface without stopping to move things, and nothing of yours gets wet that should not.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Boat Cleaning Service',
+    description: 'Mobile boat cleaning in Oakland and the Bay Area: hull sides above the waterline, deck, nonskid, rails, glass and seating washed with marine-safe products, on the trailer, at a storage lot or at the marina.',
+    path,
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Boat Cleaning', href: path }]),
+];
+
+const steps = [
+  { title: 'Rinse the salt off', text: 'Top to bottom with fresh water first, so dried salt and grit are not scrubbed across the gelcoat.' },
+  { title: 'Hand wash', text: 'Hull sides and topsides washed by hand with a marine-safe soap. The scum line at the waterline gets its own attention.' },
+  { title: 'Scrub the nonskid', text: 'Textured deck holds dirt a mitt cannot reach. It gets a soft brush and a thorough rinse.' },
+  { title: 'Seats and glass', text: 'Marine vinyl cleaned with products that will not dry it out, then the windshield, windows and stainless wiped down.' },
+  { title: 'Walk-around', text: 'We walk the boat with you and point out anything we noticed, like chalky gelcoat or a worn cushion seam.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema}>
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Boat Cleaning' }]}
+    eyebrow="Mobile boat cleaning"
+    titleHtml="Boat Cleaning Service in Oakland, <em>the regular wash that keeps salt from setting in</em>"
+    text="The maintenance clean for your boat: salt film, scum lines and grime washed off the hull sides, deck, nonskid, rails, glass and seating, by hand, with marine-safe products. On the trailer, at a storage lot or at the marina."
+    facts={[
+      { label: 'Pricing', value: 'Quoted by length & condition' },
+      { label: 'Where', value: 'Trailer, lot or marina' },
+      { label: 'Covers', value: 'Hull sides, deck, seating' },
+      { label: 'Not included', value: 'Below the waterline' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">What it is</span>
+        <h2>A wash, not a restoration</h2>
+        <p>Boat cleaning is the regular clean: getting the salt, scum and grime off before it sets in. It is the job you book every few weeks in season, after a long weekend on the Bay, or in spring before the first trip. It is not the job that brings back chalky, faded gelcoat. That takes compounding and polishing, which is a full boat detail.</p>
+        <p>Most of our work is mobile car detailing, and boats get the same habits: hand wash only, the same checklist every time, and a walk-around at the end. But a boat is not a car. Gelcoat, marine vinyl and nonskid react differently to cleaners than clear coat and leather do. Car soaps and some interior cleaners can dull gelcoat or dry out vinyl over time, so we use marine-safe products on those surfaces.</p>
+        <p>Boats are part of what we do at <a href="/">J&W Mobile Detailing in Oakland</a>, alongside cars and RVs, and we come to wherever the boat is.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>A boat cleaning covers</h3>
+          <ul class="checklist">
+            <li>Hull sides, as far as we can reach safely</li>
+            <li>The scum line at the waterline</li>
+            <li>Deck and nonskid, scrubbed</li>
+            <li>Rails, cleats and stainless rinsed of salt</li>
+            <li>Windshield and windows</li>
+            <li>Vinyl seats and cushions</li>
+            <li>Cabin floors and surfaces, if there is a cabin</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Not part of a cleaning</h3>
+          <ul class="xlist">
+            <li>Anything below the waterline on a boat in the water</li>
+            <li>Chalky or faded gelcoat: that is a full detail</li>
+            <li>Mold or mildew: we do not treat it</li>
+            <li>Engine, bilge and mechanical work</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we clean a boat" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Oakland water</span>
+      <h2>Why boats here need cleaning more often</h2>
+      <p><strong>Brackish water.</strong> The Oakland Estuary mixes Bay salt water with fresh runoff, and that brackish mix feeds algae and scum at the waterline faster than open water or a freshwater lake. Boats in slips around Jack London Square and Embarcadero Cove, and across the water in Alameda, see it most.</p>
+      <p><strong>Salt air.</strong> Even a boat that never leaves the slip picks up a salt film on the deck, rails and glass every time the marine layer comes in. It does not look like much until you run a hand along the rail.</p>
+      <p><strong>Winter.</strong> A boat that sits from November through February with nobody touching it comes out with a brown or green line along the hull and a gray film on the deck. A few weeks of buildup comes off with a careful wash. A few months can take repeat passes and more time on each section. That is why the first clean after winter often takes longer than the ones after it.</p>
+      <p><strong>Spring.</strong> Boat use around the Oakland and Alameda marinas picks up as the weather warms, and everyone wants their boat clean at the same time. Book a few weeks before your first planned trip and you are not scrubbing on the morning you meant to go out.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Before we come</span>
+      <h2>Where we can work, and what helps</h2>
+      <p><strong>On a trailer.</strong> The easiest setup. In your driveway, a storage lot or a marina parking lot, we can reach the whole hull, including the waterline. Check that the lot allows mobile washing, and leave room to walk around the boat on both sides.</p>
+      <p><strong>In a slip.</strong> Tell us the marina. Whether we can work there depends on its vendor rules, and some marinas limit washing in the water. We clean what we can reach safely from the dock and the deck, and we tell you up front what that leaves out.</p>
+      <p>Either way, we bring our own water and power, so you do not need a hose bib or an outlet nearby. You do not need to be there, as long as we can get through the gate and onto the boat. Clear the loose gear before we arrive, and send us a few photos of the hull sides, the deck and the seats with your quote request. That tells us how long it has sat and how to approach it.</p>
+      <p>After the first proper clean, keep it simple: a fresh-water rinse after every trip, and a cleaning every few weeks in season, so the buildup never gets the chance to set in again.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What our customers say" />
+  <Faq faqs={faqs} heading="Boat cleaning questions" />
+  <QuoteSection eyebrow="Boat cleaning quote" title="Send us the boat, the length and where it is kept." text="A few photos of the hull sides, deck and seats tell us how long it has sat. We come back with a price before anything is booked." />
+  <CtaBand title="A clean boat on the morning you planned to go out." />
+</Base>
+
+<style>
+  /* No photo for this service yet, so the hero copy takes the full width. */
+  :global(.phero__inner) { grid-template-columns: 1fr; }
+  .honest { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

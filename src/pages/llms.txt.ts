@@ -21,9 +21,20 @@ const body = `# J&W Mobile Detailing — llms.txt
 - /exterior-auto-detailing-oakland-california/ : ${EXTERIOR_ONLY.name} — ${usd(EXTERIOR_ONLY.prices[0])} any size
 - /membership/ : The ${DETAIL.name} on a schedule — ${usd(monthly.save[0])} off every visit monthly, ${usd(bimonthly.save[0])} bi-monthly, ${usd(quarterly.save[0])} quarterly. No contract; ${MEMBERSHIP.minimumVisits}-visit minimum
 - /paint-correction/ : One-step polish ${usd(addonPrice('Polish'))} add-on; two-step correction quoted after inspection
+- /paint-enhancement/ : Paint enhancement (one-step polish for light swirls and haze), ${usd(addonPrice('Polish'))} add-on
+- /paint-sealant/ : Ceramic paint sealant in place of the spray wax, about six months, ${usd(addonPrice('Ceramic sealant upgrade (6 months)'))} add-on
+- /headlight-polishing/ : Headlight polishing, lenses sanded, polished and sealed, ${usd(addonPrice('Headlight restoration (pair)'))} a pair, add-on
+- /engine-detailing/ : Engine bay detail, ${usd(addonPrice('Engine bay detail'))} add-on
+- /steam-cleaning/ : Interior steam cleaning, included in every ${DETAIL.name} and Interior Only Detail
+- /seat-shampooing/ : Cloth seat shampoo (hot-water extraction), ${usd(addonPrice('Shampoo seats (stain removal)'))} add-on; carpets ${usd(addonPrice('Shampoo carpets (stain removal)'))}
+- /upholstery-cleaning-service/ : Vehicle, RV and boat upholstery cleaning (not home furniture)
+- /auto-restoration-service/ : Cosmetic auto restoration (paint, headlights, trim, interior); no bodywork, rust repair or repainting
 - /ceramic-coating/ : Ceramic coating — ${CERAMIC.map((c) => c.name).join(' / ')} packages (the difference is the paint correction first). Quoted per vehicle and paint condition; no posted price
 - /odor-removal-oakland/ : Ozone odor treatment — ${usd(addonPrice('Ozone odor treatment'))} add-on
 - ${OVERSIZED.href} : RV, Sprinter and oversized vehicle wash & detailing — quoted
+- /rv-exterior-hand-wash/ : RV exterior hand wash and wax (roof, sides, oxidation), quoted
+- /boat-cleaning-service/ : Boat cleaning (maintenance wash), quoted
+- /boat-detailing-service/ : Boat detailing (gelcoat oxidation, polish, wax, interior), quoted
 
 ## Service areas
 - /service-areas/ : All Bay Area areas served

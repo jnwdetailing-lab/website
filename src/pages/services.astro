@@ -15,6 +15,9 @@ const polish = addonPrice('Polish');
 const ozone = addonPrice('Ozone odor treatment');
 const shampoo = addonPrice('Shampoo seats (stain removal)');
 const clay = addonPrice('Clay bar treatment');
+const sealant = addonPrice('Ceramic sealant upgrade (6 months)');
+const headlights = addonPrice('Headlight restoration (pair)');
+const engine = addonPrice('Engine bay detail');
 const title = 'Mobile Detailing Services & Prices | Oakland, CA | J&W';
 const description = `Every J&W mobile detailing service with prices: Full Detail from ${usd(from(DETAIL.insideOut))}, interior only, exterior only, plans, paint correction, ceramic coating, odor removal and RV. Done at your home.`;
 
@@ -32,12 +35,22 @@ const rows = [
   { name: 'Interior Only Detail', href: '/interior-auto-detailing-oakland-california/', what: 'The Full Detail interior, $50 less', time: '2–3 hrs', price: `from ${usd(from(DETAIL.interiorOnly))}` },
   { name: 'Exterior Only Detail', href: '/exterior-auto-detailing-oakland-california/', what: 'Hand wash, spray wax, wheels, tires, trim and door jambs. Same price on any vehicle', time: '1–2 hrs', price: usd(from(EXTERIOR_ONLY.prices)) },
   { name: 'Membership', href: '/membership/', what: 'The Full Detail monthly, bi-monthly or quarterly', time: 'Same as the detail', price: `monthly from ${usd(MONTHLY_FROM)}` },
-  { name: 'Shampoo extraction', href: '/interior-auto-detailing-oakland-california/', what: 'Hot-water extraction of seats or carpets, added to a detail', time: '+30 min each', price: `${usd(shampoo)} each` },
+  { name: 'Steam cleaning', href: '/steam-cleaning/', what: 'Seats, carpets, mats, door panels, console and plastics, in every interior', time: 'Part of the detail', price: 'Included' },
+  { name: 'Seat shampooing', href: '/seat-shampooing/', what: 'Hot-water extraction of cloth seats or carpets, added to a detail', time: '+30 min each', price: `${usd(shampoo)} each` },
+  { name: 'Upholstery cleaning', href: '/upholstery-cleaning-service/', what: 'Cloth, leather, vinyl and headliners in cars, RVs and boats', time: 'Varies', price: `from ${usd(shampoo)}` },
   { name: 'Clay bar', href: '/exterior-auto-detailing-oakland-california/', what: 'Bonded grit, tar and overspray lifted off the paint', time: '+30 min', price: `${usd(clay)} add-on` },
+  { name: 'Paint sealant', href: '/paint-sealant/', what: 'Ceramic sealant in place of the spray wax, about six months of protection', time: 'Same visit', price: `${usd(sealant)} add-on` },
+  { name: 'Headlight polishing', href: '/headlight-polishing/', what: 'Yellow, hazy lenses sanded, polished and sealed', time: 'Same visit', price: `${usd(headlights)} a pair` },
+  { name: 'Engine detailing', href: '/engine-detailing/', what: 'Engine bay degreased, rinsed at low pressure and dressed', time: 'Same visit', price: `${usd(engine)} add-on` },
+  { name: 'Paint enhancement', href: '/paint-enhancement/', what: 'One-step polish for light swirls and wash haze', time: '+1–2 hrs', price: `${usd(polish)} add-on` },
   { name: 'Paint correction', href: '/paint-correction/', what: 'One-step polish with any detail, or a quoted two-step correction', time: '+2 hrs to a full day', price: `from ${usd(polish)}` },
+  { name: 'Auto restoration', href: '/auto-restoration-service/', what: 'Cosmetic: faded paint, headlights, trim and interior brought back', time: 'Varies', price: 'Quoted' },
   { name: 'Ceramic coating', href: '/ceramic-coating/', what: 'Decontamination, correction and a professional coating', time: 'Full day', price: 'Quoted' },
   { name: 'Odor removal', href: '/odor-removal-oakland/', what: 'Ozone treatment with an interior detail', time: '+30–90 min', price: `${usd(ozone)} add-on` },
   { name: 'RV wash & detail', href: '/rv-wash-and-rv-detailing-oakland-california/', what: 'By length, surface and condition', time: 'Varies', price: 'Quoted' },
+  { name: 'RV exterior hand wash', href: '/rv-exterior-hand-wash/', what: 'Roof, sides and slide-outs washed by hand, oxidation treated, waxed', time: 'Varies', price: 'Quoted' },
+  { name: 'Boat cleaning', href: '/boat-cleaning-service/', what: 'Maintenance wash of the hull sides, deck, nonskid and seating', time: 'Varies', price: 'Quoted' },
+  { name: 'Boat detailing', href: '/boat-detailing-service/', what: 'Gelcoat oxidation compounded and polished, waxed, interior cleaned', time: 'Varies', price: 'Quoted' },
 ];
 ---
 

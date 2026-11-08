@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { DETAIL, EXTERIOR_ONLY, addonPrice, from, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/engine-detailing/';
+const engine = addonPrice('Engine bay detail');
+const exteriorOnly = from(EXTERIOR_ONLY.prices);
+const title = 'Engine Detailing Oakland, CA | Mobile Engine Bay Cleaning';
+const description = `Mobile engine detailing in Oakland: electrics covered, the bay degreased, rinsed at low pressure, air dried and dressed. A ${usd(engine)} add-on to any detail, any size.`;
+
+const faqs = [
+  { q: 'Is it safe to get water near the electronics?', a: 'Yes, done the way we do it. Sensitive electrics are covered first, the rinse is gentle and low pressure, and the bay is dried with air before the dressing goes on. We do not pressure-wash engines. Most modern engine bays are built to handle rain and road spray; what causes trouble is a high-pressure jet aimed straight at a connector, which is exactly what we avoid.' },
+  { q: 'Can I book just the engine bay?', a: `No. It is a ${usd(engine)} add-on, so it goes on a detail you are already booking. The smallest visit it can go on is the Exterior Only Detail (${usd(exteriorOnly)}), our minimum service call. Most people add it to a Full Detail, from ${usd(from(DETAIL.insideOut))}.` },
+  { q: 'Will a clean engine run better?', a: 'No. Engine detailing is cosmetic. It makes the bay look cared for, makes fluid caps and levels easier to find and read, and makes new leaks easier to spot. It does not change how the engine runs, and we do no mechanical work.' },
+  { q: 'There is a sweet or burning smell under the hood. Will cleaning fix it?', a: 'No. A sweet smell is usually coolant and a burning smell is usually oil on something hot. Both are leaks, and both go to your mechanic first. Cleaning would only wash away the trail they use to find the source, and we would rather tell you that than take your money for a job that will not fix it.' },
+  { q: 'How long does it add to my detail?', a: 'It is a short job done on the same visit as the rest of the car. We plan the time in when we confirm your booking, so it does not push the detail into the evening.' },
+  { q: 'Do I need to be there?', a: 'No. We bring our own water and power. We need the keys or a way to open the hood, and room to work around the front of the car.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Engine Detailing',
+    description: 'Mobile engine bay detailing in Oakland and the Bay Area: sensitive electrics covered, safe degrease, low-pressure rinse, air dry and dressing of the plastics and rubber, added to any detail.',
+    path,
+    minPrice: engine,
+    offers: [{ name: 'Engine bay detail', description: 'Safe degrease, low-pressure rinse, air dry and dressing under the hood, added to a detail.', price: String(engine) }],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Engine Detailing', href: path }]),
+];
+
+const steps = [
+  { title: 'Cover the electrics', text: 'With the engine cool, sensitive electrics like the fuse box and exposed connectors are covered before any water goes near them.' },
+  { title: 'Degrease', text: 'A safe degreaser on the engine cover, reservoirs, hoses, plastic panels and the underside of the hood, worked into the grime with brushes.' },
+  { title: 'Low-pressure rinse', text: 'A gentle rinse lifts the grime and the degreaser together. Never a pressure washer, never a jet aimed at a connector.' },
+  { title: 'Air dry and dress', text: 'Compressed air blows water out of the corners, then the plastics and rubber get an even dressing that looks clean, not wet or oily.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema}>
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Engine Detailing' }]}
+    eyebrow="Mobile engine detailing"
+    titleHtml="Engine Detailing in Oakland, <em>cleaned carefully, never pressure-washed</em>"
+    text="The engine bay degreased, rinsed gently, dried with air and dressed, as an add-on to the detail you are already booking. Cosmetic work done in your driveway, with our own water and power."
+    facts={[
+      { label: 'Price', value: `${usd(engine)} add-on` },
+      { label: 'Vehicle size', value: 'Same price on all' },
+      { label: 'Smallest visit', value: `Exterior Only, ${usd(exteriorOnly)}` },
+      { label: 'Mechanical work', value: 'None, cleaning only' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">How it is booked</span>
+        <h2>An add-on to your detail, not a visit of its own</h2>
+        <p>You add the engine bay to a detail you are already getting, for {usd(engine)}. It is the same price on a Civic, a Tacoma or a minivan, so a bigger hood never means a surprise.</p>
+        <p>Why not on its own? An engine bay is a short job, and the rinse water runs down around the fenders and wheels. It makes sense on the day the rest of the car is being washed, and you are not paying for a trip just to open the hood. It is one of the add-ons we do as part of <a href="/">full mobile detailing in Oakland</a>.</p>
+        <p>What you should see when you lift the hood afterwards: a clean engine cover, fluid reservoirs and caps you can read the levels on, hoses and plastic panels with an even satin look, and no leaves or pollen packed into the cowl at the base of the windshield. It will look cared for. It will not look like a new car's bay, and it is not meant to.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Included</h3>
+          <ul class="checklist">
+            <li>Sensitive electrics covered first</li>
+            <li>Safe degrease of the engine cover, reservoirs, hoses and panels</li>
+            <li>Underside of the hood and the edges of the bay</li>
+            <li>Leaves and debris cleared from the cowl</li>
+            <li>Low-pressure rinse and an air dry</li>
+            <li>Plastics and rubber dressed, not greasy</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Not included</h3>
+          <ul class="xlist">
+            <li>Topping off oil, coolant or other fluids</li>
+            <li>Replacing belts, hoses, filters or bulbs</li>
+            <li>Finding or fixing leaks</li>
+            <li>Check engine lights or strange noises</li>
+            <li>Taking parts off to reach deeper areas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we clean an engine bay" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Dirt or a leak?</span>
+      <h2>When a dirty engine bay is a mechanical problem</h2>
+      <p>Most engine bay dirt is just dirt. It is dry, spread out and about the same from one side of the bay to the other. That is what the degrease and rinse is for. Some grime tells a different story, and it is worth reading before you book.</p>
+      <ul>
+        <li><strong>Dry dust you can wipe off with a finger</strong> is normal. It builds up on every car.</li>
+        <li><strong>A dark, sticky film</strong> usually means oil is getting out somewhere. Dust sticks to it and turns into a crust.</li>
+        <li><strong>Grime heavy in one spot</strong> and light everywhere else points to a source right above it.</li>
+        <li><strong>Colored, crusty residue</strong> is often dried coolant, which can be green, orange or pink.</li>
+        <li><strong>Fresh drips</strong> in the same place on your driveway mean fluid is still leaving the car.</li>
+      </ul>
+      <p>If you see any of those, have the car checked first. That oily trail is evidence: it shows your mechanic where the fluid is coming from. Clean it off right before the shop visit and you have washed away the clue. Get the repair done, then add the engine bay to your next detail. You start from a clean bay, and anything new shows up straight away.</p>
+      <p>The same goes if you are selling. A spotless bay with a fresh seep near the oil filter looks like a cover-up once a buyer's mechanic gets under the hood. Fix it or disclose it, then clean it.</p>
+
+      <h2>What cleaning cannot undo</h2>
+      <p>Plastic that has been baked by engine heat for years looks better dressed, but it will not turn black like new. Rust on brackets and green corrosion on battery terminals are not dirt, and a degrease will not remove them. An active leak brings the grime back around the same spot. And a cracked or hard hose is still cracked after dressing, so have it looked at.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Oakland engine bays</span>
+      <h2>Why people here add the engine bay</h2>
+      <p><strong>Street trees.</strong> Cars parked under the trees in Rockridge, Temescal and the Oakland hills collect leaves, pollen and sap in the cowl and around the edges of the bay all year. Left there, wet leaves hold moisture against the metal. Clearing them out is part of the job.</p>
+      <p><strong>Freeway miles.</strong> Stop-and-go on the 880, the 580 and the 980 means trucks and heavy braking all around you. Air comes in through the grille and brings fine road grime and brake dust with it, which settles on the engine cover as a dull gray film.</p>
+      <p><strong>Salt air by the water.</strong> Cars parked near Jack London Square, the Estuary or Alameda live in salty air. Dust sticks to the salt film. A degrease and rinse clears it off the surfaces you can see. It will not undo corrosion that is already there.</p>
+      <p><strong>A used car you just bought.</strong> You do not know how the last owner treated it. A clean bay is a fresh starting point, and it makes any new wet spot obvious.</p>
+      <p><strong>Getting ready to sell.</strong> Most online listings include a photo with the hood open. A clean bay, on a car with no leaks, tells a buyer the car was looked after.</p>
+      <p>And if you never open the hood, are not selling and do not care what is under there, skip it. A dusty engine bay does not hurt a healthy engine, and the money is better spent on the parts of the car you see every day.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Engine Bay" heading="What people say after an engine bay" />
+  <Faq faqs={faqs} heading="Engine detailing questions" />
+  <QuoteSection eyebrow="Engine bay quote" title="Tell us the car and what is under the hood." text="A photo of the open bay helps. If it looks like a leak rather than dirt, we will tell you to see a mechanic first, before anything is booked." />
+  <CtaBand title="A clean engine bay, done on the same visit." />
+</Base>
+
+<style>
+  /* No photo for this service yet, so the hero copy takes the full width. */
+  :global(.phero__inner) { grid-template-columns: 1fr; }
+  .honest { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

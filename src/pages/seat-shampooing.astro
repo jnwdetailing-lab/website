@@ -1,0 +1,168 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import { DETAIL, EXTRA_TIME, addonPrice, from, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/seat-shampooing/';
+const seats = addonPrice('Shampoo seats (stain removal)');
+const carpets = addonPrice('Shampoo carpets (stain removal)');
+const bio = addonPrice('Bio cleaning (vomit, urine, etc.)');
+const title = 'Car Seat Shampooing Oakland, CA | Cloth Seat Extraction';
+const description = `Mobile car seat shampooing in Oakland: hot-water extraction pulls coffee, sweat and food stains out of cloth seats. ${usd(seats)} on any vehicle, added to your detail.`;
+
+const faqs = [
+  { q: 'Is the price per seat?', a: `No. Seat shampooing is ${usd(seats)} for the cloth seats in the vehicle, the same on a two-door coupe or a three-row SUV, so a third row does not cost more. Carpets and floor mats are a separate ${usd(carpets)}. It is added to a Full Detail or an Interior Only Detail (from ${usd(from(DETAIL.interiorOnly))}).` },
+  { q: 'How long until the seats are dry?', a: 'Extraction pulls most of the water back out, so the seats are not soaked. They can feel slightly damp for a few hours, and most cars are fine to drive the same day. Windows cracked open, or a warm afternoon, speeds it up.' },
+  { q: 'Can I shampoo my own seats?', a: 'You can try, but a spray and a towel, or a small home machine, rarely pulls out what has soaked into the foam. The usual result is a seat that looks clean while wet and then shows a ring as it dries, because the dirt underneath wicks back up. Extraction flushes the fabric and sucks the dirty water back out.' },
+  { q: 'Do you shampoo leather seats?', a: 'No. Leather does not soak up a spill the way cloth does, and hot-water extraction is not the right tool for it. Leather is cleaned with a pH-balanced cleaner and conditioned in every Full Detail and Interior Only Detail at no extra charge. If your seats are vinyl or a mix, tell us and we will say what fits.' },
+  { q: 'Will every stain come out?', a: 'Most food, drink and sweat stains do. Dye transfer from jeans, ink, makeup and very old stains that changed the color of the fabric often lighten but may not disappear. Sun fading, burns and tears are not stains at all. We tell you which is which before we start.' },
+  { q: 'Do I need to be there?', a: 'No. We bring our own water and power, which matters for extraction because it needs both. We need the keys and room to open the doors. If you live in an apartment or park on the street with no spigot or outlet nearby, that is fine.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Car Seat Shampooing',
+    description: 'Mobile car seat shampooing in Oakland and the Bay Area: hot-water extraction of cloth seats for spills, sweat and food stains, added to a Full Detail or Interior Only Detail.',
+    path,
+    image: '/images/interior-detailing-oakland-after.jpg',
+    minPrice: seats,
+    offers: [
+      { name: 'Shampoo seats (stain removal)', description: 'Hot-water extraction on cloth seats, added to an interior or Full Detail.', price: String(seats) },
+      { name: 'Shampoo carpets (stain removal)', description: 'Hot-water extraction on carpet and floor mats.', price: String(carpets) },
+    ],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Seat Shampooing', href: path }]),
+];
+
+const steps = [
+  { title: 'Vacuum and air', text: 'Compressed air through the seams and a full vacuum first, so loose grit is lifted dry instead of turned into mud.' },
+  { title: 'Pre-treat', text: 'Each stain gets a cleaner matched to what it is. Coffee, grease and sweat do not come out the same way.' },
+  { title: 'Agitate', text: 'A brush works the cleaner into the fibers and breaks the ground-in dirt loose from the fabric.' },
+  { title: 'Extract slowly', text: 'Hot water flushes the fabric and a strong vacuum pulls it straight back out, done slowly so the dirt leaves rather than sinks.' },
+  { title: 'Check in daylight', text: 'Every seat checked under light, then a walk-around with you, so you see what came out and what is part of the fabric now.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/interior-detailing-oakland-after.jpg" preloadImage="/images/interior-detailing-oakland-after.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Seat Shampooing' }]}
+    eyebrow="Mobile seat shampooing"
+    titleHtml="Car Seat Shampooing in Oakland, <em>the stain pulled out, not wiped over</em>"
+    text="Hot-water extraction on cloth seats for coffee rings, sweat marks and food stains that soaked into the foam. One price on every vehicle, added to your interior detail, at your home or office."
+    image="/images/interior-detailing-oakland-after.jpg"
+    imageAlt="Gray cloth driver's seat after seat shampooing by J&W Mobile Detailing, stains gone from the cushion"
+    facts={[
+      { label: 'Cloth seats', value: `${usd(seats)}, any vehicle` },
+      { label: 'Carpets and mats', value: `${usd(carpets)} more` },
+      { label: 'Time', value: 'About 30 minutes more' },
+      { label: 'Added to', value: 'Interior or Full Detail' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container two-col">
+      <div class="prose">
+        <span class="eyebrow">What it is</span>
+        <h2>Why a wipe leaves a ring and extraction does not</h2>
+        <p>A stain in cloth is not just on top. A spill sinks through the fabric into the foam under it. Wipe the surface and the seat looks clean while it is wet, then what is underneath wicks back up as it dries and leaves a ring, often bigger than the stain you started with.</p>
+        <p>Hot-water extraction works from the bottom up. Hot water and cleaner go into the fabric, and a strong vacuum pulls the dirty water back out, so the stain leaves the seat instead of spreading through it.</p>
+        <p>Drag the slider: one cloth seat from a real job, before and after. The sweat-darkened cushion and the water marks are the kind of soil extraction does best. It is an add-on to <a href="/">mobile auto detailing in Oakland</a>, so the seats get done with the rest of the cabin.</p>
+      </div>
+      <BeforeAfter
+        before="/images/interior-detailing-oakland-before.webp"
+        after="/images/interior-detailing-oakland-after.webp"
+        altBefore="Before: stained gray cloth driver's seat with dark marks across the cushion"
+        altAfter="After: the same seat clean after hot-water extraction by J&W Mobile Detailing"
+      />
+    </div>
+  </section>
+
+  <section class="section section--soft" id="packages">
+    <div class="container">
+      <div class="head">
+        <span class="eyebrow">Pricing</span>
+        <h2>How a few real jobs add up</h2>
+        <p class="lead">Your vehicle size does not change the seat price. The total only moves if you add something to it, and you know what before we start.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>The job</th><th>What it needs</th><th>Added to the detail</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Coffee rings on the front seats</strong> of a commuter sedan</td><td>Seat shampoo</td><td class="price">{usd(seats)}</td></tr>
+            <tr><td><strong>A minivan</strong> with juice on the seats and muddy mats</td><td>Seat shampoo plus carpets and mats</td><td class="price">{usd(seats + carpets)}</td></tr>
+            <tr><td><strong>A work truck bench</strong> not cleaned in years</td><td>Seat shampoo plus one extra {EXTRA_TIME.per} for heavy soil, agreed first</td><td class="price">{usd(seats + EXTRA_TIME.price)}</td></tr>
+            <tr><td><strong>A kid got carsick</strong> on the back seat</td><td>Bio cleaning, not a seat shampoo</td><td class="price">{usd(bio)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ss-note">When you compare quotes, ask the same questions of everyone: is it per seat, per row or per vehicle? Does shampoo mean extraction or a spray and wipe? Are carpets included? How is extra time charged, and when do you hear about it? A lower number that leaves out the mats or adds hourly time at the end can cost more. See <a href="/pricing/">every price</a>.</p>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we shampoo a seat" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div>
+        <span class="eyebrow">Honest expectations</span>
+        <h2>Read your seats before you book</h2>
+        <p class="lead">If it came from something you drank, ate or sweated into, extraction is built for it. If it dyed, burned, faded or tore the fabric, that is a different conversation.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Comes out</h3>
+          <ul class="checklist">
+            <li>Old drink rings with a tan edge</li>
+            <li>Crushed crackers and juice in the car seat zone</li>
+            <li>A driver's seat gone darker than the passenger side</li>
+            <li>Layers of small spills in a rideshare or family back seat</li>
+            <li>The sour smell from spilled milk, by removing the milk</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Lightens, or stays</h3>
+          <ul class="xlist">
+            <li>Blue dye from new jeans on light cloth</li>
+            <li>Ink and makeup, depending on what it was</li>
+            <li>Stains old enough to change the fabric's color</li>
+            <li>Sun fading on the seatback and bolsters</li>
+            <li>Burns, tears, worn-through fabric and crushed foam</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Something else first</span>
+      <h2>When a seat shampoo is not the fix</h2>
+      <p><strong>A leak.</strong> Oakland gets most of its rain between November and March. If a door seal, a sunroof drain clogged with leaves or a window lets water in, the seat and the carpet under it stay damp. Picture a hatchback parked at the curb all winter: the back seat smells damp, there is a faint water line on the cushion and the carpet underneath feels wet. Shampooing it now just cleans it before the next storm. Get the leak fixed and the padding dried first. If it has turned musty, that is mold or mildew, which we do not treat.</p>
+      <p><strong>Dust, not stains.</strong> Crumbs in the seams, sand from Crown Beach or dog hair sitting on top of the fabric has not soaked in. The double vacuum and air purge in every interior handle that.</p>
+      <p><strong>You caught it fast.</strong> If you blotted a spill straight away and no mark shows once it dried, there may be nothing left in the foam. Wait and see if a ring appears.</p>
+      <p><strong>The mess is on the floor.</strong> If the seats look fine but the mats are muddy, the carpet and mat shampoo ({usd(carpets)}) is the one you want.</p>
+      <p><strong>Bodily fluids.</strong> Vomit, urine and blood carry bacteria and odor deep into the foam, so they are bio cleaning ({usd(bio)}): enzyme treatment, extraction and sanitizing, not a regular stain job.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What people say about our interiors" />
+  <Faq faqs={faqs} heading="Seat shampooing questions" />
+  <QuoteSection eyebrow="Seat shampoo quote" title="Send us a daylight photo of the worst seat." text="Tell us the vehicle, what is on the fabric and roughly how long it has been there. We tell you what to expect and confirm the price before anyone opens a door." />
+  <CtaBand title="Seats that look like nobody spilled anything." />
+</Base>
+
+<style>
+  .ss-note { font-size: 0.9rem; color: var(--muted); margin: 1rem auto 0; max-width: 760px; }
+  .honest { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 640px) { .honest { grid-template-columns: 1fr; } }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

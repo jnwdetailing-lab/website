@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { DETAIL, addonPrice, from, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/upholstery-cleaning-service/';
+const price = (name: string) => usd(addonPrice(name));
+const seats = addonPrice('Shampoo seats (stain removal)');
+const title = 'Upholstery Cleaning Service Oakland, CA | Car, RV & Boat';
+const description = `Mobile upholstery cleaning in Oakland for cars, RVs and boats: cloth extracted, leather conditioned, vinyl and headliners cleaned. Cloth seats ${usd(seats)} on any car.`;
+
+const faqs = [
+  { q: 'Do you clean home furniture or sofas?', a: 'No. We clean upholstery in vehicles only: cars, trucks, SUVs, vans, RVs and boats. For a couch or dining chairs at home, call a home upholstery cleaner.' },
+  { q: 'Which service does my car need?', a: `General dirt and dull, gray-looking seats are handled by the steam clean in every interior detail. A stain that soaked into the foam needs seat shampooing (${usd(seats)}). A smell that keeps coming back needs the ozone treatment (${price('Ozone odor treatment')}) after the source is cleaned out. Not sure? Text us a photo of the worst seat and we will tell you.` },
+  { q: 'Can every stain and smell come out?', a: 'Not always, and we tell you up front. Food, drink and sweat usually come out. Dye transfer from jeans, ink and very old stains that changed the fabric color often only lighten. A smell is a separate problem from a stain: we clean out the source in the fabric and padding, then treat what is left. Fragrance on its own wears off by the first warm day.' },
+  { q: 'Do you clean RV and boat cushions?', a: 'Yes. RV dinette cushions, sofas and captain\'s chairs, and boat helm and bench seats in marine vinyl, are cleaned as part of an RV or boat interior detail. Those are quoted per rig, because the amount of upholstery varies so much.' },
+  { q: 'Will my seats be soaking wet?', a: 'No. Steam is low-moisture, and extraction pulls the water back out with the dirt. Cloth can feel slightly damp for a few hours after extraction, and most cars are fine to drive the same day.' },
+  { q: 'Do I need to bring the car somewhere?', a: 'No. We are mobile only and come to your home or office with our own water and power. We need the keys, access to the vehicle and room to open the doors.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Upholstery Cleaning Service',
+    description: 'Mobile vehicle upholstery cleaning in Oakland and the Bay Area for cars, RVs and boats: cloth seat extraction, carpet shampoo, leather cleaning and conditioning, vinyl and headliner cleaning.',
+    path,
+    image: '/images/jalil-owner-jw-mobile-detailing-oakland.jpg',
+    minPrice: seats,
+    offers: [
+      { name: 'Shampoo seats (stain removal)', description: 'Hot-water extraction of cloth seats, added to a detail.', price: String(seats) },
+      { name: 'Shampoo carpets (stain removal)', description: 'Hot-water extraction of carpet and floor mats.', price: String(addonPrice('Shampoo carpets (stain removal)')) },
+      { name: 'Headliner deep cleaning', description: 'Low-moisture cleaning of a stained headliner.', price: String(addonPrice('Headliner deep cleaning')) },
+    ],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Upholstery Cleaning', href: path }]),
+];
+
+const steps = [
+  { title: 'Identify and test', text: 'Cloth, leather, vinyl or a mix. We check the material and test the cleaner on a hidden spot first, which is the step that prevents water rings.' },
+  { title: 'Dry work first', text: 'Compressed air through the seams, then a full vacuum, so crumbs and grit are lifted out dry.' },
+  { title: 'Clean to the material', text: 'Steam for vinyl, plastics and light fabric grime. Pre-treatment and agitation on stains. A pH-balanced cleaner on leather.' },
+  { title: 'Extract or condition', text: 'Cloth with stains gets hot-water extraction, pulling the dirt and the water out together. Leather gets conditioned.' },
+  { title: 'Dry and check', text: 'Fabric left barely damp, every seat checked in daylight, then a walk-around with you.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/jalil-owner-jw-mobile-detailing-oakland.jpg" preloadImage="/images/jalil-owner-jw-mobile-detailing-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Upholstery Cleaning' }]}
+    eyebrow="Mobile upholstery cleaning"
+    titleHtml="Upholstery Cleaning Service in Oakland, <em>for cars, RVs and boats</em>"
+    text="Seats, carpet, headliners and cushions cleaned the way their material needs: cloth extracted, leather conditioned, vinyl steamed and protected. Vehicle upholstery only, done where the vehicle is parked."
+    image="/images/jalil-owner-jw-mobile-detailing-oakland.jpg"
+    imageAlt="Jalil Wren, owner of J&W Mobile Detailing, cleaning the steering wheel and dash of a car interior"
+    facts={[
+      { label: 'Cloth seats', value: `${usd(seats)}, any car` },
+      { label: 'Leather', value: 'Conditioned in every detail' },
+      { label: 'Interior detail', value: `from ${usd(from(DETAIL.interiorOnly))}` },
+      { label: 'Vehicles', value: 'Cars, RVs and boats' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">What we clean</span>
+      <h2>Vehicle upholstery, matched to the material</h2>
+      <p>Dirt on a cloth seat, a coffee stain soaked into the foam, sand packed into a floor mat and grime on a boat's vinyl helm seat all live in upholstery, but none of them come out the same way. The right method depends on what the material is and how deep the mess goes. That is the whole idea behind how we do it.</p>
+      <p>Two services do most of the work. <a href="/steam-cleaning/">Interior steam cleaning</a> is in every Full Detail and Interior Only Detail, and handles the everyday grime on seats, vinyl and plastics. <a href="/seat-shampooing/">Seat shampooing</a> is the hot-water extraction add-on for cloth seats with stains that went into the foam. The rest is matching the cleaner to the material, which is where most home attempts go wrong.</p>
+      <p>A stain and a smell are two different problems, and we treat them separately. For a stain, we work out what it is first, because coffee, grease, ink and sweat each react to different products. For a smell, we go after the source in the fabric and padding: a drink that soaked into the seat foam, smoke in the headliner, the dog's spot in the back. Once the source is out, ozone ({price('Ozone odor treatment')}) handles what is left where cleaning cannot reach.</p>
+      <p>The people who book it most are rideshare drivers who want clean seats for the next passenger, parents with a running list of spills, and anyone who just bought a used car with a smell they cannot place.</p>
+      <p>We clean upholstery in vehicles only, as part of <a href="/">J&W's mobile detailing in Oakland</a>. We do not clean home furniture.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="packages">
+    <div class="container">
+      <div class="head">
+        <span class="eyebrow">By material</span>
+        <h2>How each material is cleaned, and what it costs</h2>
+        <p class="lead">Add-on prices are the same on every vehicle size. RV and boat upholstery is quoted with the rig.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Material</th><th>How we clean it</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Cloth seats</strong></td><td>Steam in every interior; hot-water extraction for stains in the foam</td><td class="price">{usd(seats)} extraction</td></tr>
+            <tr><td><strong>Carpet and floor mats</strong></td><td>Vacuum and steam included; extraction for spills, mud and salt lines</td><td class="price">{price('Shampoo carpets (stain removal)')} extraction</td></tr>
+            <tr><td><strong>Leather</strong></td><td>pH-balanced cleaner, then conditioner, never soaked with steam</td><td class="price">Included in every detail</td></tr>
+            <tr><td><strong>Vinyl and marine vinyl</strong></td><td>Cleaned and protected with products that do not dry it out</td><td class="price">Included; quoted on RVs and boats</td></tr>
+            <tr><td><strong>Headliner</strong></td><td>Spot clean included; low-moisture deep clean for stains, so the glue does not let go</td><td class="price">{price('Headliner deep cleaning')} deep clean</td></tr>
+            <tr><td><strong>Kids car seats</strong></td><td>Shell and fabric cleaned and sanitized</td><td class="price">{price('Kids car seat cleaning')}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we clean upholstery" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">RVs and boats</span>
+        <h2>Upholstery beyond the car</h2>
+        <p><strong>RVs.</strong> Dinette cushions, jackknife sofas, captain's chairs and the carpet runner take a season of road trips, campsite dirt and dogs, then sit closed up in a storage lot. They get the same steam and extraction as a car, scaled to the rig, as part of an RV interior detail.</p>
+        <p><strong>Boats.</strong> Helm and bench seats are usually marine vinyl that lives in sun and salt air. Strong cleaners dry it out and crack it, so it gets marine-safe products and a protectant. Cabin carpet and berth cushions are extracted like a car's.</p>
+        <p><strong>Work trucks and vans.</strong> Bench seats with years of ground-in dirt, and job-site dust through the cab. Heavy soil can take extra time, which we agree with you before we start.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Not something we do</h3>
+          <ul class="xlist">
+            <li>Home sofas, chairs, mattresses or rugs</li>
+            <li>Mold or mildew on any upholstery</li>
+            <li>Repairing tears, burns, split seams or crushed foam</li>
+            <li>Re-dyeing faded leather or fabric</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Bay Area upholstery</span>
+      <h2>What Oakland weather does to vehicle fabric</h2>
+      <p><strong>Fog and slow drying.</strong> On foggy days near the Bay, anything left damp stays damp. That is why extraction matters: it pulls the water out with the dirt instead of leaving a wet seat to dry in cool air, which is how fabric starts to smell. It is also why we leave cloth barely damp, not wet.</p>
+      <p><strong>Winter floors.</strong> From November to March, wet shoes carry mud, leaves and parking lot grit onto the carpet, and it dries into a gray crust in the footwells. The mats come out and get cleaned on their own, then the carpet is worked and extracted.</p>
+      <p><strong>Beach sand and trail dirt.</strong> Fine sand from Crown Beach and red dirt from the regional parks work deep into cloth and hide in the seams. Compressed air and a slow vacuum come before anything wet.</p>
+      <p><strong>Inland sun.</strong> In Walnut Creek and Orinda, summer sun through the glass dries out leather and fades fabric on the tops of the seatbacks. Conditioning slows the leather cracking; fading is lost color, and no cleaning puts it back.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What people say about our interiors" />
+  <Faq faqs={faqs} heading="Upholstery cleaning questions" />
+  <QuoteSection eyebrow="Upholstery quote" title="Text us a daylight photo of the worst seat." text="Tell us the vehicle, the material if you know it, and what is on it. We tell you which service fits and confirm the price before anything is booked." />
+  <CtaBand title="Seats and carpet clean enough to notice." />
+</Base>
+
+<style>
+  .honest { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

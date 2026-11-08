@@ -1,0 +1,140 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { DETAIL, EXTERIOR_ONLY, addonPrice, from, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/headlight-polishing/';
+const headlights = addonPrice('Headlight restoration (pair)');
+const exteriorOnly = from(EXTERIOR_ONLY.prices);
+const title = 'Headlight Polishing Oakland, CA | Mobile Lens Restoration';
+const description = `Mobile headlight polishing in Oakland: yellow, hazy lenses wet sanded, machine polished and sealed where your car parks. ${usd(headlights)} a pair, added to any detail.`;
+
+const faqs = [
+  { q: 'How much does headlight polishing cost?', a: `${usd(headlights)} for the pair, the same on a compact or a full-size truck. It is an add-on, so it goes on a detail rather than a visit of its own. The smallest visit it can go on is the Exterior Only Detail (${usd(exteriorOnly)}), our minimum service call. Most people add it to a Full Detail, from ${usd(from(DETAIL.insideOut))}.` },
+  { q: 'How long will the lenses stay clear?', a: 'The seal slows the yellowing down a lot, but plastic that lives in the sun keeps aging. How long it holds depends on how much sun the car gets, whether it parks outside and how the lenses are washed. Garage or carport parking and washing the lenses with car soap instead of wiping them dry make the biggest difference.' },
+  { q: 'Will both headlights come out the same?', a: 'That is the goal, and it is why we machine polish rather than polish by hand. Both lenses get the same sanding sequence and the same polish, so one side is not left clearer than the other. If one lens is cracked or fogged inside, we tell you before we start, because that side will not match no matter what we do to the outside.' },
+  { q: 'Can a lens be polished too many times?', a: 'Yes. Every round of sanding takes a little plastic off. A lens that has been redone many times can get thin or wavy, and that bends the beam. If yours has been restored over and over and still looks rough, a new headlight may serve you better than another polish, and we will say so.' },
+  { q: 'Do store-bought headlight kits work?', a: 'On light haze, often yes, if you finish every step including the coating at the end. Most kit jobs that fail skipped the coating or stopped sanding too early, and the yellow is back in a few months. A failed kit also means another round of sanding later, which is plastic the lens does not get back.' },
+  { q: 'Do I need to be home?', a: 'No. We bring our own water and power. We need access to the car, and the keys if the detail includes the interior. Many customers leave us at the car and go to work, then check the lenses at the walk-around or from the photos.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Headlight Polishing',
+    description: 'Mobile headlight polishing in Oakland and the Bay Area: yellowed, hazy plastic headlight lenses wet sanded, machine polished and sealed with a UV-resistant coating, added to any detail.',
+    path,
+    image: '/images/exterior-detailing-oakland.jpg',
+    minPrice: headlights,
+    offers: [{ name: 'Headlight polishing (pair)', description: 'Both lenses sanded, machine polished and sealed, added to a detail.', price: String(headlights) }],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Headlight Polishing', href: path }]),
+];
+
+const steps = [
+  { title: 'Check the lens', text: 'A wet-cloth test and a look inside the housing. If the problem is moisture, a crack or the bulb, we tell you before any sanding starts.' },
+  { title: 'Tape and wet sand', text: 'Paint and trim around the lens are taped off. Then wet sanding, coarse to fine, until the yellow layer is gone evenly across the whole lens.' },
+  { title: 'Machine polish', text: 'The polisher takes out the sanding marks and brings the clarity back, run the same way on both lenses so they match.' },
+  { title: 'Seal it', text: 'A UV-resistant coating goes on the fresh plastic, so the sun is not working on bare lens. Then we check both lights with you.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/exterior-detailing-oakland.jpg" preloadImage="/images/exterior-detailing-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Headlight Polishing' }]}
+    eyebrow="Mobile headlight polishing"
+    titleHtml="Headlight Polishing in Oakland, <em>clear lenses and honest limits</em>"
+    text="Yellow, cloudy headlights wet sanded past the failed layer, machine polished clear and sealed against the sun. Added to any detail, done where your car parks, with our own water and power."
+    image="/images/exterior-detailing-oakland.jpg"
+    imageAlt="Foam pre-soak on the front end and headlights of an SUV during a J&W mobile detail in the Oakland hills"
+    facts={[
+      { label: 'Price', value: `${usd(headlights)} a pair` },
+      { label: 'Vehicle size', value: 'Same price on all' },
+      { label: 'Booked as', value: 'An add-on to a detail' },
+      { label: 'Where', value: 'Driveway, curb or garage' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">What it fixes</span>
+        <h2>Polishing fixes the outside of the lens. Nothing else.</h2>
+        <p>Most headlight lenses are plastic with a thin clear coat from the factory. Years of sun break that coat down, the plastic under it oxidizes, and the lens turns yellow and milky. That damage sits on the outside surface, which is why it can be removed.</p>
+        <p>We sand off the oxidized layer, machine polish the plastic until it is clear, and seal it with a UV-resistant coating. The seal is not an extra. Sanding takes off whatever was left of the factory coat, and bare plastic left in the sun starts yellowing again within months.</p>
+        <p>A quick check you can do now: wipe the lens with a wet cloth. If it looks clear while it is wet and fogs up again as it dries, the haze is on the outside, and polishing will fix it.</p>
+        <p>Headlights are one of the add-ons we do alongside <a href="/">mobile car detailing in Oakland</a>, so the lenses get done on the same visit as the rest of the car.</p>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Polishing fixes</h3>
+          <ul class="checklist">
+            <li>Yellowing across the lens</li>
+            <li>Milky haze that dims and scatters the beam</li>
+            <li>A rough, chalky feel on the lens surface</li>
+            <li>An old restoration that skipped the seal and went yellow again</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Polishing cannot fix</h3>
+          <ul class="xlist">
+            <li>Fog or water drops inside the housing</li>
+            <li>Haze on the inside face of the lens</li>
+            <li>Cracks, chips or broken mounting tabs</li>
+            <li>A dim bulb, wiring trouble or lights aimed wrong</li>
+            <li>A worn or peeling reflector behind the bulb</li>
+            <li>Glass lenses on older cars. Our process is for plastic.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we polish a pair of headlights" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Oakland headlights</span>
+      <h2>Why headlights go yellow early around here</h2>
+      <p><strong>Curbside parking in full sun.</strong> A car that sleeps on the street in Fruitvale or the Dimond takes sun from morning to evening, and the factory coat on the lens wears out doing its job of blocking UV. The same car in a garage only takes that sun while it is being driven. That is usually why one car's lights go yellow years before another's.</p>
+      <p><strong>Freeway grit.</strong> Headlights face forward, so sand and small debris kicked up on the 880 and the 580 sandblast them a little every trip. Each nick in the coat is a spot where the sun reaches bare plastic, and the yellowing spreads out from there.</p>
+      <p><strong>Inland heat.</strong> Lenses sit right in front of hot bulbs and a warm engine. Add a summer afternoon in Walnut Creek or Orinda and the plastic heats and cools over and over, which breaks the coat down faster.</p>
+      <p><strong>Fog film and dry wiping.</strong> The marine layer leaves a damp, salty film on everything parked near the water. Wiping that off with a dry rag or a paper towel drags grit across a tired lens and leaves fine scratches.</p>
+      <p>To slow it down after the polish: park in shade when you can, rinse sap and dried fog film off with water before you wipe, wash the lenses with car soap and a soft mitt, and keep degreasers, bug removers and household glass cleaner off the plastic.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Safety, not just looks</span>
+      <h2>When cloudy headlights start to matter at night</h2>
+      <p>A little yellow is cosmetic. A thick, milky haze changes what you can see. <a href="https://newsroom.aaa.com/2018/12/dangers-driving-cloudy-headlights/" target="_blank" rel="noopener">AAA's headlight testing</a> found that yellowed, clouded lenses let through far less light than new ones, and a hazy lens also throws light up and out, into the eyes of oncoming drivers, instead of down onto the road.</p>
+      <p>It happens slowly, so most people do not notice. The signs are usually:</p>
+      <ul>
+        <li>You slow down or lean forward on dark streets because the road ahead looks dim.</li>
+        <li>Lane lines fade out sooner than they used to.</li>
+        <li>You reach for the high beams more often.</li>
+        <li>Other drivers flash their lights at you with your low beams on.</li>
+      </ul>
+      <p>It matters most on the roads Oakland drivers use after dark: Skyline Boulevard and Grizzly Peak, which are winding and mostly unlit, and any night the fog comes in off the Bay. A cloudy lens adds its own blur on top of the fog.</p>
+      <p>A simple test: park about 10 to 15 feet from a garage door or blank wall at night with the low beams on. Clear lenses throw a bright pool with a fairly sharp top edge. Hazy ones give a dim, soft patch with stray light above it. If the beam still looks wrong after the lenses are clear, the bulb or the aim is the problem, and that is a job for a shop, not a detailer.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What Oakland drivers say about us" />
+  <Faq faqs={faqs} heading="Headlight polishing questions" />
+  <QuoteSection eyebrow="Headlight quote" title="Send us a photo of the headlights in daylight." text="Tell us the car. A close photo shows us whether it is surface haze we can polish out or a problem inside the housing, before anything is booked." />
+  <CtaBand title="Clear headlights, done in your driveway." />
+</Base>
+
+<style>
+  .honest { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

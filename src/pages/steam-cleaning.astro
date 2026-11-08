@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { DETAIL, EXTRA_TIME, MEMBERSHIP, addonPrice, from, planRow, range, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/steam-cleaning/';
+const price = (name: string) => usd(addonPrice(name));
+const monthly = planRow(DETAIL.insideOut, MEMBERSHIP.cadences[0].save);
+const title = 'Car Steam Cleaning Oakland, CA | Mobile Interior Steam | J&W';
+const description = `Mobile car steam cleaning in Oakland: seats, carpets, mats, door panels, console and plastics steamed in every Full Detail and Interior Only Detail, from ${usd(from(DETAIL.interiorOnly))}.`;
+
+const faqs = [
+  { q: 'Do I pay extra for steam cleaning?', a: `No. Steam is part of every Full Detail (${range(DETAIL.insideOut)} by vehicle size) and every Interior Only Detail (${range(DETAIL.interiorOnly)}). It is not a separate line on the bill. The only thing that changes the price is heavy dirt that needs extra time, at ${usd(EXTRA_TIME.price)} per ${EXTRA_TIME.per}, which we agree with you before we start.` },
+  { q: 'Is steam safe on leather, screens and electronics?', a: 'Yes, used the way we use it. Our steamer puts out low-moisture, high-temperature steam that we keep moving, and we never point it at screens, switches or airbag covers. Leather gets a pH-balanced cleaner and a conditioner rather than steam soaking into it.' },
+  { q: 'Will steam take out stains and smells?', a: `It takes out everyday grime, and spot stain treatment is included for small marks. A stain that soaked into the seat foam needs shampoo extraction (${price('Shampoo seats (stain removal)')} for the seats or ${price('Shampoo carpets (stain removal)')} for the carpets). A smell that lives in the foam or the vents needs the ozone treatment (${price('Ozone odor treatment')}). Steam cleans the surfaces you touch; it does not reach what has soaked in.` },
+  { q: 'Will my seats be wet afterwards?', a: 'No. Steam is low-moisture, which is the point of it: heat does the work rather than water, so hard surfaces dry quickly and fabric is not soaked. If you add shampoo extraction, the fabric can feel slightly damp for a few hours.' },
+  { q: 'Do you steam kids car seats?', a: `The car seat itself is a separate add-on (${price('Kids car seat cleaning')}): the shell and fabric cleaned and sanitized. Tell us if you want a seat left installed, and we steam and vacuum around it.` },
+  { q: 'Do I need to be there?', a: 'No. We bring our own water and power. We need the keys and enough room to open every door. Many customers leave us at the car and go to work.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Car Interior Steam Cleaning',
+    description: 'Mobile car interior steam cleaning in Oakland and the Bay Area: seats, carpets, mats, door panels, console and plastics steam cleaned as part of every Full Detail and Interior Only Detail.',
+    path,
+    image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
+    minPrice: from(DETAIL.interiorOnly),
+    maxPrice: Math.max(...DETAIL.insideOut),
+    offers: [
+      { name: 'Interior Only Detail', description: 'Includes steam cleaning of seats, carpets, mats, door panels, console and plastics.', price: String(from(DETAIL.interiorOnly)) },
+      { name: 'Full Detail', description: 'The same interior steam clean plus the exterior hand wash and spray wax.', price: String(from(DETAIL.insideOut)) },
+    ],
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Steam Cleaning', href: path }]),
+];
+
+const steps = [
+  { title: 'Dry work first', text: 'Mats out, compressed air through the vents, seams and seat rails, then a double vacuum, so we never wet dirt that could have been lifted dry.' },
+  { title: 'Steam the hard surfaces', text: 'Console, cup holders, door pockets, handles, switch surrounds and textured plastic. Heat loosens the film; a clean towel lifts it straight away.' },
+  { title: 'Steam the fabric', text: 'Seats, carpets and mats get a pass with the steamer to loosen ground-in grime, followed by spot treatment on small stains.' },
+  { title: 'Protect and check', text: 'Plastics get a matte protectant, leather gets conditioned, glass is cleaned. Then we walk the car with you.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/interior-detailing-steam-cleaning-oakland.jpg" preloadImage="/images/interior-detailing-steam-cleaning-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Steam Cleaning' }]}
+    eyebrow="Mobile steam cleaning"
+    titleHtml="Car Steam Cleaning in Oakland, <em>into the seams a wipe never reaches</em>"
+    text="High-temperature, low-moisture steam on the seats, carpets, mats, door panels, console and plastics. It is built into every Full Detail and Interior Only Detail, done at your home or office with our own water and power."
+    image="/images/interior-detailing-steam-cleaning-oakland.jpg"
+    imageAlt="J&W technician steam cleaning a front seat during a mobile interior detail in Oakland, with steam rising off the fabric"
+    facts={[
+      { label: 'Steam cleaning', value: 'Included, no extra charge' },
+      { label: 'Interior only', value: `from ${usd(from(DETAIL.interiorOnly))}` },
+      { label: 'Full Detail', value: `from ${usd(from(DETAIL.insideOut))}` },
+      { label: 'Full Detail time', value: DETAIL.hoursInsideOut },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">What steam reaches</span>
+        <h2>The places your hands, shoes and coffee touch every day</h2>
+        <p>Wiping textured plastic with a towel mostly pushes the grime deeper into the grain. Steam heats the film and loosens it, so it lifts out instead. That is why it works where a wipe does not: the seams of the console, the bottom of the cup holders, the door pockets, the grain of the dash, the handles and armrests that go dark from hand oil.</p>
+        <p>Steam is one step in the interior, not the whole job. It comes after the air purge and the double vacuum, and before the spot stain treatment, the leather and plastic care, the windows and the trunk. You do not ask for it or pay for it separately. It is how we do every interior as part of <a href="/">J&W's mobile detailing service</a>.</p>
+        <p>Every cabin we steam gets:</p>
+        <ul class="checklist">
+          {DETAIL.interior.map((i) => <li>{i}</li>)}
+        </ul>
+      </div>
+      <div class="honest">
+        <div>
+          <h3>Steam handles</h3>
+          <ul class="checklist">
+            <li>Sticky cup holders and consoles</li>
+            <li>Crumbs and grit packed into seams and seat rails</li>
+            <li>Dark, shiny handles, switches and armrests</li>
+            <li>Dust caked into vents and textured plastic</li>
+            <li>Dried mud and ground-in dirt on mats</li>
+            <li>Light surface grime and sweat marks on cloth seats</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Needs an add-on</h3>
+          <ul class="xlist">
+            <li>Pet hair woven into carpet: pet hair removal, {price('Pet hair removal')}</li>
+            <li>Stains soaked into the foam: shampoo extraction, {price('Shampoo seats (stain removal)')}</li>
+            <li>Smells in the foam or vents: ozone, {price('Ozone odor treatment')}</li>
+            <li>Vomit, urine or blood: bio cleaning, {price('Bio cleaning (vomit, urine, etc.)')}</li>
+            <li>Mold or mildew: we do not treat it</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="Where steam fits in the interior" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Is it time?</span>
+      <h2>Signs your interior needs a steam clean</h2>
+      <p>Sit in the driver's seat and run your hand over the places you touch most. If things look tidy but still feel sticky, gritty or greasy, the dirt is in the seams and the grain, and that is where steam works.</p>
+      <p><strong>The commute.</strong> A daily run on the 880 or the 580 is a car you eat in, drink coffee in and touch for hours every week. The buildup is slow, so you stop noticing it until a passenger gets in.</p>
+      <p><strong>The back seat with kids.</strong> Juice, crushed snacks and sticky handprints on the backs of the front seats, mostly under and behind the car seat where a cordless vacuum does not reach.</p>
+      <p><strong>The rainy months.</strong> From November to March, wet shoes carry dirt onto the carpet, and it dries into a gray crust in the driver's footwell. A vacuum picks up what is loose. Steam breaks up what is stuck.</p>
+      <p><strong>A car changing hands.</strong> The week before you sell, or the week after you buy a used car with someone else's hands all over the wheel, handles and console.</p>
+
+      <h2>When it is overkill</h2>
+      <p>If the car was detailed not long ago and it is a few crumbs and some dust, a vacuum and a damp microfiber will do. A spill on all-weather rubber mats needs a hose, a little dish soap and a stiff brush, not steam. If you are moving this weekend, hauling yard waste or heading out camping with the dog, book the clean for after the trip so you are not paying for it twice. And if the problem is outside, brake dust on the wheels or sap on the hood, that is exterior work.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Pricing</span>
+      <h2>What changes the price</h2>
+      <p>Two things: the size of the vehicle and how much dirt is in it. Size sets the base price, because a minivan has a third row, more seat rails and a lot more floor than a sedan. The Interior Only Detail is {usd(DETAIL.interiorOnly[0])} for a coupe or sedan, {usd(DETAIL.interiorOnly[1])} for a 5-seat SUV or truck and {usd(DETAIL.interiorOnly[2])} for a 7-seat SUV or minivan. Add the outside for {usd(DETAIL.insideOut[0] - DETAIL.interiorOnly[0])} more.</p>
+      <p>Heavy soil is about time. Dried mud caked into the carpet, sand packed under the seats, months of snacks around a car seat, or job-site dust through the whole cabin can push a car past normal time, at {usd(EXTRA_TIME.price)} per extra {EXTRA_TIME.per}. We agree it with you before we start. A car that just looks lived in is not heavy soil.</p>
+      <p>To keep it from building up, the Full Detail on a monthly plan is {usd(monthly[0])}, {usd(monthly[1])} or {usd(monthly[2])} a visit by vehicle size. Every price is on our <a href="/pricing/">pricing page</a>.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What people say about our interiors" />
+  <Faq faqs={faqs} heading="Steam cleaning questions" />
+  <QuoteSection eyebrow="Interior quote" title="Send us a photo of the floor and the seats." text="Tell us the vehicle and mention pets, smells or big stains. We tell you if an add-on belongs on the quote and confirm the price before anything is booked." />
+  <CtaBand title="A cabin that feels clean to the touch again." />
+</Base>
+
+<style>
+  .honest { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+  .honest > div { border: 1px solid var(--line); border-radius: 20px; padding: 1.4rem; }
+  .honest h3 { font-size: 1.1rem; margin-bottom: 0.9rem; }
+</style>

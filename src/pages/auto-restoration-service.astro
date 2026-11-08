@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { DETAIL, addonPrice, from, usd } from '../data/pricing';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/auto-restoration-service/';
+const price = (name: string) => usd(addonPrice(name));
+const polish = addonPrice('Polish');
+const title = 'Auto Restoration Service Oakland, CA | Cosmetic Restoration';
+const description = 'Cosmetic auto restoration in Oakland: faded paint polished, yellow headlights cleared, trim and interiors renewed at your home. No bodywork, rust or repainting.';
+
+const faqs = [
+  { q: 'Do I need restoration or just a regular detail?', a: 'If the problem goes away with cleaning, you need a detail. If it is still there after cleaning, like dull, swirled paint, yellow headlights or faded trim, that is cosmetic restoration, and we can usually help. If it is damage to the material itself, like peeling clear coat, rust, cracked leather or a split dash, it needs a body shop or an upholstery shop. Send us photos and we will tell you which.' },
+  { q: 'Can faded paint be brought back without repainting?', a: 'Often, yes, as long as the clear coat is still intact. Chalky, dull or swirled paint can usually be brought back with decontamination and machine polishing. If the clear coat is cracked, peeling or flaking, polishing cannot help, because you cannot polish back a layer that is coming off. That car needs a paint shop.' },
+  { q: 'Do you do bodywork, rust repair or touch-up paint?', a: 'No. We do not do bodywork, dent repair, rust repair, touch-ups or repainting, and we do not chase scratches that have gone through the clear coat. Our restoration is cosmetic: the finish, the lights, the trim and the interior. If your car needs body or paint work, do that first, then have us detail and protect the result.' },
+  { q: 'My car has been sitting in a garage for years. Where do I start?', a: 'With a mechanic, if you plan to drive it. Rubber hoses, belts, seals, tires and fuel go bad in storage even when the car looks fine. Once it is safe to run, a full detail and an engine bay clean show you what you are really dealing with, and then you can decide how far to take the paint and interior.' },
+  { q: 'Can you fix cracked leather or torn seats?', a: 'No, that is upholstery work. What we can do is clean and condition leather properly, which often shows it is in better shape than it looked, or confirms the damage is real. Split seams, torn panels and cracked dash pads go to an upholstery or trim specialist.' },
+  { q: 'How is cosmetic restoration priced?', a: `It starts with a Full Detail (from ${usd(from(DETAIL.insideOut))}), plus the add-ons the car needs: a one-step polish (${usd(polish)}), headlight polishing (${price('Headlight restoration (pair)')} a pair) or an engine bay detail (${price('Engine bay detail')}). A two-step paint correction and trim work are quoted after we see the car.` },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'Auto Restoration Service (Cosmetic)',
+    description: 'Mobile cosmetic auto restoration in Oakland and the Bay Area: paint correction for faded and swirled paint, headlight polishing, trim renewal, interior deep cleaning and engine bay detailing. No bodywork, rust repair or repainting.',
+    path,
+    image: '/images/paint-correction-polishing-oakland.jpg',
+    minPrice: from(DETAIL.insideOut),
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([{ label: 'Services', href: '/services/' }, { label: 'Auto Restoration', href: path }]),
+];
+
+const steps = [
+  { title: 'Photos first', text: 'Send us the paint in direct sun, the headlights, the seats and the engine bay. We tell you what is cosmetic and what needs a shop before anything is booked.' },
+  { title: 'Clean everything', text: 'A full detail first, inside and out. Cleaning shows what was just dirt and what is real damage, and you do not pay to restore something a wash fixed.' },
+  { title: 'Restore the finish', text: 'Paint polished, headlights sanded and sealed, trim brought back, the least aggressive way that gets the result.' },
+  { title: 'Protect it', text: 'A sealant or a coating over corrected paint, conditioned leather and protected plastics, so the result does not slide straight back.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/paint-correction-polishing-oakland.jpg" preloadImage="/images/paint-correction-polishing-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Auto Restoration' }]}
+    eyebrow="Cosmetic auto restoration"
+    titleHtml="Auto Restoration Service in Oakland, <em>cosmetic work with honest limits</em>"
+    text="Bringing an older or long-stored car's finish and interior back toward how it looked: faded paint polished, yellow headlights cleared, trim and cabin renewed. We are detailers, not a body shop, and we tell you where our work stops."
+    image="/images/paint-correction-polishing-oakland.jpg"
+    imageAlt="Dual-action polisher bringing the gloss back on a dark hood during cosmetic paint restoration in Oakland"
+    facts={[
+      { label: 'Scope', value: 'Finish, lights, trim, interior' },
+      { label: 'Starts with', value: `A Full Detail, from ${usd(from(DETAIL.insideOut))}` },
+      { label: 'Headlights', value: `${price('Headlight restoration (pair)')} a pair` },
+      { label: 'Bodywork or rust', value: 'Not something we do' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">What we mean by restoration</span>
+      <h2>Cosmetic restoration, not a restoration shop</h2>
+      <p>People use "auto restoration" for everything from a frame-off rebuild to a car that just needs its shine back. We do the second kind. Cosmetic restoration is detailing taken further: the same polishing, sanding, extraction and conditioning we do every day in <a href="/">mobile car detailing around Oakland</a>, aimed at wear that a normal detail does not reach.</p>
+      <p>It falls into four areas, and each one has a clear point where detailing stops helping and a body shop, an upholstery shop or a mechanic takes over. Here is where those lines are, so you can tell before you spend anything.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="areas">
+        <article>
+          <h3>Paint</h3>
+          <p>Dull, chalky or blotchy paint that stays that way after a wash is usually oxidation and years of swirl marks, not dirt. If the clear coat is intact, <a href="/paint-correction/">paint correction</a> brings the color and gloss back with machine polishing, one step or two depending on how far gone it is.</p>
+          <p class="stop"><strong>Where we stop:</strong> clear coat that is peeling or flaking, scratches deep enough to catch a fingernail, rock chips, rust and dents. Those need a paint or body shop, and anyone who says polishing will fix them is guessing.</p>
+        </article>
+        <article>
+          <h3>Headlights and trim</h3>
+          <p>Yellow, cloudy lenses date a car more than anything else on it. <a href="/headlight-polishing/">Headlight polishing</a> sands off the failed layer, polishes the lens clear and seals it. Black plastic trim that has gone gray and chalky can usually be cleaned and brought back toward black.</p>
+          <p class="stop"><strong>Where we stop:</strong> lenses that are cracked or fogged inside the housing, and trim that is cracked, brittle or broken. Those need new parts.</p>
+        </article>
+        <article>
+          <h3>Interior</h3>
+          <p>Steam and hot-water extraction pull years of dirt out of seats and carpet, and leather gets cleaned and conditioned. A clean often shows the interior is in better shape than it looked. Clean first, then decide what else it needs.</p>
+          <p class="stop"><strong>Where we stop:</strong> leather cracked through, split seams, torn panels, a cracked dash, worn-through carpet and any mold or mildew. Those go to an upholstery or trim specialist, or a mold specialist.</p>
+        </article>
+        <article>
+          <h3>Engine bay</h3>
+          <p>Years of dust and old grease under the hood, degreased, rinsed gently and dressed, so you can see bare metal, hoses and seals again. It is often the first thing people want on a car that has been stored.</p>
+          <p class="stop"><strong>Where we stop:</strong> anything mechanical. If the clean turns up a cracked hose, corrosion or a leak, that is a job for your mechanic.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we restore a car's finish" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Oakland cars</span>
+      <h2>The cars we see for this</h2>
+      <p><strong>The long-stored car.</strong> Plenty of older homes in the Oakland hills, Piedmont and Montclair have a garage with a car that has not moved in years: a parent's sedan, a project that stalled, a weekend car nobody drove. Under the dust, the paint is often better than it looks, because it was out of the sun. Have a mechanic make it safe to run first; rubber and fuel go bad in storage even when the car looks fine.</p>
+      <p><strong>The street-parked daily driver.</strong> Ten years at the curb in Fruitvale or West Oakland means a sun-baked roof and hood, yellow headlights and gray trim, while the doors still look decent. That uneven fading is classic oxidation, and it is where polishing makes the biggest visible difference.</p>
+      <p><strong>The car near the water.</strong> Salt air in Alameda and along the Estuary dulls paint and pits trim faster. Polishing brings the finish back; protecting it afterwards is what keeps it there.</p>
+      <p><strong>The car going up for sale.</strong> Clear headlights, glossy paint and a clean cabin and engine bay change how a listing photo looks and what a buyer offers. Fix the mechanical issues first, then restore the cosmetics.</p>
+    </div>
+  </section>
+
+  <section class="section section--soft" id="packages">
+    <div class="container">
+      <div class="head">
+        <span class="eyebrow">Pricing</span>
+        <h2>What cosmetic restoration costs</h2>
+        <p class="lead">It is built from a detail and the add-ons the car needs. You confirm the price before anything is booked.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Work</th><th>For</th><th>Price</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Full Detail</strong></td><td>The starting point: inside and out, cleaned and protected</td><td class="price">from {usd(from(DETAIL.insideOut))}</td></tr>
+            <tr><td><strong>One-step polish</strong></td><td>Light swirls, wash haze and dullness</td><td class="price">{usd(polish)}</td></tr>
+            <tr><td><strong>Two-step paint correction</strong></td><td>Heavy oxidation, deeper swirls, etching</td><td class="price">Quoted</td></tr>
+            <tr><td><strong>Headlight polishing</strong></td><td>Yellow, hazy lenses, sanded and sealed</td><td class="price">{price('Headlight restoration (pair)')} a pair</td></tr>
+            <tr><td><strong>Engine bay detail</strong></td><td>Degrease, rinse and dressing under the hood</td><td class="price">{price('Engine bay detail')}</td></tr>
+            <tr><td><strong>Trim</strong></td><td>Faded black plastic trim and bumpers</td><td class="price">Quoted</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ar-note">Prices for SUVs, trucks and minivans are on the <a href="/pricing/">pricing page</a>.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Ceramic Coating" heading="What people say after we bring a car back" />
+  <Faq faqs={faqs} heading="Auto restoration questions" />
+  <QuoteSection eyebrow="Restoration quote" title="Send us photos of the paint, lights and interior." text="Paint in direct sun, the headlights, the worst seat and the engine bay. We tell you what is cosmetic, what needs a shop, and confirm a price before anything is booked." />
+  <CtaBand title="An older car that looks cared for again." />
+</Base>
+
+<style>
+  .areas { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 760px) { .areas { grid-template-columns: 1fr; } }
+  .areas article { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 1.5rem; }
+  .areas h3 { font-size: 1.2rem; margin-bottom: 0.6rem; }
+  .areas p { margin: 0 0 0.8rem; }
+  .areas .stop { color: var(--muted); font-size: 0.95rem; margin: 0; }
+  .ar-note { font-size: 0.9rem; color: var(--muted); margin-top: 1rem; }
+</style>

@@ -1,0 +1,144 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Process from '../components/Process.astro';
+import Faq from '../components/Faq.astro';
+import Reviews from '../components/Reviews.astro';
+import CtaBand from '../components/CtaBand.astro';
+import QuoteSection from '../components/QuoteSection.astro';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../data/schema';
+
+const path = '/rv-exterior-hand-wash/';
+const rvPage = '/rv-wash-and-rv-detailing-oakland-california/';
+const title = 'RV Exterior Hand Wash Oakland, CA | Mobile RV Wash & Wax';
+const description = 'Mobile RV exterior hand wash in Oakland: membrane-safe roof cleaning, sides washed by hand, black streaks and oxidation removed, then waxed where it is stored.';
+
+const faqs = [
+  { q: 'Do I need to be at the storage lot while you wash it?', a: 'No. We bring our own water and power, so nobody needs to let us at a hose or an outlet. Send us the lot name, your space number and any gate code or check-in steps when you ask for a quote. We go over the walk-around results with you afterwards and flag anything we noticed, like a lifting seal.' },
+  { q: 'What changes the price of an exterior wash?', a: 'Length and height, because more rig means more surface and more ladder time on the cap and upper sidewalls. The surface, because gelcoat, fiberglass and painted aluminum each take different products. The roof type. And oxidation: a little comes off with the wash and polish, a lot means real machine time. Every rig is quoted before anything is booked.' },
+  { q: 'Do you wax rubber and TPO roofs?', a: 'No. Wax belongs on fiberglass and gelcoat. On a rubber or TPO membrane it makes the roof dangerously slippery, and some wax products are not safe for the material. A membrane roof is cleaned with membrane-safe products, and the goal is a clean roof, not a shiny one. Fiberglass roofs can be polished and waxed like the sides.' },
+  { q: 'Can you wash it if it is parked under trees?', a: 'Yes. Sap and debris from overhead trees bake onto the finish if they sit, which is common on rigs parked at home or on tree-lined storage rows. If the sap has already hardened, tell us when you book so we plan extra time for those spots.' },
+  { q: 'Will the wash take out scratches in the gelcoat?', a: 'No. Scratches are damage to the surface, not oxidation. Polishing can improve the gloss around them but cannot erase them. Point them out when we quote so you know what to expect.' },
+  { q: 'Does it need a wash now, or can it wait a few months?', a: 'If water still beads on the sidewalls and the black streaks wipe off with a mild RV wash, it can wait. If a damp rag comes away white or colored, or the streaks will not budge, the finish has started to break down, and waiting makes the fix bigger.' },
+];
+
+const schema = [
+  serviceSchema({
+    name: 'RV Exterior Hand Wash',
+    description: 'Mobile RV exterior hand wash and wax in Oakland and the Bay Area: membrane-safe roof cleaning, hand wash of the cap, sidewalls and slide-outs, black streak and oxidation removal, and a UV-protective wax, at storage lots and driveways.',
+    path,
+    image: '/images/rv-detailing-oakland.jpg',
+  }),
+  faqSchema(faqs),
+  breadcrumbSchema([
+    { label: 'Services', href: '/services/' },
+    { label: 'RV Wash & Detailing', href: rvPage },
+    { label: 'RV Exterior Hand Wash', href: path },
+  ]),
+];
+
+const steps = [
+  { title: 'Roof first', text: 'Whatever is on the roof runs down the sides, so it is cleaned first with products made for its membrane. It is also a good look at the seams and sealant.' },
+  { title: 'Hand wash the shell', text: 'Front cap, sidewalls, slide-outs along their edges and the skirt, by hand. No brush on a pole scrubbing grit across the gelcoat.' },
+  { title: 'Streaks and bugs', text: 'Black streaks under the roof edge, windows and awning rails get their own step, because plain soap rarely moves them. The front cap gets extra time for bugs and road film.' },
+  { title: 'Oxidation and wax', text: 'Chalky gelcoat is machine polished back to a gloss where it needs it, and skipped where the finish is healthy. Then a UV-protective wax on the sides.' },
+  { title: 'Finish and walk-around', text: 'Wheels and tires, windows and mirrors, awning arms wiped down. Then we walk the rig with you and show you anything we flagged.' },
+];
+---
+
+<Base {title} {description} canonical={path} {schema} ogImage="/images/rv-detailing-oakland.jpg" preloadImage="/images/rv-detailing-oakland.jpg">
+  <PageHero
+    crumbs={[{ label: 'Services', href: '/services/' }, { label: 'RV Wash & Detailing', href: rvPage }, { label: 'RV Exterior Hand Wash' }]}
+    eyebrow="Mobile RV exterior wash"
+    titleHtml="RV Exterior Hand Wash in Oakland, <em>roof to skirt, then waxed</em>"
+    text="The outside of your motorhome, travel trailer or fifth wheel, washed by hand at the storage lot or in your driveway: roof, sides, slide-outs, streaks, oxidation and a UV-protective wax. We bring the water and the power."
+    image="/images/rv-detailing-oakland.jpg"
+    imageAlt="Rinsing the roof edge and upper sidewall of a white RV during a J&W mobile exterior wash in the Bay Area"
+    facts={[
+      { label: 'Pricing', value: 'Quoted by length & condition' },
+      { label: 'Where', value: 'Storage lot or driveway' },
+      { label: 'Roofs', value: 'Rubber, TPO, fiberglass' },
+      { label: 'You there?', value: 'Not needed' },
+    ]}
+  />
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">The exterior job</span>
+      <h2>A wash and wax for the outside of the rig</h2>
+      <p>Our most common RV job is the exterior on its own: a motorhome or travel trailer washed and waxed where it is stored, in one visit. It covers the whole shell, top to bottom, and finishes with a wax and a walk-around with you. Interior detailing is not part of it. If you want the inside done too, or the whole rig, that is our <a href={rvPage}>mobile RV wash and detailing</a> service.</p>
+      <p>The order matters more on an RV than on a car. Wash the sidewalls first and the roof second, and you have just made the sidewalls dirty again. And polishing comes before wax, because wax over chalky gelcoat only seals the chalk in. We run the same checklist on a 20-foot trailer and a 38-foot motorhome, so you get the same result each time.</p>
+    </div>
+  </section>
+
+  <Process steps={steps} heading="How we wash an RV exterior" eyebrow="Our process" dark />
+
+  <section class="section">
+    <div class="container two-col two-col--top">
+      <div class="prose">
+        <span class="eyebrow">Roof and surface</span>
+        <h2>Why your roof type and finish change the job</h2>
+        <p>A method that is right for one surface can harm another, which is why the roof and the finish are part of every quote, not something we figure out on the ladder.</p>
+        <p>Not sure which roof you have? Check the owner's manual or look at the roof edge. A membrane folds over the edge and is held by a trim strip. A fiberglass roof is one hard, molded piece. Tell us when you ask for a quote; we check either way.</p>
+        <p>Decals are the other thing to know about. Most are vinyl, and after years of sun they go brittle at the edges, where a polisher can lift them. Faded graphics do not get their color back from polishing. If yours are cracked or peeling, we point it out before we start.</p>
+      </div>
+      <div class="surfaces">
+        <h3>What we are working on</h3>
+        <ul>
+          <li><strong>Rubber (EPDM) roof</strong><span>Soft and a little grippy. It chalks as it ages, and that white residue is what streaks the sides in the rain. Harsh solvents and some citrus cleaners dry it out.</span></li>
+          <li><strong>TPO roof</strong><span>Smoother and stiffer than rubber and does not chalk the same way, but still a membrane that dislikes harsh chemicals. Very slick when wet.</span></li>
+          <li><strong>Fiberglass roof</strong><span>Hard and smooth, more like the sidewalls. It oxidizes like the sides and can be polished and waxed.</span></li>
+          <li><strong>Gelcoat sidewalls</strong><span>Most motorhomes and newer trailers. Thicker than car paint, so there is room to polish out oxidation.</span></li>
+          <li><strong>Painted aluminum</strong><span>Many older trailers. The paint is thin, so it takes a lighter touch, and a very faded panel may not come all the way back.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Before you book</span>
+      <h2>Ask your storage lot about mobile washing</h2>
+      <p>Call the lot office and ask one question: do you allow mobile washing on site? It is the only thing that can stop the job before it starts. Lots say no for real reasons. Wash water carries soap, road film and black-streak residue, and in Oakland <a href="https://www.oaklandca.gov/Community/Community-Development/Sustainability-Environment/Creeks-Watershed-and-Stormwater" target="_blank" rel="noopener">storm drains run to creeks and the Bay, mostly without pollution controls</a>. Some lots ban washing, some allow it only in a wash area, and some only on weekdays.</p>
+      <ul>
+        <li>Is mobile washing allowed at all, or only in a wash area?</li>
+        <li>Does a vendor need to check in or sign anything first?</li>
+        <li>What are the gate hours, and is there a vendor gate code?</li>
+        <li>Can the rig stay in its space, with room for a ladder on both sides and the slide-outs open?</li>
+      </ul>
+      <p>That last one matters. Many lots park rigs a few feet apart, and we need to reach the full sidewall and get on the roof. If your space is tight, ask whether you can pull into an open row for the day.</p>
+      <p>At home, check two things: whether your HOA or lease says anything about washing vehicles outside, and the clearance overhead. Low branches and power lines over a driveway get in the way of roof work, and on the steep, narrow streets of the Oakland hills a level, open spot makes the job safer and better.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose max-prose" style="margin-inline:auto">
+      <span class="eyebrow">Read your finish</span>
+      <h2>Signs oxidation and streaking need attention now</h2>
+      <p>The difference is whether the surface itself has started to break down or just has dirt on top. You can check in about five minutes:</p>
+      <ul>
+        <li><strong>The rag test.</strong> Wipe a clean, damp white rag across a sidewall. A little gray is dirt. A white or colored smear is the gelcoat itself coming off.</li>
+        <li><strong>Compare sides.</strong> If the side that faces the sun at your spot is clearly duller, the sun has done real work on it.</li>
+        <li><strong>The front cap.</strong> A cap gone yellowish or cloudy around the bug line is usually past what a wash can fix.</li>
+        <li><strong>Water.</strong> Beads that roll off mean some protection is left. Water that sheets flat and clings means the wax is long gone.</li>
+        <li><strong>Plain soap on a black streak.</strong> If it barely fades, it has bonded to a dull surface and needs its own treatment.</li>
+      </ul>
+      <p>Timing matters here. The dry season can go months without real rain, so roof grime just sits up top, then the first storms in the fall wash it all down the sides at once. A roof clean and a wax before that first rain keep those runoff lines from baking into dull gelcoat. Near the water, salt air from the Bay speeds oxidation up; inland, the summer sun does the same.</p>
+      <p>Some things polishing cannot fix, and you should know before you spend money: if you can see the fiberglass weave through the finish, if there are spiderweb cracks in the gelcoat, or if painted aluminum has faded to primer in spots, the surface has worn too thin. Polishing can improve how it looks, but it cannot add back what is gone. We tell you that when we look at it.</p>
+    </div>
+  </section>
+
+  <Reviews limit={3} filterService="Full Detail" heading="What our customers say" />
+  <Faq faqs={faqs} heading="RV exterior wash questions" />
+  <QuoteSection eyebrow="RV exterior quote" title="Send us the length, the roof type and a few photos." text="A photo of each side and the front cap shows us the oxidation and streaking. We come back with a price before anything is booked, and tell you up front if heavy oxidation needs more than one visit." />
+  <CtaBand title="Your rig washed and waxed where it sits." />
+</Base>
+
+<style>
+  .surfaces { background: var(--bg-soft); border-radius: 22px; padding: 1.6rem; }
+  .surfaces h3 { margin-bottom: 0.9rem; }
+  .surfaces ul { list-style: none; padding: 0; margin: 0; }
+  .surfaces li { padding: 0.75rem 0; border-top: 1px solid var(--line); margin: 0; display: grid; gap: 0.15rem; }
+  .surfaces li:first-child { border-top: 0; padding-top: 0; }
+  .surfaces span { color: var(--muted); font-size: 0.93rem; }
+</style>
