@@ -295,8 +295,8 @@ export const SERVICES: Service[] = [
     menuName: 'Paint Correction',
     short:
       'Machine polishing that removes swirl marks, scratches and oxidation. One-step or two-step. The right prep before any coating.',
-    image: '/images/paint-correction-polishing-oakland-800.webp',
-    alt: 'Dual-action polisher removing swirl marks during paint correction in Oakland, CA',
+    image: '/images/paint-correction-polishing-poster-760w.webp',
+    alt: 'Jalil machine polishing with a dual-action polisher',
     icon: 'polish',
   },
   {
@@ -397,7 +397,7 @@ export const GALLERY = [
   { src: '/images/interior-detailing-oakland-after.jpg', alt: 'After: the same seat shampooed and steam cleaned by J&W Mobile Detailing', label: 'Interior after', w: 1080, h: 1080 },
   { src: '/images/interior-detailing-steam-cleaning-oakland.jpg', alt: 'Jalil steam cleaning a rear seat during a mobile interior detail', label: 'Steam cleaning', w: 1080, h: 1080 },
   { src: '/images/exterior-detailing-oakland.jpg', alt: 'Foam pre-soak on a white sedan during a mobile exterior detail', label: 'Foam pre-soak', w: 1080, h: 1080 },
-  { src: '/images/paint-correction-polishing-oakland.jpg', alt: 'Machine polishing a hood during paint correction', label: 'Paint correction', w: 1080, h: 1080 },
+  { src: '/images/paint-correction-polishing-poster.jpg', alt: 'Jalil machine polishing a boat hull with a dual-action polisher', label: 'Machine polishing', w: 1280, h: 720 },
   { src: '/images/paint-correction-oakland.jpg', alt: 'Swirl marks visible under inspection light before paint correction', label: 'Swirl inspection', w: 1080, h: 1080 },
   { src: '/images/ceramic-coating-oakland.jpg', alt: 'Ceramic coating poured onto an applicator pad', label: 'Ceramic coating', w: 1080, h: 1080 },
   { src: '/images/odor-removal-oakland.jpg', alt: 'Ozone generator running for odor removal treatment', label: 'Ozone odor removal', w: 1080, h: 1080 },

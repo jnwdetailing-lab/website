@@ -29,7 +29,7 @@ const schema = [
     name: 'Auto Restoration Service (Cosmetic)',
     description: 'Mobile cosmetic auto restoration in Oakland and the Bay Area: paint correction for faded and swirled paint, headlight polishing, trim renewal, interior deep cleaning and engine bay detailing. No bodywork, rust repair or repainting.',
     path,
-    image: '/images/paint-correction-polishing-oakland.jpg',
+    image: '/images/paint-correction-polishing-poster.jpg',
     minPrice: from(DETAIL.insideOut),
   }),
   faqSchema(faqs),
@@ -44,14 +44,14 @@ const steps = [
 ];
 ---
 
-<Base {title} {description} canonical={path} {schema} ogImage="/images/paint-correction-polishing-oakland.jpg" preloadImage="/images/paint-correction-polishing-oakland.jpg">
+<Base {title} {description} canonical={path} {schema} ogImage="/images/paint-correction-polishing-poster.jpg" preloadImage="/images/paint-correction-polishing-poster.jpg">
   <PageHero
     crumbs={[{ label: 'Services', href: '/services/' }, { label: 'Auto Restoration' }]}
     eyebrow="Cosmetic auto restoration"
     titleHtml="Auto Restoration Service in Oakland, <em>cosmetic work with honest limits</em>"
     text="Bringing an older or long-stored car's finish and interior back toward how it looked: faded paint polished, yellow headlights cleared, trim and cabin renewed. We are detailers, not a body shop, and we tell you where our work stops."
-    image="/images/paint-correction-polishing-oakland.jpg"
-    imageAlt="Dual-action polisher bringing the gloss back on a dark hood during cosmetic paint restoration in Oakland"
+    image="/images/paint-correction-polishing-poster.jpg"
+    imageAlt="Jalil machine polishing with a dual-action polisher to bring back gloss"
     facts={[
       { label: 'Scope', value: 'Finish, lights, trim, interior' },
       { label: 'Starts with', value: `A Full Detail, from ${usd(from(DETAIL.insideOut))}` },
