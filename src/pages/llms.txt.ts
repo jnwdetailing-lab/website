@@ -54,6 +54,11 @@ const body = `# J&W Mobile Detailing — llms.txt
 - /blog/what-does-a-car-detailer-do/
 - /blog/how-much-to-tip-for-car-detailing/
 - /blog/how-often-should-you-detail-your-car/
+- /blog/is-300-too-much-for-a-car-detail/
+- /blog/whats-included-in-a-basic-car-detail/
+- /blog/why-is-auto-detailing-so-expensive/
+- /blog/should-you-detail-a-new-car/
+- /blog/car-detailing-in-winter/
 `;
 
 export const GET: APIRoute = () => new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
