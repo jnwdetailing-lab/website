@@ -1,7 +1,9 @@
 ---
 import type { FAQ } from '../data/site';
-export interface Props { faqs: FAQ[]; heading?: string; eyebrow?: string; open?: number; single?: boolean }
-const { faqs, heading = 'Questions Oakland drivers ask us', eyebrow = 'FAQ', open = 1, single = false } = Astro.props;
+import { SITE } from '../data/site';
+export interface Props { faqs: FAQ[]; heading?: string; eyebrow?: string; open?: number; single?: boolean; phone?: { e164: string; display: string } }
+const { faqs, heading = 'Questions Oakland drivers ask us', eyebrow = 'FAQ', open = 1, single = false, phone } = Astro.props;
+const tel = phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 // Note: FAQPage JSON-LD is emitted by the page (via Base schema prop) so it stays in <head>.
 ---
 <section class:list={['section', 'faq', { 'faq--single': single, 'section--soft': single }]} id="faq">
@@ -10,7 +12,7 @@ const { faqs, heading = 'Questions Oakland drivers ask us', eyebrow = 'FAQ', ope
       {!single && <span class="eyebrow">{eyebrow}</span>}
       <h2>{heading}</h2>
       <slot name="intro">
-        <p class="lead">Straight answers, no fluff. Don't see yours? <a href="/contact/">Ask us</a> or text (510) 756-4995.</p>
+        <p class="lead">Straight answers, no fluff. Don't see yours? <a href="/contact/">Ask us</a> or text <a href={`sms:${tel.e164}`}>{tel.display}</a>.</p>
       </slot>
     </div>
     <div class="faq__list">

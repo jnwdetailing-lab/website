@@ -4,11 +4,14 @@ import Icon from './Icons.astro';
 const path = Astro.url.pathname;
 const NO_QUOTE = ['/404', '/thank-you', '/privacy-policy', '/terms-conditions'];
 const quoteHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.href;
+export interface Props { /** Location pages pass their own number. */ phone?: { e164: string; display: string } }
+const tel = Astro.props.phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 ---
+
 <!-- Mobile-only action bar: call / text / quote. Hides while the quote form is in view. -->
 <div class="sticky-cta" id="stickyCta" role="region" aria-label="Quick actions">
-  <a href={`tel:${SITE.phoneE164}`}><Icon name="phone" size={19} /><span>Call</span></a>
-  <a href={`sms:${SITE.phoneE164}`}><Icon name="message" size={19} /><span>Text</span></a>
+  <a href={`tel:${tel.e164}`}><Icon name="phone" size={19} /><span>Call</span></a>
+  <a href={`sms:${tel.e164}`}><Icon name="message" size={19} /><span>Text</span></a>
   <a href={quoteHref} class="go" data-scroll-book><span>{CTA.label}</span></a>
 </div>
 <style>

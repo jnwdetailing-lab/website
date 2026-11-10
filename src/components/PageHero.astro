@@ -18,8 +18,11 @@ export interface Props {
   /** Quick facts shown in a strip under the hero, e.g. { label: 'Time', value: '3 to 4 hours' }. */
   facts?: { label: string; value: string }[];
   showBook?: boolean;
+  /** Location pages pass their own number. */
+  phone?: { e164: string; display: string };
 }
-const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, ctaLabel = CTA.label, bullets, facts, showBook = true } = Astro.props;
+const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, ctaLabel = CTA.label, bullets, facts, showBook = true, phone } = Astro.props;
+const tel = phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 ---
 <section class="phero">
   <div class="phero__panel">
@@ -39,7 +42,7 @@ const { eyebrow, title, titleHtml, text, image, imageAlt = '', crumbs, note, cta
           {showBook ? (
             <a href={BOOK.href} class="btn btn--ghost-light btn--lg"><Icon name="calendar" /> {BOOK.label}</a>
           ) : (
-            <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+            <a href={`tel:${tel.e164}`} class="btn btn--ghost-light btn--lg"><Icon name="phone" /> {tel.display}</a>
           )}
         </div>
         <a class="phero__proof" href={SITE.social.google} target="_blank" rel="noopener">

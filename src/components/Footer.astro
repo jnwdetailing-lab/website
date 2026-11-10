@@ -2,7 +2,10 @@
 import { SITE, SERVICES, AREAS, CTA, BOOK } from '../data/site';
 import Icon from './Icons.astro';
 const year = new Date().getFullYear();
+export interface Props { /** Location pages pass their own number. */ phone?: { e164: string; display: string } }
+const tel = Astro.props.phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 ---
+
 
 <footer class="footer">
   <div class="footer__panel">
@@ -59,8 +62,8 @@ const year = new Date().getFullYear();
         <div class="footer__col footer__contact">
           <h2 class="footer__h">Contact</h2>
           <ul>
-            <li><Icon name="phone" size={18} /> <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></li>
-            <li><Icon name="message" size={18} /> <a href={`sms:${SITE.phoneE164}`}>Text us</a></li>
+            <li><Icon name="phone" size={18} /> <a href={`tel:${tel.e164}`}>{tel.display}</a></li>
+            <li><Icon name="message" size={18} /> <a href={`sms:${tel.e164}`}>Text us</a></li>
             <li><Icon name="mail" size={18} /> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
             <li><Icon name="clock" size={18} /> <span>{SITE.hours.calls}<br /><small>Appointments {SITE.hours.label}</small></span></li>
             <li><Icon name="pin" size={18} /> <span>Based in Oakland, CA 94606<br /><small>Mobile service, we come to you</small></span></li>

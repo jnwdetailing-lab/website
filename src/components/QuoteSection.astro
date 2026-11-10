@@ -18,6 +18,8 @@ export interface Props {
   text?: string;
   eyebrow?: string;
   soft?: boolean;
+  /** Location pages pass their own number. */
+  phone?: { e164: string; display: string };
 }
 
 const {
@@ -26,7 +28,9 @@ const {
   text = 'Tell us the vehicle and what it needs. We usually reply within the hour during business hours.',
   eyebrow = 'Free quote',
   soft = true,
+  phone,
 } = Astro.props;
+const tel = phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 ---
 
 <section class:list={['section', { 'section--soft': soft }]} id="quote">
@@ -37,10 +41,10 @@ const {
       <p class="lead">{text}</p>
       <p class="quote-sec__alt">
         Prefer to talk? Call or text
-        <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a>.
+        <a href={`tel:${tel.e164}`}>{tel.display}</a>.
       </p>
     </div>
-    <QuoteForm {heading} />
+    <QuoteForm {heading} {phone} />
   </div>
 </section>
 

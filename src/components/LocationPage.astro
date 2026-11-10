@@ -48,6 +48,9 @@ const p = Astro.props;
 const loc = p.location;
 const callE164 = loc ? loc.phoneE164 : SITE.phoneE164;
 const callDisplay = loc ? loc.phoneDisplay : SITE.phoneDisplay;
+// The page's own number everywhere (menu, hero, quote, footer, call bar), so it
+// matches the location's Google profile instead of the main or pool number.
+const tel = loc ? { e164: loc.phoneE164, display: loc.phoneDisplay } : undefined;
 
 const tokens: Record<string, string> = {
   '{FULL_RANGE}': range(DETAIL.insideOut),
@@ -98,8 +101,9 @@ const schema = [
 ];
 ---
 
-<Base title={p.title} description={p.description} canonical={p.path} {schema} ogImage={p.heroImage} preloadImage={p.heroImage}>
+<Base title={p.title} description={p.description} canonical={p.path} {schema} ogImage={p.heroImage} preloadImage={p.heroImage} phone={tel}>
   <PageHero
+    phone={tel}
     crumbs={[{ label: 'Service Areas', href: '/service-areas/' }, { label: p.city }]}
     eyebrow={`Mobile detailing · ${p.city}, CA`}
     titleHtml={p.heroTitleHtml}
@@ -160,9 +164,9 @@ const schema = [
 
   <ServicesGrid heading={`Every service we offer in ${p.city}`} eyebrow={`Mobile detailing services in ${p.city}`} lead="Each one done at your home or office, with our own water and power." />
   <Reviews limit={3} heading="What Bay Area drivers say about J&W" />
-  <Faq faqs={faqs} heading={`${p.city} detailing questions`} />
-  <QuoteSection eyebrow={`Get a quote in ${p.city}`} title={`Tell us the car and your ${p.city} address.`} text={`We confirm the price and the next openings, usually within minutes during business hours (${SITE.hours.label}).`} />
-  <CtaBand title={`A detailed car in ${p.city}, without leaving home.`} />
+  <Faq phone={tel} faqs={faqs} heading={`${p.city} detailing questions`} />
+  <QuoteSection phone={tel} eyebrow={`Get a quote in ${p.city}`} title={`Tell us the car and your ${p.city} address.`} text={`We confirm the price and the next openings, usually within minutes during business hours (${SITE.hours.label}).`} />
+  <CtaBand phone={tel} title={`A detailed car in ${p.city}, without leaving home.`} />
 </Base>
 
 <style>

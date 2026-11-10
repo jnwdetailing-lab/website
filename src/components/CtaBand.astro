@@ -1,14 +1,16 @@
 ---
 import { SITE, CTA, BOOK } from '../data/site';
 import Icon from './Icons.astro';
-export interface Props { title?: string; text?: string; variant?: 'red' | 'dark'; href?: string; label?: string }
+export interface Props { title?: string; text?: string; variant?: 'red' | 'dark'; href?: string; label?: string; phone?: { e164: string; display: string } }
 const {
   title = 'Ready when you are. We bring everything.',
   text = 'Tell us what you drive and where it parks. We will confirm your price and a time, usually the same day.',
   variant = 'dark',
   href = CTA.href,
   label = CTA.label,
+  phone,
 } = Astro.props;
+const tel = phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 const internal = href.startsWith('#') || href.startsWith('/');
 ---
 <section class="cta-wrap">
@@ -21,7 +23,7 @@ const internal = href.startsWith('#') || href.startsWith('/');
       <div class="cta-band__actions">
         <a href={href} class="btn btn--primary btn--lg" data-scroll-book={internal ? true : undefined}>{label}</a>
         <a href={BOOK.href} class="btn btn--ghost-light btn--lg"><Icon name="calendar" /> {BOOK.label}</a>
-        <p class="cta-band__alt">or call / text <a href={`tel:${SITE.phoneE164}`}>{SITE.phoneDisplay}</a></p>
+        <p class="cta-band__alt">or call / text <a href={`tel:${tel.e164}`}>{tel.display}</a></p>
       </div>
     </div>
   </div>

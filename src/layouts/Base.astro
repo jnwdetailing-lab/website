@@ -35,6 +35,8 @@ export interface Props {
    * (call or ask for a quote). The page supplies its own mobile action bar.
    */
   landing?: boolean;
+  /** A location page's own number for the menu, footer and call bar (default: the main number). */
+  phone?: { e164: string; display: string };
 }
 
 const {
@@ -50,6 +52,7 @@ const {
   preloadImageSizes = PAGE_HERO_SIZES,
   eagerTags = false,
   landing = false,
+  phone,
 } = Astro.props;
 
 const canonicalUrl = new URL(canonical, SITE.url).href;
@@ -255,7 +258,7 @@ const allSchema = [localBusiness, website, ...schema];
           <a href={`tel:${SITE.phoneE164}`} class="lp-top__call">Call <span>{SITE.phoneDisplay}</span></a>
         </div>
       </header>
-    ) : <Nav />}
+    ) : <Nav phone={phone} />}
     <main id="main">
       <slot />
     </main>
@@ -268,8 +271,8 @@ const allSchema = [localBusiness, website, ...schema];
       </footer>
     ) : (
       <>
-        <Footer />
-        <StickyCta />
+        <Footer phone={phone} />
+        <StickyCta phone={phone} />
         <BookGate />
       </>
     )}

@@ -6,7 +6,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 // Every page carries a #quote section except these, which fall back to the home form.
 const NO_QUOTE = ['/404', '/thank-you', '/privacy-policy', '/terms-conditions'];
 const quoteHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.href;
+export interface Props { /** Location pages pass their own number. */ phone?: { e164: string; display: string } }
+const tel = Astro.props.phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 ---
+
 
 {ANNOUNCEMENT.text && (
   <div class="announce">
@@ -44,9 +47,9 @@ const quoteHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.
     </nav>
 
     <div class="nav__cta">
-      <a href={`tel:${SITE.phoneE164}`} class="nav__phone">
+      <a href={`tel:${tel.e164}`} class="nav__phone">
         <Icon name="phone" size={17} />
-        <span>{SITE.phoneDisplay}</span>
+        <span>{tel.display}</span>
       </a>
       <a href={BOOK.href} class="btn btn--ghost-light btn--sm nav__book">{BOOK.label}</a>
       <a href={quoteHref} class="btn btn--primary btn--sm" data-scroll-book>{CTA.label}</a>
@@ -87,7 +90,7 @@ const quoteHref = NO_QUOTE.some((p) => path.startsWith(p)) ? CTA.hrefHome : CTA.
     <div class="mobile__cta">
       <a href={quoteHref} class="btn btn--primary btn--lg" data-scroll-book>{CTA.label}</a>
       <a href={BOOK.href} class="btn btn--dark btn--lg"><Icon name="calendar" /> {BOOK.label}</a>
-      <a href={`tel:${SITE.phoneE164}`} class="btn btn--ghost btn--lg"><Icon name="phone" /> {SITE.phoneDisplay}</a>
+      <a href={`tel:${tel.e164}`} class="btn btn--ghost btn--lg"><Icon name="phone" /> {tel.display}</a>
       <p class="mobile__meta">{SITE.hours.calls} · Oakland & the Bay Area</p>
     </div>
   </div>

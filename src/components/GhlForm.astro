@@ -27,8 +27,9 @@
 import { SITE } from '../data/site';
 import Icon from './Icons.astro';
 
-export interface Props { heading?: string; bare?: boolean; compact?: boolean }
-const { heading = 'Request a quote', bare = false } = Astro.props;
+export interface Props { heading?: string; bare?: boolean; compact?: boolean; phone?: { e164: string; display: string } }
+const { heading = 'Request a quote', bare = false, phone } = Astro.props;
+const tel = phone ?? { e164: SITE.phoneE164, display: SITE.phoneDisplay };
 
 const FORM_ID = 'GwLyoWy5IUhL15W1VIVq';
 const FORM_NAME = '8/26 Website Form';
@@ -108,8 +109,8 @@ const formSrc =
     <p class="ghl__fallback-h"><Icon name="phone" /> Form not loading?</p>
     <p>Call or text and we will price your vehicle directly, no form needed.</p>
     <div class="ghl__fallback-actions">
-      <a class="btn btn--primary" href={`tel:${SITE.phoneE164}`}>Call {SITE.phoneDisplay}</a>
-      <a class="btn btn--ghost" href={`sms:${SITE.phoneE164}`}>Text us</a>
+      <a class="btn btn--primary" href={`tel:${tel.e164}`}>Call {tel.display}</a>
+      <a class="btn btn--ghost" href={`sms:${tel.e164}`}>Text us</a>
     </div>
     <p class="ghl__fallback-alt">
       <a href={formSrc} target="_blank" rel="noopener">Open the quote form in a new tab →</a>

@@ -2,10 +2,10 @@
 import { SITE, SERVICES, CTA, FORM_PROVIDER } from '../data/site';
 import Icon from './Icons.astro';
 import GhlForm from './GhlForm.astro';
-export interface Props { compact?: boolean; heading?: string; bare?: boolean }
+export interface Props { compact?: boolean; heading?: string; bare?: boolean; phone?: { e164: string; display: string } }
 // `bare` drops the heading and the card chrome — for slots that already have both
 // (e.g. the home hero card, which supplies its own <h2> and border).
-const { compact = false, heading = 'Request a quote', bare = false } = Astro.props;
+const { compact = false, heading = 'Request a quote', bare = false, phone } = Astro.props;
 ---
 <!--
   Two engines, switched by FORM_PROVIDER in src/data/site.ts:
@@ -13,7 +13,7 @@ const { compact = false, heading = 'Request a quote', bare = false } = Astro.pro
     'native' → the form below, posting to Netlify Forms (data-netlify).
   Every #quote slot on the site renders this component, so the switch is global.
 -->
-{FORM_PROVIDER === 'ghl' ? <GhlForm {heading} {bare} {compact} /> : (
+{FORM_PROVIDER === 'ghl' ? <GhlForm {heading} {bare} {compact} {phone} /> : (
 <form
   class:list={['qform', { 'qform--compact': compact, 'qform--bare': bare }]}
   name="quote"
