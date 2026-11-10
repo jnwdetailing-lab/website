@@ -28,7 +28,9 @@ export const SITE = {
     country: 'US',
   },
   geo: { lat: 37.7895, lng: -122.2347 },
-  hours: { open: '08:00', close: '20:00', label: 'Mon – Sun · 8:00 AM – 8:00 PM' },
+  // Calls are answered 24/7 and the Google profile says "Open 24 hours", so the schema
+  // hours (open/close) match that. The label is the appointment window.
+  hours: { open: '00:00', close: '23:59', label: 'Mon – Sun · 8:00 AM – 8:00 PM', calls: 'Calls answered 24/7' },
   // From the Trustindex badge (live Google data), Nov 4 2026.
   rating: { value: 4.9, count: 254 },
   stats: { reviews: '250+', customers: '1,000+', since: '2022', cities: '25+' },

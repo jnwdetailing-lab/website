@@ -40,7 +40,7 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
           </a>
           <a href={`tel:${SITE.phoneE164}`} class="way">
             <Icon name="phone" size={28} />
-            <div><strong>Call {SITE.phoneDisplay}</strong><span>{SITE.hours.label}</span></div>
+            <div><strong>Call {SITE.phoneDisplay}</strong><span>{SITE.hours.calls}</span></div>
           </a>
           <a href={`sms:${SITE.phoneE164}`} class="way">
             <Icon name="message" size={28} />
@@ -59,7 +59,7 @@ const schema = [contactSchema, faqSchema(faqs), breadcrumbSchema([{ label: 'Cont
         <div class="nap">
           <h3>J&W Mobile Detailing</h3>
           <p><Icon name="pin" size={18} /> Based in Oakland, CA 94606 · <strong>mobile service. We come to you</strong> across Oakland, Alameda, Berkeley, San Leandro, Piedmont, Emeryville, Orinda & Walnut Creek</p>
-          <p><Icon name="clock" size={18} /> {SITE.hours.label}, 7 days a week</p>
+          <p><Icon name="clock" size={18} /> {SITE.hours.calls} · Appointments {SITE.hours.label.replace('Mon – Sun · ', '')}, 7 days a week</p>
           <p><Icon name="shield" size={18} /> Licensed & insured · Serving the Bay Area since 2022 · Cash, card, Zelle, Venmo</p>
           <div class="btn-row" style="margin-top:1rem">
             <a href={SITE.social.google} class="btn btn--sm btn--dark" target="_blank" rel="noopener"><Icon name="google" /> Google profile</a>
