@@ -25,6 +25,31 @@ const faqs = postFaqs(body);
 const path = `/blog/${slug}/`;
 
 const seo: Record<string, { title: string; description: string; image: string }> = {
+  'car-wash-vs-full-detail': {
+    title: "Car Wash vs. Full Detail: What's the Difference? | J&W",
+    description: 'A car wash cleans the surface. A full detail resets the paint and the cabin. What each one covers, how to tell which your car needs, and what it costs in Oakland.',
+    image: '/images/hero-oakland-mobile-detailing.webp',
+  },
+  'is-car-detailing-worth-it': {
+    title: 'Is Car Detailing Worth It? Benefits vs. Cost | J&W Oakland',
+    description: "When a professional detail pays off and when it doesn't: paint, interior, resale and your time, from an Oakland detailer who prices every job upfront.",
+    image: '/images/paint-correction-polishing-oakland.jpg',
+  },
+  'what-does-a-car-detailer-do': {
+    title: 'What Does a Car Detailer Do? Step by Step | J&W Oakland',
+    description: 'Every step a professional detailer does inside and out, in the order it happens, plus what is included in a full detail and what is an add-on. From an Oakland detailer.',
+    image: '/images/interior-detailing-steam-cleaning-oakland.jpg',
+  },
+  'how-much-to-tip-for-car-detailing': {
+    title: 'How Much to Tip for a Car Detail (2026) | J&W Oakland',
+    description: 'Tipping a detailer is optional. Most guides say 15 to 20 percent, about $30 to $40 on a $200 detail. When to tip more or less, and where J&W tips go.',
+    image: '/images/work-2.jpg',
+  },
+  'how-often-should-you-detail-your-car': {
+    title: 'How Often Should You Detail Your Car? | J&W Oakland',
+    description: 'Monthly to keep it always fresh, every three months for most drivers, and what changes that: kids, pets, commuting and street parking. From an Oakland detailer.',
+    image: '/images/exterior-detailing-oakland.jpg',
+  },
   'whats-included-in-a-full-detailing-service': {
     title: "What's Included in a Full Detail? Checklist, Time & Oakland Cost",
     description: `What a full detail includes inside and out, what is an add-on, how long it takes (${DETAIL.hoursInsideOut}) and what it costs in Oakland: from ${usd(from(DETAIL.insideOut))} at J&W.`,

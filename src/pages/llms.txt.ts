@@ -49,6 +49,11 @@ const body = `# J&W Mobile Detailing — llms.txt
 - /blog/what-does-auto-detailing-cost-in-oakland-ca/
 - /blog/what-does-ceramic-coating-cost-in-oakland-ca/
 - /blog/whats-included-in-a-full-detailing-service/
+- /blog/car-wash-vs-full-detail/
+- /blog/is-car-detailing-worth-it/
+- /blog/what-does-a-car-detailer-do/
+- /blog/how-much-to-tip-for-car-detailing/
+- /blog/how-often-should-you-detail-your-car/
 `;
 
 export const GET: APIRoute = () => new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
